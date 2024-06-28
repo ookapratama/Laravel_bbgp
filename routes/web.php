@@ -36,6 +36,18 @@ Route::group(
                 Route::post('/hapus/{id}', 'GuruController@destroy')->name('guru.hapus');
 
             });
+
+            // Guru
+            Route::prefix('pegawai')->group(function () {
+
+                Route::get('/', 'PegawaiController@index')->name('pegawai.index');
+                Route::get('/create', 'PegawaiController@create')->name('pegawai.create');
+                Route::post('/store', 'PegawaiController@store')->name('pegawai.store');
+                Route::get('/edit/{id}', 'PegawaiController@edit')->name('pegawai.edit');
+                Route::put('/update', 'PegawaiController@update')->name('pegawai.update');
+                Route::post('/hapus/{id}', 'PegawaiController@destroy')->name('pegawai.hapus');
+
+            });
         });
     }
 );

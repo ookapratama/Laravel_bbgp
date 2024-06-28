@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -11,7 +12,8 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pegawai::get();
+        return view('pages.pegawai.index', ['menu' => 'pegawai', 'datas' => $data]);
     }
 
     /**
@@ -19,7 +21,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.pegawai.create', ['menu' => 'pegawai']);
     }
 
     /**
@@ -27,7 +29,19 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $r = $request->all();
+        $foto = $request->file('pas_foto');
+        $ext = $foto->getClientOriginalExtension();
+        // $r['pas_foto'] = $request->file('pas_foto');
+
+        $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        $foto->storeAs('public/upload/pegawai', $nameFoto);
+
+        $r['pas_foto'] = $nameFoto;
+        // dd($r);
+        Pegawai::create($r);
+
+        return redirect()->route('pegawai.index')->with('message', 'store');
     }
 
     /**
@@ -43,15 +57,29 @@ class PegawaiController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Pegawai::find($id);
+        return view('pages.pegawai.edit', ['menu' => 'pegawai', 'datas' => $data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $r = $request->all();
+        $data = Pegawai::find($r['id'])->first();
+        $foto = $request->file('pas_foto');
+        
+        if ($request->hasFile('pas_foto')) {
+            $ext = $foto->getClientOriginalExtension();
+            $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+            $foto->storeAs('public/upload/pegawai', $nameFoto);
+            $r['pas_foto'] = $nameFoto;
+        } else {
+            $r['pas_foto'] = $request->pas_fotoLama;
+        }
+        $data->update($r);
+        return redirect()->route('pegawai.index')->with('message', 'update');
     }
 
     /**
@@ -59,6 +87,8 @@ class PegawaiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Pegawai::find($id);
+        $data->delete();
+        return response()->json($data);
     }
 }

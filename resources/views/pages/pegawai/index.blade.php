@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Data Guru'])
+@extends('layouts.app', ['title' => 'Data Pegawai'])
 
 @section('content')
     @push('styles')
@@ -9,7 +9,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Data Guru</h1>
+                <h1>Data Pegawai</h1>
             </div>
 
             
@@ -20,9 +20,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{ route('guru.create') }}" class="btn btn-primary my-4">
+                                <a href="{{ route('pegawai.create') }}" class="btn btn-primary my-4">
                                     <i class="fas fa-plus"></i>
-                                    Tambah Data Guru
+                                    Tambah Data Pegawai
                                 </a>
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="table-1">
@@ -58,7 +58,7 @@
                                                     {{ ++$i }}
                                                 </td>
                                                 <td>
-                                                    <img  src="{{ asset('storage/upload/guru/' .  $data->pas_foto ) }}" alt="" class="img-fluid">
+                                                    <img  src="{{ asset('storage/upload/pegawai/' .  $data->pas_foto ) }}" alt="" class="img-fluid">
                                                     
                                                 </td>
                                                 <td>{{ $data->nama_lengkap }}</td>
@@ -86,9 +86,10 @@
                                                 </td>
                                                 <td>
                                                     <a href="#" class="btn btn-info"><i class="fas fa-print"></i></a>
-                                                    <a href="{{ route('guru.edit' , $data->id) }} " class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                    {{-- <a href="{{ route('guru.hapus' , $data->id) }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a> --}}
-                                                    <button onclick="deleteData({{ $data->id }}, 'guru')"
+
+                                                    <a href="{{ route('pegawai.edit' , $data->id) }} " class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+
+                                                    <button onclick="deleteData({{ $data->id }}, 'pegawai')"
                                                         class="btn btn-danger">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>

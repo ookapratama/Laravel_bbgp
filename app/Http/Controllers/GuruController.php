@@ -78,11 +78,11 @@ class GuruController extends Controller
             $ext = $foto->getClientOriginalExtension();
             $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
             $foto->storeAs('public/upload/guru', $nameFoto);
-            $data['pas_foto'] = $nameFoto;
+            $r['pas_foto'] = $nameFoto;
         } else {
-            $data['pas_foto'] = $request->pas_fotoLama;
+            $r['pas_foto'] = $request->pas_fotoLama;
         }
-        $data->save();
+        $data->update($r);
         return redirect()->route('guru.index')->with('message', 'update');
     }
 
