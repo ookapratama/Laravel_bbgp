@@ -13,7 +13,7 @@ class PegawaiController extends Controller
     public function index()
     {
         $data = Pegawai::get();
-        return view('pages.pegawai.index', ['menu' => 'pegawai', 'datas' => $data]);
+        return view('pages.admin.pegawai.index', ['menu' => 'pegawai', 'datas' => $data]);
     }
 
     /**
@@ -21,7 +21,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        return view('pages.pegawai.create', ['menu' => 'pegawai']);
+        return view('pages.admin.pegawai.create', ['menu' => 'pegawai']);
     }
 
     /**
@@ -58,7 +58,7 @@ class PegawaiController extends Controller
     public function edit(string $id)
     {
         $data = Pegawai::find($id);
-        return view('pages.pegawai.edit', ['menu' => 'pegawai', 'datas' => $data]);
+        return view('pages.admin.pegawai.edit', ['menu' => 'pegawai', 'datas' => $data]);
     }
 
     /**

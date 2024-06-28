@@ -15,11 +15,11 @@ class ValidasiUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
-        // if (Session('cek')) {
-        //     return $next($request);
-        // } else {
-        //     return redirect()->route('login')->with('message', 'need login');
-        // }
+        // return $next($request);
+        if (Session('cek')) {
+            return $next($request);
+        } else {
+            return redirect()->route('login')->with('message', 'need login');
+        }
     }
 }

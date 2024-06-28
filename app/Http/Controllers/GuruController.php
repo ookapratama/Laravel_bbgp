@@ -13,7 +13,7 @@ class GuruController extends Controller
     public function index()
     {
         $data = Guru::get();
-        return view('pages.guru.index', ['menu' => 'guru', 'datas' => $data]);
+        return view('pages.admin.guru.index', ['menu' => 'guru', 'datas' => $data]);
     }
 
     /**
@@ -21,7 +21,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        return view('pages.guru.create', ['menu' => 'guru']);
+        return view('pages.admin.guru.create', ['menu' => 'guru']);
     }
 
     /**
@@ -61,7 +61,7 @@ class GuruController extends Controller
     public function edit(string $id)
     {
         $data = Guru::find($id);
-        return view('pages.guru.edit', ['menu' => 'guru', 'datas' => $data]);
+        return view('pages.admin.guru.edit', ['menu' => 'guru', 'datas' => $data]);
     }
 
     /**

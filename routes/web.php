@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Session;
 Route::group(
     ['prefix' => '', 'namespace' => 'App\Http\Controllers', 'middleware' => 'ValidasiUser'],
     function () {
-        Route::redirect('/', 'dashboard/');
+        Route::redirect('/admin', 'dashboard/');
         // Dashboard
         Route::prefix('dashboard')->group(function () {
 
@@ -53,11 +53,6 @@ Route::group(
 );
 
 
-// Blank
-Route::get('blank', function () {
-    return view('pages.blank.layout-blank', ['menu' => 'blank']);
-})->name('blank');
-
 
 // Auth
 Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers'], function () {
@@ -65,6 +60,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers'], functi
     Route::post('/login', 'AuthController@login_action')->name('login_action');
     Route::get('/logout', function () {
         Session::flush();
-        return redirect()->route('login');
+        return redirect()->route('login')->with('message', 'sukses logout');
     })->name('logout');
 });

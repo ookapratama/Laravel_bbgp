@@ -11,7 +11,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard.index', ['menu' => 'dashboard']);
+        return view('pages.admin.dashboard.index', ['menu' => 'dashboard']);
     }
 
     /**
