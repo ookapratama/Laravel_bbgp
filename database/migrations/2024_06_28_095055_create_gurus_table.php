@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('tgl_lahir');
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->string('jabatan');
-            $table->string('status');
+            $table->enum('status', ['Kawin', 'Belum Kawin']);
             $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Konghucu']);
             $table->string('pendidikan');
             $table->string('kabupaten');

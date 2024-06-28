@@ -22,7 +22,20 @@ Route::group(
         // Dashboard
         Route::prefix('dashboard')->group(function () {
 
+            // Root
             Route::get('/', 'AdminController@index')->name('dashboard');
+
+            // Guru
+            Route::prefix('guru')->group(function () {
+
+                Route::get('/', 'GuruController@index')->name('guru.index');
+                Route::get('/create', 'GuruController@create')->name('guru.create');
+                Route::post('/store', 'GuruController@store')->name('guru.store');
+                Route::get('/edit/{id}', 'GuruController@edit')->name('guru.edit');
+                Route::put('/update', 'GuruController@update')->name('guru.update');
+                Route::post('/hapus/{id}', 'GuruController@destroy')->name('guru.hapus');
+
+            });
         });
     }
 );

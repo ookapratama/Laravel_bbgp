@@ -30,9 +30,25 @@ $("[data-checkboxes]").each(function() {
 
 $("#table-1").dataTable({
   "columnDefs": [
-    { "sortable": false, "targets": [2,3] }
+    { "sortable": false, "targets": [2, 3], "width": "30%" },
+    // { "targets": [0, 1, 2, 5], "width": "5000px" }
   ]
 });
+
+$(document).ready(function () {
+  $("#table-1").css("width", '2000px');
+  $("#table-1 th:nth-child(2), #table-1 td:nth-child(2)").css("width", "150px");
+  $("#table-1 th:nth-child(3), #table-1 td:nth-child(3)").css("width", "150px");
+  $("#table-1 th:nth-child(4), #table-1 td:nth-child(4)").css("width", "150px");
+  $("#table-1 th:nth-child(5), #table-1 td:nth-child(5)").css("width", "100px");
+  $("#table-1 th:nth-child(6), #table-1 td:nth-child(6)").css("width", "200px");
+  $("#table-1 th:nth-child(7), #table-1 td:nth-child(7)").css("width", "150px");
+  $("#table-1 th:nth-child(15), #table-1 td:nth-child(15)").css("width", "150px");
+  $("#table-1 th:nth-child(16), #table-1 td:nth-child(16)").css("width", "180px");
+  $("#table-1 th:nth-child(17), #table-1 td:nth-child(17)").css("width", "200px");
+
+});
+
 $("#table-2").dataTable({
   "columnDefs": [
     { "sortable": false, "targets": [0,2,3] }

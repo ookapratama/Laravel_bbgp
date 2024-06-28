@@ -10,14 +10,15 @@
             <li class="menu-header">Dashboard</li>
 
             <li class="nav-item  {{ $menu == 'dashboard' ? 'active' : '' }}">
-                                <a href="{{route('dashboard')}}" class="nav-link "><i class="fas fa-fire"></i><span>Guru</span></a>
-                        </li>
-            <li class="{{ Request::is('guru') ? 'active' : '' }}"><a class="nav-link" href="#">
-                <i class="far fa-square"></i> <span>Guru</span></a>
+                <a href="{{ route('dashboard') }}" class="nav-link "><i
+                        class="fas fa-fire"></i><span>Dashboard</span></a>
+            </li>
+            <li class="{{ $menu == 'guru' ? 'active' : '' }}"><a class="nav-link" href="{{ route('guru.index') }}">
+                <i class="fas fa-chalkboard-teacher"></i> <span>Guru</span></a>
             </li>
 
-            
-        
+
+
         </ul>
 
         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

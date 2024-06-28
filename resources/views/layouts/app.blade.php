@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title }} &mdash; Stisla</title>
 
     <!-- General CSS Files -->
@@ -21,8 +22,7 @@
     <link rel="stylesheet" href="{{ asset('css/components.css') }}">
 </head>
 
-<body
-    class="{{ $title == 'Layout Transparent' ? 'layout-2' : ($title == 'Layout Top Navigation' ? 'layout-3' : '') }}">
+<body class="{{ $title == 'Layout Transparent' ? 'layout-2' : ($title == 'Layout Top Navigation' ? 'layout-3' : '') }}">
 
     <div id="app">
         <div class="main-wrapper {{ $title == 'Layout Top Navigation' ? 'container' : '' }}">
@@ -62,12 +62,68 @@
     <script src="{{ asset('js/stisla.js') }}"></script>
 
     <!-- JS Libraies -->
+    <script src="{{ asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('library/summernote/dist/summernote-bs4.js')}}"></script>
+
+    <!-- JS Libraies -->
     @stack('scripts')
 
 
     <!-- Template JS File -->
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    {{-- success store data --}}
+    @if (session('message') == 'store')
+        <script>
+            // iziToast.success({
+            //     title: 'Sukses',
+            //     message: 'Berhasil tambah data',
+            //     position: 'topRight'
+            // });
+            swal("Berhasil", "Berhasil tambah data", "success");
+        </script>
+    @endif
+
+    {{-- success update data --}}
+    @if (session('message') == 'update')
+        <script>
+            // iziToast.success({
+            //     title: 'Sukses',
+            //     message: 'Berhasil update data',
+            //     position: 'topRight'
+            // });
+            swal("Berhasil", "Berhasil update data", "success");
+        </script>
+    @endif
+
+    {{-- success login --}}
+    @if (session('message') == 'sukses login')
+        <script>
+            swal("Berhasil", "Berhasil Login", "success");
+        </script>
+    @endif
+
+    {{-- validasi barang keluar --}}
+    @if (session('message') == 'stok error')
+        <script>
+            swal("Warning", "Jumlah yang anda masukkan tidak valid dengan Stok barang", "error");
+        </script>
+    @endif
+
+    {{-- failed login --}}
+    @if (session('message') == 'gagal login')
+        <script>
+            swal("Warning", "Periksa kembali username dan password anda", "error");
+        </script>
+    @endif
+
+    {{--  login dulu --}}
+    @if (session('message') == 'need login')
+        <script>
+            swal("Warning", "Anda harus login terlebih dahulu", "error");
+        </script>
+    @endif
 
 
 </body>
