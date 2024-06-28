@@ -7,12 +7,12 @@
             <i class="fas fa-ellipsis-v"></i>
         </a>
         <ul class="navbar-nav">
-            <li class="nav-item active"><a href="#" class="nav-link">Application</a></li>
+            {{-- <li class="nav-item active"><a href="#" class="nav-link">Application</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Report Something</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Server Status</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Server Status</a></li> --}}
         </ul>
     </div>
-    <form class="form-inline ml-auto">
+    {{-- <form class="form-inline ml-auto">
         <ul class="navbar-nav">
             <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
                         class="fas fa-search"></i></a></li>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="search-item">
                     <a href="#">
-                        <div class="search-icon bg-primary text-white mr-3">
+                        <div class="search-icon bg-` text-white mr-3">
                             <i class="fas fa-laptop"></i>
                         </div>
                         Create a new Homepage Design
@@ -82,9 +82,9 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form> --}}
     <ul class="navbar-nav navbar-right">
-        <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+        {{-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                 class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
                 <div class="dropdown-header">Messages
@@ -218,39 +218,40 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in 5 min ago</div>
-                <a href="{{ route('feature.profile') }}" class="dropdown-item has-icon">
-                    <i class="far fa-user"></i> Profile
-                </a>
-                <a href="{{ route('feature.activites') }}" class="dropdown-item has-icon">
-                    <i class="fas fa-bolt"></i> Activities
-                </a>
-                <a href="{{ route('feature.settings') }}" class="dropdown-item has-icon">
-                    <i class="fas fa-cog"></i> Settings
-                </a>
+             
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item has-icon text-danger">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>
-        </li>
+        </li> --}}
     </ul>
 </nav>
 
 <nav class="navbar navbar-secondary navbar-expand-lg">
     <div class="container">
         <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i
-                        class="fas fa-fire"></i><span>Dashboard</span></a>
+            <li class="nav-item {{ $menu == 'profil' ? 'active' : '' }}">
+                <a href="{{ route('user.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Profil</span></a>
+            </li>
+
+            <li class="nav-item dropdown {{ $menu == 'guru' || $menu == 'pegawai' ? 'active' : '' }}">
+                <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fas fa-layer-group"></i><span>Data</span></a>
                 <ul class="dropdown-menu">
-                    <li class="nav-item"><a href="{{route('dashboard.general')}}" class="nav-link">General Dashboard</a></li>
-                    <li class="nav-item"><a href="{{route('dashboard.ecommerce')}}" class="nav-link">Ecommerce Dashboard</a></li>
+                    <li class="nav-item {{ $menu == 'pegawai' ? 'active' : '' }}"><a href="{{  route('user.pegawai') }}" class="nav-link">Data Pegawai</a></li>
+                    <li class="nav-item {{ $menu == 'guru' ? 'active' : '' }}"><a href="{{  route('user.guru') }}" class="nav-link">Data Guru</a></li>
                 </ul>
             </li>
-            <li class="nav-item active">
-                <a href="#" class="nav-link"><i class="far fa-heart"></i><span>Top Navigation</span></a>
+
+            <li class="nav-item {{ $menu == 'kontak' ? 'active' : '' }}">
+                <a href="{{ route('user.kontak') }}" class="nav-link"><i class="fas fa-id-card-alt"></i><span>Kontak</span></a>
             </li>
-            <li class="nav-item dropdown">
+
+            <li class="nav-item">
+                <a href="{{ route('login') }}" class="nav-link"><i class="fas fa-user"></i><span>Login</span></a>
+            </li>
+            
+            {{-- <li class="nav-item dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i
                         class="far fa-clone"></i><span>Multiple Dropdown</span></a>
                 <ul class="dropdown-menu">
@@ -269,7 +270,7 @@
                         </ul>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>

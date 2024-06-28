@@ -19,13 +19,22 @@ class AuthController extends Controller
 
     public function login_action(Request $request)
     {
-        $cek = Auth::attempt(['username' => $request->username, 'password' => $request->password]);
-        $user = Admin::where('username', $request->username)->first();
-        //Laravel automatically Hash check password for logins if you use the Auth::attempt(), and make sure your password column in your db is named password else this will not work
+        if ($request->role == null && $request->username == 'admin') {
+            $request->role = 'admin';
+        }
+        
+        if ($request->role == null) {
+            return redirect()->back()->with('message', 'gagal login');
+        }
+
+        $cek = Auth::attempt(['username' => $request->username, 'password' => $request->password, 'role' => $request->role]);
+        $user = Admin::where('username', $request->username)->where('role', $request->role)->first();
+
         if ($cek) {
             Session::put('user_id', $user->id);
             Session::put('name', $user->name);
             Session::put('username', $user->username);
+            Session::put('role', $user->role);
             // Session::put('role', $user->role);
             Session::put('cek', true);
             return redirect()->route('dashboard')->with('message', 'sukses login');

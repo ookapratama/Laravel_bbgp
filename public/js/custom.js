@@ -46,3 +46,51 @@ const deleteData = (id, tabel) => {
         }
     });
 };
+
+// swal btn hps data
+const verifikasi = (id, tabel, status) => {
+    console.log(id, tabel, status);
+    let token = $("meta[name='csrf-token']").attr("content");
+    if (status === 'sudah') {
+        swal({
+            title: "Data sudah di Verifikasi",
+            text: "",
+            icon: "warning",
+            dangerMode: true,
+        })
+        return;
+    }
+    swal({
+        title: "Verifikasi data ini ?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": token,
+                },
+                type: "POST",
+                url: `/dashboard/${tabel}/verifikasi/${id}`,
+                success: function (response) {
+                    console.log(response);
+                    if (response) {
+                        swal("Berhasil", "Data telah diverifikasi", "success").then(
+                            () => {
+                                location.reload();
+                            }
+                        );
+                    } else {
+                        swal("Error", "Data telah gagal diverifikasi", "error");
+                    }
+                },
+                error: function (error) {
+                    console.error("AJAX Error:", error);
+                    swal("Error", "Ajax Error.", "error");
+                },
+            });
+        }
+    });
+};

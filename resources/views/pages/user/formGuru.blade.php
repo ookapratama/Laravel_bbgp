@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Tambah Data Pegawai'])
+@extends('layouts.user.app', ['title' => 'Tambah Data Guru'])
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
@@ -8,7 +8,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Data Pegawai</h1>
+                <h1>Tambah Data Guru</h1>
             </div>
 
             <div class="section-body">
@@ -16,7 +16,7 @@
                 <div class="row">
 
                     <div class="col-md-12 col-lg-12">
-                        <form action="{{ route('pegawai.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('user.daftar_guru') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card">
                                 <div class="card-body">
@@ -185,7 +185,7 @@
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary " type="submit">Submit</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ route('pegawai.index') }}" class="btn btn-warning" >Kembali</a>
+                                    <a href="{{ route('user.pegawai') }}" class="btn btn-warning" >Kembali</a>
                                 </div>
                         </form>
                     </div>

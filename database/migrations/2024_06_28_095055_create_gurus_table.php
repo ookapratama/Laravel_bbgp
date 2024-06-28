@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->string('jabatan');
             $table->enum('status', ['Kawin', 'Belum Kawin']);
+            $table->string('status_kepegawaian');
             $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Konghucu']);
             $table->string('pendidikan');
             $table->string('kabupaten');
@@ -32,6 +33,9 @@ return new class extends Migration
             $table->string('no_wa');
             $table->string('pas_foto');
             $table->string('no_rek');
+            $table->enum('is_verif', ['sudah', 'belum']);
+
+            
             $table->timestamps();
         });
     }

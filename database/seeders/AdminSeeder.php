@@ -14,16 +14,42 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::create([
-            'name' => 'Administrator',
-            'username' => 'admin',
-            'password' => bcrypt('admin') ,
-        ]);
+        $akun = [
+            [
+                'name' => 'Administrator',
+                'username' => 'admin',
+                'password' => bcrypt('admin'),
+                'role' => 'admin',
+            ],
+            [
+                'name' => 'Guru ',
+                'username' => 'guru',
+                'password' => bcrypt('guru'),
+                'role' => 'guru',
+            ],
+            [
+                'name' => 'Pegawai',
+                'username' => 'pegawai',
+                'password' => bcrypt('pegawai'),
+                'role' => 'pegawai',
+            ],
 
-        User::create([
-            'name' => 'Administrator',
-            'username' => 'admin',
-            'password' => bcrypt('admin') ,
-        ]);
+        ];
+
+        foreach ($akun as $key => $v) {
+            Admin::create([
+                'name' => $v['name'],
+                'username' => $v['username'],
+                'password' => $v['password'],
+                'role' => $v['role'],
+            ]);
+
+            User::create([
+                'name' => $v['name'],
+                'username' => $v['username'],
+                'password' => $v['password'],
+                'role' => $v['role'],
+            ]);
+        }
     }
 }

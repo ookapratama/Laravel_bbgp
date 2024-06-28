@@ -51,18 +51,29 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-3">
+
+                                        <div class="col-md">
+                                            <div class="form-group">
+                                                <label>Status Kepegawaian</label>
+                                                <input value="{{ $datas->status_kepegawaian }}" name="status_kepegawaian" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
                                             <div class="form-group">
                                                 <label>Tempat Lahir</label>
-                                                <input name="tempat_lahir" type="text" class="form-control" value="{{ $datas->tempat_lahir }}" >
+                                                <input value="{{ $datas->tempat_lahir }}" name="tempat_lahir" type="text" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md">
                                             <div class="form-group">
                                                 <label>Tanggal Lahir</label>
-                                                <input name="tgl_lahir" type="date" class="form-control" value="{{ $datas->tgl_lahir }}" >
+                                                <input value="{{ $datas->tgl_lahir }}" name="tgl_lahir" type="date" class="form-control">
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="row">
+                                       
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Jenis Kelamin</label>
@@ -73,7 +84,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md">
                                             <div class="form-group">
                                                 <label>Alamat Rumah</label>
                                                 <input type="text" name="alamat_rumah" class="form-control" value="{{ $datas->alamat_rumah }}">

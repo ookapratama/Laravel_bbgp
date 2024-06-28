@@ -47,6 +47,7 @@
                                                 <th>Alamat Satuan Pendidikan</th>
                                                 <th>Nomor Aktif</th>
                                                 <th>No Rekening</th>
+                                                <th>Status Verifikasi</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -85,6 +86,18 @@
                                                     {{ $data->no_rek }}
                                                 </td>
                                                 <td>
+                                                    @if ($data->is_verif == 'sudah')
+                                                        
+                                                    <span class="badge badge-success">Sudah Verifikasi</span>
+                                                    @else
+                                                    <span class="badge badge-danger">Belum Verifikasi</span>
+                                                        
+                                                    @endif
+
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn btn-primary mb-2" onclick="verifikasi({{ $data->id }}, 'pegawai', '{{$data->is_verif}}')">Verifikasi</a>
+
                                                     <a href="#" class="btn btn-info"><i class="fas fa-print"></i></a>
 
                                                     <a href="{{ route('pegawai.edit' , $data->id) }} " class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>

@@ -39,6 +39,8 @@ class GuruController extends Controller
 
         $r['pas_foto'] = $nameFoto;
         // dd($r);
+        $r['is_verif'] = true;
+
         Guru::create($r);
 
         return redirect()->route('guru.index')->with('message', 'store');
@@ -50,9 +52,13 @@ class GuruController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function verifikasi(string $id)
     {
-        //
+        
+        $data = Guru::find($id);
+        $data->is_verif = 'sudah';
+        $data->save();
+        return response()->json($data);
     }
 
     /**
@@ -82,6 +88,7 @@ class GuruController extends Controller
         } else {
             $r['pas_foto'] = $request->pas_fotoLama;
         }
+        $r['is_verif'] = true;
         $data->update($r);
         return redirect()->route('guru.index')->with('message', 'update');
     }

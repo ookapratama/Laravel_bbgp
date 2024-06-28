@@ -39,6 +39,8 @@ class PegawaiController extends Controller
 
         $r['pas_foto'] = $nameFoto;
         // dd($r);
+        $r['is_verif'] = true;
+
         Pegawai::create($r);
 
         return redirect()->route('pegawai.index')->with('message', 'store');
@@ -47,9 +49,12 @@ class PegawaiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function verifikasi(string $id)
     {
-        //
+        $data = Pegawai::find($id);
+        $data->is_verif = 'sudah';
+        $data->save();
+        return response()->json($data);
     }
 
     /**
@@ -78,6 +83,7 @@ class PegawaiController extends Controller
         } else {
             $r['pas_foto'] = $request->pas_fotoLama;
         }
+        $r['is_verif'] = true;
         $data->update($r);
         return redirect()->route('pegawai.index')->with('message', 'update');
     }

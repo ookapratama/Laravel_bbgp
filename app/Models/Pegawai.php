@@ -18,6 +18,7 @@ class Pegawai extends Model
         'gender',
         'jabatan',
         'status',
+        'status_kepegawaian',
         'agama',
         'pendidikan',
         'kabupaten',
@@ -28,5 +29,6 @@ class Pegawai extends Model
         'no_wa',
         'pas_foto',
         'no_rek',
+        'is_verif',
     ];
 }

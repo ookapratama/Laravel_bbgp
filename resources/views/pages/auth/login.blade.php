@@ -37,6 +37,17 @@
                 </div>
 
                 <div class="form-group">
+                    <div class="d-block">
+                        <label for="password" class="control-label">Login Sebagai</label>
+                    </div>
+                    <select class="form-control" name="role" id="">
+                        <option value="">-- Pilih Role --</option>
+                        <option value="pegawai">Pegawai</option>
+                        <option value="guru">Guru</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                         Login
                     </button>
