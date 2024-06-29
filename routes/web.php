@@ -45,7 +45,11 @@ Route::group(
 
             // Root
             Route::get('/', 'AdminController@index')->name('dashboard');
-
+            
+            // Profile User yang Login
+            Route::get('/profile/{id}', 'AdminController@profile')->name('profile.index');
+            Route::put('/profile/update', 'AdminController@profile_update')->name('profile.update');
+            
             // Guru
             Route::prefix('guru')->group(function () {
 
@@ -82,6 +86,8 @@ Route::group(
 // Auth
 Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', 'AuthController@login')->name('login');
+    // Route::get('/reset', 'AuthController@reset')->name('reset');
+    // Route::get('/reset_password', 'AuthController@reset_password')->name('reset.password');
     Route::post('/login', 'AuthController@login_action')->name('login_action');
     Route::get('/logout', function () {
         Session::flush();

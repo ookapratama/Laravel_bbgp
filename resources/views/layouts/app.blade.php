@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title }} &mdash; Stisla</title>
+    <title>{{ $title }} &mdash; BBGP Sulsel</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -19,7 +19,9 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/components.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components.css') }}">        
+    <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
+
 </head>
 
 <body class="{{ $title == 'Layout Transparent' ? 'layout-2' : ($title == 'Layout Top Navigation' ? 'layout-3' : '') }}">
@@ -65,6 +67,8 @@
     <script src="{{ asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('library/summernote/dist/summernote-bs4.js')}}"></script>
+    <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+
 
     <!-- JS Libraies -->
     @stack('scripts')
@@ -122,6 +126,13 @@
     @if (session('message') == 'need login')
         <script>
             swal("Warning", "Anda harus login terlebih dahulu", "error");
+        </script>
+    @endif
+    
+    {{--  update proffile --}}
+    @if (session('message') == 'update profile')
+        <script>
+            swal("Berhasil", "Berhasil update profile, silahkan login ulang untuk melihat perubahan", "success");
         </script>
     @endif
 

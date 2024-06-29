@@ -1,4 +1,4 @@
-@extends('layouts.user.app', ['title' => 'Layout Top Navigation'])
+@extends('layouts.user.app', ['title' => 'Bank Data BBGP Sulawesi Selatan'])
 
 @section('content')
     @push('styles')

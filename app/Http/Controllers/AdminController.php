@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Admin;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -17,48 +19,35 @@ class AdminController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function profile($id)
     {
-        //
+        $data = Admin::find($id);
+        return view('pages.admin.profile.index', ['menu' => 'profile', 'data' => $data]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function profile_update(Request $request)
     {
-        //
+        $r = $request->all();
+        
+        $admin = Admin::find($r['id']);
+        $user = User::find($r['id']);
+        if($r['password'] != null) {
+            $r['password'] = bcrypt($r['password']); 
+            // dump('ubah password');
+        }
+        else {
+            $r['password'] = $r['oldPassword'];
+        }
+        // dd(true);
+        
+        $admin->update($r);
+        $user->update($r);
+        
+        return redirect()->route('dashboard')->with('message', 'update profile');
+        
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

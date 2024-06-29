@@ -53,7 +53,11 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Status Kepegawaian</label>
-                                                <input name="status_kepegawaian" type="text" class="form-control">
+                                                <select required names="status_kepegawaian" class="form-control select2">
+                                                    <option value="">-- Pilih status kepegawaian --</option>
+                                                    <option value=""></option>
+                                                    
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md">
@@ -107,7 +111,11 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Pendidikan Terakhir</label>
-                                                <input name="pendidikan" type="text" class="form-control">
+                                                <select required names="pendidikan" class="form-control ">
+                                                    <option value="">-- Pilih pendidikan terakhir --</option>
+                                                    <option value=""></option>
+                                                    
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -118,8 +126,8 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Kabupaten / Kota</label>
-                                                <input name="kabupaten" type="text" class="form-control">
+                                                <label>Alamat Satuan Pendidikan</label>
+                                                <input type="text" name="alamat_satuan" class="form-control">
                                             </div>
                                         </div>
 
@@ -129,10 +137,15 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Alamat Satuan Pendidikan</label>
-                                                <input type="text" name="alamat_satuan" class="form-control">
+                                                <label>Kabupaten / Kota</label>
+                                                <select required names="kabupaten" class="form-control ">
+                                                    <option value="">-- Pilih kabupaten/kota --</option>
+                                                    <option value=""></option>
+                                                    
+                                                </select>
                                             </div>
                                         </div>
+                                        
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Status</label>

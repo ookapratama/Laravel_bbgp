@@ -25,7 +25,7 @@ const deleteData = (id, tabel) => {
                     "X-CSRF-TOKEN": token,
                 },
                 type: "POST",
-                url: `/dashboard/${tabel}/hapus/${id}`,
+                url: `/bbgp/public/dashboard/${tabel}/hapus/${id}`,
                 success: function (response) {
                     console.log(response);
                     if (response) {
@@ -73,7 +73,7 @@ const verifikasi = (id, tabel, status) => {
                     "X-CSRF-TOKEN": token,
                 },
                 type: "POST",
-                url: `/dashboard/${tabel}/verifikasi/${id}`,
+                url: `/bbgp/public/dashboard/${tabel}/verifikasi/${id}`,
                 success: function (response) {
                     console.log(response);
                     if (response) {

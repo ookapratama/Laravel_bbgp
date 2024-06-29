@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <div class="footer-left">
-        Copyright &copy; 2018 <div class="bullet"></div> Design By 
+        Copyright &copy; <div class="bullet"></div> BBGP Sulsel
         {{-- <a href="https://nauv.al/">
             Muhamad
             Nauval Azhar</a> --}}

@@ -22,6 +22,7 @@ class UserController extends Controller
         return view('pages.user.kontak', ['menu' => 'kontak']);
     }
 
+    
     public function guru()
     {
         $data = Guru::where('is_verif', 'sudah')->get();
@@ -56,6 +57,11 @@ class UserController extends Controller
 
         return redirect()->route('user.pegawai')->with('message', 'store');
     }
+    public function form_guru()
+    {
+        $data = Guru::get();
+        return view('pages.user.formGuru', ['menu' => 'guru']);
+    }
     public function daftar_guru(Request $request)
     {   
         $r = $request->all();
@@ -64,7 +70,7 @@ class UserController extends Controller
         // $r['pas_foto'] = $request->file('pas_foto');
 
         $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-        $foto->storeAs('public/upload/pegawai', $nameFoto);
+        $foto->storeAs('public/upload/guru', $nameFoto);
 
         $r['pas_foto'] = $nameFoto;
         // dd($r);
