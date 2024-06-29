@@ -13,14 +13,17 @@
                 <a href="{{ route('dashboard') }}" class="nav-link "><i
                         class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
-
-            <li class="{{ $menu == 'guru' ? 'active' : '' }}"><a class="nav-link" href="{{ route('guru.index') }}">
-                <i class="fas fa-chalkboard-teacher"></i> <span>Guru</span></a>
-            </li>
-
-            <li class="{{ $menu == 'pegawai' ? 'active' : '' }}"><a class="nav-link" href="{{ route('pegawai.index') }}">
-                <i class="fas fa-users"></i> <span>Pegawai</span></a>
-            </li>
+            @if (seesion('role') == 'guru' || session('role') == 'admin')
+                <li class="{{ $menu == 'guru' ? 'active' : '' }}"><a class="nav-link" href="{{ route('guru.index') }}">
+                        <i class="fas fa-chalkboard-teacher"></i> <span>Guru</span></a>
+                </li>
+            @endif
+            @if (seesion('role') == 'pegawai' || session('role') == 'admin')
+                <li class="{{ $menu == 'pegawai' ? 'active' : '' }}"><a class="nav-link"
+                        href="{{ route('pegawai.index') }}">
+                        <i class="fas fa-users"></i> <span>Pegawai</span></a>
+                </li>
+            @endif
 
 
         </ul>

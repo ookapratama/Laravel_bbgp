@@ -24,13 +24,13 @@ class UserController extends Controller
 
     public function guru()
     {
-        $data = Guru::where('is_verif', true)->get();
+        $data = Guru::where('is_verif', 'sudah')->get();
         return view('pages.user.guru', ['menu' => 'guru', 'datas' => $data]);
     }
 
     public function pegawai()
     {
-        $data = Pegawai::where('is_verif', true)->get();
+        $data = Pegawai::where('is_verif', 'sudah')->get();
         return view('pages.user.pegawai', ['menu' => 'pegawai', 'datas' => $data]);
     }
     public function form_pegawai()
@@ -50,7 +50,25 @@ class UserController extends Controller
 
         $r['pas_foto'] = $nameFoto;
         // dd($r);
-        $r['is_verif'] = false;
+        $r['is_verif'] = 'belum';
+
+        Pegawai::create($r);
+
+        return redirect()->route('user.pegawai')->with('message', 'store');
+    }
+    public function daftar_guru(Request $request)
+    {   
+        $r = $request->all();
+        $foto = $request->file('pas_foto');
+        $ext = $foto->getClientOriginalExtension();
+        // $r['pas_foto'] = $request->file('pas_foto');
+
+        $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        $foto->storeAs('public/upload/pegawai', $nameFoto);
+
+        $r['pas_foto'] = $nameFoto;
+        // dd($r);
+        $r['is_verif'] = 'belum';
 
         Pegawai::create($r);
 
