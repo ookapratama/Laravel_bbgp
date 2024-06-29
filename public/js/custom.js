@@ -51,13 +51,13 @@ const deleteData = (id, tabel) => {
 const verifikasi = (id, tabel, status) => {
     console.log(id, tabel, status);
     let token = $("meta[name='csrf-token']").attr("content");
-    if (status === 'sudah') {
+    if (status === "sudah") {
         swal({
             title: "Data sudah di Verifikasi",
             text: "",
             icon: "warning",
             dangerMode: true,
-        })
+        });
         return;
     }
     swal({
@@ -77,11 +77,13 @@ const verifikasi = (id, tabel, status) => {
                 success: function (response) {
                     console.log(response);
                     if (response) {
-                        swal("Berhasil", "Data telah diverifikasi", "success").then(
-                            () => {
-                                location.reload();
-                            }
-                        );
+                        swal(
+                            "Berhasil",
+                            "Data telah diverifikasi",
+                            "success"
+                        ).then(() => {
+                            location.reload();
+                        });
                     } else {
                         swal("Error", "Data telah gagal diverifikasi", "error");
                     }

@@ -12,9 +12,9 @@
                 <h1>Data Pegawai</h1>
             </div>
 
-            
+
             <div class="section-body">
-                
+
 
                 <div class="row">
                     <div class="col-12">
@@ -53,61 +53,62 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas as $i => $data)
-                                                
-                                            <tr>
-                                                <td>
-                                                    {{ ++$i }}
-                                                </td>
-                                                <td>
-                                                    <img  src="{{ asset('storage/upload/pegawai/' .  $data->pas_foto ) }}" alt="" class="img-fluid">
-                                                    
-                                                </td>
-                                                <td>{{ $data->nama_lengkap }}</td>
-                                                <td>{{ $data->email }} </td>
-                                                <td>{{ $data->no_ktp }}</td>
-                                                <td>{{ $data->tempat_lahir . ", " .  $data->tgl_lahir }}</td>
-                                                <td>{{ $data->alamat_rumah }}</td>
-                                                <td>{{ $data->gender }}</td>
-                                                <td>{{ $data->jabatan }}</td>
-                                                <td>{{ $data->status }}</td>
-                                                <td>{{ $data->agama }}</td>
-                                                <td>{{ $data->pendidikan }}</td>
-                                                <td>{{ $data->kabupaten }}</td>
-                                                <td >
-                                                    {{ $data->satuan_pendidikan }}>
-                                                </td>
-                                                <td>
-                                                    {{ $data->alamat_satuan }}
-                                                </td>
-                                                <td>No. Hp : {{ $data->no_hp }} <br>
-                                                No. Whatsapp : {{ $data->no_wa }}
-                                                </td>
-                                                <td>
-                                                    {{ $data->no_rek }}
-                                                </td>
-                                                <td>
-                                                    @if ($data->is_verif == 'sudah')
-                                                        
-                                                    <span class="badge badge-success">Sudah Verifikasi</span>
-                                                    @else
-                                                    <span class="badge badge-danger">Belum Verifikasi</span>
-                                                        
-                                                    @endif
+                                                <tr>
+                                                    <td>
+                                                        {{ ++$i }}
+                                                    </td>
+                                                    <td>
+                                                        <img src="{{ asset('storage/upload/pegawai/' . $data->pas_foto) }}"
+                                                            alt="" class="img-fluid">
 
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-primary mb-2" onclick="verifikasi({{ $data->id }}, 'pegawai', '{{$data->is_verif}}')">Verifikasi</a>
+                                                    </td>
+                                                    <td>{{ $data->nama_lengkap }}</td>
+                                                    <td>{{ $data->email }} </td>
+                                                    <td>{{ $data->no_ktp }}</td>
+                                                    <td>{{ $data->tempat_lahir . ', ' . $data->tgl_lahir }}</td>
+                                                    <td>{{ $data->alamat_rumah }}</td>
+                                                    <td>{{ $data->gender }}</td>
+                                                    <td>{{ $data->jabatan }}</td>
+                                                    <td>{{ $data->status }}</td>
+                                                    <td>{{ $data->agama }}</td>
+                                                    <td>{{ $data->pendidikan }}</td>
+                                                    <td>{{ $data->kabupaten }}</td>
+                                                    <td>
+                                                        {{ $data->satuan_pendidikan }}>
+                                                    </td>
+                                                    <td>
+                                                        {{ $data->alamat_satuan }}
+                                                    </td>
+                                                    <td>No. Hp : {{ $data->no_hp }} <br>
+                                                        No. Whatsapp : {{ $data->no_wa }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $data->no_rek }}
+                                                    </td>
+                                                    <td>
+                                                        @if ($data->is_verif == 'sudah')
+                                                            <span class="badge badge-success">Sudah Verifikasi</span>
+                                                        @else
+                                                            <span class="badge badge-danger">Belum Verifikasi</span>
+                                                        @endif
 
-                                                    <a href="#" class="btn btn-info"><i class="fas fa-print"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary mb-2"
+                                                            onclick="verifikasi({{ $data->id }}, 'pegawai', '{{ $data->is_verif }}')">Verifikasi</a>
 
-                                                    <a href="{{ route('pegawai.edit' , $data->id) }} " class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+                                                        <a href="#" class="btn btn-info"><i
+                                                                class="fas fa-print"></i></a>
 
-                                                    <button onclick="deleteData({{ $data->id }}, 'pegawai')"
-                                                        class="btn btn-danger">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                                        <a href="{{ route('pegawai.edit', $data->id) }} "
+                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+
+                                                        <button onclick="deleteData({{ $data->id }}, 'pegawai')"
+                                                            class="btn btn-danger">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
                                             @endforeach
 
                                         </tbody>
@@ -117,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
 
         </section>

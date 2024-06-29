@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(AdminSeeder::class);
         $this->call(DataSeeder::class);
+        $this->call(StatusKepegawaianSeeder::class);
+        $this->call(StatusPendidikanSeeder::class);
     }
 }

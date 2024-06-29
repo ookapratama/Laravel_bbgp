@@ -53,10 +53,12 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Status Kepegawaian</label>
-                                                <select required names="status_kepegawaian" class="form-control select2">
+                                                <select required name="status_kepegawaian" class="form-control select2">
                                                     <option value="">-- Pilih status kepegawaian --</option>
-                                                    <option value=""></option>
-                                                    
+                                                    @foreach ($s_kepegawaian as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+
                                                 </select>
                                             </div>
                                         </div>
@@ -114,14 +116,20 @@
                                                 <select required names="pendidikan" class="form-control ">
                                                     <option value="">-- Pilih pendidikan terakhir --</option>
                                                     <option value=""></option>
-                                                    
+
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Satuan Pendidikan</label>
-                                                <input name="satuan_pendidikan" type="text" class="form-control">
+                                                <label>Satuan ii</label>
+                                                <select required name="status_kepegawaian" class="form-control select2">
+                                                    <option value="">-- Pilih status kepegawaian --</option>
+                                                    @foreach ($s_kependidikan as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -141,11 +149,11 @@
                                                 <select required names="kabupaten" class="form-control ">
                                                     <option value="">-- Pilih kabupaten/kota --</option>
                                                     <option value=""></option>
-                                                    
+
                                                 </select>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Status</label>
@@ -202,7 +210,7 @@
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary " type="submit">Submit</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ route('guru.index') }}" class="btn btn-warning" >Kembali</a>
+                                    <a href="{{ route('guru.index') }}" class="btn btn-warning">Kembali</a>
                                 </div>
                         </form>
                     </div>

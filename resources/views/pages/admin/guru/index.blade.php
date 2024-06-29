@@ -87,17 +87,16 @@
                                                     </td>
                                                     <td>
                                                         @if ($data->is_verif == 'sudah')
-                                                            
-                                                        <span class="badge badge-success">Sudah Verifikasi</span>
+                                                            <span class="badge badge-success">Sudah Verifikasi</span>
                                                         @else
-                                                        <span class="badge badge-danger">Belum Verifikasi</span>
-                                                            
+                                                            <span class="badge badge-danger">Belum Verifikasi</span>
                                                         @endif
 
                                                     </td>
                                                     <td>
-                                                        <a href="#" class="btn btn-primary mb-2" onclick="verifikasi({{ $data->id }}, 'guru', '{{$data->is_verif}}')">Verifikasi</a>
-                                                        
+                                                        <a href="#" class="btn btn-primary mb-2"
+                                                            onclick="verifikasi({{ $data->id }}, 'guru', '{{ $data->is_verif }}')">Verifikasi</a>
+
                                                         <a href="#" class="btn btn-info"><i
                                                                 class="fas fa-print"></i></a>
                                                         <a href="{{ route('guru.edit', $data->id) }} "

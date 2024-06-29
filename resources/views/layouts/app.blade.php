@@ -19,8 +19,10 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/components.css') }}">        
+    <link rel="stylesheet" href="{{ asset('css/components.css') }}">
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+
 
 </head>
 
@@ -66,8 +68,9 @@
     <!-- JS Libraies -->
     <script src="{{ asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('library/summernote/dist/summernote-bs4.js')}}"></script>
+    <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
     <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 
 
     <!-- JS Libraies -->
@@ -121,14 +124,14 @@
             swal("Warning", "Periksa kembali username dan password anda", "error");
         </script>
     @endif
-    
+
     {{--  login dulu --}}
     @if (session('message') == 'need login')
         <script>
             swal("Warning", "Anda harus login terlebih dahulu", "error");
         </script>
     @endif
-    
+
     {{--  update proffile --}}
     @if (session('message') == 'update profile')
         <script>

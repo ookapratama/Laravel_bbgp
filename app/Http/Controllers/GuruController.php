@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guru;
+use App\Models\Kepegawaian;
+use App\Models\SatuanPendidikan;
 use Illuminate\Http\Request;
 
 class GuruController extends Controller
@@ -21,7 +23,9 @@ class GuruController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.guru.create', ['menu' => 'guru']);
+        $s_kepegawain = Kepegawaian::get();
+        $s_kependidikan = SatuanPendidikan::get();
+        return view('pages.admin.guru.create', ['menu' => 'guru', 's_kepegawaian' => $s_kepegawain, 's_kependidikan' => $s_kependidikan]);
     }
 
     /**
@@ -39,14 +43,11 @@ class GuruController extends Controller
 
         $r['pas_foto'] = $nameFoto;
         // dd($r);
-        $r['is_verif'] = true;
+        $r['is_verif'] = 'belum';
 
         Guru::create($r);
 
         return redirect()->route('guru.index')->with('message', 'store');
-
-
-
     }
 
     /**
@@ -54,7 +55,7 @@ class GuruController extends Controller
      */
     public function verifikasi(string $id)
     {
-        
+
         $data = Guru::find($id);
         $data->is_verif = 'sudah';
         $data->save();
@@ -79,7 +80,7 @@ class GuruController extends Controller
         $r = $request->all();
         $data = Guru::find($r['id'])->first();
         $foto = $request->file('pas_foto');
-        
+
         if ($request->hasFile('pas_foto')) {
             $ext = $foto->getClientOriginalExtension();
             $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
@@ -88,7 +89,7 @@ class GuruController extends Controller
         } else {
             $r['pas_foto'] = $request->pas_fotoLama;
         }
-        $r['is_verif'] = true;
+        $r['is_verif'] = 'belum';
         $data->update($r);
         return redirect()->route('guru.index')->with('message', 'update');
     }

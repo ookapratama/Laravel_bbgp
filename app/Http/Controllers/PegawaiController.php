@@ -39,7 +39,7 @@ class PegawaiController extends Controller
 
         $r['pas_foto'] = $nameFoto;
         // dd($r);
-        $r['is_verif'] = true;
+        $r['is_verif'] = 'belum';
 
         Pegawai::create($r);
 
@@ -83,7 +83,7 @@ class PegawaiController extends Controller
         } else {
             $r['pas_foto'] = $request->pas_fotoLama;
         }
-        $r['is_verif'] = true;
+        $r['is_verif'] = 'belum';
         $data->update($r);
         return redirect()->route('pegawai.index')->with('message', 'update');
     }

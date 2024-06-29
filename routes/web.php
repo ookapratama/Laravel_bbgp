@@ -24,11 +24,11 @@ Route::group(
         Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
         Route::get('/guru', 'UserController@guru')->name('user.guru');
-        
+
         Route::get('/pegawai', 'UserController@pegawai')->name('user.pegawai');
         Route::get('/pegawai/form', 'UserController@form_pegawai')->name('user.form_pegawai');
         Route::post('/pegawai/daftar', 'UserController@daftar_pegawai')->name('user.daftar_pegawai');
-        
+
         Route::get('/guru', 'UserController@guru')->name('user.guru');
         Route::get('/guru/form', 'UserController@form_guru')->name('user.form_guru');
         Route::post('/guru/daftar', 'UserController@daftar_guru')->name('user.daftar_guru');
@@ -45,14 +45,13 @@ Route::group(
 
             // Root
             Route::get('/', 'AdminController@index')->name('dashboard');
-            
+
             // Profile User yang Login
             Route::get('/profile/{id}', 'AdminController@profile')->name('profile.index');
             Route::put('/profile/update', 'AdminController@profile_update')->name('profile.update');
-            
+
             // Guru
             Route::prefix('guru')->group(function () {
-
                 Route::get('/', 'GuruController@index')->name('guru.index');
                 Route::get('/create', 'GuruController@create')->name('guru.create');
                 Route::post('/store', 'GuruController@store')->name('guru.store');
@@ -60,21 +59,37 @@ Route::group(
                 Route::get('/edit/{id}', 'GuruController@edit')->name('guru.edit');
                 Route::put('/update', 'GuruController@update')->name('guru.update');
                 Route::post('/hapus/{id}', 'GuruController@destroy')->name('guru.hapus');
-
             });
 
-            // Guru
+            // Pegawai
             Route::prefix('pegawai')->group(function () {
-
                 Route::get('/', 'PegawaiController@index')->name('pegawai.index');
                 Route::get('/create', 'PegawaiController@create')->name('pegawai.create');
                 Route::post('/store', 'PegawaiController@store')->name('pegawai.store');
                 Route::post('/verifikasi/{id}', 'PegawaiController@verifikasi')->name('pegawai.verifikasi');
-
                 Route::get('/edit/{id}', 'PegawaiController@edit')->name('pegawai.edit');
                 Route::put('/update', 'PegawaiController@update')->name('pegawai.update');
                 Route::post('/hapus/{id}', 'PegawaiController@destroy')->name('pegawai.hapus');
+            });
 
+            // Kepegawaian
+            Route::prefix('kepegawaian')->group(function () {
+                Route::get('/', 'KepegawaianController@index')->name('kepegawaian.index');
+                Route::get('/create', 'KepegawaianController@create')->name('kepegawaian.create');
+                Route::post('/store', 'KepegawaianController@store')->name('kepegawaian.store');
+                Route::get('/edit/{id}', 'KepegawaianController@edit')->name('kepegawaian.edit');
+                Route::put('/update', 'KepegawaianController@update')->name('kepegawaian.update');
+                Route::post('/hapus/{id}', 'KepegawaianController@destroy')->name('kepegawaian.hapus');
+            });
+
+            // Kepegawaian
+            Route::prefix('kependidikan')->group(function () {
+                Route::get('/', 'KependidikanController@index')->name('kependidikan.index');
+                Route::get('/create', 'KependidikanController@create')->name('kependidikan.create');
+                Route::post('/store', 'KependidikanController@store')->name('kependidikan.store');
+                Route::get('/edit/{id}', 'KependidikanController@edit')->name('kependidikan.edit');
+                Route::put('/update', 'KependidikanController@update')->name('kependidikan.update');
+                Route::post('/hapus/{id}', 'KependidikanController@destroy')->name('kependidikan.hapus');
             });
         });
     }
