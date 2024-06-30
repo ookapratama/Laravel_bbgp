@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="row">
-                                        
+
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Jenis Kelamin</label>
@@ -185,7 +185,7 @@
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary " type="submit">Submit</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ route('pegawai.index') }}" class="btn btn-warning" >Kembali</a>
+                                    <a href="{{ route('pegawai.index') }}" class="btn btn-warning">Kembali</a>
                                 </div>
                         </form>
                     </div>

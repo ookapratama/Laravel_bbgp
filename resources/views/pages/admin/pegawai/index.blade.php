@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Data Pegawai'])
+@extends('layouts.app', ['title' => 'Data Pegawai BBGP'])
 
 @section('content')
     @push('styles')
@@ -9,7 +9,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Data Pegawai</h1>
+                <h1>Data Pegawai BBGP</h1>
             </div>
 
 
@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <a href="{{ route('pegawai.create') }}" class="btn btn-primary my-4">
                                     <i class="fas fa-plus"></i>
-                                    Tambah Data Pegawai
+                                    Tambah Data Pegawai BBGP
                                 </a>
                                 <div class="table-responsive">
                                     <table class="table table-striped" id="table-1">
@@ -58,7 +58,7 @@
                                                         {{ ++$i }}
                                                     </td>
                                                     <td>
-                                                        <img src="{{ asset('storage/upload/pegawai/' . $data->pas_foto) }}"
+                                                        <img src="{{ asset('/upload/pegawai/' . $data->pas_foto) }}"
                                                             alt="" class="img-fluid">
 
                                                     </td>

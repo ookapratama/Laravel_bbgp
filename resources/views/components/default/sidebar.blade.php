@@ -20,13 +20,13 @@
 
             @if (Session('role') == 'guru' || session('role') == 'admin')
                 <li class="{{ $menu == 'guru' ? 'active' : '' }}"><a class="nav-link" href="{{ route('guru.index') }}">
-                        <i class="fas fa-chalkboard-teacher"></i> <span>Guru</span></a>
+                        <i class="fas fa-chalkboard-teacher"></i> <span>Tenaga Pendidik</span></a>
                 </li>
             @endif
             @if (Session('role') == 'pegawai' || session('role') == 'admin')
                 <li class="{{ $menu == 'pegawai' ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('pegawai.index') }}">
-                        <i class="fas fa-users"></i> <span>Pegawai</span></a>
+                        <i class="fas fa-users"></i> <span>Pegawai BBGP</span></a>
                 </li>
             @endif
 
@@ -39,6 +39,11 @@
                 <li class="{{ $menu == 'kependidikan' ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('kependidikan.index') }}">
                         <i class="fas fa-user-graduate"></i> <span>Satuan Pendidikan</span></a>
+                </li>
+
+                <li class="{{ $menu == 'kependidikan' ? 'active' : '' }}"><a class="nav-link"
+                        href="{{ route('kependidikan.index') }}">
+                        <i class="fas fa-chalkboard-teacher"></i> <span>Data Sekolah</span></a>
                 </li>
             @endif
 

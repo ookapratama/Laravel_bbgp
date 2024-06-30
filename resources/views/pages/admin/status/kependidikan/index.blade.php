@@ -32,7 +32,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label>Nama</label>
-                                                                <input name="name"
+                                                                <input name="name" required
                                                                     placeholder="Masukkan Pendidikan Terakhir"
                                                                     type="text" class="form-control">
                                                             </div>
@@ -57,13 +57,14 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-1">
+                                    <table class="table table-striped" id="table-temp">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
                                                     #
                                                 </th>
                                                 <th>Nama Pendidikan</th>
+                                                
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

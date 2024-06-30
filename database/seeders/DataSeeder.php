@@ -63,6 +63,7 @@ class DataSeeder extends Seeder
                 'no_wa' => '08123456789' . $i,
                 'pas_foto' => 'default.jpg',
                 'no_rek' => '1234567890' . $i,
+                'npsn_sekolah' => '1234567890' . $i,
                 'is_verif' => $i <= 3 ? 'sudah' : 'belum',
             ]);
         }

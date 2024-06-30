@@ -32,7 +32,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label>Nama</label>
-                                                                <input name="name"
+                                                                <input name="name" required
                                                                     placeholder="Masukkan Status Kepegawaian" type="text"
                                                                     class="form-control">
                                                             </div>
@@ -57,13 +57,14 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-1">
+                                    <table class="table table-striped" id="table-temp">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
                                                     #
                                                 </th>
                                                 <th>Nama Status</th>
+                                                <th></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -74,6 +75,7 @@
                                                         {{ ++$i }}
                                                     </td>
                                                     <td>{{ $data->name }}</td>
+                                                    <td></td>
                                                     <td>
                                                         <a href="{{ route('kepegawaian.edit', $data->id) }} "
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>

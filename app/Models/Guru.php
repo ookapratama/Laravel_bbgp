@@ -29,6 +29,11 @@ class Guru extends Model
         'no_wa',
         'pas_foto',
         'no_rek',
+        'npsn_sekolah',
         'is_verif',
     ];
+
+    public function sekolah() {
+        return $this->hasOne(Sekolah::class, 'npsn_sekolah', 'npsn_sekolah');
+    }
 }

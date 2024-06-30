@@ -1,4 +1,4 @@
-@extends('layouts.user.app', ['title' => 'Data Guru'])
+@extends('layouts.user.app', ['title' => 'Data Tenaga Pendidik'])
 
 @section('content')
     @push('styles')
@@ -7,10 +7,10 @@
     <div class="main-content ">
         <section class="section">
             <div class="section-header d-flex justify-content-between">
-                <h1 class="text-primary"><u> Data Guru BBGP Sulawesi Selatan</u> </h1>
+                <h1 class="text-primary"><u> Data Tenaga Pendidik Sulawesi Selatan</u> </h1>
                 <div class=" mt-3">
-                    <a href="{{ route('user.form_pegawai') }}" target="_blank" class="btn btn-primary"><i class="fas fa-users mr-2"></i> Daftar
-                        Guru</a>
+                    <a href="{{ route('user.form_guru') }}" target="_blank" class="btn btn-primary"><i class="fas fa-users mr-2"></i> Daftar
+                        Tenaga Pendidik</a>
                 </div>
 
             </div>
@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <h5>Pencarian Data Guru </h5>
+                                    <h5>Pencarian Data Tenaga Pendidik </h5>
                                     <input name="no_ktp" id="no_ktp" type="number" value="a"
                                         placeholder="Masukkan nomor KTP anda" class="form-control">
                                 </div>
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         {{-- </form> --}}
-                        <div class="data-not-found alert alert-info">Silahkan cari data anda, jika tidak ada, Silahkan Daftar Guru</div>
+                        <div class="data-not-found alert alert-info">Silahkan cari data anda, jika tidak ada, Silahkan Daftar Tenaga Pendidik</div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="table-guru">
                                 <thead>
@@ -48,12 +48,13 @@
                                         </th>
                                         <th>Pas Foto</th>
                                         <th>Nomor KTP</th>
+                                        <th>NPSN Sekolah</th>
                                         <th>Nama Lengkap</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Golongan/Jabatan</th>
                                         <th>Status Kepagawaian</th>
                                         <th>Satuan Pendidikan</th>
-                                        <th>Alamat Satuan Pendidikan</th>
+                                        <th>Kecamatan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,6 +69,7 @@
 
                                             </td>
                                             <td>{{ $data->no_ktp }}</td>
+                                            <td>{{ $data->npsn_sekolah }} - {{ $data->sekolah->nama_sekolah ?? ''}}</td>
                                             <td>{{ $data->nama_lengkap }}</td>
                                             <td>{{ $data->gender }}</td>
                                             <td>{{ $data->jabatan }}</td>

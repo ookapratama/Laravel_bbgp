@@ -12,7 +12,7 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $data = Pegawai::get();
+        $data = Pegawai::orderBy('id','DESC')->get();
         return view('pages.admin.pegawai.index', ['menu' => 'pegawai', 'datas' => $data]);
     }
 
@@ -35,7 +35,11 @@ class PegawaiController extends Controller
         // $r['pas_foto'] = $request->file('pas_foto');
 
         $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-        $foto->storeAs('public/upload/pegawai', $nameFoto);
+        $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        $destinationPath = public_path('upload/pegawai');
+
+        $foto->move($destinationPath, $nameFoto);
+        $fileUrl = asset('upload/pegawai/' . $nameFoto);
 
         $r['pas_foto'] = $nameFoto;
         // dd($r);
@@ -72,13 +76,16 @@ class PegawaiController extends Controller
     public function update(Request $request)
     {
         $r = $request->all();
-        $data = Pegawai::find($r['id'])->first();
+        $data = Pegawai::find($r['id']);
         $foto = $request->file('pas_foto');
-        
+
         if ($request->hasFile('pas_foto')) {
             $ext = $foto->getClientOriginalExtension();
             $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-            $foto->storeAs('public/upload/pegawai', $nameFoto);
+            $destinationPath = public_path('upload/pegawai');
+
+            $foto->move($destinationPath, $nameFoto);
+            $fileUrl = asset('upload/pegawai/' . $nameFoto);
             $r['pas_foto'] = $nameFoto;
         } else {
             $r['pas_foto'] = $request->pas_fotoLama;

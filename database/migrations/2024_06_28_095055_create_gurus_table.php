@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('no_wa');
             $table->string('pas_foto');
             $table->string('no_rek');
+            $table->string('npsn_sekolah');
             $table->enum('is_verif', ['sudah', 'belum']);
 
             

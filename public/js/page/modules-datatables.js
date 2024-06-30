@@ -28,10 +28,11 @@ $("[data-checkboxes]").each(function() {
   });
 });
 
-$("#table-1").dataTable({
+$("#table-tes").dataTable({
   "columnDefs": [
     { "sortable": false, "targets": [2, 3], "width": "30%" },
     // { "targets": [0, 1, 2, 5], "width": "5000px" }
+    {select: true}
   ]
 });
 
@@ -51,12 +52,11 @@ $(document).ready(function () {
 
 // const no_ktp = document.querySelector('#no_ktp');
 // const noDataMessage = document.querySelector('.data-not-found');
-// const table = $('#table-pegawai').DataTable({
-//   "columnDefs": [
-//     { "sortable": false, "targets": [2, 3], "width": "30%" }
-//   ],
-//   "bFilter": false
-// });
+const table = $('#table-temp').DataTable({
+  "columnDefs": [
+    { "sortable": false, "targets": [2, 3], "width": "30%" }
+  ],
+});
 
 
 // no_ktp.addEventListener('keyup', function() {

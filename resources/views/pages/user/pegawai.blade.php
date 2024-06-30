@@ -1,4 +1,4 @@
-@extends('layouts.user.app', ['title' => 'Data Pegawai'])
+@extends('layouts.user.app', ['title' => 'Data Pegawai BBGP'])
 
 @section('content')
     @push('styles')
@@ -9,8 +9,9 @@
             <div class="section-header d-flex justify-content-between">
                 <h1 class="text-primary"><u> Data Pegawai BBGP Sulawesi Selatan</u> </h1>
                 <div class=" mt-3">
-                    <a href="{{ route('user.form_pegawai') }}" target="_blank" class="btn btn-primary"><i class="fas fa-users mr-2"></i> Daftar
-                        Pegawai</a>
+                    <a href="{{ route('user.form_pegawai') }}" target="_blank" class="btn btn-primary"><i
+                            class="fas fa-users mr-2"></i> Daftar
+                        Pegawai BBGP</a>
                 </div>
 
             </div>
@@ -26,7 +27,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <h5>Pencarian Data Pegawai </h5>
+                                    <h5>Pencarian Data Pegawai BBGP </h5>
                                     <input name="no_ktp" id="no_ktp" type="number" value="a"
                                         placeholder="Masukkan nomor KTP anda" class="form-control">
                                 </div>
@@ -38,7 +39,8 @@
                             </div>
                         </div>
                         {{-- </form> --}}
-                        <div class="data-not-found alert alert-info">Silahkan cari data anda, jika tidak ada, Silahkan Daftar Pegawai</div>
+                        <div class="data-not-found alert alert-info">Silahkan cari data anda, jika tidak ada, Silahkan
+                            Daftar Pegawai BBGP</div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="table-pegawai">
                                 <thead>

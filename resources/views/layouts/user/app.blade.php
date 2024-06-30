@@ -145,6 +145,12 @@
         </script>
     @endif
 
+    @if (session('message') == 'user daftar')
+        <script>
+            swal("Berhasil", "Berhasil registrasi, data akan di verifikasi terlebih dahulu", "success");
+        </script>
+    @endif
+
 
 
 </body>

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Data Guru'])
+@extends('layouts.app', ['title' => 'Data Tenaga Pendidik'])
 
 @section('content')
     @push('styles')
@@ -9,7 +9,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Data Guru</h1>
+                <h1>Data Tenaga Pendidik</h1>
             </div>
 
 
@@ -20,18 +20,72 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{ route('guru.create') }}" class="btn btn-primary my-4">
-                                    <i class="fas fa-plus"></i>
-                                    Tambah Data Guru
-                                </a>
+                                <div class="row">
+                                    <div class="col-md">
+
+                                        <a href="{{ route('guru.create') }}" class="btn btn-primary my-4">
+                                            <i class="fas fa-plus"></i>
+                                            Tambah Data Tenaga Pendidik
+                                        </a>
+                                    </div>
+                                </div>
+                                <h6>Filter By </h6>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select  id="status_kepegawaian" class="form-control select2">
+                                                <option value="">-- Pilih status kepegawaian --</option>
+                                                @foreach ($status['s_kepegawaian'] as $v)
+                                                    <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select id="satuan_pendidikan" class="form-control select2">
+                                                <option value="">-- Pilih status Satuan Pendidikan --</option>
+                                                @foreach ($status['s_kependidikan'] as $v)
+                                                    <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select  id="kabupaten" class="form-control select2">
+                                                <option value="">-- Pilih Kabupaten / Kota --</option>
+                                                @foreach ($status['s_kabupaten'] as $v)
+                                                    <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select id="jabatan" class="form-control select2">
+                                                <option value="">-- Pilih Jabatan Sekolah --</option>
+                                                @foreach ($status['s_jabatan'] as $v)
+                                                    <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-1">
+                                    <table class="table table-striped" id="table-guru" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
                                                     #
                                                 </th>
                                                 <th>Pas Foto</th>
+                                                <th>NPSN Sekolah</th>
                                                 <th>Nama Lengkap</th>
                                                 <th>Email</th>
                                                 <th>Nomor KTP</th>
@@ -39,12 +93,12 @@
                                                 <th>Alamat Rumah</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>Jabatan</th>
-                                                <th>Stauts</th>
+                                                <th>Status Kepegawaian</th>
                                                 <th>Agama</th>
                                                 <th>Pendidikan Terakhir</th>
                                                 <th>Kabupaten/Kota</th>
                                                 <th>Satuan Pendidikan</th>
-                                                <th>Alamat Satuan Pendidikan</th>
+                                                <th>Kecamatan</th>
                                                 <th>Nomor Aktif</th>
                                                 <th>No Rekening</th>
                                                 <th>Status Verifikasi</th>
@@ -58,9 +112,11 @@
                                                         {{ ++$i }}
                                                     </td>
                                                     <td>
-                                                        <img src="{{ asset('storage/upload/guru/' . $data->pas_foto) }}"
+                                                        <img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
                                                             alt="" class="img-fluid">
 
+                                                    </td>
+                                                    <td>{{ $data->npsn_sekolah }} - {{ $data->sekolah->nama_sekolah ?? '' }}
                                                     </td>
                                                     <td>{{ $data->nama_lengkap }}</td>
                                                     <td>{{ $data->email }} </td>
@@ -69,12 +125,12 @@
                                                     <td>{{ $data->alamat_rumah }}</td>
                                                     <td>{{ $data->gender }}</td>
                                                     <td>{{ $data->jabatan }}</td>
-                                                    <td>{{ $data->status }}</td>
+                                                    <td>{{ $data->status_kepegawaian }}</td>
                                                     <td>{{ $data->agama }}</td>
                                                     <td>{{ $data->pendidikan }}</td>
                                                     <td>{{ $data->kabupaten }}</td>
                                                     <td>
-                                                        {{ $data->satuan_pendidikan }}>
+                                                        {{ $data->satuan_pendidikan }}
                                                     </td>
                                                     <td>
                                                         {{ $data->alamat_satuan }}
@@ -129,5 +185,28 @@
         <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
         <!-- Page Specific JS File -->
+          <script>
+        $(document).ready(function() {
+            var table = $("#table-guru").DataTable();
+
+            // Function to filter table
+            function filterTable() {
+                var statusKepegawaian = $('#status_kepegawaian').val();
+                var satuanPendidikan = $('#satuan_pendidikan').val();
+                var kabupaten = $('#kabupaten').val();
+                var jabatan = $('#jabatan').val();
+
+                table.column(10).search(statusKepegawaian).draw();  // Column index 10 for Status Kepegawaian
+                table.column(14).search(satuanPendidikan).draw();  // Column index 14 for Satuan Pendidikan
+                table.column(13).search(kabupaten).draw();         // Column index 13 for Kabupaten/Kota
+                table.column(9).search(jabatan).draw();            // Column index 9 for Jabatan
+            }
+
+            // Event listeners for select elements
+            $('#status_kepegawaian, #satuan_pendidikan, #kabupaten, #jabatan').on('change', function() {
+                filterTable();
+            });
+        });
+    </script>
     @endpush
 @endsection
