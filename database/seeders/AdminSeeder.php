@@ -33,6 +33,18 @@ class AdminSeeder extends Seeder
                 'password' => bcrypt('pegawai'),
                 'role' => 'pegawai',
             ],
+            [
+                'name' => 'Kepala',
+                'username' => 'kepala',
+                'password' => bcrypt('kepala'),
+                'role' => 'kepala',
+            ],
+            [
+                'name' => 'Super Admin',
+                'username' => 'superadmin',
+                'password' => bcrypt('superadmin'),
+                'role' => 'superadmin',
+            ],
 
         ];
 
