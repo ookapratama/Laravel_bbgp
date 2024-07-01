@@ -101,7 +101,7 @@ class UserController extends Controller
         // dd($r);
         $r['is_verif'] = 'belum';
 
-        Pegawai::create($r);
+        Guru::create($r);
 
         return redirect()->route('user.pegawai')->with('message', 'user daftar');
     }
