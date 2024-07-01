@@ -18,19 +18,19 @@
                         class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
 
-            @if (Session('role') == 'guru' || session('role') == 'admin')
+            @if (Session('role') == 'guru' || session('role') == 'admin'|| session('role') == 'superadmin' || session('role') == 'kepala') 
                 <li class="{{ $menu == 'guru' ? 'active' : '' }}"><a class="nav-link" href="{{ route('guru.index') }}">
                         <i class="fas fa-chalkboard-teacher"></i> <span>Tenaga Pendidik</span></a>
                 </li>
             @endif
-            @if (Session('role') == 'pegawai' || session('role') == 'admin')
+            @if (Session('role') == 'pegawai' || session('role') == 'admin'|| session('role') == 'superadmin' || session('role') == 'kepala') 
                 <li class="{{ $menu == 'pegawai' ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('pegawai.index') }}">
                         <i class="fas fa-users"></i> <span>Pegawai BBGP</span></a>
                 </li>
             @endif
 
-            @if (Session('role') == 'admin')
+            @if (Session('role') != 'guru' || Session('role' != 'pegawai'))
                 <li class="{{ $menu == 'kepegawaian' ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('kepegawaian.index') }}">
                         <i class="fas fa-briefcase"></i> <span>Status Kepegawaian</span></a>
@@ -41,10 +41,10 @@
                         <i class="fas fa-user-graduate"></i> <span>Satuan Pendidikan</span></a>
                 </li>
 
-                <li class="{{ $menu == 'kependidikan' ? 'active' : '' }}"><a class="nav-link"
+                {{-- <li class="{{ $menu == 'kependidikan' ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('kependidikan.index') }}">
                         <i class="fas fa-chalkboard-teacher"></i> <span>Data Sekolah</span></a>
-                </li>
+                </li> --}}
             @endif
 
 

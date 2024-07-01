@@ -42,8 +42,11 @@
                     </div>
                     <select class="form-control" name="role" id="">
                         <option value="">-- Pilih Role --</option>
-                        <option value="pegawai">Pegawai</option>
-                        <option value="guru">Guru</option>
+                        <option value="pegawai">Pegawai BBGP</option>
+                        <option value="kepala">Kepala</option>
+                        <option value="admin">Admin</option>
+                        <option value="superadmin">Super Admin</option>
+                        <option value="guru">Tenaga Pendidik</option>
                     </select>
                 </div>
 
@@ -57,9 +60,9 @@
 
         </div>
     </div>
-    {{-- <div class="mt-5 text-muted text-center">
-        Don't have an account? <a href="#">Create One</a>
-    </div> --}}
+    <div class="mt-5 text-muted text-center">
+        <a href="/">Kembali ke beranda</a>
+    </div>
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
 

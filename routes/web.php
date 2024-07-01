@@ -24,6 +24,7 @@ Route::group(
         Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
         Route::get('/guru', 'UserController@guru')->name('user.guru');
+        
 
         Route::get('/pegawai', 'UserController@pegawai')->name('user.pegawai');
         Route::get('/pegawai/form', 'UserController@form_pegawai')->name('user.form_pegawai');
@@ -50,6 +51,9 @@ Route::group(
             Route::get('/profile/{id}', 'AdminController@profile')->name('profile.index');
             Route::put('/profile/update', 'AdminController@profile_update')->name('profile.update');
 
+            Route::get('/fetch-sekolah', ['GuruController@index', 'fetchSekolah'])->name('fetchSekolah');
+
+
             // Guru
             Route::prefix('guru')->group(function () {
                 Route::get('/', 'GuruController@index')->name('guru.index');
@@ -59,6 +63,7 @@ Route::group(
                 Route::get('/edit/{id}', 'GuruController@edit')->name('guru.edit');
                 Route::put('/update', 'GuruController@update')->name('guru.update');
                 Route::post('/hapus/{id}', 'GuruController@destroy')->name('guru.hapus');
+                Route::get('/export', 'GuruController@export')->name('guru.export');
             });
 
             // Pegawai

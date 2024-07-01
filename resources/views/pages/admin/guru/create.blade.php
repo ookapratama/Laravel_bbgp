@@ -212,7 +212,9 @@
                                         <div class="col-md-4">
                                             <label>NPSN Sekolah dan Nama Sekolah</label>
                                             <select required name="npsn_sekolah" class="form-control select2"
-                                                id="data_sekolah" onchange="updateLocation()">
+                                                id="data_sekolah" 
+                                                onchange="updateLocation()"
+                                                >
                                                 <option value="">-- Pilih Data Sekolah --</option>
                                                 @foreach ($status['s_sekolah'] as $v)
                                                     <option value="{{ $v->npsn_sekolah }}"
@@ -267,22 +269,23 @@
         <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
         <script>
             function updateLocation() {
+                console.log('object');
                 const selectElement = document.getElementById('data_sekolah');
                 const kecamatanInput = document.getElementById('kecamatan_sekolah');
                 const kabupatenInput = document.getElementById('kabupaten_sekolah');
-                
+
                 // Ambil opsi yang dipilih
                 const selectedOption = selectElement.options[selectElement.selectedIndex];
-                
+
                 // Ambil data kecamatan dan kabupaten dari atribut data
                 const kecamatan = selectedOption.getAttribute('data-kecamatan');
                 const kabupaten = selectedOption.getAttribute('data-kabupaten');
-                
+
                 // Perbarui nilai input kecamatan dan kabupaten
                 kecamatanInput.value = kecamatan;
                 kabupatenInput.value = kabupaten;
             }
         </script>
-        
+     
     @endpush
 @endsection
