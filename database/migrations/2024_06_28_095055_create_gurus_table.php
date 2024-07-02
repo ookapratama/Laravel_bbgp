@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -34,9 +33,15 @@ return new class extends Migration
             $table->string('pas_foto');
             $table->string('no_rek');
             $table->string('npsn_sekolah');
+            $table->string('npwp');
+            $table->string('nuptk');
+            $table->string('eksternal_jabatan');
+            $table->string('jenis_jabatan');
+            $table->string('kategori_jabatan');
+            $table->string('tugas_jabatan');
             $table->enum('is_verif', ['sudah', 'belum']);
 
-            
+
             $table->timestamps();
         });
     }

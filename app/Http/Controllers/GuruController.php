@@ -23,6 +23,13 @@ class GuruController extends Controller
      */
     public function index()
     {
+        $sekolahs = [];
+        Sekolah::select('npsn_sekolah', 'nama_sekolah', 'kecamatan', 'kabupaten')
+        ->chunk(500, function ($sekolahChunk) use (&$sekolahs) {
+            foreach ($sekolahChunk as $sekolah) {
+                $sekolahs[] = $sekolah;
+            }
+        });
         $datas = array(
             's_kepegawaian' => Kepegawaian::get(),
             's_kependidikan' => SatuanPendidikan::get(),
@@ -30,7 +37,13 @@ class GuruController extends Controller
             's_jabatan' => Jabatan::get(),
             's_kabupaten' => Kabupaten::get(),
             's_kecamatan' => Kecamatan::get(),
-            's_sekolah' => Sekolah::select('npsn_sekolah', 'nama_sekolah', 'kecamatan', 'kabupaten')->get(),
+            // 's_sekolah' => Sekolah::select('npsn_sekolah', 'nama_sekolah', 'kecamatan', 'kabupaten')->get(),
+            's_sekolah' => $sekolahs,
+            's_jabPendidik' => JabatanPendidik::get(),
+            's_jabKependidikan' => JabatanKependidikan::get(),
+            's_jabStakeholder' => JabatanStakeHolder::get(),
+            's_jabKategori' => ['GP (Guru Penggerak)', 'NoN GP (Guru Penggerak)'],
+            's_jabTugas' => ['GP (Guru Penggerak)', 'PP (Pengajar Praktik)', 'Fasil (Fasilitator)', 'Instruktur'],
 
         );
         $data = Guru::orderBy('id','DESC')->get();
@@ -70,8 +83,8 @@ class GuruController extends Controller
             's_jabPendidik' => JabatanPendidik::get(),
             's_jabKependidikan' => JabatanKependidikan::get(),
             's_jabStakeholder' => JabatanStakeHolder::get(),
-            's_jabKategori' => ['GP (Guru Penggerak)', 'NoN GP (Grup Penggerak)'],
-            's_jabTugas' => ['GP', 'PP', 'Fasil', 'Instruktur'],
+            's_jabKategori' => ['GP (Guru Penggerak)', 'NoN GP (Guru Penggerak)'],
+            's_jabTugas' => ['GP (Guru Penggerak)', 'PP (Pengajar Praktik)', 'Fasil (Fasilitator)', 'Instruktur'],
 
         );
         // dd($datas['s_kecamatan']);
@@ -85,21 +98,27 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $r = $request->all();
-        dd($r);
-        $foto = $request->file('pas_foto');
-        $ext = $foto->getClientOriginalExtension();
-        // $r['pas_foto'] = $request->file('pas_foto');
-
-        $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-        $destinationPath = public_path('upload/guru');
-
-        $foto->move($destinationPath, $nameFoto);
-
-        $fileUrl = asset('upload/guru/' . $nameFoto);
-
-        $r['pas_foto'] = $nameFoto;
         // dd($r);
+        // $foto = $request->file('pas_foto');
+        // $ext = $foto->getClientOriginalExtension();
+        // // $r['pas_foto'] = $request->file('pas_foto');
+
+        // $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        // $destinationPath = public_path('upload/guru');
+
+        // $foto->move($destinationPath, $nameFoto);
+
+        // $fileUrl = asset('upload/guru/' . $nameFoto);
+
+        $r['pas_foto'] = '';
+        $r['status'] = 'Belum Kawin';
+        $r['alamat_satuan'] = '';
+        $r['eksternal_jabatan'] = $r['jenisJabatan'];
+        $r['jenis_jabatan'] = $r['jabJenis'];
+        $r['kategori_jabatan'] = $r['jabKategori'];
+        $r['tugas_jabatan'] = $r['jabTugas'];
         $r['is_verif'] = 'belum';
+        // dd($r);
 
         Guru::create($r);
 
@@ -147,20 +166,28 @@ class GuruController extends Controller
         // dd($r['id']);
         $data = Guru::find($r['id']);
         // dd($data);
-        $foto = $request->file('pas_foto');
+        // $foto = $request->file('pas_foto');
 
-        if ($request->hasFile('pas_foto')) {
-            $ext = $foto->getClientOriginalExtension();
-            $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-            $destinationPath = public_path('upload/guru');
+        // if ($request->hasFile('pas_foto')) {
+        //     $ext = $foto->getClientOriginalExtension();
+        //     $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        //     $destinationPath = public_path('upload/guru');
 
-            $foto->move($destinationPath, $nameFoto);
+        //     $foto->move($destinationPath, $nameFoto);
 
-            $fileUrl = asset('upload/guru/' . $nameFoto);
-            $r['pas_foto'] = $nameFoto;
-        } else {
-            $r['pas_foto'] = $request->pas_fotoLama;
-        }
+        //     $fileUrl = asset('upload/guru/' . $nameFoto);
+        //     $r['pas_foto'] = $nameFoto;
+        // } else {
+        //     $r['pas_foto'] = $request->pas_fotoLama;
+        // }
+        $r['pas_foto'] = '';
+        $r['status'] = '';
+        $r['alamat_satuan'] = '';
+        $r['eksternal_jabatan'] = $r['jenisJabatan'];
+        $r['jenis_jabatan'] = $r['jabJenis'];
+        $r['kategori_jabatan'] = $r['jabKategori'];
+        $r['tugas_jabatan'] = $r['jabTugas'];
+        $r['is_verif'] = 'belum';
         $r['is_verif'] = 'belum';
         $data->update($r);
         return redirect()->route('guru.index')->with('message', 'update');

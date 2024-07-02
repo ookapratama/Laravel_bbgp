@@ -30,6 +30,12 @@ class Guru extends Model
         'pas_foto',
         'no_rek',
         'npsn_sekolah',
+        'npwp',
+        'nuptk',
+        'eksternal_jabatan',
+        'jenis_jabatan',
+        'kategori_jabatan',
+        'tugas_jabatan',
         'is_verif',
     ];
 

@@ -31,8 +31,8 @@ Route::group(
         Route::post('/pegawai/daftar', 'UserController@daftar_pegawai')->name('user.daftar_pegawai');
 
         Route::get('/eksternal', 'UserController@guru')->name('user.guru');
-        Route::get('/guru/form', 'UserController@form_guru')->name('user.form_guru');
-        Route::post('/guru/daftar', 'UserController@daftar_guru')->name('user.daftar_guru');
+        Route::get('/eksternal/form/{jenis}', 'UserController@form_guru')->name('user.form_guru');
+        Route::post('/eksternal/daftar', 'UserController@daftar_guru')->name('user.daftar_guru');
     }
 );
 

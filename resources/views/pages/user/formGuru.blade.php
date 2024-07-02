@@ -1,4 +1,4 @@
-@extends('layouts.user.app', ['title' => 'Tambah Data Tenaga Pendidik'])
+@extends('layouts.user.app', ['title' => 'Data Eksternal'])
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
@@ -8,7 +8,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Data Tenaga Pendidik</h1>
+                <h1>Tambah Data {{ $jenis }}</h1>
             </div>
 
             <div class="section-body">
@@ -39,6 +39,21 @@
                                             <div class="form-group">
                                                 <label>NIP</label>
                                                 <input required name="nip" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>NPWP</label>
+                                                <input required name="npwp" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>NUPTK</label>
+                                                <input required name="nuptk" type="number" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +100,8 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Alamat Rumah</label>
-                                                <input required type="text" name="alamat_rumah" class="form-control">
+                                                <input required type="text" name="alamat_rumah" class="form-control"
+                                                    placeholder="isi dengan lengkap ">
                                             </div>
                                         </div>
 
@@ -133,9 +149,8 @@
 
                                     </div>
 
-
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Kabupaten / Kota</label>
                                                 <select required name="kabupaten" class="form-control select2">
@@ -148,7 +163,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        {{-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <select required name="status" class="form-control ">
@@ -157,17 +172,17 @@
                                                     <option value="Belum Kawin">Belum Kawin</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
 
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Handphone</label>
                                                 <input required name="no_hp" type="number" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Whatsapp</label>
                                                 <input required name="no_wa" type="number" class="form-control">
@@ -175,8 +190,9 @@
                                         </div>
 
                                     </div>
+
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-6 mb-4">
                                             <label>Jabatan Sekolah</label>
                                             <select required name="jabatan" class="form-control select2">
                                                 <option value="">-- Pilih Jabatan Sekolah --</option>
@@ -186,25 +202,74 @@
 
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nomor Rekening</label>
                                                 <input required type="number" name="no_rek" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-5">
+                                        {{-- <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Pas Foto</label>
                                                 <input required type="file" name="pas_foto" class="form-control">
                                             </div>
-                                        </div>
+                                        </div> --}}
 
 
                                     </div>
 
 
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3 mb-4">
+                                            <label>Jenis Jabatan Eksternal</label>
+                                            {{-- <input type="text" readonly name="jenisJabatan" class="form-control"
+                                                value="{{ $jenis }}"> --}}
+                                            <select required name="jenisJabatan" class="form-control " id="jabEksternal">
+                                                <option value="">-- Pilih Jabatan Eksternal --</option>
+                                                <option {{ $jenis == 'Tenaga Pendidik' ? '' : 'disabled' }}
+                                                    value="Tenaga Pendidik">Tenaga Pendidik</option>
+                                                <option {{ $jenis == 'Tenaga Kependidikan' ? '' : 'disabled' }}
+                                                    value="Tenaga Kependidikan">Tenaga Kependidikan</option>
+                                                <option {{ $jenis == 'Stakeholder' ? '' : 'disabled' }}
+                                                    value="Stakeholder">Stakeholder</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Jabatan (Pilih Eksternal dulu)</label>
+                                                <select name="jabJenis" class="form-control " id="jabJenis">
+                                                    <option value="">-- Pilih Jenis Jabatan --</option>
+                                                    {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 mb-4">
+                                            <label>Kategori Jabatan (Pilih Eksternal dulu) </label>
+                                            <select name="jabKategori" class="form-control " id="jabKategori">
+                                                <option value="">-- Pilih Kategori --</option>
+                                                {{-- <option value="GP (Guru Penggerak)">GP (Guru Penggerak)</option>
+                                                <option value="NoN GP (Guru Penggerak)">NoN GP (Guru Penggerak)</option> --}}
+
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Jenis Tugas</label>
+                                                <select name="jabTugas" class="form-control " id="jabTugas">
+                                                    <option value="">-- Pilih Tugas Jabatan --</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4 mb-4">
                                             <label>NPSN Sekolah dan Nama Sekolah</label>
                                             <select required name="npsn_sekolah" class="form-control select2"
                                                 id="data_sekolah" onchange="updateLocation()">
@@ -222,7 +287,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Kabupaten Sekolah</label>
-                                                <input id="kabupaten_sekolah" type="text" name="alamat_satuan"
+                                                <input id="kabupaten_sekolah" type="text" name="kabupaten_sekolah"
                                                     class="form-control"
                                                     placeholder="Otomatis terisi berdasarkan NPSN Sekolah" readonly>
                                             </div>
@@ -239,6 +304,8 @@
 
                                     </div>
 
+
+
                                 </div>
 
                                 <div class="card-footer text-right">
@@ -248,12 +315,13 @@
                                 </div>
                         </form>
                     </div>
-
                 </div>
 
-
-
             </div>
+
+
+
+    </div>
     </div>
     </section>
     </div>
@@ -277,6 +345,221 @@
                 kecamatanInput.value = kecamatan;
                 kabupatenInput.value = kabupaten;
             }
+        </script>
+
+        <script>
+            $(document).ready(function() {
+
+                const jenisEksternal = {!! json_encode($jenis) !!};
+                console.log(jenisEksternal);
+
+                // jabatan ketenagaan
+                function fillterJabatan() {
+                    var jabEksternal = $('#jabEksternal').val();
+                    var jabJenis = $('#jabJenis');
+                    var option = '';
+                    const dataJab = {!! json_encode($status) !!};
+
+                    jabJenis.empty();
+
+                    jabJenis.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Jabatan --',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    if (jenisEksternal == 'Tenaga Pendidik') {
+
+                        let dataJabValue = dataJab['s_jabPendidik'].map(item => {
+                            option = $("<option>")
+                                .text(item.name)
+                                .attr('value', item.name)
+                                .removeAttr('disabled');
+                            jabJenis.append(option);
+                        });
+                    }
+                    if (jenisEksternal == 'Tenaga Kependidikan') {
+                        let dataJabValue = dataJab['s_jabKependidikan'].map(item => {
+                            option = $("<option>")
+                                .text(item.name)
+                                .attr('value', item.name)
+                                .removeAttr('disabled');
+                            jabJenis.append(option);
+                        });
+                    }
+                    if (jenisEksternal == 'Stakeholder') {
+                        let dataJabValue = dataJab['s_jabStakeholder'].map(item => {
+                            option = $("<option>")
+                                .text(item.name)
+                                .attr('value', item.id)
+                                .removeAttr('disabled');
+                            jabJenis.append(option);
+                        });
+                    }
+                }
+
+                // kategori jabatan
+                function fillterKategori() {
+                    var jabKategori = $('#jabKategori').val();
+                    var jabTugas = $('#jabTugas');
+                    var option = '';
+                    const dataJab = {!! json_encode($status) !!};
+
+                    jabTugas.empty();
+
+                    jabTugas.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Jabatan --',
+                        disabled: true,
+                        selected: true
+                    }));
+                    if (jabKategori == 'GP (Guru Penggerak)') {
+
+                        let dataJabValue = dataJab['s_jabTugas'].map(item => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabTugas.append(option);
+                        });
+                    }
+                    if (jabKategori == 'NoN GP (Guru Penggerak)') {
+
+                        let dataJabValue = dataJab['s_jabTugas'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabTugas.append(option);
+                        });
+                    }
+
+                }
+
+                $('#jabEksternal').on('change', function() {
+                    fillterJabatan();
+                    fillterKategori();
+                });
+
+                // fix
+                $('#jabKategori').on('change', function() {
+                    // fillterKategori();
+                    var jabTugas = $('#jabTugas');
+                    // var jabJenis = $(this);
+                    var option = '';
+                    const dataJab = {!! json_encode($status) !!};
+
+                    // jabJenis.empty();
+
+                    // jabJenis.append($('<option>', {
+                    //     value: '',
+                    //     text: '-- Pilih Jabatan --',
+                    //     disabled: true,
+                    //     selected: true
+                    // }));
+
+                    var selectedOption = $(this).find('option:selected');
+
+                    if (selectedOption.text() == 'GP (Guru Penggerak)' ||
+                        selectedOption.text() == 'Diklat Cakep' ||
+                        selectedOption.text() == 'Diklat Cawas' ||
+                        selectedOption.text() == 'Lainnya' ||
+                        selectedOption.text() == 'Sertifikat GP (Guru Penggerak)') {
+                        let dataJabValue = dataJab['s_jabTugas'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabTugas.append(option);
+                        });
+                    } else {
+                        jabTugas.empty();
+                        jabTugas.append($('<option>', {
+                            value: '',
+                            text: '-- Pilih Tugas --',
+                            disabled: true,
+                            selected: true
+                        }));
+                    }
+
+                    console.log('Selected Value (jabTugas):', selectedOption.val());
+                    console.log('Selected Text (jabTugas):', selectedOption.text());
+                });
+
+                $('#jabJenis').on('change', function() {
+                    // fillterKategori();
+                    // var jabEksternal = $('#jabEksternal').val();
+                    var jabKategori = $('#jabKategori');
+                    var jabTugas = $('#jabTugas');
+                    var jabJenis = $(this);
+                    var option = '';
+                    const dataJab = {!! json_encode($status) !!};
+
+                    jabKategori.empty();
+                    jabKategori.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Kategori --',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    jabTugas.empty();
+                    jabTugas.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Tugas --',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    var selectedOption = $(this).find('option:selected');
+
+                    if (selectedOption.text() == 'Guru' || selectedOption.text() == 'Konselor') {
+                        let dataJabValue = dataJab['s_jabKategori'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabKategori.append(option);
+                        });
+                    } else if (selectedOption.text() == 'Pengawas') {
+                        let dataJabValue = dataJab['s_jabKategoriPengawas'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabKategori.append(option);
+                        });
+                    } else if (selectedOption.text() == 'Kepala Sekolah') {
+                        let dataJabValue = dataJab['s_jabKategoriKepsek'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabKategori.append(option);
+                        });
+                    } else {
+                        jabKategori.empty();
+                        jabKategori.append($('<option>', {
+                            value: '',
+                            text: '-- Pilih Kategori --',
+                            disabled: true,
+                            selected: true
+                        }));
+
+                        jabTugas.empty();
+                        jabTugas.append($('<option>', {
+                            value: '',
+                            text: '-- Pilih Tugas --',
+                            disabled: true,
+                            selected: true
+                        }));
+                    }
+
+                    console.log('Selected Value (jabKategori):', selectedOption.val());
+                    console.log('Selected Text (jabKategori):', selectedOption.text());
+                });
+            });
         </script>
     @endpush
 @endsection
