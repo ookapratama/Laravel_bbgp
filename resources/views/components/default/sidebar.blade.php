@@ -18,12 +18,39 @@
                         class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
 
-            @if (Session('role') == 'guru' || session('role') == 'admin'|| session('role') == 'superadmin' || session('role') == 'kepala') 
-                <li class="{{ $menu == 'guru' ? 'active' : '' }}"><a class="nav-link" href="{{ route('guru.index') }}">
-                        <i class="fas fa-chalkboard-teacher"></i> <span>Tenaga Pendidik</span></a>
+            @if (Session('role') == 'guru' ||
+                    session('role') == 'admin' ||
+                    session('role') == 'superadmin' ||
+                    session('role') == 'kepala')
+                {{-- <li class="nat-item dropdown {{ $menu == 'guru' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-external-link-square-alt"></i>
+                        <span>Data Eksternal BBGP</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <
+                        <li class="{{ $menu == 'guru' ? '' : '' }}">
+                            <a class="nav-link" href="{{ route('guru.index') }}">
+                                <span>Tenaga Kependidikan</span>
+                            </a>
+                        </li>
+                        <li class="{{ $menu == 'guru' ? '' : '' }}">
+                            <a class="nav-link" href="{{ route('guru.index') }}">
+                                <span>Stakeholder</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li> --}}
+                <li class="{{ $menu == 'guru' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('guru.index') }}">
+                        <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
+                    </a>
                 </li>
             @endif
-            @if (Session('role') == 'pegawai' || session('role') == 'admin'|| session('role') == 'superadmin' || session('role') == 'kepala') 
+            @if (Session('role') == 'pegawai' ||
+                    session('role') == 'admin' ||
+                    session('role') == 'superadmin' ||
+                    session('role') == 'kepala')
                 <li class="{{ $menu == 'pegawai' ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('pegawai.index') }}">
                         <i class="fas fa-users"></i> <span>Pegawai BBGP</span></a>

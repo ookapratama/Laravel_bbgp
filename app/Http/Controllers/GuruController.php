@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use App\Models\Jabatan;
+use App\Models\JabatanKependidikan;
+use App\Models\JabatanPendidik;
+use App\Models\JabatanStakeHolder;
+use App\Models\JenisJabatan;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use App\Models\Kepegawaian;
@@ -63,6 +67,11 @@ class GuruController extends Controller
             's_kecamatan' => Kecamatan::get(),
             // 's_sekolah' => Sekolah::select('npsn_sekolah', 'nama_sekolah', 'kecamatan', 'kabupaten')->get(),
             's_sekolah' => $sekolahs,
+            's_jabPendidik' => JabatanPendidik::get(),
+            's_jabKependidikan' => JabatanKependidikan::get(),
+            's_jabStakeholder' => JabatanStakeHolder::get(),
+            's_jabKategori' => ['GP (Guru Penggerak)', 'NoN GP (Grup Penggerak)'],
+            's_jabTugas' => ['GP', 'PP', 'Fasil', 'Instruktur'],
 
         );
         // dd($datas['s_kecamatan']);
@@ -76,7 +85,7 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $r = $request->all();
-        // dd($r);
+        dd($r);
         $foto = $request->file('pas_foto');
         $ext = $foto->getClientOriginalExtension();
         // $r['pas_foto'] = $request->file('pas_foto');

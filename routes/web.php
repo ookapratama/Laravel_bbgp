@@ -23,14 +23,14 @@ Route::group(
         // Dashboard
         Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
-        Route::get('/guru', 'UserController@guru')->name('user.guru');
+        Route::get('/eksternal', 'UserController@guru')->name('user.guru');
         
 
         Route::get('/pegawai', 'UserController@pegawai')->name('user.pegawai');
         Route::get('/pegawai/form', 'UserController@form_pegawai')->name('user.form_pegawai');
         Route::post('/pegawai/daftar', 'UserController@daftar_pegawai')->name('user.daftar_pegawai');
 
-        Route::get('/guru', 'UserController@guru')->name('user.guru');
+        Route::get('/eksternal', 'UserController@guru')->name('user.guru');
         Route::get('/guru/form', 'UserController@form_guru')->name('user.form_guru');
         Route::post('/guru/daftar', 'UserController@daftar_guru')->name('user.daftar_guru');
     }
@@ -54,8 +54,8 @@ Route::group(
             Route::get('/fetch-sekolah', ['GuruController@index', 'fetchSekolah'])->name('fetchSekolah');
 
 
-            // Guru
-            Route::prefix('guru')->group(function () {
+            // Guru / Eksternal
+            Route::prefix('eksternal')->group(function () {
                 Route::get('/', 'GuruController@index')->name('guru.index');
                 Route::get('/create', 'GuruController@create')->name('guru.create');
                 Route::post('/store', 'GuruController@store')->name('guru.store');

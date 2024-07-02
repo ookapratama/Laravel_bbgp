@@ -238,8 +238,8 @@
             <li class="nav-item dropdown {{ $menu == 'guru' || $menu == 'pegawai' ? 'active' : '' }}">
                 <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fas fa-layer-group"></i><span>Data</span></a>
                 <ul class="dropdown-menu">
-                    <li class="nav-item {{ $menu == 'pegawai' ? 'active' : '' }}"><a href="{{  route('user.pegawai') }}" class="nav-link">Data Pegawai BBGP</a></li>
-                    <li class="nav-item {{ $menu == 'guru' ? 'active' : '' }}"><a href="{{  route('user.guru') }}" class="nav-link">Data Tenaga Pendidik</a></li>
+                    <li class="nav-item {{ $menu == 'pegawai' ? 'active' : '' }}"><a href="{{  route('user.pegawai') }}" class="nav-link">Data Internal BBGP</a></li>
+                    <li class="nav-item {{ $menu == 'guru' ? 'active' : '' }}"><a href="{{  route('user.guru') }}" class="nav-link">Data Eksternal BBGP</a></li>
                 </ul>
             </li>
 

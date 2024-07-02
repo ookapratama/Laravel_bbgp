@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\LatarJabatan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,6 +28,11 @@ class DatabaseSeeder extends Seeder
         $this->call(JabatanSeeder::class);
         $this->call(KabupatenSeeder::class);
         $this->call(KecamatanSeeder::class);
-        $this->call(SekolahSeeder::class);
+        // $this->call(SekolahSeeder::class);
+        $this->call(JabatanPendidikSeeder::class);
+        $this->call(JabatanKependidikanSeeder::class);
+        $this->call(JabatanStakeHolderSeeder::class);
+        $this->call(JenisTugasSeeder::class);
+        $this->call(LatarJabatanSeeder::class);
     }
 }

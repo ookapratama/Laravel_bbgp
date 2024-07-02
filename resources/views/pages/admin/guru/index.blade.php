@@ -31,8 +31,19 @@
                                 </div>
 
                                 <h6>Filter By</h6>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <select id="" class="form-control select2">
+                                            <option value="">-- Pilih Jabatan Ketenagaan --</option>
+                                            <option value="Tenaga Pendidik">Tenaga Pendidik</option>
+                                            <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
+                                            <option value="Stakeholder">Stakeholder</option>
+                                        </select>
+                                    </div>
+
+                                </div>
                                 <div class="row mb-4">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 mb-2">
                                         <select id="status_kepegawaian" class="form-control select2">
                                             <option value="">-- Pilih status kepegawaian --</option>
                                             @foreach ($status['s_kepegawaian'] as $v)
@@ -40,7 +51,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 mb-2">
                                         <select id="satuan_pendidikan" class="form-control select2">
                                             <option value="">-- Pilih status Satuan Pendidikan --</option>
                                             @foreach ($status['s_kependidikan'] as $v)
@@ -48,7 +59,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 mb-2">
                                         <select id="kabupaten" class="form-control select2">
                                             <option value="">-- Pilih Kabupaten / Kota --</option>
                                             @foreach ($status['s_kabupaten'] as $v)
@@ -71,7 +82,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Pas Foto</th>
+                                                {{-- <th>Pas Foto</th> --}}
                                                 <th>NPSN Sekolah</th>
                                                 <th>Nama Lengkap</th>
                                                 <th>Email</th>
@@ -96,8 +107,8 @@
                                             @foreach ($datas as $i => $data)
                                                 <tr>
                                                     <td>{{ ++$i }}</td>
-                                                    <td><img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
-                                                            alt="" class="img-fluid"></td>
+                                                    {{-- <td><img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
+                                                            alt="" class="img-fluid"></td> --}}
                                                     <td>{{ $data->npsn_sekolah }} -
                                                         {{ $data->sekolah->nama_sekolah ?? '' }}</td>
                                                     <td>{{ $data->nama_lengkap }}</td>
@@ -149,7 +160,7 @@
         <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
-        
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <script>
             $(document).ready(function() {
