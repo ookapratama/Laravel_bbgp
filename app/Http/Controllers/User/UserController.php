@@ -61,8 +61,7 @@ class UserController extends Controller
 
         // );
 
-        $status = array (
-        //    's_sekolah' => $sekolahs,
+        $status = array(
             's_jabPendidik' => JabatanPendidik::get(),
             's_jabKependidikan' => JabatanKependidikan::get(),
             's_jabStakeholder' => JabatanStakeHolder::get(),
@@ -87,19 +86,26 @@ class UserController extends Controller
     public function daftar_pegawai(Request $request)
     {
         $r = $request->all();
-        $foto = $request->file('pas_foto');
-        $ext = $foto->getClientOriginalExtension();
-        // $r['pas_foto'] = $request->file('pas_foto');
+        // $foto = $request->file('pas_foto');
+        // $ext = $foto->getClientOriginalExtension();
+        // // $r['pas_foto'] = $request->file('pas_foto');
 
-        $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-        $destinationPath = public_path('upload/pegawai');
+        // $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        // $destinationPath = public_path('upload/pegawai');
 
-        $foto->move($destinationPath, $nameFoto);
+        // $foto->move($destinationPath, $nameFoto);
 
-        $fileUrl = asset('upload/pegawai/' . $nameFoto);
+        // $fileUrl = asset('upload/pegawai/' . $nameFoto);
 
-        $r['pas_foto'] = $nameFoto;
+        // $r['pas_foto'] = $nameFoto;
         // dd($r);
+        $r['pas_foto'] = '';
+        $r['status'] = 'Belum Kawin';
+        $r['alamat_satuan'] = '';
+        $r['eksternal_jabatan'] = $r['jenisJabatan'];
+        $r['jenis_jabatan'] = $r['jabJenis'];
+        $r['kategori_jabatan'] = $r['jabKategori'];
+        $r['tugas_jabatan'] = $r['jabTugas'];
         $r['is_verif'] = 'belum';
 
         Pegawai::create($r);
@@ -111,11 +117,11 @@ class UserController extends Controller
 
         $sekolahs = [];
         Sekolah::select('npsn_sekolah', 'nama_sekolah', 'kecamatan', 'kabupaten')
-        ->chunk(500, function ($sekolahChunk) use (&$sekolahs) {
-            foreach ($sekolahChunk as $sekolah) {
-                $sekolahs[] = $sekolah;
-            }
-        });
+            ->chunk(500, function ($sekolahChunk) use (&$sekolahs) {
+                foreach ($sekolahChunk as $sekolah) {
+                    $sekolahs[] = $sekolah;
+                }
+            });
         $datas = array(
             's_kepegawaian' => Kepegawaian::get(),
             's_kependidikan' => SatuanPendidikan::get(),
@@ -141,23 +147,30 @@ class UserController extends Controller
     public function daftar_guru(Request $request)
     {
         $r = $request->all();
-        $foto = $request->file('pas_foto');
-        $ext = $foto->getClientOriginalExtension();
-        // $r['pas_foto'] = $request->file('pas_foto');
+        // $foto = $request->file('pas_foto');
+        // $ext = $foto->getClientOriginalExtension();
+        // // $r['pas_foto'] = $request->file('pas_foto');
 
-        $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-        $destinationPath = public_path('upload/guru');
+        // $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        // $destinationPath = public_path('upload/guru');
 
-        $foto->move($destinationPath, $nameFoto);
+        // $foto->move($destinationPath, $nameFoto);
 
-        $fileUrl = asset('upload/guru/' . $nameFoto);
+        // $fileUrl = asset('upload/guru/' . $nameFoto);
 
-        $r['pas_foto'] = $nameFoto;
+        // $r['pas_foto'] = $nameFoto;
         // dd($r);
+        $r['pas_foto'] = '';
+        $r['status'] = 'Belum Kawin';
+        $r['alamat_satuan'] = '';
+        $r['eksternal_jabatan'] = $r['jenisJabatan'];
+        $r['jenis_jabatan'] = $r['jabJenis'];
+        $r['kategori_jabatan'] = $r['jabKategori'];
+        $r['tugas_jabatan'] = $r['jabTugas'];
         $r['is_verif'] = 'belum';
 
         Guru::create($r);
 
-        return redirect()->route('user.pegawai')->with('message', 'user daftar');
+        return redirect()->route('user.guru')->with('message', 'user daftar');
     }
 }

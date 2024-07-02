@@ -27,8 +27,8 @@
                         <div class="row">
                             <div class="col">
 
-                                <h5>Registrasi Data Eksternal</h5>
-                                <div class="d-flex  mb-5">
+                                <h4>Registrasi Data Eksternal</h4>
+                                <div class="d-flex mt-3 mb-5">
 
                                     <div class="">
                                         <a href="{{ route('user.form_guru', 'Tenaga Pendidik') }}"
@@ -47,6 +47,12 @@
                                             class="btn btn-warning btn-lg p-2">
                                             <i class="fas fa-layer-group mr-1"></i>Stakeholder
                                         </a>
+                                    </div>
+                                    <div class="">
+                                        <button id="resetBtn"
+                                            class="btn btn-success btn-lg  mx-4">
+                                            <i class="fas fa-redo-alt"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +85,7 @@
                         <div class="row">
                             <div class="col-md-3 mb-4">
                                 <label>Jabatan Ketenagaan</label>
-                                <select required name="jenisJabatan" class="form-control selectric" id="jabEksternal">
+                                <select required name="jenisJabatan" class="form-control " id="jabEksternal">
                                     <option value="">-- Filter By Jabatan Ketenagaan --</option>
                                     <option value="Tenaga Pendidik">Tenaga Pendidik</option>
                                     <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
@@ -141,7 +147,9 @@
                                         <th>Status Kepegawaian</th>
                                         <th>Agama</th>
                                         <th>Pendidikan Terakhir</th>
+                                        <th>Ketenagaan</th>
                                         <th>Jabatan </th>
+                                        <th>Kategori Jabatan </th>
                                         <th>Tugas Jabatan </th>
                                         <th>Asal Kabupaten/Kota</th>
                                         <th>Satuan Pendidikan</th>
@@ -173,8 +181,9 @@
                                             <td>{{ $data->status_kepegawaian }}</td>
                                             <td>{{ $data->agama }}</td>
                                             <td>{{ $data->pendidikan }}</td>
-                                            <td>{{ $data->eksternal_jabatan }} ( {{ $data->jenis_jabatan }} ) -
-                                                {{ $data->kategori_jabatan }}</td>
+                                            <td>{{ $data->eksternal_jabatan }}</td>
+                                            <td>{{ $data->jenis_jabatan }}</td>
+                                            <td>{{ $data->kategori_jabatan }}</td>
                                             <td>{{ $data->tugas_jabatan ?? '-' }}</td>
                                             <td>{{ $data->kabupaten }}</td>
                                             <td>{{ $data->satuan_pendidikan }}</td>
@@ -208,32 +217,61 @@
 
         <script>
             $(document).ready(function() {
-                // Inisialisasi DataTable
+                // Initialize DataTable
                 var tableGuru = $('#table-guru').DataTable();
+                const resetBtn = document.querySelector('#resetBtn');
 
-                // Pilih elemen input dan div pesan
+                // Select input elements
                 const namaInput = document.querySelector('#namaFilter');
+                const jabEksternal = document.querySelector('#jabEksternal');
+                const jabJenis = document.querySelector('#jabJenis');
+                const jabKategori = document.querySelector('#jabKategori');
+                const jabTugas = document.querySelector('#jabTugas');
                 const noDataMessage = document.querySelector('.data-not-found');
 
-                // Tambahkan event listener untuk input keyup
-                namaInput.addEventListener('keyup', function() {
-                    // const searchText = namaInput.value;
-                    const searchText = namaInput.value.trim(); // Trim whitespace dari input
-                    console.log('Search Text:', searchText); // Debug log untuk pencarian
+                // Function to apply search filters
+                function applySearch() {
+                    // Get trimmed input value
+                    const searchText = namaInput.value.trim();
 
-                    // Update the search dan redraw tableGuru
-                    tableGuru.column(3).search(searchText).draw();
+                    // Get select values
+                    const jabEksternalValue = jabEksternal.value;
+                    const jabJenisValue = jabJenis.value;
+                    const jabKategoriValue = jabKategori.value;
+                    const jabTugasValue = jabTugas.value;
 
-                    // Periksa jumlah hasil pencarian
+                    console.log('Search Text:', searchText);
+                    console.log('Select Value 13:', jabEksternalValue);
+                    console.log('Select Value 14:', jabTugasValue);
+
+                    // Update search and redraw tableGuru
+                    tableGuru.column(2).search(searchText).draw();
+                    tableGuru.column(13).search(jabEksternalValue).draw();
+                    tableGuru.column(14).search(jabJenisValue).draw();
+                    tableGuru.column(15).search(jabKategoriValue).draw();
+                    tableGuru.column(16).search(jabTugasValue).draw();
+
+                    // Check search result count
                     const info = tableGuru.page.info();
-                    console.log(tableGuru.search(searchText).draw()); // Debug log untuk hasil
-
                     if (info.recordsDisplay === 0) {
                         noDataMessage.style.display = 'block';
                     } else {
                         noDataMessage.style.display = 'none';
                     }
-                });
+                }
+
+                // Event listener for name input keyup
+                namaInput.addEventListener('keyup', applySearch);
+
+                // Event listeners for select change
+                jabEksternal.addEventListener('change', applySearch);
+                jabJenis.addEventListener('change', applySearch);
+                jabKategori.addEventListener('change', applySearch);
+                jabTugas.addEventListener('change', applySearch);
+
+                resetBtn.addEventListener('click', function () {
+                    location.reload();
+                })
             });
         </script>
 
@@ -247,6 +285,8 @@
                 function fillterJabatan() {
                     var jabEksternal = $('#jabEksternal').val();
                     var jabJenis = $('#jabJenis');
+                    var jabTugas = $('#jabTugas');
+                    var jabKategori = $('#jabKategori');
                     var option = '';
                     const dataJab = {!! json_encode($status) !!};
 
@@ -258,6 +298,23 @@
                         disabled: true,
                         selected: true
                     }));
+
+                    jabTugas.empty();
+                    jabTugas.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Tugas --',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    jabKategori.empty();
+                    jabKategori.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Kategori --',
+                        disabled: true,
+                        selected: true
+                    }));
+
 
                     if (jabEksternal == 'Tenaga Pendidik') {
 
@@ -282,7 +339,7 @@
                         let dataJabValue = dataJab['s_jabStakeholder'].map(item => {
                             option = $("<option>")
                                 .text(item.name)
-                                .attr('value', item.id)
+                                .attr('value', item.name)
                                 .removeAttr('disabled');
                             jabJenis.append(option);
                         });
