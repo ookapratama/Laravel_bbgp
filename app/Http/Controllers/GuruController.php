@@ -114,9 +114,9 @@ class GuruController extends Controller
         $r['status'] = 'Belum Kawin';
         $r['alamat_satuan'] = '';
         $r['eksternal_jabatan'] = $r['jenisJabatan'];
-        $r['jenis_jabatan'] = $r['jabJenis'];
-        $r['kategori_jabatan'] = $r['jabKategori'];
-        $r['tugas_jabatan'] = $r['jabTugas'];
+        $r['jenis_jabatan'] = $r['jabJenis'] ;
+        $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
+        $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
         $r['is_verif'] = 'belum';
         // dd($r);
 
@@ -202,10 +202,10 @@ class GuruController extends Controller
         $r['alamat_satuan'] = '';
         $r['eksternal_jabatan'] = $r['jenisJabatan'];
         $r['jenis_jabatan'] = $r['jabJenis'];
-        $r['kategori_jabatan'] = $r['jabKategori'];
-        $r['tugas_jabatan'] = $r['jabTugas'];
+        $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
+        $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
         $r['is_verif'] = 'belum';
-        $r['is_verif'] = 'belum';
+        // $r['is_verif'] = 'belum';
         $data->update($r);
         return redirect()->route('guru.index')->with('message', 'update');
     }
@@ -230,7 +230,7 @@ class GuruController extends Controller
 
         // Set properties PDF
         // $pdf->setPaper('a4', 'landscape'); // Set kertas ke mode landscape
-        $pdf->setPaper([0, 0, 1300, 800]); // Lebar 800px, Tinggi 1000px
+        $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
         
 
         // Download PDF dengan nama file 'data_guru.pdf'

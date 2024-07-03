@@ -222,7 +222,7 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6 mb-4">
+                                        {{-- <div class="col-md-6 mb-4">
                                             <label>Jabatan Sekolah</label>
                                             <select required name="jabatan" class="form-control select2">
                                                 <option value="">-- Pilih Jabatan Sekolah --</option>
@@ -232,8 +232,23 @@
                                                 @endforeach
 
                                             </select>
+                                        </div> --}}
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Bank</label>
+                                                <select name="jenis_bank" class="form-control" id="">
+                                                    <option value="Bank BCA">-- Pilih Bank --</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank BCA' ? 'selected' : '' }} value="Bank BCA">Bank BCA</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank BRI' ? 'selected' : '' }} value="Bank BRI">Bank BRI</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank BNI' ? 'selected' : '' }} value="Bank BNI">Bank BNI</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank BTN' ? 'selected' : '' }} value="Bank BTN">Bank BTN</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank Mandiri' ? 'selected' : '' }} value="Bank Mandiri">Bank Mandiri</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank Syariah Indonesia' ? 'selected' : '' }} value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
+
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Nomor Rekening</label>
                                                 <input required type="number" name="no_rek" class="form-control"
@@ -248,8 +263,62 @@
                                         </div> --}}
 
 
+                                        <div class="col-md-4 mb-4">
+                                            <label>Jenis Jabatan Eksternal</label>
+                                            <select required name="jenisJabatan" class="form-control select2"
+                                                id="jabEksternal"
+                                                data-selected-value="{{ old('jabEksternal', $datas->eksternal_jabatan) }}">
+                                                <option value="">-- Pilih Jabatan Eksternal --</option>
+                                                <option
+                                                    {{ $datas->eksternal_jabatan == 'Tenaga Pendidik' ? 'selected' : '' }}
+                                                    value="Tenaga Pendidik">Tenaga Pendidik</option>
+                                                <option
+                                                    {{ $datas->eksternal_jabatan == 'Tenaga Kependidikan' ? 'selected' : '' }}
+                                                    value="Tenaga Kependidikan">Tenaga Kependidikan</option>
+                                                <option {{ $datas->eksternal_jabatan == 'Stakeholder' ? 'selected' : '' }}
+                                                    value="Stakeholder">Stakeholder</option>
+                                            </select>
+                                        </div>
                                     </div>
 
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Jabatan (Pilih Eksternal dulu)</label>
+                                                <select name="jabJenis" class="form-control select2" id="jabJenis"
+                                                    data-selected-value="{{ old('jabJenis', $datas->jenis_jabatan) }}">
+                                                    <option value="">-- Pilih Jenis Jabatan --</option>
+                                                    {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 mb-4">
+                                            <label>Kategori Jabatan (Pilih Eksternal dulu) </label>
+                                            <select name="jabJenis" class="form-control " id="jabJenis">
+                                                <option value="">-- Pilih Jenis Jabatan --</option>
+                                                {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Jenis Tugas</label>
+                                                <select name="jabTugas" class="form-control select2" id="jabTugas"
+                                                    data-selected-value="{{ old('jabTugas', $datas->tugas_jabatan) }}">
+                                                    <option value="">-- Pilih Tugas Jabatan --</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-4 mb-4">
@@ -283,62 +352,6 @@
                                                 <input id="kecamatan_sekolah" type="text" name="alamat_satuan"
                                                     class="form-control"
                                                     placeholder="Otomatis terisi berdasarkan NPSN Sekolah" readonly>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-3 mb-4">
-                                            <label>Jenis Jabatan Eksternal</label>
-                                            <select required name="jenisJabatan" class="form-control select2"
-                                                id="jabEksternal"
-                                                data-selected-value="{{ old('jabEksternal', $datas->eksternal_jabatan) }}">
-                                                <option value="">-- Pilih Jabatan Eksternal --</option>
-                                                <option
-                                                    {{ $datas->eksternal_jabatan == 'Tenaga Pendidik' ? 'selected' : '' }}
-                                                    value="Tenaga Pendidik">Tenaga Pendidik</option>
-                                                <option
-                                                    {{ $datas->eksternal_jabatan == 'Tenaga Kependidikan' ? 'selected' : '' }}
-                                                    value="Tenaga Kependidikan">Tenaga Kependidikan</option>
-                                                <option {{ $datas->eksternal_jabatan == 'Stakeholder' ? 'selected' : '' }}
-                                                    value="Stakeholder">Stakeholder</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Jabatan (Pilih Eksternal dulu)</label>
-                                                <select name="jabJenis" class="form-control select2" id="jabJenis"
-                                                    data-selected-value="{{ old('jabJenis', $datas->jenis_jabatan) }}">
-                                                    <option value="">-- Pilih Jenis Jabatan --</option>
-                                                    {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
-
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3 mb-4">
-                                            <label>Kategori Jabatan (Pilih Eksternal dulu) </label>
-                                            <select name="jabKategori" class="form-control select2" id="jabKategori"
-                                                data-selected-value="{{ old('jabKategori', $datas->kategori_jabatan) }}">
-                                                <select name="jabKategori" class="form-control select2" id="jabKategori">
-                                                    <option value="">-- Pilih Kategori --</option>
-                                                    {{-- <option value="GP (Guru Penggerak)">GP (Guru Penggerak)</option>
-                                                <option value="NoN GP (Guru Penggerak)">NoN GP (Guru Penggerak)</option> --}}
-
-                                                </select>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Jenis Tugas</label>
-                                                <select name="jabTugas" class="form-control select2" id="jabTugas"
-                                                    data-selected-value="{{ old('jabTugas', $datas->tugas_jabatan) }}">
-                                                    <option value="">-- Pilih Tugas Jabatan --</option>
-
-                                                </select>
                                             </div>
                                         </div>
 
@@ -723,7 +736,7 @@
                             jabKategori.append(option);
                         });
 
-                        
+
                     } else if (jabJenis == 'Kepala Sekolah') {
                         dataJab['s_jabKategoriKepsek'].forEach(item => {
                             option = $("<option>")
@@ -732,7 +745,7 @@
                             jabKategori.append(option);
                         });
 
-                        
+
                     }
 
                     // Trigger change to select the already selected option if any

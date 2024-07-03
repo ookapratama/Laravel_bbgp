@@ -192,7 +192,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-md-6 mb-4">
+                                        {{-- <div class="col-md-6 mb-4">
                                             <label>Jabatan Sekolah</label>
                                             <select required name="jabatan" class="form-control select2">
                                                 <option value="">-- Pilih Jabatan Sekolah --</option>
@@ -201,41 +201,52 @@
                                                 @endforeach
 
                                             </select>
+                                        </div> --}}
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Bank</label>
+                                                <select name="jenis_bank" class="form-control" id="">
+                                                    <option value="Bank BCA">-- Pilih Bank --</option>
+                                                    <option value="Bank BCA">Bank BCA</option>
+                                                    <option value="Bank BRI">Bank BRI</option>
+                                                    <option value="Bank BNI">Bank BNI</option>
+                                                    <option value="Bank BTN">Bank BTN</option>
+                                                    <option value="Bank Mandiri">Bank Mandiri</option>
+                                                    <option value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
+
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Nomor Rekening</label>
                                                 <input required type="number" name="no_rek" class="form-control">
+                                                
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label>Pas Foto</label>
-                                                <input required type="file" name="pas_foto" class="form-control">
-                                            </div>
-                                        </div> --}}
-
+                                        
+                                        <div class="col-md-4 mb-4">
+                                            <label>Jenis Jabatan Eksternal</label>
+                                            {{-- <input type="text" readonly name="jenisJabatan" class="form-control"
+                                                value="{{ $jenis }}"> --}}
+                                            <select required name="jenisJabatan" class="form-control " readonly id="jabEksternal">
+                                                <option value="">-- Pilih Jabatan Eksternal --</option>
+                                                <option {{ $jenis == 'Tenaga Pendidik' ? 'selected' : 'disabled' }}
+                                                    value="Tenaga Pendidik">Tenaga Pendidik</option>
+                                                <option {{ $jenis == 'Tenaga Kependidikan' ? 'selected' : 'disabled' }}
+                                                    value="Tenaga Kependidikan">Tenaga Kependidikan</option>
+                                                <option {{ $jenis == 'Stakeholder' ? 'selected' : 'disabled' }}
+                                                    value="Stakeholder">Stakeholder</option>
+                                            </select>
+                                        </div>
 
                                     </div>
 
 
                                     <div class="row">
-                                        <div class="col-md-3 mb-4">
-                                            <label>Jenis Jabatan Eksternal</label>
-                                            {{-- <input type="text" readonly name="jenisJabatan" class="form-control"
-                                                value="{{ $jenis }}"> --}}
-                                            <select required name="jenisJabatan" class="form-control " id="jabEksternal">
-                                                <option value="">-- Pilih Jabatan Eksternal --</option>
-                                                <option {{ $jenis == 'Tenaga Pendidik' ? '' : 'disabled' }}
-                                                    value="Tenaga Pendidik">Tenaga Pendidik</option>
-                                                <option {{ $jenis == 'Tenaga Kependidikan' ? '' : 'disabled' }}
-                                                    value="Tenaga Kependidikan">Tenaga Kependidikan</option>
-                                                <option {{ $jenis == 'Stakeholder' ? '' : 'disabled' }}
-                                                    value="Stakeholder">Stakeholder</option>
-                                            </select>
-                                        </div>
 
-                                        <div class="col-md-3">
+
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Jabatan (Pilih Eksternal dulu)</label>
                                                 <select name="jabJenis" class="form-control " id="jabJenis">
@@ -245,7 +256,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3 mb-4">
+                                        <div class="col-md-4 mb-4">
                                             <label>Kategori Jabatan (Pilih Eksternal dulu) </label>
                                             <select name="jabKategori" class="form-control " id="jabKategori">
                                                 <option value="">-- Pilih Kategori --</option>
@@ -255,9 +266,9 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Jenis Tugas</label>
+                                                <label> {{ $jenis == 'Tenaga Kependidikan' ? 'Latar Belakang' : 'Jenis Tugas'}}</label>
                                                 <select name="jabTugas" class="form-control " id="jabTugas">
                                                     <option value="">-- Pilih Tugas Jabatan --</option>
 
@@ -348,11 +359,13 @@
         </script>
 
         <script>
+            $(window).on("load", function() {
+            });
             $(document).ready(function() {
-
+                
                 const jenisEksternal = {!! json_encode($jenis) !!};
                 console.log(jenisEksternal);
-
+                
                 // jabatan ketenagaan
                 function fillterJabatan() {
                     var jabEksternal = $('#jabEksternal').val();
@@ -559,6 +572,10 @@
                     console.log('Selected Value (jabKategori):', selectedOption.val());
                     console.log('Selected Text (jabKategori):', selectedOption.text());
                 });
+
+                // alert("Window Loaded");
+                fillterJabatan();
+            
             });
         </script>
     @endpush

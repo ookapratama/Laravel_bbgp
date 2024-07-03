@@ -212,12 +212,13 @@
                                                 <input required type="number" name="no_rek" class="form-control">
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-5">
+                                        
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Pas Foto</label>
-                                                <input required type="file" name="pas_foto" class="form-control">
+                                                <input required type="text" name="pas_foto" class="form-control">
                                             </div>
-                                        </div> --}}
+                                        </div>
 
 
                                     </div>

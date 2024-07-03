@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guru;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\User;
@@ -13,7 +14,53 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.dashboard.index', ['menu' => 'dashboard']);
+        $datas = array (
+            'guruGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')->where('jenis_jabatan', 'Guru')->get()->count(),
+            'konselorGP'=> Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')->where('jenis_jabatan', 'Konselor')->get()->count(),
+            'pengawasGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')->where('jenis_jabatan', 'Pengawas')->get()->count(),
+           
+            'kepsekGP' => Guru::where('tugas_jabatan', 'GP (Guru Penggerak)')
+            ->where('jenis_jabatan', 'Kepala Sekolah')->get()->count(),
+
+            'kepsekSertifGP' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')->
+            where('jenis_jabatan', 'Kepala Sekolah')->
+            where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+
+            'kepsekCakep' => Guru::where('kategori_jabatan', 'Diklat Cakep')
+            ->where('jenis_jabatan', 'Kepala Sekolah')
+            ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+
+            'kepsekLainGP' => Guru::where('kategori_jabatan', 'Diklat Cakep')->where('jenis_jabatan', 'Kepala Sekolah')
+            ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+            
+
+            'pengawasCawas' => Guru::where('kategori_jabatan', 'Diklat Cawas')
+            ->where('jenis_jabatan', 'Pengawas')
+            ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+
+            'pengawasSertifGP' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            ->where('jenis_jabatan', 'Pengawas')
+            ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+
+            'pengawasLainGP' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            ->where('jenis_jabatan', 'Pengawas')
+            ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+
+            'guruPP' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            ->where('jenis_jabatan', 'Guru')
+            ->where('tugas_jabatan', 'PP (Pengajar Praktik)')->get()->count(),
+            
+            'guruFasil' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            ->where('jenis_jabatan', 'Guru')
+            ->where('tugas_jabatan', 'Fasil (Fasilitator)')->get()->count(),
+
+            'guruInstruktur' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            ->where('jenis_jabatan', 'Guru')
+            ->where('tugas_jabatan', 'Instruktur')->get()->count(),
+
+        );
+        // dd($datas);
+        return view('pages.admin.dashboard.index', ['menu' => 'dashboard', 'datas' => $datas]);
     }
 
     /**

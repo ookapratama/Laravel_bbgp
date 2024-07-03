@@ -22,18 +22,6 @@ class AdminSeeder extends Seeder
                 'role' => 'admin',
             ],
             [
-                'name' => 'Guru ',
-                'username' => 'guru',
-                'password' => bcrypt('guru'),
-                'role' => 'guru',
-            ],
-            [
-                'name' => 'Pegawai',
-                'username' => 'pegawai',
-                'password' => bcrypt('pegawai'),
-                'role' => 'pegawai',
-            ],
-            [
                 'name' => 'Kepala',
                 'username' => 'kepala',
                 'password' => bcrypt('kepala'),
@@ -44,6 +32,30 @@ class AdminSeeder extends Seeder
                 'username' => 'superadmin',
                 'password' => bcrypt('superadmin'),
                 'role' => 'superadmin',
+            ],
+            [
+                'name' => 'Tenaga Pendidik ',
+                'username' => 'tenaga pendidik',
+                'password' => bcrypt('tenaga_pendidik'),
+                'role' => 'tenaga pendidik',
+            ],
+            [
+                'name' => 'Tenaga Kependidikan ',
+                'username' => 'tenaga kependidikan',
+                'password' => bcrypt('tenaga_kependidikan'),
+                'role' => 'tenaga kependidikan',
+            ],
+            [
+                'name' => 'Stakeholder ',
+                'username' => 'stakeholder',
+                'password' => bcrypt('stakeholder'),
+                'role' => 'stakeholder',
+            ],
+            [
+                'name' => 'Pegawai Internal BBGP',
+                'username' => 'pegawai',
+                'password' => bcrypt('pegawai'),
+                'role' => 'pegawai',
             ],
 
         ];

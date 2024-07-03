@@ -75,6 +75,15 @@ Route::group(
                 Route::get('/edit/{id}', 'PegawaiController@edit')->name('pegawai.edit');
                 Route::put('/update', 'PegawaiController@update')->name('pegawai.update');
                 Route::post('/hapus/{id}', 'PegawaiController@destroy')->name('pegawai.hapus');
+                
+
+                Route::get('/editUser/{id}', 'PegawaiController@editUser')->name('pegawai.edit.user');
+                Route::put('/updateUser', 'PegawaiController@updateUser')->name('pegawai.update.user');
+                Route::get('/{id}', 'PegawaiController@show')->name('pegawai.show');
+                Route::get('/penugasan/{id}', 'PegawaiController@editPenugasan')->name('pegawai.editPenugasan');
+                Route::get('/pendamping/{id}', 'PegawaiController@editPendamping')->name('pegawai.editPendamping');
+
+
             });
 
             // Kepegawaian
@@ -95,6 +104,56 @@ Route::group(
                 Route::get('/edit/{id}', 'KependidikanController@edit')->name('kependidikan.edit');
                 Route::put('/update', 'KependidikanController@update')->name('kependidikan.update');
                 Route::post('/hapus/{id}', 'KependidikanController@destroy')->name('kependidikan.hapus');
+            });
+
+            // Internal
+            Route::prefix('internal')->group(function () {
+                Route::get('/', 'InternalController@index')->name('internal.index');
+                
+                // untuk tampil berdasar dari id pegawai
+                Route::get('/{id_pegawai}', 'InternalController@show')->name('internal.show');
+
+                Route::get('/tabel/{jenis}', 'InternalController@get_tabel')->name('internal.tabel');
+                // Route::get('/tabel/ppnpn', 'InternalController@get_tabel')->name('internal.tabel.ppnpn');
+                // Route::get('/tabel/lokakarya', 'InternalController@get_tabel')->name('internal.tabel.lokakarya');
+                Route::post('/verifikasi/{id}', 'InternalController@verifikasi')->name('internal.verifikasi');
+
+                Route::get('/create/{jenis}', 'InternalController@create')->name('internal.create');
+                Route::post('/store', 'InternalController@store')->name('internal.store');
+                Route::get('/edit/{id}', 'InternalController@edit')->name('internal.edit');
+                Route::put('/update', 'InternalController@update')->name('internal.update');
+                Route::post('/hapus/{id}', 'InternalController@destroy')->name('internal.hapus');
+
+                Route::put('/updatePegawai', 'InternalController@updatePegawai')->name('internal.update.pegawai');
+            });
+            
+            // Pendamping
+            Route::prefix('pendamping')->group(function () {
+                Route::get('/', 'PendampingController@index')->name('pendamping.index');
+                
+                // untuk tampil berdasar dari id pegawai
+                Route::get('/{id_pegawai}', 'PendampingController@show')->name('internal.show');
+                
+                Route::get('/tabel', 'PendampingController@tabel')->name('pendamping.tabel');
+                Route::get('/create', 'PendampingController@create')->name('pendamping.create');
+                Route::post('/store', 'PendampingController@store')->name('pendamping.store');
+                Route::get('/edit/{id}', 'PendampingController@edit')->name('pendamping.edit');
+                Route::put('/update', 'PendampingController@update')->name('pendamping.update');
+                Route::post('/hapus/{id}', 'PendampingController@destroy')->name('pendamping.hapus');
+                
+                
+                Route::put('/updatePendamping', 'PendampingController@updatePendamping')->name('pendamping.update.user');
+            });
+
+            
+            // Akun
+            Route::prefix('akun')->group(function () {
+                Route::get('/', 'AkunController@index')->name('akun.index');
+                Route::get('/create', 'AkunController@create')->name('akun.create');
+                Route::post('/store', 'AkunController@store')->name('akun.store');
+                Route::get('/edit/{id}', 'AkunController@edit')->name('akun.edit');
+                Route::put('/update', 'AkunController@update')->name('akun.update');
+                Route::post('/hapus/{id}', 'AkunController@destroy')->name('akun.hapus');
             });
         });
     }

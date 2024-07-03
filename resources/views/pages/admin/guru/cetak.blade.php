@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Data Tenaga Pendidik</title>
+    <title>Data Eksternal BBGP</title>
     <style>
         /* Gaya CSS */
         body {
@@ -99,53 +99,75 @@
     </style>
 </head>
 <body>
-    <h2>Data Tenaga Pendidik</h2>
+    <h2>Data Eksternal BBGP Sul-Sel</h2>
     <table>
         <thead>
             <tr>
                 <th class="text-center">#</th>
-                <th>Pas Foto</th>
+                {{-- <th>Pas Foto</th> --}}
                 <th>NPSN Sekolah</th>
                 <th>Nama Lengkap</th>
+                <th>NPWP</th>
+                <th>NUPTK</th>
                 <th>Email</th>
                 <th>Nomor KTP</th>
                 <th>Tempat, Tanggal Lahir</th>
                 <th>Alamat Rumah</th>
                 <th>Jenis Kelamin</th>
-                <th>Jabatan</th>
                 <th>Status Kepegawaian</th>
                 <th>Agama</th>
                 <th>Pendidikan Terakhir</th>
-                <th>Kabupaten/Kota</th>
+                <th>Ketenagaan</th>
+                <th>Jabatan </th>
+                <th>Kategori Jabatan </th>
+                <th>Tugas Jabatan </th>
+                <th>Asal Kabupaten/Kota</th>
                 <th>Satuan Pendidikan</th>
-                <th>Kecamatan</th>
+                <th>Jabatan Sekolah</th>
+                <th>Kecamatan Sekolah</th>
+                <th>Kabupaten Sekolah</th>
                 <th>Nomor Aktif</th>
                 <th>No Rekening</th>
+
+
             </tr>
         </thead>
         <tbody>
             @foreach ($datas as $i => $data)
-            <tr>
-                <td>{{ $i + 1 }}</td>
-                <td><img src="{{ public_path('/upload/guru/' . $data->pas_foto) }}" alt="" class="img-fluid"></td>
-                <td>{{ $data->npsn_sekolah }} - {{ $data->sekolah->nama_sekolah ?? '' }}</td>
-                <td>{{ $data->nama_lengkap }}</td>
-                <td>{{ $data->email }}</td>
-                <td>{{ $data->no_ktp }}</td>
-                <td>{{ $data->tempat_lahir }}, {{ $data->tgl_lahir }}</td>
-                <td>{{ $data->alamat_rumah }}</td>
-                <td>{{ $data->gender }}</td>
-                <td>{{ $data->jabatan }}</td>
-                <td>{{ $data->status_kepegawaian }}</td>
-                <td>{{ $data->agama }}</td>
-                <td>{{ $data->pendidikan }}</td>
-                <td>{{ $data->kabupaten }}</td>
-                <td>{{ $data->satuan_pendidikan }}</td>
-                <td>{{ $data->alamat_satuan }}</td>
-                <td>No. Hp : {{ $data->no_hp }} <br> No. Whatsapp : {{ $data->no_wa }}</td>
-                <td>{{ $data->no_rek }}</td>
-               
-            </tr>
+                <tr>
+                    <td>{{ ++$i }}</td>
+                    {{-- <td><img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
+                                alt="" class="img-fluid"></td> --}}
+                    <td>{{ $data->npsn_sekolah }} -
+                        {{ $data->sekolah->nama_sekolah ?? '' }}</td>
+                    <td>{{ $data->nama_lengkap }}</td>
+                    <td>{{ $data->npwp }}</td>
+                    <td>{{ $data->nuptk }}</td>
+                    <td>{{ $data->email }}</td>
+                    <td>{{ $data->no_ktp }}</td>
+                    <td>{{ $data->tempat_lahir . ', ' . $data->tgl_lahir }}</td>
+                    <td>{{ $data->alamat_rumah }}</td>
+                    <td>{{ $data->gender }}</td>
+                    <td>{{ $data->status_kepegawaian }}</td>
+                    <td>{{ $data->agama }}</td>
+                    <td>{{ $data->pendidikan }}</td>
+                    <td>{{ $data->eksternal_jabatan }}</td>
+                    <td>{{ $data->jenis_jabatan }}</td>
+                    <td>{{ $data->kategori_jabatan }}</td>
+                    <td>{{ $data->tugas_jabatan ?? '-' }}</td>
+                    <td>{{ $data->kabupaten }}</td>
+                    <td>{{ $data->satuan_pendidikan }}</td>
+                    <td>{{ $data->jabatan }}</td>
+                    <td>{{ $data->sekolah->kecamatan ?? '' }}</td>
+                    <td>{{ $data->sekolah->kabupaten ?? '' }}</td>
+                    <td>No. Hp : {{ $data->no_hp }} <br>
+                        No. Whatsapp : {{ $data->no_wa }}</td>
+                    <td>{{ $data->no_rek }}</td>
+
+                  
+
+
+                </tr>
             @endforeach
         </tbody>
     </table>

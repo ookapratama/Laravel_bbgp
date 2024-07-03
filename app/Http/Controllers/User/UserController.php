@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Guru;
+use App\Models\Internal;
 use App\Models\Jabatan;
 use App\Models\JabatanKependidikan;
 use App\Models\JabatanPendidik;
@@ -12,6 +13,7 @@ use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use App\Models\Kepegawaian;
 use App\Models\Pegawai;
+use App\Models\Pendamping;
 use App\Models\Pendidikan;
 use App\Models\SatuanPendidikan;
 use App\Models\Sekolah;
@@ -75,8 +77,17 @@ class UserController extends Controller
 
     public function pegawai()
     {
-        $data = Pegawai::where('is_verif', 'sudah')->orderBy('id', 'DESC')->get();
-        return view('pages.user.pegawai', ['menu' => 'pegawai', 'datas' => $data]);
+        // $data = Pegawai::where('is_verif', 'sudah')->orderBy('id', 'DESC')->get();
+        $kota = Kabupaten::get();
+        // $data = Internal::get();
+        $data = array(
+
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('is_verif', 'sudah')->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('is_verif', 'sudah')->get(),
+        );
+        $dataPendamping = Pendamping::where('is_verif', 'sudah')->get();
+        // $merge = $data->merge($dataPendamping);
+        return view('pages.user.pegawai', ['menu' => 'pegawai', 'datas' => $data, 'dataPendamping' => $dataPendamping]);
     }
     public function form_pegawai()
     {
@@ -160,16 +171,23 @@ class UserController extends Controller
 
         // $r['pas_foto'] = $nameFoto;
         // dd($r);
+        $r['jabatan'] = '';
         $r['pas_foto'] = '';
         $r['status'] = 'Belum Kawin';
         $r['alamat_satuan'] = '';
-        $r['eksternal_jabatan'] = $r['jenisJabatan'];
-        $r['jenis_jabatan'] = $r['jabJenis'];
-        $r['kategori_jabatan'] = $r['jabKategori'];
-        $r['tugas_jabatan'] = $r['jabTugas'];
+        $r['eksternal_jabatan'] = $r['jenisJabatan'] ?? '';
+        $r['jenis_jabatan'] = $r['jabJenis'] ?? '';
+        $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
+        $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
         $r['is_verif'] = 'belum';
 
+
+
         Guru::create($r);
+
+        // akun login
+        
+
 
         return redirect()->route('user.guru')->with('message', 'user daftar');
     }

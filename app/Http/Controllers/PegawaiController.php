@@ -2,7 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Internal;
+use App\Models\JabatanPenugasanGolongan;
+use App\Models\JabatanPenugasanPegawai;
+use App\Models\JabatanPenugasanPpnpn;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
+use App\Models\Kepegawaian;
 use App\Models\Pegawai;
+use App\Models\Pendamping;
+use App\Models\Pendidikan;
+use App\Models\SatuanPendidikan;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -12,6 +22,7 @@ class PegawaiController extends Controller
      */
     public function index()
     {
+
         $data = Pegawai::orderBy('id','DESC')->get();
         return view('pages.admin.pegawai.index', ['menu' => 'pegawai', 'datas' => $data]);
     }
@@ -21,7 +32,24 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.pegawai.create', ['menu' => 'pegawai']);
+        $datas = array(
+            's_kepegawaian' => Kepegawaian::get(),
+            's_kependidikan' => SatuanPendidikan::get(),
+            's_gelar' => Pendidikan::get(),
+            's_jabatan' => JabatanPenugasanGolongan::get(),
+            's_kabupaten' => Kabupaten::get(),
+            's_kecamatan' => Kecamatan::get(),
+            'golongan' => JabatanPenugasanGolongan::get(),
+            // 's_sekolah' => Sekolah::select('npsn_sekolah', 'nama_sekolah', 'kecamatan', 'kabupaten')->get(),
+            // 's_sekolah' => $sekolahs,
+            // 's_jabPendidik' => JabatanPendidik::get(),
+            // 's_jabKependidikan' => JabatanKependidikan::get(),
+            // 's_jabStakeholder' => JabatanStakeHolder::get(),
+            // 's_jabKategori' => ['GP (Guru Penggerak)', 'NoN GP (Guru Penggerak)'],
+            // 's_jabTugas' => ['GP (Guru Penggerak)', 'PP (Pengajar Praktik)', 'Fasil (Fasilitator)', 'Instruktur'],
+
+        );
+        return view('pages.admin.pegawai.create', ['menu' => 'pegawai', 'datas' => $datas]);
     }
 
     /**
@@ -30,24 +58,28 @@ class PegawaiController extends Controller
     public function store(Request $request)
     {
         $r = $request->all();
-        $foto = $request->file('pas_foto');
-        $ext = $foto->getClientOriginalExtension();
-        // $r['pas_foto'] = $request->file('pas_foto');
+        // $foto = $request->file('pas_foto');
+        // $ext = $foto->getClientOriginalExtension();
+        // // $r['pas_foto'] = $request->file('pas_foto');
 
-        $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-        $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-        $destinationPath = public_path('upload/pegawai');
+        // $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        // $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        // $destinationPath = public_path('upload/pegawai');
 
-        $foto->move($destinationPath, $nameFoto);
-        $fileUrl = asset('upload/pegawai/' . $nameFoto);
+        // $foto->move($destinationPath, $nameFoto);
+        // $fileUrl = asset('upload/pegawai/' . $nameFoto);
 
-        $r['pas_foto'] = $nameFoto;
-        // dd($r);
+        $r['pas_foto'] = '';
+        $username = strtolower(str_replace(' ', '_', $r['nama_lengkap']));
+        $r['username'] = $username;
+        
+        // dd($r['username']);
         $r['is_verif'] = 'belum';
 
         Pegawai::create($r);
 
-        return redirect()->route('pegawai.index')->with('message', 'store');
+        return redirect()->route('internal.index')->with('message', 'store');
+        // return redirect()->route('pegawai.index')->with('message', 'store');
     }
 
     /**
@@ -67,7 +99,24 @@ class PegawaiController extends Controller
     public function edit(string $id)
     {
         $data = Pegawai::find($id);
-        return view('pages.admin.pegawai.edit', ['menu' => 'pegawai', 'datas' => $data]);
+        $datas = array(
+            's_kepegawaian' => Kepegawaian::get(),
+            's_kependidikan' => SatuanPendidikan::get(),
+            's_gelar' => Pendidikan::get(),
+            's_jabatan' => JabatanPenugasanGolongan::get(),
+            's_kabupaten' => Kabupaten::get(),
+            's_kecamatan' => Kecamatan::get(),
+            'golongan' => JabatanPenugasanGolongan::get(),
+            // 's_sekolah' => Sekolah::select('npsn_sekolah', 'nama_sekolah', 'kecamatan', 'kabupaten')->get(),
+            // 's_sekolah' => $sekolahs,
+            // 's_jabPendidik' => JabatanPendidik::get(),
+            // 's_jabKependidikan' => JabatanKependidikan::get(),
+            // 's_jabStakeholder' => JabatanStakeHolder::get(),
+            // 's_jabKategori' => ['GP (Guru Penggerak)', 'NoN GP (Guru Penggerak)'],
+            // 's_jabTugas' => ['GP (Guru Penggerak)', 'PP (Pengajar Praktik)', 'Fasil (Fasilitator)', 'Instruktur'],
+
+        );
+        return view('pages.admin.pegawai.edit', ['menu' => 'pegawai', 'pegawai' => $data, 'datas' => $datas]);
     }
 
     /**
@@ -77,22 +126,24 @@ class PegawaiController extends Controller
     {
         $r = $request->all();
         $data = Pegawai::find($r['id']);
-        $foto = $request->file('pas_foto');
+        // $foto = $request->file('pas_foto');
 
-        if ($request->hasFile('pas_foto')) {
-            $ext = $foto->getClientOriginalExtension();
-            $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
-            $destinationPath = public_path('upload/pegawai');
+        // if ($request->hasFile('pas_foto')) {
+        //     $ext = $foto->getClientOriginalExtension();
+        //     $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        //     $destinationPath = public_path('upload/pegawai');
 
-            $foto->move($destinationPath, $nameFoto);
-            $fileUrl = asset('upload/pegawai/' . $nameFoto);
-            $r['pas_foto'] = $nameFoto;
-        } else {
-            $r['pas_foto'] = $request->pas_fotoLama;
-        }
+        //     $foto->move($destinationPath, $nameFoto);
+        //     $fileUrl = asset('upload/pegawai/' . $nameFoto);
+        //     $r['pas_foto'] = $nameFoto;
+        // } else {
+        // }
+        $r['pas_foto'] = '';
         $r['is_verif'] = 'belum';
+        dd($r);
         $data->update($r);
-        return redirect()->route('pegawai.index')->with('message', 'update');
+        return redirect()->route('internal.index')->with('message', 'update');
+        // return redirect()->route('pegawai.index')->with('message', 'update');
     }
 
     /**
@@ -104,4 +155,126 @@ class PegawaiController extends Controller
         $data->delete();
         return response()->json($data);
     }
+
+    public function show(string $id)
+    {
+        
+        $kota = Kabupaten::get();
+        $findPegawai = Pegawai::find($id);
+        $data = array(
+            
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nip', $findPegawai['nip'])->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nip', $findPegawai['nip'])->get(),
+            'dataPendamping' => Pendamping::where('nip', $findPegawai['nip'])->get(),
+            // 'dataPegawai' => Pegawai::get(),
+        );
+        // dd($data);
+        // dd($data['dataPenugasanPegawai']);
+        return view('pages.admin.pegawai.show', ['menu' => 'pegawai', 'datas' => $data, 'pegawai' => $findPegawai]);
+    }
+
+    public function editPenugasan(string $id)
+    {
+        $title = '';
+        $datas = array(
+            'golongan' => JabatanPenugasanGolongan::get(),
+            'jabatanPegawai' => JabatanPenugasanPegawai::get(),
+            'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
+            'kota' => Kabupaten::get(),
+            'penugasan' => Internal::find($id),
+            'pendamping' => Pendamping::find($id),
+        );
+
+        $pegawai = Pegawai::where('nip' , $datas['penugasan']->nip)->first();
+        // dd($pegawai);
+
+
+        // if ($datas['penugasan']->jenis == 'Pendamping Lokakarya') {
+        //     $title = 'Pendamping Lokakarya';
+        //     return view('pages.admin.internal.editPendamping', ['menu' => 'internal', 'title' => $title, 'datas' => $datas, 'pegawai' => $pegawai]);
+        // }
+
+        if ($datas['penugasan']->jenis == 'Penugasan PPNPN') {
+            $title = 'Penugasan PPNPN';
+        } else {
+            $title = 'Penugasan Pegawai';
+        }
+
+        return view('pages.admin.pegawai.editPenugasan', ['menu' => 'pegawai', 'title' => $title, 'datas' => $datas, 'pegawai' => $pegawai]);
+    }
+
+    public function editPendamping(string $id)
+    {
+        $title = '';
+
+        $datas = array(
+            'golongan' => JabatanPenugasanGolongan::get(),
+            'jabatanPegawai' => JabatanPenugasanPegawai::get(),
+            'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
+            'kota' => Kabupaten::get(),
+            // 'penugasan' => Internal::find($id),
+            'pendamping' => Pendamping::find($id),
+        );
+        $pegawai = Pegawai::where('nip' , $datas['pendamping']->nip)->first();
+        // dd($datas['pendamping']->jenis);
+
+        // if ($datas['pendamping']->jenis == 'Pendamping Lokakarya') {
+        //     return view('pages.admin.internal.editPendamping', ['menu' => 'internal', 'title' => $title, 'datas' => $datas, 'pegawai' => $pegawai]);
+        // }
+        $title = 'Pendamping Lokakarya';
+
+        
+        return view('pages.admin.pegawai.editPendamping', ['menu' => 'pegawai' , 'title' => $title, 'datas' => $datas , 'pegawai' => $pegawai]);
+    }
+
+    public function editUser(string $id)
+    {
+        $data = Pegawai::find($id);
+        $datas = array(
+            's_kepegawaian' => Kepegawaian::get(),
+            's_kependidikan' => SatuanPendidikan::get(),
+            's_gelar' => Pendidikan::get(),
+            's_jabatan' => JabatanPenugasanGolongan::get(),
+            's_kabupaten' => Kabupaten::get(),
+            's_kecamatan' => Kecamatan::get(),
+            'golongan' => JabatanPenugasanGolongan::get(),
+            // 's_sekolah' => Sekolah::select('npsn_sekolah', 'nama_sekolah', 'kecamatan', 'kabupaten')->get(),
+            // 's_sekolah' => $sekolahs,
+            // 's_jabPendidik' => JabatanPendidik::get(),
+            // 's_jabKependidikan' => JabatanKependidikan::get(),
+            // 's_jabStakeholder' => JabatanStakeHolder::get(),
+            // 's_jabKategori' => ['GP (Guru Penggerak)', 'NoN GP (Guru Penggerak)'],
+            // 's_jabTugas' => ['GP (Guru Penggerak)', 'PP (Pengajar Praktik)', 'Fasil (Fasilitator)', 'Instruktur'],
+
+        );
+        return view('pages.admin.pegawai.editPegawai', ['menu' => 'pegawai', 'pegawai' => $data, 'datas' => $datas]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateuser(Request $request)
+    {
+        $r = $request->all();
+        $data = Pegawai::find($r['id']);
+        // $foto = $request->file('pas_foto');
+
+        // if ($request->hasFile('pas_foto')) {
+        //     $ext = $foto->getClientOriginalExtension();
+        //     $nameFoto = date('Y-m-d_H-i-s_') . $r['no_ktp'] . "." . $ext;
+        //     $destinationPath = public_path('upload/pegawai');
+
+        //     $foto->move($destinationPath, $nameFoto);
+        //     $fileUrl = asset('upload/pegawai/' . $nameFoto);
+        //     $r['pas_foto'] = $nameFoto;
+        // } else {
+        // }
+        $r['pas_foto'] = '';
+        $r['is_verif'] = 'belum';
+        // dd($r);
+        $data->update($r);
+        return redirect()->route('pegawai.show', $r['id'])->with('message', 'update');
+        // return redirect()->route('pegawai.index')->with('message', 'update');
+    }
+
 }

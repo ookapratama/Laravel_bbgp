@@ -102,12 +102,12 @@ $(document).ready(function() {
   var table = $('#table-pegawai').DataTable();
 
   // Pilih elemen input dan div pesan
-  const noKtpInput = document.querySelector('#no_ktp');
+  const namaInput = document.querySelector('#nama');
   const noDataMessage = document.querySelector('.data-not-found');
 
   // Tambahkan event listener untuk input keyup
-  noKtpInput.addEventListener('keyup', function() {
-    const searchText = noKtpInput.value;
+  namaInput.addEventListener('keyup', function() {
+    const searchText = namaInput.value;
     console.log('Search Text:', searchText);  // Debug log untuk pencarian
 
     // Update the search and redraw table

@@ -9,6 +9,7 @@ class Pegawai extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'username',
         'nama_lengkap',
         'email',
         'no_ktp',
@@ -29,6 +30,8 @@ class Pegawai extends Model
         'no_wa',
         'pas_foto',
         'no_rek',
+        'jenis_bank',
+        'golongan',
         'is_verif',
     ];
 }

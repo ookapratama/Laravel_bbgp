@@ -48,7 +48,13 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Status Kepegawaian</label>
-                                                <input name="status_kepegawaian" type="text" class="form-control">
+                                                <select required name="status_kepegawaian" class="form-control select2">
+                                                    <option value="">-- Pilih status kepegawaian --</option>
+                                                    @foreach ($datas['s_kepegawaian'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md">
@@ -103,19 +109,37 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Pendidikan Terakhir</label>
-                                                <input name="pendidikan" type="text" class="form-control">
+                                                <select required name="pendidikan" class="form-control ">
+                                                    <option value="">-- Pilih pendidikan terakhir --</option>
+                                                    @foreach ($datas['s_gelar'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Satuan Pendidikan</label>
-                                                <input name="satuan_pendidikan" type="text" class="form-control">
+                                                <select required name="satuan_pendidikan" class="form-control select2">
+                                                    <option value="">-- Pilih status Satuan Pendidikan --</option>
+                                                    @foreach ($datas['s_kependidikan'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Kabupaten / Kota</label>
-                                                <input name="kabupaten" type="text" class="form-control">
+                                                <select required name="kabupaten" class="form-control select2">
+                                                    <option value="">-- Pilih Kabupaten / Kota --</option>
+                                                    @foreach ($datas['s_kabupaten'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+
+                                                </select>
                                             </div>
                                         </div>
 
@@ -123,13 +147,13 @@
 
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        {{-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Alamat Satuan Pendidikan</label>
                                                 <input type="text" name="alamat_satuan" class="form-control">
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
+                                        </div> --}}
+                                        {{-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Status</label>
                                                 <select required name="status" class="form-control ">
@@ -138,43 +162,68 @@
                                                     <option value="Belum Kawin">Belum Kawin</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
 
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Handphone</label>
-                                                <input name="no_hp" type="text" class="form-control">
+                                                <input name="no_hp" type="number" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Whatsapp</label>
-                                                <input name="no_wa" type="text" class="form-control">
+                                                <input name="no_wa" type="number" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Golongan / Jabatan</label>
+                                                <select required name="golongan" class="form-control select2">
+                                                    <option value="">-- Pilih Golongan --</option>
+                                                    @foreach ($datas['golongan'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
 
                                     </div>
+
+
                                     <div class="row">
+                                        
+
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Golongan / Jabatan</label>
-                                                <input required type="text" name="jabatan" class="form-control">
+                                                <label>Bank</label>
+                                                <select name="jenis_bank" class="form-control" id="">
+                                                    <option value="Bank BCA">-- Pilih Bank --</option>
+                                                    <option value="Bank BCA">Bank BCA</option>
+                                                    <option value="Bank BRI">Bank BRI</option>
+                                                    <option value="Bank BNI">Bank BNI</option>
+                                                    <option value="Bank BTN">Bank BTN</option>
+                                                    <option value="Bank Mandiri">Bank Mandiri</option>
+                                                    <option value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
+                                                </select>
                                             </div>
                                         </div>
+
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Rekening</label>
                                                 <input type="number" name="no_rek" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-5">
+                                        {{-- <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Pas Foto</label>
                                                 <input required type="file" name="pas_foto" class="form-control">
                                             </div>
-                                        </div>
+                                        </div> --}}
 
 
                                     </div>

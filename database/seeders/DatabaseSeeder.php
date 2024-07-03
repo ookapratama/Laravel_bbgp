@@ -34,5 +34,6 @@ class DatabaseSeeder extends Seeder
         $this->call(JabatanStakeHolderSeeder::class);
         $this->call(JenisTugasSeeder::class);
         $this->call(LatarJabatanSeeder::class);
+        $this->call(JabatanPenugasanSeeder::class);
     }
 }

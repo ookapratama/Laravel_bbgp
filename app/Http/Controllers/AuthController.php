@@ -37,6 +37,12 @@ class AuthController extends Controller
             Session::put('role', $user->role);
             // Session::put('role', $user->role);
             Session::put('cek', true);
+
+            if($user->role == 'pegawai') {
+                return redirect()->route('pegawai.show', $user->id)->with('message', 'sukses login');
+
+            }
+
             return redirect()->route('dashboard')->with('message', 'sukses login');
         } else {
             return redirect()->back()->with('message', 'gagal login');

@@ -21,31 +21,31 @@
                 <div class="row">
 
                     <div class="col-md-12 col-lg-12">
-                        <form action="{{ route('pegawai.update') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('pegawai.update.user') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="id" value="{{ $pegawai->id }}">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nama Lengkap</label>
-                                                <input name="nama_lengkap" type="text" class="form-control">
+                                                <input value="{{ $pegawai->nama_lengkap }}" name="nama_lengkap" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input name="email" type="text" class="form-control">
+                                                <input value="{{ $pegawai->email }}" name="email" type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nomor KTP</label>
-                                                <input name="no_ktp" type="number" class="form-control">
+                                                <input value="{{ $pegawai->no_ktp }}" name="no_ktp" type="number" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input name="nip" type="number" class="form-control">
+                                                <input value="{{ $pegawai->nip }}" name="nip" type="number" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -58,7 +58,7 @@
                                                 <select required name="status_kepegawaian" class="form-control select2">
                                                     <option value="">-- Pilih status kepegawaian --</option>
                                                     @foreach ($datas['s_kepegawaian'] as $v)
-                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                        <option  {{ $pegawai->status_kepegawaian == $v->name ? 'selected' : ''}}  value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
 
                                                 </select>
@@ -67,13 +67,13 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Tempat Lahir</label>
-                                                <input name="tempat_lahir" type="text" class="form-control">
+                                                <input  value="{{ $pegawai->tempat_lahir }}"  name="tempat_lahir" type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Tanggal Lahir</label>
-                                                <input name="tgl_lahir" type="date" class="form-control">
+                                                <input  value="{{ $pegawai->tempat_lahir }}" name="tgl_lahir" type="date" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -85,15 +85,15 @@
                                                 <label>Jenis Kelamin</label>
                                                 <select required names="gender" class="form-control ">
                                                     <option value="">-- Pilih Jenis Kelamin --</option>
-                                                    <option value="Laki-laki">Laki-laki</option>
-                                                    <option value="Perempuan">Perempuan</option>
+                                                    <option  {{ $pegawai->gender == 'Laki-laki' ? 'selected' : '' }} value="Laki-laki">Laki-laki</option>
+                                                    <option  {{ $pegawai->gender == 'Perempuan' ? 'selected' : '' }} value="Perempuan">Perempuan</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Alamat Rumah</label>
-                                                <input type="text" name="alamat_rumah" class="form-control">
+                                                <input  value="{{ $pegawai->alamat }}" type="text" name="alamat_rumah" class="form-control">
                                             </div>
                                         </div>
 
@@ -105,11 +105,11 @@
                                                 <label>Agama</label>
                                                 <select required name="agama" class="form-control ">
                                                     <option value="">-- Pilih Agama --</option>
-                                                    <option value="Islam">Islam</option>
-                                                    <option value="Kristen">Kristen</option>
-                                                    <option value="Katolik">Katolik</option>
-                                                    <option value="Hindu">Hindu</option>
-                                                    <option value="Buddha">Buddha</option>
+                                                    <option  {{ $pegawai->agama == 'Islam' ? 'selected' : '' }} value="Islam">Islam</option>
+                                                    <option  {{ $pegawai->agama == 'Kristen' ? 'selected' : '' }} value="Kristen">Kristen</option>
+                                                    <option  {{ $pegawai->agama == 'Katolik' ? 'selected' : '' }} value="Katolik">Katolik</option>
+                                                    <option  {{ $pegawai->agama == 'Hindu' ? 'selected' : '' }} value="Hindu">Hindu</option>
+                                                    <option  {{ $pegawai->agama == 'Buddha' ? 'selected' : '' }} value="Buddha">Buddha</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
                                                 <select required name="pendidikan" class="form-control ">
                                                     <option value="">-- Pilih pendidikan terakhir --</option>
                                                     @foreach ($datas['s_gelar'] as $v)
-                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                        <option {{ $pegawai->pendidikan == $v->name ? 'selected' : '' }} value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
 
                                                 </select>
@@ -131,7 +131,7 @@
                                                 <select required name="satuan_pendidikan" class="form-control select2">
                                                     <option value="">-- Pilih status Satuan Pendidikan --</option>
                                                     @foreach ($datas['s_kependidikan'] as $v)
-                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                        <option {{ $pegawai->satuan_pendidikan  == $v->name ? 'selected' : ''}} value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
 
                                                 </select>
@@ -143,7 +143,7 @@
                                                 <select required name="kabupaten" class="form-control select2">
                                                     <option value="">-- Pilih Kabupaten / Kota --</option>
                                                     @foreach ($datas['s_kabupaten'] as $v)
-                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                        <option {{ $pegawai->kabupaten == $v->name ? 'selected' : '' }} value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
 
                                                 </select>
@@ -176,13 +176,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Handphone</label>
-                                                <input name="no_hp" type="number" class="form-control">
+                                                <input value="{{ $pegawai->no_hp }}"  name="no_hp" type="number" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Whatsapp</label>
-                                                <input name="no_wa" type="number" class="form-control">
+                                                <input value="{{ $pegawai->no_wa }}"  name="no_wa" type="number" class="form-control">
                                             </div>
                                         </div>
 
@@ -192,7 +192,7 @@
                                                 <select required name="golongan" class="form-control select2">
                                                     <option value="">-- Pilih Golongan --</option>
                                                     @foreach ($datas['golongan'] as $v)
-                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                        <option {{ $pegawai->golongan == $v->name ? 'selected' : '' }} value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -208,13 +208,13 @@
                                             <div class="form-group">
                                                 <label>Bank</label>
                                                 <select name="jenis_bank" class="form-control" id="">
-                                                    <option value="Bank BCA">-- Pilih Bank --</option>
-                                                    <option value="Bank BCA">Bank BCA</option>
-                                                    <option value="Bank BRI">Bank BRI</option>
-                                                    <option value="Bank BNI">Bank BNI</option>
-                                                    <option value="Bank BTN">Bank BTN</option>
-                                                    <option value="Bank Mandiri">Bank Mandiri</option>
-                                                    <option value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
+                                                    <option >-- Pilih Bank --</option>
+                                                    <option {{ $pegawai->jenis_bank == 'Bank BCA' ? 'selected' : '' }} value="Bank BCA">Bank BCA</option>
+                                                    <option {{ $pegawai->jenis_bank == 'Bank BRI' ? 'selected' : '' }} value="Bank BRI">Bank BRI</option>
+                                                    <option {{ $pegawai->jenis_bank == 'Bank BNI' ? 'selected' : '' }} value="Bank BNI">Bank BNI</option>
+                                                    <option {{ $pegawai->jenis_bank == 'Bank BTN' ? 'selected' : '' }} value="Bank BTN">Bank BTN</option>
+                                                    <option {{ $pegawai->jenis_bank == 'Bank Mandiri' ? 'selected' : '' }} value="Bank Mandiri">Bank Mandiri</option>
+                                                    <option {{ $pegawai->jenis_bank == 'Bank Syariah Indonesia' ? 'selected' : '' }} value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -222,7 +222,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Rekening</label>
-                                                <input type="number" name="no_rek" class="form-control">
+                                                <input value="{{ $pegawai->no_rek }}" type="number" name="no_rek" class="form-control">
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-5">

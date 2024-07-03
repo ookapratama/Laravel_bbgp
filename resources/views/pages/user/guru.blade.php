@@ -153,7 +153,6 @@
                                         <th>Tugas Jabatan </th>
                                         <th>Asal Kabupaten/Kota</th>
                                         <th>Satuan Pendidikan</th>
-                                        <th>Jabatan Sekolah</th>
                                         <th>Kecamatan Sekolah</th>
                                         <th>Kabupaten Sekolah</th>
                                         <th>Nomor Aktif</th>
@@ -187,12 +186,12 @@
                                             <td>{{ $data->tugas_jabatan ?? '-' }}</td>
                                             <td>{{ $data->kabupaten }}</td>
                                             <td>{{ $data->satuan_pendidikan }}</td>
-                                            <td>{{ $data->jabatan }}</td>
+                                            {{-- <td>{{ $data->jabatan }}</td> --}}
                                             <td>{{ $data->sekolah->kecamatan ?? '' }}</td>
                                             <td>{{ $data->sekolah->kabupaten ?? '' }}</td>
                                             <td>No. Hp : {{ $data->no_hp }} <br>
                                                 No. Whatsapp : {{ $data->no_wa }}</td>
-                                            <td>{{ $data->no_rek }}</td>
+                                            <td>{{ $data->no_rek }} - {{ $data->jenis_bank }}</td>
 
 
                                         </tr>
