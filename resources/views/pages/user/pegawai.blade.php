@@ -24,7 +24,7 @@
                                 <!-- Navigation Buttons -->
                                 <div class="row">
                                     <div class="col">
-                                        <h4>Registrasi Data Internal</h4>
+                                        {{-- <h4>Registrasi Data Internal</h4>
                                         <div class="d-flex mt-3 mb-5">
                                             <div class="">
                                                 <a href="{{ route('internal.create', 'penugasan pegawai') }}" class="btn btn-primary btn-lg p-2">
@@ -46,7 +46,7 @@
                                                     <i class="fas fa-redo-alt"></i>
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
 
@@ -204,11 +204,11 @@
                                                     <td>{{ $data->nama ?? '' }}</td>
                                                     <td>{{ $data->kota ?? '' }}</td>
                                                     <td>{{ $data->hotel ?? '' }}</td>
-                                                    <td>{{ $data->transport_pulang ?? '' }}</td>
-                                                    <td>{{ $data->transport_pergi ?? '' }}</td>
-                                                    <td>{{ $data->hari_1 ?? '' }}</td>
-                                                    <td>{{ $data->hari_2 ?? '' }}</td>
-                                                    <td>{{ $data->hari_3 ?? '' }}</td>
+                                                    <td>Rp. {{ $data->transport_pulang ?? '' }}</td>
+                                                    <td>Rp. {{ $data->transport_pergi ?? '' }}</td>
+                                                    <td>Rp. {{ $data->hari_1 ?? '' }}</td>
+                                                    <td>Rp. {{ $data->hari_2 ?? '' }}</td>
+                                                    <td>Rp. {{ $data->hari_3 ?? '' }}</td>
                                                     {{-- <td>
                                                         @if ($data->is_verif == 'sudah')
                                                             <span class="badge badge-success">Sudah Verifikasi</span>

@@ -73,7 +73,7 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Tanggal Lahir</label>
-                                                <input  value="{{ $pegawai->tempat_lahir }}" name="tgl_lahir" type="date" class="form-control">
+                                                <input required  value="{{ $pegawai->tempat_lahir }}" name="tgl_lahir" type="date" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Jenis Kelamin</label>
-                                                <select required names="gender" class="form-control ">
+                                                <select required name="gender" class="form-control ">
                                                     <option value="">-- Pilih Jenis Kelamin --</option>
                                                     <option  {{ $pegawai->gender == 'Laki-laki' ? 'selected' : '' }} value="Laki-laki">Laki-laki</option>
                                                     <option  {{ $pegawai->gender == 'Perempuan' ? 'selected' : '' }} value="Perempuan">Perempuan</option>
@@ -241,7 +241,7 @@
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary " type="submit">Submit</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ route('pegawai.index') }}" class="btn btn-warning">Kembali</a>
+                                    <a href="{{ route('pegawai.show',  session('no_ktp')) }}" class="btn btn-warning">Kembali</a>
                                 </div>
                         </form>
                     </div>

@@ -86,6 +86,7 @@
             //     position: 'topRight'
             // });
             swal("Berhasil", "Berhasil tambah data", "success");
+            
         </script>
     @endif
 

@@ -75,8 +75,15 @@ const verifikasi = (id, tabel, status) => {
                 type: "POST",
                 url: `/bbgp/public/dashboard/${tabel}/verifikasi/${id}`,
                 success: function (response) {
-                    console.log(response);
-                    if (response) {
+                    console.log(response.data.data);
+                    console.log(response.data.stats);
+                    console.log(response.status);
+                    console.log(response.status.nama);
+                    if (response.status) {
+
+                        register(response.status)
+
+
                         swal(
                             "Berhasil",
                             "Data telah diverifikasi",
@@ -96,3 +103,39 @@ const verifikasi = (id, tabel, status) => {
         }
     });
 };
+
+function register(data) {
+   console.log('loginnnnnnn');
+   let token = $("meta[name='csrf-token']").attr("content");
+    console.log('resgis', data);
+    console.log('resgis', data.nama_lengkap);
+    console.log('resgis', data.no_ktp);
+    console.log('resgis', data.role);
+    console.log('resgis', data['nama_lengkap']);
+    
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": token,
+        },
+        type: "POST",
+
+        url: `/bbgp/public/dashboard/akun/regis`,
+        data: {
+            // Data tambahan yang ingin dikirim
+            username: data.nama_lengkap, // Data diambil dari respons verifikasi
+            name: data.nama_lengkap, // Data diambil dari respons verifikasi
+            no_ktp: data.no_ktp,    // Data diambil dari respons verifikasi
+            role: data.eksternal_jabatan == undefined ? 'pegawai' : data.eksternal_jabatan,      // Data diambil dari respons verifikasi
+            password: '12345'   // Data diambil dari respons verifikasi
+        },
+        success: function (res) {
+            console.log('regist');
+            console.log(res);
+        },
+        error: function (error) {
+            console.error("AJAX Error:", error);
+            swal("Error", "Ajax Error register.", "error");
+        },
+
+    });
+}

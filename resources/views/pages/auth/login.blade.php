@@ -42,13 +42,14 @@
                     </div>
                     <select class="form-control" name="role" id="">
                         <option value="">-- Pilih Role --</option>
-                        <option value="kepala">Kepala</option>
-                        <option value="admin">Admin</option>
+                        <option value="kepala">Kepala Balai</option>
+                        <option value="keuangan">Keuangan</option>
+                        <option value="kepegawaian">Kepegawaian</option>
                         <option value="superadmin">Super Admin</option>
-                        <option value="pegawai">Pegawai BBGP</option>
                         <option value="tenaga pendidik">Tenaga Pendidik</option>
                         <option value="tenaga kependidikan">Tenaga Kependidikan</option>
                         <option value="stakeholder">Stakeholder</option>
+                        <option value="pegawai">Pegawai BBGP</option>
                     </select>
                 </div>
 

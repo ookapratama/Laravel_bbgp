@@ -138,7 +138,7 @@
                             <div class="card-footer text-right">
                                 <button class="btn btn-primary " type="submit">Submit</button>
                                 <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                <a href="{{ route('pegawai.show', $pegawai->id) }}" class="btn btn-warning">Kembali</a>
+                                <a href="{{ route('pegawai.show', session('no_ktp')) }}" class="btn btn-warning">Kembali</a>
                             </div>
                         </form>
                     </div>

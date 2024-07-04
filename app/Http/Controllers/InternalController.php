@@ -8,6 +8,7 @@ use App\Models\JabatanPenugasanPegawai;
 use App\Models\JabatanPenugasanPpnpn;
 use App\Models\Kabupaten;
 use App\Models\Pegawai;
+use App\Models\PegawaiPpnpn;
 use App\Models\Pendamping;
 use Illuminate\Http\Request;
 
@@ -27,10 +28,11 @@ class InternalController extends Controller
             'dataPegawai' => Pegawai::get(),
         );
         $dataPendamping = Pendamping::get();
+        $dataPpnpn = PegawaiPpnpn::get();
         // $merge = $data->merge($dataPendamping);
         // dd($merge);
 
-        return view('pages.admin.internal.index', ['menu' => 'internal', 'datas' => $data, 'kota' => $kota, 'dataPendamping' => $dataPendamping]);
+        return view('pages.admin.internal.index', ['menu' => 'internal', 'datas' => $data, 'kota' => $kota, 'dataPendamping' => $dataPendamping, 'dataPpnpn' => $dataPpnpn]);
 
     }
 
@@ -38,38 +40,89 @@ class InternalController extends Controller
     {
         // dd($id);
         $data = '';
+        $getData = '';
         $data = Internal::find($id);
+        $getData = Internal::find($id);
         if ($data == null) {
             $data = Pendamping::find($id);
+            $getData = Pendamping::find($id);
         }
         $data->is_verif = 'sudah';
         $data->save();
-        return response()->json($data);
-    }
-
-    public function get_tabel($jenis)
-    {
-        $datas = '';
-        if ($jenis == 'ppnpn') {
-            $title = 'Penugasan PPNPN';
-            $datas = Internal::where('jenis', 'ppnpn')->get();
-        } else if ($jenis == 'penugasan') {
-            $title = 'Penugasan Pegawai';
-            $datas = Internal::where('jenis', 'penugasan')->get();
-        } else {
-            $title = 'Pendamping Lokakarya';
-            $datas = Internal::where('jenis', 'lokakarya')->get();
-        }
-        dd($jenis);
-
-        $view = view('pages.admin.internal.tabel.' . $jenis . '', compact('datas', 'title'))->render();
-        // dd($view);
-
         return response()->json([
-            "html" => $view,
+            'status' => $data,
+            'data' => $getData,
         ]);
     }
 
+    public function createLokakarya($id)
+    {
+        $pegawai = Pegawai::find($id);
+        if ($pegawai == null) {
+            $pegawai = PegawaiPpnpn::find($id);
+        }
+        $datas = array(
+            'golongan' => JabatanPenugasanGolongan::get(),
+            'jabatanPegawai' => JabatanPenugasanPegawai::get(),
+            'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
+            'kota' => Kabupaten::get()
+        );
+
+    // dd($pegawai);
+        return view('pages.admin.penugasan.lokakarya', ['menu' => ''], compact('pegawai', 'datas'));
+
+    }
+    public function storeLokakarya(Request $r)
+    {
+
+        Internal::create($r->all());
+        return redirect()->route('internal.index')->with('message', 'store');
+    }
+
+
+    // penugasan
+    public function createPegawai($id)
+    {
+        $datas = array(
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
+            'dataPegawai' => Pegawai::get(),
+            'jabatanPegawai' => JabatanPenugasanPegawai::get(),
+            'golongan' => JabatanPenugasanGolongan::get(),
+        );
+
+        $pegawai = Pegawai::find($id);
+        return view('pages.admin.penugasan.pegawai', ['menu' => ''], compact('pegawai', 'datas'));
+    }
+    public function createPpnp($id)
+    {
+        $pegawai = PegawaiPpnpn::find($id);
+        $datas = array(
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
+            'dataPegawai' => Pegawai::get(),
+            'jabatanPegawai' => JabatanPenugasanPegawai::get(),
+            'golongan' => JabatanPenugasanGolongan::get(),
+        );
+        // dd($pegawai);
+        return view('pages.admin.penugasan.ppnp', ['menu' => ''], compact('pegawai', 'datas'));
+    }
+
+    public function storePegawai(Request $r)
+    {
+
+        Internal::create($r->all());
+        return redirect()->route('internal.index')->with('message', 'store');
+
+    }
+
+    public function storePpnp(Request $r)
+    {
+
+        Internal::create($r->all());
+        return redirect()->route('internal.index')->with('message', 'store');
+
+    }
 
     public function create($jenis)
     {
@@ -129,7 +182,7 @@ class InternalController extends Controller
         // }
         // dump($r['golongan']);
         if ($r['jenis'] == 'Pendamping Lokakarya') {
-            $r['is_verif'] = 'belum';
+            $r['is_verif'] = 'sudah';
             Pendamping::create($r);
 
             return redirect()->route('internal.index')->with('message', 'store');
@@ -150,7 +203,7 @@ class InternalController extends Controller
         // $username = implode('', $nameParts);
 
         // dd($r);
-        $r['is_verif'] = 'belum';
+        $r['is_verif'] = 'sudah';
         $r['jabatan'] = $r['jabatan'] ?? '';
 
         Internal::create($r);
@@ -205,7 +258,7 @@ class InternalController extends Controller
 
         if ($r['jenis'] == 'Pendamping Lokakarya') {
             // dd(true);
-            $r['is_verif'] = 'belum';
+            $r['is_verif'] = 'sudah';
 
             Pendamping::update($r);
 
@@ -214,7 +267,7 @@ class InternalController extends Controller
 
         // dd($r);
         $data = Internal::find($r['id']);
-        $r['is_verif'] = 'belum';
+        $r['is_verif'] = 'sudah';
         $r['jabatan'] = $r['jabatan'] ?? '';
 
 
@@ -245,7 +298,7 @@ class InternalController extends Controller
 
             Pendamping::update($r);
 
-            return redirect()->route('pegawai.show', $r['id_pegawai'])->with('message', 'store');
+            return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'store');
         }
 
         // dd($r);
@@ -254,6 +307,6 @@ class InternalController extends Controller
 
 
         $data->update($r);
-        return redirect()->route('pegawai.show', $r['id_pegawai'])->with('message', 'update');
+        return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
     }
 }

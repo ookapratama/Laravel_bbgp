@@ -29,19 +29,29 @@ class AuthController extends Controller
 
         $cek = Auth::attempt(['username' => $request->username, 'password' => $request->password, 'role' => $request->role]);
         $user = Admin::where('username', $request->username)->where('role', $request->role)->first();
-
+        // dd($user);
         if ($cek) {
             Session::put('user_id', $user->id);
             Session::put('name', $user->name);
+            Session::put('nip', $user->nip);
+            Session::put('no_ktp', $user->no_ktp);
             Session::put('username', $user->username);
             Session::put('role', $user->role);
             // Session::put('role', $user->role);
             Session::put('cek', true);
 
             if($user->role == 'pegawai') {
-                return redirect()->route('pegawai.show', $user->id)->with('message', 'sukses login');
+                return redirect()->route('pegawai.show', $user->no_ktp)->with('message', 'sukses login');
 
             }
+
+
+            if($user->role == 'tenaga pendidik' || $user->role == 'tenaga kependidikan' || $user->role == 'stakeholder') {
+                return redirect()->route('guru.show', $user->no_ktp)->with('message', 'sukses login');
+
+            }
+
+
 
             return redirect()->route('dashboard')->with('message', 'sukses login');
         } else {

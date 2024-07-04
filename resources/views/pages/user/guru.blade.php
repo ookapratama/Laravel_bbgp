@@ -49,8 +49,7 @@
                                         </a>
                                     </div>
                                     <div class="">
-                                        <button id="resetBtn"
-                                            class="btn btn-success btn-lg  mx-4">
+                                        <button id="resetBtn" class="btn btn-success btn-lg  mx-4">
                                             <i class="fas fa-redo-alt"></i>
                                         </button>
                                     </div>
@@ -182,8 +181,9 @@
                                             <td>{{ $data->pendidikan }}</td>
                                             <td>{{ $data->eksternal_jabatan }}</td>
                                             <td>{{ $data->jenis_jabatan }}</td>
-                                            <td>{{ $data->kategori_jabatan }}</td>
-                                            <td>{{ $data->tugas_jabatan ?? '-' }}</td>
+                                            <td>{{ $data->kategori_jabatan ? $data->kategori_jabatan : 'Tidak ada' }}
+                                            </td>
+                                            <td>{{ $data->tugas_jabatan ? $data->tugas_jabatan : 'Tidak ada' }}</td>
                                             <td>{{ $data->kabupaten }}</td>
                                             <td>{{ $data->satuan_pendidikan }}</td>
                                             {{-- <td>{{ $data->jabatan }}</td> --}}
@@ -268,7 +268,7 @@
                 jabKategori.addEventListener('change', applySearch);
                 jabTugas.addEventListener('change', applySearch);
 
-                resetBtn.addEventListener('click', function () {
+                resetBtn.addEventListener('click', function() {
                     location.reload();
                 })
             });

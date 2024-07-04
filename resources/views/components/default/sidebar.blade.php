@@ -44,14 +44,14 @@
 
             @if (Session('role') == 'pegawai')
             <li class="{{ $menu == 'pegawai' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('pegawai.show', session('user_id')) }}">
+                <a class="nav-link" href="{{ route('pegawai.show', session('no_ktp')) }}">
                     <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
                 </a>
             </li>
             @endif
             @if (Session('role') == 'tenaga pendidik' || Session('role') == 'tenaga kependidikan' || Session('role') == 'stakeholder')
                 <li class="{{ $menu == 'guru' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('guru.index') }}">
+                    <a class="nav-link" href="{{ route('guru.show', session('no_ktp') ) }}">
                         <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
                     </a>
                 </li>

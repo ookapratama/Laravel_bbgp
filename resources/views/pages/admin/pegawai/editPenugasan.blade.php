@@ -21,6 +21,7 @@
                             @method('PUT')
                             <input type="hidden" name="id" value="{{ $datas['penugasan']->id }}">
                             <input type="hidden" name="id_pegawai" value="{{ $pegawai->id }}">
+                            <input type="hidden" name="no_ktp" value="{{ $pegawai->no_ktp }}">
                             <div class="card">
                                 @if ($title == 'Penugasan Pegawai')
                                     <div class="card-body">
@@ -34,7 +35,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>NIP</label>
-                                                    <input  required name="nip" type="number" class="form-control" value="{{ $datas['penugasan']->nip }}">
+                                                    <input readonly required name="nip" type="number" class="form-control" value="{{ $datas['penugasan']->nip }}">
                                                 </div>
 
                                             </div>
@@ -170,7 +171,7 @@
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary " type="submit">Submit</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ route('pegawai.show' , $pegawai->id) }}" class="btn btn-warning">Kembali</a>
+                                    <a href="{{ route('pegawai.show' ,  session('no_ktp')) }}" class="btn btn-warning">Kembali</a>
                                 </div>
                         </form>
                     </div>

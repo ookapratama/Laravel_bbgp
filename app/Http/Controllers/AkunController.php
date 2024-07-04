@@ -28,8 +28,8 @@ class AkunController extends Controller
         // dd($r);
 
         $r['password'] = bcrypt($r['password']);
-        Admin::create($r);  
-        User::create($r);  
+        Admin::create($r);
+        User::create($r);
 
         return redirect()->route('akun.index')->with('message', 'store');
     }
@@ -59,7 +59,7 @@ class AkunController extends Controller
         $dataUser = User::find($r['id'])->first();
 
         $r['password'] = bcrypt($r['password']);
-        
+
         $data->update($r);
         $dataUser->update($r);
         return redirect()->route('akun.index')->with('message', 'update');
@@ -75,4 +75,30 @@ class AkunController extends Controller
         $data->delete();
         return response()->json($data);
     }
+
+
+
+    public function regis(Request $r)
+    {
+        // $r = $request->all();
+        // dd($r);
+        $reg = [];
+        $role = strtolower($r->role);
+        $user = strtolower(str_replace(' ', '', $r->username));
+        // dd($role);
+        $reg['name'] = $r->name;
+        $reg['username'] = $user;
+        $reg['no_ktp'] = (string) $r->no_ktp;
+        $reg['role'] = $role;
+        $reg['password'] = bcrypt($r['password']);
+        Admin::create($reg);
+        User::create($reg);
+
+        return response()->json([
+            'status' => true,
+            'data' => $reg
+        ]);
+        // return redirect()->route('akun.index')->with('message', 'store');
+    }
+
 }

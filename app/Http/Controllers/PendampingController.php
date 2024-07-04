@@ -75,6 +75,6 @@ class PendampingController extends Controller
 
         // dd($data);
         $data->update($r);
-        return redirect()->route('pegawai.show', $r['id_pegawai'])->with('message', 'update');
+        return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
     }
 }

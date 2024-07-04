@@ -23,7 +23,7 @@ class PegawaiController extends Controller
     public function index()
     {
 
-        $data = Pegawai::orderBy('id','DESC')->get();
+        $data = Pegawai::orderBy('id', 'DESC')->get();
         return view('pages.admin.pegawai.index', ['menu' => 'pegawai', 'datas' => $data]);
     }
 
@@ -72,7 +72,7 @@ class PegawaiController extends Controller
         $r['pas_foto'] = '';
         $username = strtolower(str_replace(' ', '_', $r['nama_lengkap']));
         $r['username'] = $username;
-        
+
         // dd($r['username']);
         $r['is_verif'] = 'belum';
 
@@ -88,9 +88,14 @@ class PegawaiController extends Controller
     public function verifikasi(string $id)
     {
         $data = Pegawai::find($id);
+        $getData = Pegawai::find($id);
         $data->is_verif = 'sudah';
         $data->save();
-        return response()->json($data);
+        return response()->json([
+            'status' => $data,
+            'data' => $getData,
+        ]);
+        // return response()->json($data);
     }
 
     /**
@@ -103,7 +108,7 @@ class PegawaiController extends Controller
             's_kepegawaian' => Kepegawaian::get(),
             's_kependidikan' => SatuanPendidikan::get(),
             's_gelar' => Pendidikan::get(),
-            's_jabatan' => JabatanPenugasanGolongan::get(),
+            's_jabatan' => JabatanPenugasanPegawai::get(),
             's_kabupaten' => Kabupaten::get(),
             's_kecamatan' => Kecamatan::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
@@ -140,7 +145,7 @@ class PegawaiController extends Controller
         // }
         $r['pas_foto'] = '';
         $r['is_verif'] = 'belum';
-        dd($r);
+        // dd($r);
         $data->update($r);
         return redirect()->route('internal.index')->with('message', 'update');
         // return redirect()->route('pegawai.index')->with('message', 'update');
@@ -158,15 +163,21 @@ class PegawaiController extends Controller
 
     public function show(string $id)
     {
-        
+
         $kota = Kabupaten::get();
-        $findPegawai = Pegawai::find($id);
+        // $findPegawai = Pegawai::find($id);
+        $findPegawai = Pegawai::where('no_ktp', $id)->first();
+        if ($findPegawai == null) {
+            return redirect()->back()->with('message', 'gagal login');   
+        }
+        // dd($findPegawai);
+        // dd($id);
         $data = array(
             
-            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nip', $findPegawai['nip'])->get(),
-            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nip', $findPegawai['nip'])->get(),
-            'dataPendamping' => Pendamping::where('nip', $findPegawai['nip'])->get(),
-            // 'dataPegawai' => Pegawai::get(),
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nip', $findPegawai['nip'])->get() ?? [],
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nip', $findPegawai['nip'])->get() ?? [],
+            'dataPendamping' => Pendamping::where('nip', $findPegawai['nip'])->get() ?? [],
+            'dataPegawai' => $findPegawai,
         );
         // dd($data);
         // dd($data['dataPenugasanPegawai']);
@@ -185,7 +196,7 @@ class PegawaiController extends Controller
             'pendamping' => Pendamping::find($id),
         );
 
-        $pegawai = Pegawai::where('nip' , $datas['penugasan']->nip)->first();
+        $pegawai = Pegawai::where('nip', $datas['penugasan']->nip)->first();
         // dd($pegawai);
 
 
@@ -215,7 +226,7 @@ class PegawaiController extends Controller
             // 'penugasan' => Internal::find($id),
             'pendamping' => Pendamping::find($id),
         );
-        $pegawai = Pegawai::where('nip' , $datas['pendamping']->nip)->first();
+        $pegawai = Pegawai::where('nip', $datas['pendamping']->nip)->first();
         // dd($datas['pendamping']->jenis);
 
         // if ($datas['pendamping']->jenis == 'Pendamping Lokakarya') {
@@ -223,8 +234,8 @@ class PegawaiController extends Controller
         // }
         $title = 'Pendamping Lokakarya';
 
-        
-        return view('pages.admin.pegawai.editPendamping', ['menu' => 'pegawai' , 'title' => $title, 'datas' => $datas , 'pegawai' => $pegawai]);
+
+        return view('pages.admin.pegawai.editPendamping', ['menu' => 'pegawai', 'title' => $title, 'datas' => $datas, 'pegawai' => $pegawai]);
     }
 
     public function editUser(string $id)
@@ -270,10 +281,11 @@ class PegawaiController extends Controller
         // } else {
         // }
         $r['pas_foto'] = '';
-        $r['is_verif'] = 'belum';
+        $r['is_verif'] = 'sudah';
+        // dump($data);
         // dd($r);
         $data->update($r);
-        return redirect()->route('pegawai.show', $r['id'])->with('message', 'update');
+        return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
         // return redirect()->route('pegawai.index')->with('message', 'update');
     }
 

@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class PegawaiPpnpn extends Model
 {
     use HasFactory;
+    protected $table = 'pegawaiPpnpns';
     protected $fillable = [
-        'name',
-        'username',
-        'password',
-        'role',
-        'no_ktp',
+    'name',  
+    'jabatan',  
     ];
 }

@@ -18,5 +18,11 @@ class Internal extends Model
         'tempat',
         'tgl_kegiatan',
         'is_verif',
+        'transport_pulang',
+        'transport_pergi',
+        'hotel',
+        'hari_1',
+        'hari_2',
+        'hari_3',
     ];
 }

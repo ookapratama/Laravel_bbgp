@@ -118,9 +118,9 @@
                 <th>Agama</th>
                 <th>Pendidikan Terakhir</th>
                 <th>Ketenagaan</th>
-                <th>Jabatan </th>
-                <th>Kategori Jabatan </th>
-                <th>Tugas Jabatan </th>
+                <th>Jabatan</th>
+                <th>Kategori Jabatan</th>
+                <th>Tugas Jabatan</th>
                 <th>Asal Kabupaten/Kota</th>
                 <th>Satuan Pendidikan</th>
                 {{-- <th>Jabatan Sekolah</th> --}}
@@ -128,18 +128,15 @@
                 <th>Kabupaten Sekolah</th>
                 <th>Nomor Aktif</th>
                 <th>No Rekening</th>
-
-
             </tr>
         </thead>
         <tbody>
-            @foreach ($datas as $i => $data)
+            @if(isset($data))
                 <tr>
-                    <td>{{ ++$i }}</td>
+                    <td>1</td>
                     {{-- <td><img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
                                 alt="" class="img-fluid"></td> --}}
-                    <td>{{ $data->npsn_sekolah }} -
-                        {{ $data->sekolah->nama_sekolah ?? '' }}</td>
+                    <td>{{ $data->npsn_sekolah }} - {{ $data->sekolah->nama_sekolah ?? '' }}</td>
                     <td>{{ $data->nama_lengkap }}</td>
                     <td>{{ $data->npwp }}</td>
                     <td>{{ $data->nuptk }}</td>
@@ -153,23 +150,22 @@
                     <td>{{ $data->pendidikan }}</td>
                     <td>{{ $data->eksternal_jabatan }}</td>
                     <td>{{ $data->jenis_jabatan }}</td>
-                    <td>{{ $data->kategori_jabatan }}</td>
-                    <td>{{ $data->tugas_jabatan ?? '-' }}</td>
+                    <td>{{ $data->kategori_jabatan ? $data->kategori_jabatan : 'Tidak ada' }}</td>
+                    <td>{{ $data->tugas_jabatan ? $data->tugas_jabatan : 'Tidak ada' }}</td>
                     <td>{{ $data->kabupaten }}</td>
                     <td>{{ $data->satuan_pendidikan }}</td>
                     {{-- <td>{{ $data->jabatan }}</td> --}}
                     <td>{{ $data->sekolah->kecamatan ?? '' }}</td>
                     <td>{{ $data->sekolah->kabupaten ?? '' }}</td>
-                    <td>No. Hp : {{ $data->no_hp }} <br>
-                        No. Whatsapp : {{ $data->no_wa }}</td>
-                    <td>{{ $data->no_rek }} ({{ $data->jenis_bank }}) </td>
-
-
-                  
-
-
+                    <td>No. Hp: {{ $data->no_hp }}<br>
+                        No. Whatsapp: {{ $data->no_wa }}</td>
+                    <td>{{ $data->no_rek }} ({{ $data->jenis_bank }})</td>
                 </tr>
-            @endforeach
+            @else
+                <tr>
+                    <td colspan="24" class="text-center">Tidak ada data yang tersedia</td>
+                </tr>
+            @endif
         </tbody>
     </table>
 </body>

@@ -63,7 +63,15 @@ Route::group(
                 Route::get('/edit/{id}', 'GuruController@edit')->name('guru.edit');
                 Route::put('/update', 'GuruController@update')->name('guru.update');
                 Route::post('/hapus/{id}', 'GuruController@destroy')->name('guru.hapus');
+                
+                
                 Route::get('/export', 'GuruController@export')->name('guru.export');
+                Route::get('/export/{id}', 'GuruController@exportByUser')->name('guru.export.user');
+                
+                // untuk login ekternal by user
+                Route::get('/show/{id}', 'GuruController@show')->name('guru.show');
+                Route::get('/editByUser/{id}', 'GuruController@editByUser')->name('guru.edit.user');
+                Route::put('/updateByUser', 'GuruController@updateByUser')->name('guru.update.user');
             });
 
             // Pegawai
@@ -76,10 +84,10 @@ Route::group(
                 Route::put('/update', 'PegawaiController@update')->name('pegawai.update');
                 Route::post('/hapus/{id}', 'PegawaiController@destroy')->name('pegawai.hapus');
                 
-
+                // untuk login pegawai by user
+                Route::get('/{id}', 'PegawaiController@show')->name('pegawai.show');
                 Route::get('/editUser/{id}', 'PegawaiController@editUser')->name('pegawai.edit.user');
                 Route::put('/updateUser', 'PegawaiController@updateUser')->name('pegawai.update.user');
-                Route::get('/{id}', 'PegawaiController@show')->name('pegawai.show');
                 Route::get('/penugasan/{id}', 'PegawaiController@editPenugasan')->name('pegawai.editPenugasan');
                 Route::get('/pendamping/{id}', 'PegawaiController@editPendamping')->name('pegawai.editPendamping');
 
@@ -118,7 +126,15 @@ Route::group(
                 // Route::get('/tabel/lokakarya', 'InternalController@get_tabel')->name('internal.tabel.lokakarya');
                 Route::post('/verifikasi/{id}', 'InternalController@verifikasi')->name('internal.verifikasi');
 
-                Route::get('/create/{jenis}', 'InternalController@create')->name('internal.create');
+                Route::get('/createLokakarya/{id}', 'InternalController@createLokakarya')->name('internal.create.lokakarya');
+                Route::post('/storeLokakarya', 'InternalController@storeLokakarya')->name('internal.store.lokakarya');
+                Route::get('/createPegawai/{id}', 'InternalController@createPegawai')->name('internal.create.pegawai');
+                Route::post('/storePegawai', 'InternalController@storePegawai')->name('internal.store.pegawai');
+                Route::get('/createPpnp/{id}', 'InternalController@createPpnp')->name('internal.create.ppnp');
+                Route::post('/storePpnp', 'InternalController@storePpnp')->name('internal.store.ppnp');
+
+
+
                 Route::post('/store', 'InternalController@store')->name('internal.store');
                 Route::get('/edit/{id}', 'InternalController@edit')->name('internal.edit');
                 Route::put('/update', 'InternalController@update')->name('internal.update');
@@ -151,6 +167,7 @@ Route::group(
                 Route::get('/', 'AkunController@index')->name('akun.index');
                 Route::get('/create', 'AkunController@create')->name('akun.create');
                 Route::post('/store', 'AkunController@store')->name('akun.store');
+                Route::post('/regis', 'AkunController@regis')->name('akun.regis');
                 Route::get('/edit/{id}', 'AkunController@edit')->name('akun.edit');
                 Route::put('/update', 'AkunController@update')->name('akun.update');
                 Route::post('/hapus/{id}', 'AkunController@destroy')->name('akun.hapus');

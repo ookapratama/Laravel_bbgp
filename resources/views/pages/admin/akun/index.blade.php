@@ -29,7 +29,15 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label>Nomor KTP</label>
+                                                                <input name="no_ktp" required
+                                                                    placeholder="Masukkan nomor ktp" type="number"
+                                                                    class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label>Nama</label>
                                                                 <input name="name" required
@@ -37,12 +45,12 @@
                                                                     class="form-control">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label>Username</label>
                                                                 <input name="username" required
-                                                                    placeholder="Masukkan Usernam untuk login" type="text"
-                                                                    class="form-control">
+                                                                    placeholder="Masukkan Usernam untuk login"
+                                                                    type="text" class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -51,24 +59,26 @@
                                                             <div class="form-group">
                                                                 <label>Password</label>
                                                                 <input name="password" required
-                                                                    placeholder="Masukkan Password" type="text"
+                                                                    placeholder="Masukkan Password" type="password"
                                                                     class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label>Role</label>
-                                                                <select name="role" required
-                                                                    placeholder="Masukkan Akun" 
+                                                                <select name="role" required placeholder="Masukkan Akun"
                                                                     class="form-control">
                                                                     <option value="">-- Pilih Role Akun --</option>
-                                                                    <option value="admin">admin</option>
-                                                                    <option value="kepala">kepala</option>
-                                                                    <option value="superadmin">superadmin</option>
-                                                                    <option value="tenaga pendidik">tenaga pendidik</option>
-                                                                    <option value="tenaga kependidikan">tenaga kependidikan</option>
-                                                                    <option value="stakeholder">stakeholder</option>
-                                                                    <option value="pegawai">pegawai</option>
+                                                                    <option value="admin">Admin</option>
+                                                                    <option value="kepala">Kepala Balai</option>
+                                                                    <option value="keuangan">Keuangan</option>
+                                                                    <option value="kepegawaian">Kepegawaian</option>
+                                                                    <option value="superadmin">Super Admin</option>
+                                                                    <option value="tenaga pendidik">Tenaga Pendidik</option>
+                                                                    <option value="tenaga kependidikan">Tenaga Kependidikan
+                                                                    </option>
+                                                                    <option value="stakeholder">Stakeholder</option>
+                                                                    <option value="pegawai">Pegawai BBGP</option>
                                                                 </select>
                                                             </div>
                                                         </div>

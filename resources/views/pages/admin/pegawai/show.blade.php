@@ -56,7 +56,7 @@
                                 </div>
 
                                 <!-- Filter Section -->
-                                <h5>Pencarian Data Internal BBGP</h5>
+                                {{-- <h5>Pencarian Data Internal BBGP</h5>
                                 <div class="row mb-2">
                                     <div class="col-md-8">
                                         <div class="form-group">
@@ -64,19 +64,19 @@
                                                 placeholder="Masukkan nama anda" class="form-control">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <!-- Filter Data Internal -->
-                                <h5>Filter Data Internal</h5>
-                                <div class="row">
+                                <h5>Data Internal {{ $datas['dataPegawai']->nama_lengkap }}</h5>
+                                <div class="row mt-3">
                                     <div class="col-md-4 mb-4">
                                         <label>Rekapan Data</label>
                                         <select required name="rekapan" class="form-control select2" id="rekapan">
                                             <option value="">-- Filter By Rekapan Data --</option>
                                             <option value="Penugasan Pegawai">Penugasan Pegawai</option>
-                                            <option value="Penugasan PPNPN">Penugasan PPNPN</option>
-                                            <option value="Pendamping Lokakarya">Pendamping Lokakarya</option>
-                                            <option value="Pegawai">Pegawai</option>
+                                            {{-- <option value="Penugasan PPNPN">Penugasan PPNPN</option>
+                                            <option value="Pendamping Lokakarya">Pendamping Lokakarya</option> --}}
+                                            {{-- <option value="Pegawai">Pegawai</option> --}}
                                         </select>
                                     </div>
                                     <div class="col-md-4">
@@ -96,8 +96,48 @@
                                 <!-- Tables Section -->
                                 <div class="table-responsive">
 
+                                    
+                                    <!-- Table BBGP -->
+                                    <table class="table table-striped mb-5" id="table-internal-bbgp">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Nama Lengkap</th>
+                                                <th>Golongan</th>
+                                                <th>Jabatan</th>
+                                                <th>Nomor KTP</th>
+                                                <th>NIP</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr data-type="bbgp">
+                                                    <td>{{ 1 }}</td>
+                                                    <td>{{ $datas['dataPegawai']->nama_lengkap }}</td>
+                                                    <td>{{ $datas['dataPegawai']->golongan }}</td>
+                                                    <td>{{ $datas['dataPegawai']->jabatan }}</td>
+                                                    <td>{{ $datas['dataPegawai']->no_ktp }}</td>
+                                                    <td>{{ $datas['dataPegawai']->nip }}</td>
+                                                    <td>
+                                                        
+                                                        {{-- <a href="{{  route('internal.create.pegawai', $datas['dataPegawai']->id) }}" class="btn btn-primary mb-2"
+                                                            onclick="">Penugasan Pegawai</a> --}}
+                                                        <a href="{{  route('internal.create.lokakarya', $datas['dataPegawai']->id) }}" class="btn btn-primary mb-2"
+                                                            onclick="">Pendamping Lokakarya</a>
+                                                        <a href="{{ route('pegawai.edit', $datas['dataPegawai']->id) }} "
+                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+                                                        <button onclick="deleteData({{ $datas['dataPegawai']->id }}, 'bbgp')"
+                                                            class="btn btn-danger">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+
 
                                     <table class="table table-striped table-internal" id="table-internal-1">
+                                        <h5 class="">Data Penugasan </h5>
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -137,9 +177,13 @@
                                                                 onclick="verifikasi({{ $data->id }}, 'internal', '{{ $data->is_verif }}')"
                                                                 class="btn btn-primary mb-2">Verifikasi</a>
                                                         @endif --}}
+
+
                                                         <a href="{{ route('pegawai.editPenugasan', $data->id) }} "
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                        {{-- <button onclick="deleteData({{ $data->id }}, 'editPenugasan')"
+                                                        
+                                                        
+                                                            {{-- <button onclick="deleteData({{ $data->id }}, 'editPenugasan')"
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button> --}}
@@ -149,204 +193,11 @@
                                         </tbody>
                                     </table>
 
-                                    <table class="table table-striped table-internal" id="table-internal-2">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th>NIP</th>
-                                                <th>Nama</th>
-                                                <th>Jenis Penugasan</th>
-                                                <th>Jabatan</th>
-                                                <th>Kegiatan</th>
-                                                <th>Tempat</th>
-                                                <th>Tanggal Kegiatan</th>
-                                                {{-- <th>Verifkasi</th> --}}
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($datas['dataPenugasanPpnpn'] as $i => $data)
-                                                <tr data-type="penugasan-ppnpn">
-                                                    <td>{{ ++$i }}</td>
-                                                    <td>{{ $data->nip ?? ' - ' }}</td>
-                                                    <td>{{ $data->nama ?? '' }}</td>
-                                                    <td>{{ $data->jenis ?? '' }}</td>
-                                                    <td>{{ $data->jabatan . ' - (Golongan : ' . $data->golongan . ')' ?? '' }}
-                                                    </td>
-                                                    <td>{{ $data->kegiatan ?? '' }}</td>
-                                                    <td>{{ $data->tempat ?? '' }}</td>
-                                                    <td>{{ $data->tgl_kegiatan ?? '' }}</td>
-                                                    {{-- <td>
-                                                        @if ($data->is_verif == 'sudah')
-                                                            <span class="badge badge-success">Sudah Verifikasi</span>
-                                                        @else
-                                                            <span class="badge badge-danger">Belum Verifikasi</span>
-                                                        @endif
-                                                    </td> --}}
-                                                    <td>
-                                                        {{-- @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
-                                                            <a href="#"
-                                                                onclick="verifikasi({{ $data->id }}, 'internal', '{{ $data->is_verif }}')"
-                                                                class="btn btn-primary mb-2">Verifikasi</a>
-                                                        @endif --}}
-                                                        <a href="{{ route('pegawai.editPenugasan', $data->id) }} "
-                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                        {{-- <button onclick="deleteData({{ $data->id }}, 'internal')"
-                                                            class="btn btn-danger">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button> --}}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
 
-                                    <table class="table table-striped table-internal" id="table-internal-3">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th>NIP</th>
-                                                <th>Nama</th>
-                                                <th>Kabupaten/Kota</th>
-                                                <th>Hotel</th>
-                                                <th>Transport Pulang</th>
-                                                <th>Transport Pergi</th>
-                                                <th>Hari 1</th>
-                                                <th>Hari 2</th>
-                                                <th>Hari 3</th>
-
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($datas['dataPendamping'] as $i => $data)
-                                                <tr data-type="pendamping">
-                                                    <td>{{ ++$i }}</td>
-                                                    <td>{{ $pegawai->nip ?? '' }}</td>
-                                                    <td>{{ $data->nama ?? '' }}</td>
-                                                    <td>{{ $data->kota ?? '' }}</td>
-                                                    <td>{{ $data->hotel ?? '' }}</td>
-                                                    <td>{{ $data->transport_pulang ?? '' }}</td>
-                                                    <td>{{ $data->transport_pergi ?? '' }}</td>
-                                                    <td>{{ $data->hari_1 ?? '' }}</td>
-                                                    <td>{{ $data->hari_2 ?? '' }}</td>
-                                                    <td>{{ $data->hari_3 ?? '' }}</td>
-                                                    {{-- <td>
-                                                        @if ($data->is_verif == 'sudah')
-                                                            <span class="badge badge-success">Sudah Verifikasi</span>
-                                                        @else
-                                                            <span class="badge badge-danger">Belum Verifikasi</span>
-                                                        @endif
-                                                    </td> --}}
-                                                    <td>
-                                                        {{-- @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
-                                                            <a href="#"
-                                                                onclick="verifikasi({{ $data->id }}, 'pendamping', '{{ $data->is_verif }}')"
-                                                                class="btn btn-primary mb-2">Verifikasi</a>
-                                                        @endif --}}
-                                                        <a href="{{ route('pegawai.editPendamping', $data->id) }} "
-                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                        {{-- <button onclick="deleteData({{ $data->id }}, 'pendamping')"
-                                                            class="btn btn-danger">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button> --}}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-
-                                    <table class="table table-striped table-internal" id="table-internal-4">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">
-                                                    #
-                                                </th>
-                                                {{-- <th>Pas Foto</th> --}}
-                                                <th>Nama Lengkap</th>
-                                                <th>Email</th>
-                                                <th>Nomor KTP</th>
-                                                <th>NIP</th>
-                                                <th>Tempat, Tanggal Lahir</th>
-                                                <th>Alamat Rumah</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Jabatan</th>
-                                                <th>Stauts</th>
-                                                <th>Agama</th>
-                                                <th>Pendidikan Terakhir</th>
-                                                <th>Kabupaten/Kota</th>
-                                                <th>Satuan Pendidikan</th>
-                                                {{-- <th>Alamat Satuan Pendidikan</th> --}}
-                                                <th>Nomor Aktif</th>
-                                                <th>No Rekening</th>
-                                                {{-- <th>Status Verifikasi</th> --}}
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr data-type="pegawai">
-                                                    <td>
-                                                        {{ 1 }}
-                                                    </td>
-                                                    {{-- <td>
-                                                        <img src="{{ asset('/upload/pegawai/' . $data->pas_foto) }}"
-                                                            alt="" class="img-fluid">
-
-                                                    </td> --}}
-                                                    <td>{{ $pegawai->nama_lengkap }}</td>
-                                                    <td>{{ $pegawai->email }} </td>
-                                                    <td>{{ $pegawai->no_ktp }}</td>
-                                                    <td>{{ $pegawai->nip }}</td>
-                                                    <td>{{ $pegawai->tempat_lahir . ', ' . $pegawai->tgl_lahir }}</td>
-                                                    <td>{{ $pegawai->alamat_rumah }}</td>
-                                                    <td>{{ $pegawai->gender }}</td>
-                                                    <td>{{ $pegawai->jabatan }}</td>
-                                                    <td>{{ $pegawai->status }}</td>
-                                                    <td>{{ $pegawai->agama }}</td>
-                                                    <td>{{ $pegawai->pendidikan }}</td>
-                                                    <td>{{ $pegawai->kabupaten }}</td>
-                                                    <td>
-                                                        {{ $pegawai->satuan_pendidikan }}
-                                                    </td>
-                                                    {{-- <td>
-                                                        {{ $pegawai->alamat_satuan }}
-                                                    </td> --}}
-                                                    <td>No. Hp : {{ $pegawai->no_hp }} <br>
-                                                        No. Whatsapp : {{ $pegawai->no_wa }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $pegawai->no_rek }} - {{ $pegawai->jenis_bank }}
-                                                    </td>
-                                                    {{-- <td>
-                                                        @if ($pegawai->is_verif == 'sudah')
-                                                            <span class="badge badge-success">Sudah Verifikasi</span>
-                                                        @else
-                                                            <span class="badge badge-danger">Belum Verifikasi</span>
-                                                        @endif
-
-                                                    </td> --}}
-                                                    <td>
-                                                        {{-- <a href="#" class="btn btn-primary mb-2"
-                                                            onclick="verifikasi({{ $data->id }}, 'pegawai', '{{ $data->is_verif }}')">Verifikasi</a> --}}
-
-                                                        {{-- <a href="#" class="btn btn-info"><i
-                                                                class="fas fa-print"></i></a> --}}
-
-                                                        <a href="{{ route('pegawai.edit.user',$pegawai->id) }} "
-                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-
-                                                        {{-- <button onclick="deleteData({{ $data->id }}, 'pegawai')"
-                                                            class="btn btn-danger">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button> --}}
-                                                    </td>
-                                                </tr>
-
-                                        </tbody>
-                                    </table>
 
 
                                 </div>
+
                             </div>
                         </div>
                     </div>
