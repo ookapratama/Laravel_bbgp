@@ -11,6 +11,7 @@ use App\Models\Pegawai;
 use App\Models\PegawaiPpnpn;
 use App\Models\Pendamping;
 use Illuminate\Http\Request;
+use Svg\Tag\Rect;
 
 class InternalController extends Controller
 {
@@ -33,7 +34,6 @@ class InternalController extends Controller
         // dd($merge);
 
         return view('pages.admin.internal.index', ['menu' => 'internal', 'datas' => $data, 'kota' => $kota, 'dataPendamping' => $dataPendamping, 'dataPpnpn' => $dataPpnpn]);
-
     }
 
     public function verifikasi(string $id)
@@ -65,18 +65,55 @@ class InternalController extends Controller
             'golongan' => JabatanPenugasanGolongan::get(),
             'jabatanPegawai' => JabatanPenugasanPegawai::get(),
             'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
+            'dataPegawai' => Pegawai::get(),
             'kota' => Kabupaten::get()
         );
 
-    // dd($pegawai);
+        // dd($pegawai);
         return view('pages.admin.penugasan.lokakarya', ['menu' => ''], compact('pegawai', 'datas'));
-
     }
+
+    public function storeLokakaryaPegawai(Request $r)
+    {
+        // dd($r->all());
+        Internal::create($r->all());
+        return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'store');
+    }
+
     public function storeLokakarya(Request $r)
     {
 
         Internal::create($r->all());
         return redirect()->route('internal.index')->with('message', 'store');
+    }
+
+
+    public function editLokakarya($id)
+    {
+        $loka = Internal::find($id);
+        // dd($loka);
+        $pegawai = Pegawai::find($id);
+        if ($pegawai == null) {
+            $pegawai = PegawaiPpnpn::find($id);
+        }
+        $datas = array(
+            'golongan' => JabatanPenugasanGolongan::get(),
+            'jabatanPegawai' => JabatanPenugasanPegawai::get(),
+            'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
+            'kota' => Kabupaten::get(),
+            'lokakarya' => $loka,
+        );
+
+        // dd($pegawai);
+        return view('pages.admin.penugasan.Editlokakarya', ['menu' => ''], compact('loka', 'datas'));
+    }
+
+    public function updateLokakarya(Request $r)
+    {
+        $loka = Internal::find($r->id);
+        // dd($loka);
+        $loka->update($r->all());
+        return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
     }
 
 
@@ -113,7 +150,6 @@ class InternalController extends Controller
 
         Internal::create($r->all());
         return redirect()->route('internal.index')->with('message', 'store');
-
     }
 
     public function storePpnp(Request $r)
@@ -121,7 +157,6 @@ class InternalController extends Controller
 
         Internal::create($r->all());
         return redirect()->route('internal.index')->with('message', 'store');
-
     }
 
     public function create($jenis)
@@ -145,7 +180,6 @@ class InternalController extends Controller
             $title = 'Penugasan Pegawai';
         }
         return view('pages.admin.internal.createPenugasan', ['menu' => 'internal', 'title' => $title, 'datas' => $datas]);
-
     }
 
     public function createUsername($fullName)
@@ -308,5 +342,32 @@ class InternalController extends Controller
 
         $data->update($r);
         return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
+    }
+
+    public function cariLokakarya(Request $r)
+    {
+        // dd($r->all());
+
+        $input = $r->all();
+
+        // Mencari data berdasarkan input yang diterima
+        $data = Internal::where(function ($query) use ($input) {
+            $query->where('nip', $input['nip']);
+            if (!empty($input['nama'])) {
+                $query->where('nama', 'like', '%' . $input['nama'] . '%');
+            }
+            if (!empty($input['kegiatan'])) {
+                $query->orWhere('kegiatan', 'like', '%' . $input['kegiatan'] . '%');
+            }
+            if (!empty($input['kota'])) {
+                $query->orWhere('kota', 'like', '%' . $input['kota'] . '%');
+            }
+            if (!empty($input['hotel'])) {
+                $query->orWhere('hotel', 'like', '%' . $input['hotel'] . '%');
+            }
+        })->get();
+        dd($data);
+        // Mengembalikan hasil pencarian
+        return $data;
     }
 }

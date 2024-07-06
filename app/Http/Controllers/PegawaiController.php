@@ -147,6 +147,10 @@ class PegawaiController extends Controller
         $r['is_verif'] = 'belum';
         // dd($r);
         $data->update($r);
+        if (session('role') == 'pegawai') {
+
+            return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
+        } 
         return redirect()->route('internal.index')->with('message', 'update');
         // return redirect()->route('pegawai.index')->with('message', 'update');
     }
@@ -176,11 +180,13 @@ class PegawaiController extends Controller
             
             'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nip', $findPegawai['nip'])->get() ?? [],
             'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nip', $findPegawai['nip'])->get() ?? [],
-            'dataPendamping' => Pendamping::where('nip', $findPegawai['nip'])->get() ?? [],
+            'dataPendamping' => Internal::where('nip', $findPegawai['nip'])->get() ?? [],
             'dataPegawai' => $findPegawai,
+            'jadwalLokakarya' => Internal::where('jenis', 'Penugasan Lokakarya')->get(),
+
         );
         // dd($data);
-        // dd($data['dataPenugasanPegawai']);
+        // dd($data['jadwalLokakarya']);
         return view('pages.admin.pegawai.show', ['menu' => 'pegawai', 'datas' => $data, 'pegawai' => $findPegawai]);
     }
 

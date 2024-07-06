@@ -46,6 +46,7 @@ Route::group(
 
             // Root
             Route::get('/', 'AdminController@index')->name('dashboard');
+            Route::get('/jadwalKegiatan', 'AdminController@jadwal')->name('dashboard.jadwal');
 
             // Profile User yang Login
             Route::get('/profile/{id}', 'AdminController@profile')->name('profile.index');
@@ -86,6 +87,8 @@ Route::group(
                 
                 // untuk login pegawai by user
                 Route::get('/{id}', 'PegawaiController@show')->name('pegawai.show');
+                Route::post('/lokakarya', 'InternalController@storeLokakaryaPegawai')->name('pegawai.lokakarya');
+                
                 Route::get('/editUser/{id}', 'PegawaiController@editUser')->name('pegawai.edit.user');
                 Route::put('/updateUser', 'PegawaiController@updateUser')->name('pegawai.update.user');
                 Route::get('/penugasan/{id}', 'PegawaiController@editPenugasan')->name('pegawai.editPenugasan');
@@ -126,8 +129,15 @@ Route::group(
                 // Route::get('/tabel/lokakarya', 'InternalController@get_tabel')->name('internal.tabel.lokakarya');
                 Route::post('/verifikasi/{id}', 'InternalController@verifikasi')->name('internal.verifikasi');
 
+                // Khusus Loka karya
                 Route::get('/createLokakarya/{id}', 'InternalController@createLokakarya')->name('internal.create.lokakarya');
                 Route::post('/storeLokakarya', 'InternalController@storeLokakarya')->name('internal.store.lokakarya');
+                Route::get('/editLokakarya/{id}', 'InternalController@editLokakarya')->name('internal.edit.lokakarya');
+                Route::put('/updateLokakarya', 'InternalController@updateLokakarya')->name('internal.update.lokakarya');
+                Route::get('/jadwalLokakarya/{id}', 'InternalController@jadwalLokakarya')->name('internal.jadwal.lokakarya');
+                Route::post('/cariLokakarya', 'InternalController@cariLokakarya')->name('internal.cari.lokakarya');
+
+                
                 Route::get('/createPegawai/{id}', 'InternalController@createPegawai')->name('internal.create.pegawai');
                 Route::post('/storePegawai', 'InternalController@storePegawai')->name('internal.store.pegawai');
                 Route::get('/createPpnp/{id}', 'InternalController@createPpnp')->name('internal.create.ppnp');

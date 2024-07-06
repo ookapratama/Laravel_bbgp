@@ -24,13 +24,22 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Nama</label>
-                                                    <input required value="{{ $pegawai->nama_lengkap }}" name="nama" type="text" class="form-control">
+                                                    {{-- <input required value="{{ $pegawai->nama_lengkap }}" name="nama" type="text" class="form-control"> --}}
+                                                    <select name="nama" class="form-control select2" id="selectNama">
+                                                        <option value="">-- Pilih Pegawai --</option>
+    
+                                                        @foreach ($datas['dataPegawai'] as $v)
+                                                            <option data-nip="{{ $v->nip }}"
+                                                                value="{{ $v->nama_lengkap }}">{{ $v->nama_lengkap }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>NIP</label>
-                                                    <input required value="{{ $pegawai->nip }}" name="nip" type="number" class="form-control">
+                                                    <input required value="" name="nip" type="number" class="form-control">
                                                 </div>
 
                                             </div>
@@ -111,5 +120,23 @@
 
     @push('scripts')
         <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                // Initialize Select2
+                $('#selectNama').select2();
+
+                // Handle change event on select element
+                $('#selectNama').on('change', function() {
+                    // Get selected option
+                    var selectedOption = $(this).find(':selected');
+
+                    // Get NIP from data-nip attribute
+                    var nip = selectedOption.data('nip');
+
+                    // Set NIP value to input field
+                    $('input[name="nip"]').val(nip);
+                });
+            });
+        </script>
     @endpush
 @endsection

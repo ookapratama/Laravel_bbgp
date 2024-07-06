@@ -29,8 +29,7 @@
                                         <div class="d-flex mt-3 mb-5">
                                             <div class="row mx-2">
                                                 <div class="">
-                                                    <a href="#" id="pegawaiBBGP"
-                                                        class="btn btn-warning btn-lg p-2">
+                                                    <a href="#" id="pegawaiBBGP" class="btn btn-warning btn-lg p-2">
                                                         <i class="fas fa-layer-group mr-1"></i>Penugasan Pegawai BBGP
                                                     </a>
                                                 </div>
@@ -46,7 +45,7 @@
                                 </div>
 
                                 <!-- Filter Section -->
-                                <h5>Pencarian Data Internal BBGP</h5>
+                                {{-- <h5>Pencarian Data Internal BBGP</h5>
                                 <div class="row mb-2">
                                     <div class="col-md-8">
                                         <div class="form-group">
@@ -54,10 +53,10 @@
                                                 placeholder="Masukkan nama anda" class="form-control">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <!-- Filter Data Internal -->
-                                <h5>Filter Data Internal</h5>
+                                {{-- <h5>Filter Data Internal</h5>
                                 <div class="row">
                                     <div class="col-md-4 mb-4">
                                         <label>Rekapan Data</label>
@@ -68,17 +67,18 @@
                                             <option value="Pendamping Lokakarya">Pendamping Lokakarya</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <!-- Tables Section -->
-                                <div class="table-responsive">
+                                <div class="table-responsive table-internal" id="table-internal-ppnpn">
                                     <!-- Table PPNPN -->
-                                    <table class="table table-striped table-internal" id="table-internal-ppnpn">
+                                    <table class="table table-striped" id="table-ppnpn">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>Nama</th>
                                                 <th>Jabatan</th>
+                                                <th>Penugasan</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -89,13 +89,13 @@
                                                     <td>{{ $data->nama ?? '' }}</td>
                                                     <td>{{ $data->jabatan ?? '' }}</td>
                                                     <td>
-                                                        <a href=" {{  route('internal.create.ppnp', $data->id) }} "
+                                                        <a href="{{ route('internal.create.ppnp', $data->id) }}"
                                                             class="btn btn-primary my-2">Penugasan PPNPN</a>
-                                                            
-                                                        <a href=" {{ route('internal.create.lokakarya', $data->id) }} "
-                                                            class="btn btn-primary my-2">Penugasan Lokakarya</a>
-
-                                                        <a href="{{ route('internal.edit', $data->id) }} "
+                                                        <a href="{{ route('internal.create.lokakarya', $data->id) }}"
+                                                            class="btn btn-info my-2">Penugasan Lokakarya</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('internal.edit', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
                                                         <button onclick="deleteData({{ $data->id }}, 'ppnpn')"
                                                             class="btn btn-danger">
@@ -106,9 +106,11 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </div>
 
+                                <div class="table-responsive table-internal" id="table-internal-bbgp">
                                     <!-- Table BBGP -->
-                                    <table class="table table-striped table-internal" id="table-internal-bbgp">
+                                    <table class="table table-striped" id="table-bbgp">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -117,6 +119,7 @@
                                                 <th>Jabatan</th>
                                                 <th>Nomor KTP</th>
                                                 <th>NIP</th>
+                                                <th>Penugasan</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -130,11 +133,13 @@
                                                     <td>{{ $data->no_ktp }}</td>
                                                     <td>{{ $data->nip }}</td>
                                                     <td>
-                                                        <a href="{{  route('internal.create.pegawai', $data->id) }}" class="btn btn-primary mb-2"
-                                                            onclick="">Penugasan Pegawai</a>
-                                                        <a href="{{  route('internal.create.lokakarya', $data->id) }}" class="btn btn-primary mb-2"
-                                                            onclick="">Pendamping Lokakarya</a>
-                                                        <a href="{{ route('pegawai.edit', $data->id) }} "
+                                                        <a href="{{ route('internal.create.pegawai', $data->id) }}"
+                                                            class="btn btn-primary mb-2">Penugasan Pegawai</a>
+                                                        <a href="{{ route('internal.create.lokakarya', $data->id) }}"
+                                                            class="btn btn-info mb-2">Pendamping Lokakarya</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('pegawai.edit', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
                                                         <button onclick="deleteData({{ $data->id }}, 'bbgp')"
                                                             class="btn btn-danger">
@@ -145,9 +150,8 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-
-                                    
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -163,55 +167,68 @@
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                // Initialize DataTables
-                const tablePpnpn = $('#table-internal-ppnpn').DataTable({
-                    "columnDefs": [{
-                        "sortable": false,
-                    }],
+
+                var language = {
+                    "sSearch": "Pencarian Data Internal BBGP : ",
+                };
+                // Initialize DataTables for both tables
+                var tablePpnpn = $('#table-ppnpn').DataTable({
+                    paging: true,
+                    searching: true,
+                    language: language,
+                    // Add more DataTable options as needed
                 });
-                const tableBbgp = $('#table-internal-bbgp').DataTable({
-                    "columnDefs": [{
-                        "sortable": false,
-                        "targets": [1],
-                        "width": "30%"
-                    }],
+
+                var tableBbgp = $('#table-bbgp').DataTable({
+                    paging: true,
+                    searching: true,
+                    language: language,
+
+                    // Add more DataTable options as needed
                 });
 
                 // Initially hide both tables
                 $('.table-internal').hide();
 
                 // Show appropriate table based on button click
-                $('#pegawaiBBGP').on('click', function (event) {
+                $('#pegawaiBBGP').on('click', function(event) {
                     event.preventDefault();
                     $('.table-internal').hide();
                     $('#table-internal-bbgp').show();
+                    tableBbgp.columns.adjust().draw(); // Adjust column widths on table show
                 });
 
-                $('#pegawaiPpnp').on('click', function (event) {
+                $('#pegawaiPpnp').on('click', function(event) {
                     event.preventDefault();
                     $('.table-internal').hide();
                     $('#table-internal-ppnpn').show();
+                    tablePpnpn.columns.adjust().draw(); // Adjust column widths on table show
                 });
 
                 // Filter tables based on dropdown selection
                 $('#rekapan').on('change', function() {
                     let jenis = $(this).val().toLowerCase().replace(/ /g, '-');
-
+                    console.log(jenis);
                     // Hide all tables initially
                     $('.table-internal').hide();
 
                     // Show the appropriate table based on the selection
                     if (jenis === 'penugasan-pegawai') {
                         $('#table-internal-bbgp').show();
+                        tableBbgp.columns.adjust().draw(); // Adjust column widths on table show
                     } else if (jenis === 'penugasan-ppnpn') {
                         $('#table-internal-ppnpn').show();
+                        tablePpnpn.columns.adjust().draw(); // Adjust column widths on table show
                     }
                 });
 
                 // Filter by Nama
                 $('#namaFilter').on('keyup', function() {
                     tablePpnpn.column(1).search(this.value).draw();
+                    tablePpnpn.column(2).search(this.value).draw();
                     tableBbgp.column(1).search(this.value).draw();
+                    tableBbgp.column(2).search(this.value).draw();
+                    tableBbgp.column(3).search(this.value).draw();
                 });
 
                 // Reset button functionality

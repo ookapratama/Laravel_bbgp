@@ -118,7 +118,7 @@ class GuruController extends Controller
         $r['jenis_jabatan'] = $r['jabJenis'];
         $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
         $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
-        // $r['is_verif'] = 'belum';
+        $r['is_verif'] = 'belum';
         // dd($r);
 
         Guru::create($r);
@@ -210,7 +210,7 @@ class GuruController extends Controller
         $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
         $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
         // $r['is_verif'] = 'belum';
-        // $r['is_verif'] = 'belum';
+        $r['is_verif'] = 'belum';
         $data->update($r);
         return redirect()->route('guru.index')->with('message', 'update');
     }

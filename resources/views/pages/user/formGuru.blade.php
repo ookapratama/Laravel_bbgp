@@ -405,7 +405,7 @@
                         let dataJabValue = dataJab['s_jabStakeholder'].map(item => {
                             option = $("<option>")
                                 .text(item.name)
-                                .attr('value', item.id)
+                                .attr('value', item.name)
                                 .removeAttr('disabled');
                             jabJenis.append(option);
                         });

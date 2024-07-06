@@ -104,6 +104,8 @@ const verifikasi = (id, tabel, status) => {
     });
 };
 
+
+
 function register(data) {
    console.log('loginnnnnnn');
    let token = $("meta[name='csrf-token']").attr("content");

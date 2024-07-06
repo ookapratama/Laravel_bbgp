@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Guru;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Internal;
 use App\Models\User;
 
 class AdminController extends Controller
@@ -58,9 +59,23 @@ class AdminController extends Controller
             ->where('jenis_jabatan', 'Guru')
             ->where('tugas_jabatan', 'Instruktur')->get()->count(),
 
+            // 'jadwalLokakarya' => Internal::where('jenis', 'Penugasan Lokakarya')->get(),
+            
         );
-        // dd($datas);
+        // dd($datas['jadwalLokakarya']);
+        
         return view('pages.admin.dashboard.index', ['menu' => 'dashboard', 'datas' => $datas]);
+    }
+    
+    public function jadwal() {
+        $data = array (
+            'jadwalLokakarya' => Internal::where('jenis', 'Penugasan Lokakarya')->get(),
+            // 'jadwalLokakarya' => 
+        );
+
+        return response()->json([
+            'jadwalLokakarya' => $data['jadwalLokakarya']
+        ]);
     }
 
     /**

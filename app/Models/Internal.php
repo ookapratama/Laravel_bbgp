@@ -20,6 +20,7 @@ class Internal extends Model
         'is_verif',
         'transport_pulang',
         'transport_pergi',
+        'kota',
         'hotel',
         'hari_1',
         'hari_2',
