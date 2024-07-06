@@ -139,8 +139,12 @@
                                                             class="btn btn-info mb-2">Pendamping Lokakarya</a>
                                                     </td>
                                                     <td>
+                                                        {{-- <a href="#"
+                                                            class="btn btn-info my-2"><i class="fas fa-info"></i></a> --}}
+
                                                         <a href="{{ route('pegawai.edit', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+
                                                         <button onclick="deleteData({{ $data->id }}, 'bbgp')"
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
