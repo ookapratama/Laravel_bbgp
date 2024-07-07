@@ -25,7 +25,7 @@ const deleteData = (id, tabel) => {
                     "X-CSRF-TOKEN": token,
                 },
                 type: "POST",
-                url: `/bbgp/public/dashboard/${tabel}/hapus/${id}`,
+                url: `/dashboard/${tabel}/hapus/${id}`,
                 success: function (response) {
                     console.log(response);
                     if (response) {
@@ -73,7 +73,7 @@ const verifikasi = (id, tabel, status) => {
                     "X-CSRF-TOKEN": token,
                 },
                 type: "POST",
-                url: `/bbgp/public/dashboard/${tabel}/verifikasi/${id}`,
+                url: `/dashboard/${tabel}/verifikasi/${id}`,
                 success: function (response) {
                     console.log(response.data.data);
                     console.log(response.data.stats);
@@ -121,7 +121,7 @@ function register(data) {
         },
         type: "POST",
 
-        url: `/bbgp/public/dashboard/akun/regis`,
+        url: `/dashboard/akun/regis`,
         data: {
             // Data tambahan yang ingin dikirim
             username: data.nama_lengkap, // Data diambil dari respons verifikasi

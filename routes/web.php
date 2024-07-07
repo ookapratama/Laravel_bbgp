@@ -33,6 +33,12 @@ Route::group(
         Route::get('/eksternal', 'UserController@guru')->name('user.guru');
         Route::get('/eksternal/form/{jenis}', 'UserController@form_guru')->name('user.form_guru');
         Route::post('/eksternal/daftar', 'UserController@daftar_guru')->name('user.daftar_guru');
+
+        Route::get('/kegiatan', 'KegiatanController@index')->name('user.kegiatan');
+        Route::get('/kegiatan/cari','KegiatanController@cari')->name('user.cari');
+
+        Route::get('/kegiatan/registrasi', 'KegiatanController@regist')->name('user.kegiatan_regist');
+        Route::post('/kegiatan/store', 'KegiatanController@store')->name('user.kegiatan_store');
     }
 );
 
@@ -158,7 +164,7 @@ Route::group(
                 Route::get('/', 'PendampingController@index')->name('pendamping.index');
                 
                 // untuk tampil berdasar dari id pegawai
-                Route::get('/{id_pegawai}', 'PendampingController@show')->name('internal.show');
+                // Route::get('/{id_pegawai}', 'PendampingController@show')->name('internal.show');
                 
                 Route::get('/tabel', 'PendampingController@tabel')->name('pendamping.tabel');
                 Route::get('/create', 'PendampingController@create')->name('pendamping.create');
