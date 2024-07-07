@@ -142,11 +142,18 @@
                                                             Menu Penugasan
                                                         </button>
 
+                                                        <button class="btn btn-info my-2"
+                                                            data-nama="{{ $data->nama_lengkap }}"
+                                                            data-id="{{ $data->id }}" data-nik="{{ $data->no_ktp }}"
+                                                            data-toggle="modal" data-target="#modalLokakarya">
+                                                            Menu Pendamping Lokakarya
+                                                        </button>
+
                                                         {{-- <a href="{{ route('internal.create.pegawai', $data->id) }}"
                                                             class="btn btn-primary mb-2">Penugasan Pegawai</a> --}}
 
-                                                        <a href="{{ route('internal.create.lokakarya', $data->id) }}"
-                                                            class="btn btn-info mb-2">Pendamping Lokakarya</a>
+                                                        {{-- <a href="{{ route('internal.create.lokakarya', $data->id) }}"
+                                                            class="btn btn-info mb-2">Pendamping Lokakarya</a> --}}
                                                     </td>
                                                     <td>
                                                         {{-- <a href="#"
@@ -179,7 +186,26 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Menu Penugasan Pegawai BBGP</h5>
+                    <h5 class="modal-title-pegawai">Menu Penugasan Pegawai BBGP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    {{-- Link dengan id, yang nantinya akan diubah oleh script --}}
+                    <a id="lihatPenugasanLink" class="btn text-white btn-info">Lihat Penugasan</a>
+                    <a id="tambahPenugasanLink" class="btn text-white btn-success">Tambah Penugasan</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal Pendamping Lokakarya --}}
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalLokakarya">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title-lokakarya">Menu Pendamping Lokakarya BBGP</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -211,7 +237,21 @@
                 var tambahLink = "{{ route('internal.create.pegawai', ':id') }}".replace(':id', button.data('id'));
 
                 // Update href dari link di dalam modal
-                $('.modal-title').text(`Pegawai ${nama}`);
+                $('.modal-title-pegawai').text(`Pegawai ${nama}`);
+                $('#lihatPenugasanLink').attr('href', lihatLink);
+                $('#tambahPenugasanLink').attr('href', tambahLink);
+            });
+
+            // Event yang dijalankan saat modal muncul
+            $('#modalLokakarya').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Button yang membuka modal
+                var nik = button.data('nik'); // Ambil data-nik dari tombol
+                var nama = button.data('nama'); // Ambil data-nama dari tombol
+                var lihatLink = "{{ route('internal.index.pegawai', ':nik') }}".replace(':nik', nik);
+                var tambahLink = "{{ route('internal.create.pegawai', ':id') }}".replace(':id', button.data('id'));
+
+                // Update href dari link di dalam modal
+                $('.modal-title-pegawai').text(`Pegawai ${nama}`);
                 $('#lihatPenugasanLink').attr('href', lihatLink);
                 $('#tambahPenugasanLink').attr('href', tambahLink);
             });
