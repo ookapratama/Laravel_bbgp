@@ -20,7 +20,10 @@
 
             @if (session('role') == 'admin' 
                 || session('role') == 'superadmin' 
-                || session('role') == 'kepala')
+                || session('role') == 'kepala'
+                || session('role') == 'keuangan'
+                || session('role') == 'kepegawaian'
+                )
 
                 
                 <li class="{{ $menu == 'internal' ? 'active' : '' }}">
@@ -31,6 +34,16 @@
                 <li class="{{ $menu == 'guru' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('guru.index') }}">
                         <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
+                    </a>
+                </li>
+                <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('kegiatan.index') }}">
+                        <i class="fas fa-calendar-week"></i> <span>Data Kegiatan</span>
+                    </a>
+                </li>
+                <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('kegiatan.index') }}">
+                        <i class="fas fa-users"></i> <span>Data Peserta Kegiatan</span>
                     </a>
                 </li>
                 <li class="{{ $menu == 'akun' ? 'active' : '' }}">

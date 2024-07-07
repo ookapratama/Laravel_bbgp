@@ -9,6 +9,7 @@ class PesertaKegiatan extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id_kegiatan',
         'no_ktp',
         'signature',
         'status_keikutpesertaan',
@@ -19,6 +20,8 @@ class PesertaKegiatan extends Model
         'kelengkapan_peserta_biodata',
         'no_hp',
         'no_wa',
-        'kabupaten'
+        'kabupaten',
+        'jam_mengajar',
+        'jam_selesai'
     ];
 }

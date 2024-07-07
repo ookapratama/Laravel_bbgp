@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .kop-surat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .kop-surat img {
+            width: 80px; /* Sesuaikan ukuran gambar */
+            height: auto;
+        }
+        .kop-surat .kop-text {
+            flex-grow: 1; /* Biarkan teks tumbuh dan menempati ruang */
+            padding: 0 10px; /* Beri sedikit jarak antara teks dan gambar */
+        }
+        .kop-surat h1, .kop-surat h2 {
+            margin: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="kop-surat" style="position: relative;">
+        <img style="position: absolute; left: 0; width: 110px" src="{{ asset('img_template/iconbbgp.png') }}" alt="Logo Kiri">
+        <div class="kop-text">
+            <h3>DAFTAR HADIR PANITIA</h3>
+            {{-- <h4>DAFTAR HADIR PESERSTA</h4> --}}
+            <?php
+            setlocale(LC_TIME, 'id_ID.UTF-8');
+            
+            $tgl_kegiatan = strftime('%d %B', strtotime($kegiatan->tgl_kegiatan));
+            $tgl_selesai = strftime('%d %B %Y', strtotime($kegiatan->tgl_selesai));
+            ?>
+            <h4>{{ $kegiatan->nama_kegiatan }}<br> {{ $kegiatan->tempat_kegiatan }} <br> {{ $tgl_kegiatan }} -
+                {{ $tgl_selesai }} </h4>
+            {{-- <h4>Koordinasi Teknis Program Gerak Penggerak<br>Balai Besar Guru Penggerak Sulawesi Selatan</h4> --}}
+        </div>
+        {{-- <img  style="position: absolute; top: 0; right: 0; width: 150px"  src="{{ asset('img_template/absenPeserta.png') }}" alt="Logo Kanan"> --}}
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Instansi</th>
+                <th>Tanda Tangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($data as $key => $peserta)
+                <tr>
+                    <td style="width: 10px">{{ $key + 1 }}</td>
+                    <td>{{ $peserta->nama }}</td>
+                    <td>{{ $peserta->instansi }}</td>
+                    <td style="height: 50px;"></td>
+                </tr>
+                @if (($key + 1) % 25 == 0)
+                    </tbody>
+                </table>
+                <div class="page-break"></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Instansi</th>
+                            <th>Tanda Tangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                @endif
+            @endforeach
+        </tbody>
+    </table>
+</body>
+</html>

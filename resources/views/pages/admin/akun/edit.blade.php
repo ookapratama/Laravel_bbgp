@@ -28,20 +28,25 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md">
                                             <div class="form-group">
-                                                <label>Nama</label>
-                                                <input name="name" required
-                                                    placeholder="Masukkan Nama Akun" type="text"
-                                                    class="form-control">
+                                                <label>NIK</label>
+                                                <input name="no_ktp" required placeholder="Masukkan Nomor KTP"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md">
+                                            <div class="form-group">
+                                                <label>Nama</label>
+                                                <input name="name" required placeholder="Masukkan Nama Akun"
+                                                    type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input name="username" required
-                                                    placeholder="Masukkan Usernam untuk login" type="text"
-                                                    class="form-control">
+                                                <input name="username" required placeholder="Masukkan Usernam untuk login"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -49,16 +54,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input name="password" required
-                                                    placeholder="Masukkan Password" type="text"
-                                                    class="form-control">
+                                                <input name="password" required placeholder="Masukkan Password"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Role</label>
-                                                <select name="role" required
-                                                    placeholder="Masukkan Akun" 
+                                                <select name="role" required placeholder="Masukkan Akun"
                                                     class="form-control">
                                                     <option value="">-- Pilih Role Akun --</option>
                                                     <option value="admin">admin</option>
@@ -79,7 +82,7 @@
 
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-plus"></i>
-                                                Tambah Data Akun
+                                                Update Data Akun
                                             </button>
                                         </div>
                                     </div>

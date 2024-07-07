@@ -15,19 +15,18 @@
                 <h1>Dashboard</h1>
             </div>
             @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
-               
-            @endif
-
-            <div class="card">
-                <div class="card-header">
-                    <h4>Calendar Kegiatan</h4>
-                </div>
-                <div class="card-body">
-                    <div class="fc-overflow">
-                        <div id="jadwal"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Calendar Kegiatan</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="fc-overflow">
+                            <div id="jadwal"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
+
 
         </section>
     </div>
@@ -151,7 +150,7 @@
         <script>
             $(document).ready(function() {
                 let token = $("meta[name='csrf-token']").attr("content");
-        
+
                 $.ajax({
                     headers: {
                         "X-CSRF-TOKEN": token,
@@ -160,16 +159,24 @@
                     url: `dashboard/jadwalKegiatan`,
                     success: function(response) {
                         var data = [];
+
                         response.jadwal.forEach(element => {
+                            var mulai = `${element.tgl_kegiatan} ${element.jam_mulai ?? ''}`;
+                            var selesai =
+                                `${element.tgl_selesai_kegiatan} ${element.jam_selesai ?? ''}`;
+
+                            // Generate random color
+                            var randomColor = getRandomColor();
+
                             data.push({
                                 title: `Kegiatan: ${element.kegiatan ?? '-'} | Atas Nama: ${element.nama}`,
-                                start: element.tgl_kegiatan,
-                                end: element.tgl_selesai_kegiatan,
-                                backgroundColor: "green",
+                                start: mulai,
+                                end: selesai,
+                                backgroundColor: randomColor,
                                 textColor: '#fff'
                             });
                         });
-        
+
                         $("#jadwal").fullCalendar({
                             height: 'auto',
                             header: {
@@ -178,7 +185,8 @@
                                 right: 'month,agendaWeek,agendaDay,listWeek'
                             },
                             editable: true,
-                            events: data
+                            events: data,
+
                         });
                     },
                     error: function(error) {
@@ -186,9 +194,17 @@
                         swal("Error", "Ajax Error.", "error");
                     },
                 });
+
+                // Function to generate random color
+                function getRandomColor() {
+                    var letters = '0123456789ABCDEF';
+                    var color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
             });
         </script>
-        
-
     @endpush
 @endsection

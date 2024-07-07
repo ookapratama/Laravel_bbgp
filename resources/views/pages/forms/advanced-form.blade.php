@@ -1,10 +1,10 @@
 @extends('layouts.app', ['title' => 'Forms > Advanced Form'])
 @section('content')
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
-        <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
         <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
         <link rel="stylesheet" href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
     @endpush
@@ -548,8 +548,8 @@
         <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
         <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
         <script src="{{ asset('library/jquery-pwstrength/pwstrength.js') }}"></script>
-        <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
         <script src="{{ asset('library/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+        <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
         <script src="{{ asset('library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
         <script src="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
         <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>

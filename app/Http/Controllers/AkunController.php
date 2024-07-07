@@ -22,14 +22,14 @@ class AkunController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
             
         // dd($r);
 
         $r['password'] = bcrypt($r['password']);
-        Admin::create($r);
-        User::create($r);
+        Admin::create($r->all());
+        User::create($r->all());
 
         return redirect()->route('akun.index')->with('message', 'store');
     }

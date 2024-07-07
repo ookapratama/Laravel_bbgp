@@ -247,7 +247,7 @@
                 <a href="{{ route('user.kontak') }}" class="nav-link"><i class="fas fa-id-card-alt"></i><span>Kontak</span></a>
             </li>
             <li class="nav-item {{ $menu == 'kegiatan' ? 'active' : '' }}">
-                <a href="{{ route('user.kegiatan') }}" class="nav-link"><i class="fas fa-id-card-alt"></i><span>Kegiatan</span></a>
+                <a href="{{ route('user.kegiatan') }}" class="nav-link"><i class="fas fa-calendar-week"></i><span>Kegiatan</span></a>
             </li>
 
             <li class="nav-item">

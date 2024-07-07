@@ -24,7 +24,7 @@ Route::group(
         Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
         Route::get('/eksternal', 'UserController@guru')->name('user.guru');
-        
+
 
         Route::get('/pegawai', 'UserController@pegawai')->name('user.pegawai');
         Route::get('/pegawai/form', 'UserController@form_pegawai')->name('user.form_pegawai');
@@ -35,10 +35,24 @@ Route::group(
         Route::post('/eksternal/daftar', 'UserController@daftar_guru')->name('user.daftar_guru');
 
         Route::get('/kegiatan', 'KegiatanController@index')->name('user.kegiatan');
-        Route::get('/kegiatan/cari','KegiatanController@cari')->name('user.cari');
+        Route::get('/kegiatan/cari', 'KegiatanController@cari')->name('user.cari');
 
         Route::get('/kegiatan/registrasi', 'KegiatanController@regist')->name('user.kegiatan_regist');
         Route::post('/kegiatan/store', 'KegiatanController@store')->name('user.kegiatan_store');
+
+        // response jsonj
+        Route::get('/kegiatan/getStatus', 'KegiatanController@getStatus')->name('user.kegiatan.getStatus');
+        Route::get('/kegiatan/cariPeserta', 'KegiatanController@cariPeserta')->name('user.kegiatan.cariPeserta');
+        Route::get('/kegiatan/peserta', 'KegiatanController@getPesertaByKegiatan')->name('user.kegiatan.peserta');
+        Route::get('/peserta/detail', 'KegiatanController@getPesertaDetail')->name('user.peserta.detail');
+
+        Route::get('/print/absensi-peserta', 'KegiatanController@printAbsensiPeserta')->name('print.absensi.peserta');
+        Route::get('/print/registrasi-peserta', 'KegiatanController@printRegistrasiPeserta')->name('print.registrasi.peserta');
+        Route::get('/print/absensi-panitia', 'KegiatanController@printAbsensiPanitia')->name('print.absensi.panitia');
+        Route::get('/print/absensi-narasumber', 'KegiatanController@printAbsensiNarasumber')->name('print.absensi.narasumber');
+
+
+
     }
 );
 
@@ -70,11 +84,11 @@ Route::group(
                 Route::get('/edit/{id}', 'GuruController@edit')->name('guru.edit');
                 Route::put('/update', 'GuruController@update')->name('guru.update');
                 Route::post('/hapus/{id}', 'GuruController@destroy')->name('guru.hapus');
-                
-                
+
+
                 Route::get('/export', 'GuruController@export')->name('guru.export');
                 Route::get('/export/{id}', 'GuruController@exportByUser')->name('guru.export.user');
-                
+
                 // untuk login ekternal by user
                 Route::get('/show/{id}', 'GuruController@show')->name('guru.show');
                 Route::get('/editByUser/{id}', 'GuruController@editByUser')->name('guru.edit.user');
@@ -90,11 +104,11 @@ Route::group(
                 Route::get('/edit/{id}', 'PegawaiController@edit')->name('pegawai.edit');
                 Route::put('/update', 'PegawaiController@update')->name('pegawai.update');
                 Route::post('/hapus/{id}', 'PegawaiController@destroy')->name('pegawai.hapus');
-                
+
                 // untuk login pegawai by user
                 Route::get('/{id}', 'PegawaiController@show')->name('pegawai.show');
                 Route::post('/lokakarya', 'InternalController@storeLokakaryaPegawai')->name('pegawai.lokakarya');
-                
+
                 Route::get('/editUser/{id}', 'PegawaiController@editUser')->name('pegawai.edit.user');
                 Route::put('/updateUser', 'PegawaiController@updateUser')->name('pegawai.update.user');
 
@@ -127,7 +141,7 @@ Route::group(
             // Internal
             Route::prefix('internal')->group(function () {
                 Route::get('/', 'InternalController@index')->name('internal.index');
-                
+
                 // untuk tampil berdasar dari id pegawai
                 Route::get('/{id_pegawai}', 'InternalController@show')->name('internal.show');
 
@@ -151,8 +165,8 @@ Route::group(
                 Route::post('/storePegawai', 'InternalController@storePegawai')->name('internal.store.pegawai');
                 Route::get('/editPegawai/{id}', 'InternalController@editPegawai')->name('internal.edit.pegawai');
                 Route::post('/updatePegawai', 'InternalController@updatePegawai')->name('internal.update.pegawai');
-                
-                
+
+
                 // Penugasan PPNPN
                 Route::get('/indexPpnpn/{nik}', 'InternalController@indexPpnpn')->name('internal.index.ppnpn');
                 Route::get('/createPpnp/{id}', 'InternalController@createPpnpn')->name('internal.create.ppnpn');
@@ -169,26 +183,23 @@ Route::group(
 
                 Route::put('/updatePegawai', 'InternalController@updatePegawai')->name('internal.update.pegawai');
             });
-            
+
             // Pendamping
             Route::prefix('pendamping')->group(function () {
                 Route::get('/', 'PendampingController@index')->name('pendamping.index');
-                
-                // untuk tampil berdasar dari id pegawai
-                // Route::get('/{id_pegawai}', 'PendampingController@show')->name('internal.show');
-                
+
                 Route::get('/tabel', 'PendampingController@tabel')->name('pendamping.tabel');
                 Route::get('/create', 'PendampingController@create')->name('pendamping.create');
                 Route::post('/store', 'PendampingController@store')->name('pendamping.store');
                 Route::get('/edit/{id}', 'PendampingController@edit')->name('pendamping.edit');
                 Route::put('/update', 'PendampingController@update')->name('pendamping.update');
                 Route::post('/hapus/{id}', 'PendampingController@destroy')->name('pendamping.hapus');
-                
-                
+
+
                 Route::put('/updatePendamping', 'PendampingController@updatePendamping')->name('pendamping.update.user');
             });
 
-            
+
             // Akun
             Route::prefix('akun')->group(function () {
                 Route::get('/', 'AkunController@index')->name('akun.index');
@@ -199,6 +210,21 @@ Route::group(
                 Route::put('/update', 'AkunController@update')->name('akun.update');
                 Route::post('/hapus/{id}', 'AkunController@destroy')->name('akun.hapus');
             });
+
+
+            // Kegiatan
+            Route::prefix('kegiatan')->group(function () {
+                Route::get('/', 'KegiatanController@index')->name('kegiatan.index');
+                Route::get('/create', 'KegiatanController@create')->name('kegiatan.create');
+                Route::post('/store', 'KegiatanController@store')->name('kegiatan.store');
+                Route::get('/edit/{id}', 'KegiatanController@edit')->name('kegiatan.edit');
+                Route::put('/update', 'KegiatanController@update')->name('kegiatan.update');
+                Route::post('/hapus/{id}', 'KegiatanController@destroy')->name('kegiatan.hapus');
+            });
+
+
+
+
         });
     }
 );

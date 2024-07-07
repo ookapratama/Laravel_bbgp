@@ -151,6 +151,12 @@
         </script>
     @endif
 
+    @if (session('message') == 'sukses daftar')
+        <script>
+            swal("Berhasil", "Berhasil registrasi Kegiatan", "success");
+        </script>
+    @endif
+
 
 
 </body>

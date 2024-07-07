@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('peserta_kegiatans', function (Blueprint $table) {
             $table->id();
+            $table->string('id_kegiatan');
             $table->string('no_ktp');
             $table->string('signature')->nullable();
             $table->enum('status_keikutpesertaan', ['peserta', 'panitia', 'narasumber']);
