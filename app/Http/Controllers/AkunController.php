@@ -24,7 +24,7 @@ class AkunController extends Controller
      */
     public function store(Request $request)
     {
-        $r = $request->all();
+            
         // dd($r);
 
         $r['password'] = bcrypt($r['password']);
