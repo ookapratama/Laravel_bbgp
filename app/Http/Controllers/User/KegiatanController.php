@@ -88,6 +88,7 @@ class KegiatanController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $data = new PesertaKegiatan;
         $data->id_kegiatan = $request->kegiatan_id;
         $data->nama = $request->nama;
@@ -170,7 +171,7 @@ class KegiatanController extends Controller
         // dd($kegiatanId);
 
         // Mendapatkan data guru dari model Guru
-        $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->get();
+        $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->where('id_kegiatan', $kegiatanId)->get();
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 
@@ -193,7 +194,7 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::find($kegiatanId);
         // Logic to generate PDF for Registrasi Peserta
         // Return response with PDF
-         $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->get();
+         $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->where('id_kegiatan', $kegiatanId)->get();
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 
@@ -215,7 +216,7 @@ class KegiatanController extends Controller
         // Logic to generate PDF for Absensi Panitia
         // Return response with PDF
 
-        $data = PesertaKegiatan::where('status_keikutpesertaan', 'panitia')->get();
+        $data = PesertaKegiatan::where('status_keikutpesertaan', 'panitia')->where('id_kegiatan', $kegiatanId)->where('id_kegiatan', $kegiatanId)->get();
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 
@@ -238,7 +239,7 @@ class KegiatanController extends Controller
         // Logic to generate PDF for Absensi Narasumber
         // Return response with PDF
 
-        $data = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')->get();
+        $data = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')->where('id_kegiatan', $kegiatanId)->get();
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 

@@ -41,11 +41,11 @@
                         <i class="fas fa-calendar-week"></i> <span>Data Kegiatan</span>
                     </a>
                 </li>
-                <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
+                {{-- <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('kegiatan.index') }}">
                         <i class="fas fa-users"></i> <span>Data Peserta Kegiatan</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="{{ $menu == 'akun' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('akun.index') }}">
                         <i class="fas fa-user"></i> <span>Data Akun</span>

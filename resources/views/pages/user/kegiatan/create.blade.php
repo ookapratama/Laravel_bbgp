@@ -23,8 +23,9 @@
                     <div class="col-md-12 col-lg-12">
                         <form action="{{ route('user.kegiatan_store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            {{-- {{ dd($_GET['kegiatan_id']) }} --}}
                             <input type="hidden" name="kegiatan_id" id="kegiatan_id"
-                                value="{{ old('kegiatan_id') ?? session('kegiatan_id') }}">
+                                value="{{ $_GET['kegiatan_id'] }}">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">

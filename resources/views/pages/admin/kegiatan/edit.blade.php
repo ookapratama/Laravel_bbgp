@@ -64,7 +64,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Deskripsi Kegiatan</label>
+                                                <label>Keterangan Kegiatan</label>
                                                 <textarea name="deskripsi_kegiatan" style="height: 100px;" placeholder="Deskripsi tentang kegiatan " class="form-control summernote-simple" id="" cols="30" rows="10">
                                                     {!! $datas->deskripsi_kegiatan !!}
                                                 </textarea>
