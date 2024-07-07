@@ -22,16 +22,23 @@
                                 @if ($title == 'Penugasan Pegawai')
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Nama</label>
                                                     <input required name="nama" type="text" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>NIP</label>
                                                     <input required name="nip" type="number" class="form-control">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>NIK</label>
+                                                    <input required name="nik" type="number" class="form-control">
                                                 </div>
 
                                             </div>
@@ -93,16 +100,23 @@
                                 @else
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nama</label>
                                                 <input required name="nama" type="text" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIP</label>
                                                 <input required name="nip" type="number" class="form-control">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>NIK</label>
+                                                <input required name="nik" type="number" class="form-control">
                                             </div>
 
                                         </div>

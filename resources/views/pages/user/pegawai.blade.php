@@ -86,7 +86,11 @@
 
                                 <!-- Tables Section -->
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-internal" id="table-internal-1">
+
+                                </div>
+
+                                <div class="table-responsive  table-internal" id="table-internal-penugasan">
+                                    <table class="table table-striped " id="table-penugasan">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -132,8 +136,10 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </div>
 
-                                    <table class="table table-striped table-internal" id="table-internal-2">
+                                <div class="table-responsive  table-internal" id="table-internal-ppnpn">
+                                    <table class="table table-striped" id="table-ppnpn">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -141,9 +147,9 @@
                                                 <th>Nama</th>
                                                 <th>Jenis Penugasan</th>
                                                 <th>Jabatan</th>
-                                                <th>Kegiatan</th>
+                                                {{-- <th>Kegiatan</th>
                                                 <th>Tempat</th>
-                                                <th>Tanggal Kegiatan</th>
+                                                <th>Tanggal Kegiatan</th> --}}
                                                 {{-- <th>Verifkasi</th>
                                                 <th>Action</th> --}}
                                             </tr>
@@ -156,9 +162,9 @@
                                                     <td>{{ $data->nama ?? '' }}</td>
                                                     <td>{{ $data->jenis ?? '' }}</td>
                                                     <td>{{ $data->jabatan . ' - (Golongan : ' . $data->golongan . ')' ?? '' }}</td>
-                                                    <td>{{ $data->kegiatan ?? '' }}</td>
+                                                    {{-- <td>{{ $data->kegiatan ?? '' }}</td>
                                                     <td>{{ $data->tempat ?? '' }}</td>
-                                                    <td>{{ $data->tgl_kegiatan ?? '' }}</td>
+                                                    <td>{{ $data->tgl_kegiatan ?? '' }}</td> --}}
                                                     {{-- <td>
                                                         @if ($data->is_verif == 'sudah')
                                                             <span class="badge badge-success">Sudah Verifikasi</span>
@@ -179,8 +185,10 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </div>
 
-                                    <table class="table table-striped table-internal" id="table-internal-3">
+                                <div class="table-responsive  table-internal" id="table-internal-lokakarya">
+                                    <table class="table table-striped" id="table-lokakarya">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
@@ -230,6 +238,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -242,71 +251,64 @@
         <script src="{{ asset('library/gmaps/gmaps.min.js') }}"></script>
         <script src="{{ asset('js/page/gmaps-simple.js') }}"></script>
 
-        <script type="text/javascript">
+        <script>
             $(document).ready(function() {
                 // Initialize DataTables
-                const table1 = $('#table-internal-1').DataTable({
-                    "columnDefs": [{
-                        "sortable": false,
-                        "targets": [2, 3],
-                        "width": "30%"
-                    }],
+                var tablePenugasan = $('#table-penugasan').DataTable({
+                    paging: true,
+                    searching: true,
+                    // Add more DataTable options as needed
                 });
-                const table2 = $('#table-internal-2').DataTable({
-                    "columnDefs": [{
-                        "sortable": false,
-                        "targets": [2, 3],
-                        "width": "30%"
-                    }],
+    
+                var tablePpnpn = $('#table-ppnpn').DataTable({
+                    paging: true,
+                    searching: true,
+                    // Add more DataTable options as needed
                 });
-                const table3 = $('#table-internal-3').DataTable({
-                    "columnDefs": [{
-                        "sortable": false,
-                        "targets": [2, 3],
-                        "width": "30%"
-                    }],
+    
+                var tableLokakarya = $('#table-lokakarya').DataTable({
+                    paging: true,
+                    searching: true,
+                    // Add more DataTable options as needed
                 });
-
-                // Initially hide both tables
+    
+                // Initially hide all tables
                 $('.table-internal').hide();
-
-                // Filter tables based on dropdown selection
+    
+                // Handle change event on #rekapan dropdown
                 $('#rekapan').on('change', function() {
-                    let jenis = $(this).val().toLowerCase().replace(/ /g, '-');
-
+                    var selectedValue = $(this).val();
+    
                     // Hide all tables initially
                     $('.table-internal').hide();
-
-                    // Show the appropriate table based on the selection
-                    if (jenis === 'penugasan-pegawai') {
-                        $('#table-internal-1').show();
-                    } else if (jenis === 'penugasan-ppnpn') {
-                        $('#table-internal-2').show();
-                    } else if (jenis === 'pendamping-lokakarya') {
-                        $('#table-internal-3').show();
-                    } else {
-                        $('.table-internal').hide();
+    
+                    // Show the selected table based on dropdown value
+                    if (selectedValue === 'Penugasan Pegawai') {
+                        $('#table-internal-penugasan').show();
+                    } else if (selectedValue === 'Penugasan PPNPN') {
+                        $('#table-internal-ppnpn').show();
+                    } else if (selectedValue === 'Pendamping Lokakarya') {
+                        $('#table-internal-lokakarya').show();
                     }
                 });
-
+    
                 // Filter by Nama
                 $('#namaFilter').on('keyup', function() {
-                    table1.column(2).search(this.value).draw();
-                    table2.column(2).search(this.value).draw();
-                    table3.column(1).search(this.value).draw();
+                    tablePenugasan.column(2).search(this.value).draw();
+                    tablePpnpn.column(2).search(this.value).draw();
                 });
-
+    
                 // Filter by Penugasan
                 $('#penugasanFilter').on('keyup', function() {
-                    table1.column(5).search(this.value).draw();
-                    table2.column(5).search(this.value).draw();
+                    tablePenugasan.column(5).search(this.value).draw();
+                    tablePpnpn.column(5).search(this.value).draw();
                 });
-
+    
                 // Filter by Pendamping
                 $('#pendampingFilter').on('keyup', function() {
-                    table3.column(1).search(this.value).draw();
+                    tableLokakarya.column(1).search(this.value).draw();
                 });
-
+    
                 // Reset button functionality
                 $('#resetBtn').on('click', function() {
                     $('#rekapan').val('');
@@ -314,9 +316,9 @@
                     $('#penugasanFilter').val('');
                     $('#pendampingFilter').val('');
                     $('.table-internal').hide();
-                    table1.search('').columns().search('').draw();
-                    table2.search('').columns().search('').draw();
-                    table3.search('').columns().search('').draw();
+                    tablePenugasan.search('').columns().search('').draw();
+                    tablePpnpn.search('').columns().search('').draw();
+                    tableLokakarya.search('').columns().search('').draw();
                 });
             });
         </script>

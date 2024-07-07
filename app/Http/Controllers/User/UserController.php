@@ -82,10 +82,10 @@ class UserController extends Controller
         // $data = Internal::get();
         $data = array(
 
-            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('is_verif', 'sudah')->get(),
-            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('is_verif', 'sudah')->get(),
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
         );
-        $dataPendamping = Pendamping::where('is_verif', 'sudah')->get();
+        $dataPendamping = Pendamping::get();
         // $merge = $data->merge($dataPendamping);
         return view('pages.user.pegawai', ['menu' => 'pegawai', 'datas' => $data, 'dataPendamping' => $dataPendamping]);
     }

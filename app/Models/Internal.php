@@ -11,12 +11,16 @@ class Internal extends Model
     protected $fillable = [
         'nama',
         'nip',
+        'nik',
         'jenis',
         'golongan',
         'jabatan',
         'kegiatan',
         'tempat',
         'tgl_kegiatan',
+        'tgl_selesai_kegiatan',
+        'jam_mulai',
+        'jam_selesai',
         'is_verif',
         'transport_pulang',
         'transport_pergi',
@@ -25,5 +29,6 @@ class Internal extends Model
         'hari_1',
         'hari_2',
         'hari_3',
+        'deskripsi',
     ];
 }

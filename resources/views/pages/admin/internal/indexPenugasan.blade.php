@@ -23,10 +23,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <!-- Navigation Buttons -->
-                                <div class="row">
-                                    <div class="col">
-                                        <h4 id="title-text">Data Internal</h4>
-                                        <div class="d-flex mt-3 mb-5">
+                                <div class="row mb-3">
+                                    <div class="col-10">
+                                        <h4 id="title-text">Data Penugasan {{ $datas['getJenisPegawai']->nama ?? '' }}</h4>
+
+                                        {{-- <div class="d-flex mt-3 mb-5">
                                             <div class="row mx-2">
                                                 <div class="">
                                                     <a href="#" id="pegawaiBBGP" class="btn btn-warning btn-lg p-2">
@@ -40,7 +41,11 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
+                                    </div>
+                                    <div class="col text-right">
+                                        <a href="{{ route('internal.index') }}" class="btn btn-warning">Kembali </a>
+
                                     </div>
                                 </div>
 
@@ -70,92 +75,100 @@
                                 </div> --}}
 
                                 <!-- Tables Section -->
-                                <div class="table-responsive table-internal" id="table-internal-ppnpn">
-                                    <!-- Table PPNPN -->
-                                    <table class="table table-striped" id="table-ppnpn">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th>Nama</th>
-                                                <th>Jabatan</th>
-                                                <th>Penugasan</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($dataPpnpn as $i => $data)
-                                                <tr data-type="ppnpn">
-                                                    <td>{{ ++$i }}</td>
-                                                    <td>{{ $data->nama ?? '' }}</td>
-                                                    <td>{{ $data->jabatan ?? '' }}</td>
-                                                    <td>
-                                                        <a href="{{ route('internal.create.ppnp', $data->id) }}"
-                                                            class="btn btn-primary my-2">Penugasan PPNPN</a>
-                                                        <a href="{{ route('internal.create.lokakarya', $data->id) }}"
-                                                            class="btn btn-info my-2">Penugasan Lokakarya</a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ route('internal.edit', $data->id) }}"
-                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                        <button onclick="deleteData({{ $data->id }}, 'ppnpn')"
-                                                            class="btn btn-danger">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </td>
+                                {{-- @if ($datas['getJenisPpnpn']->jenis == 'Penugasan PPNPN')
+                                    <div class="table-responsive " id="table-internal-ppnpn">
+                                        <!-- Table PPNPN -->
+                                        <table class="table table-striped" id="table-ppnpn">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Nama</th>
+                                                    <th>Jabatan</th>
+                                                    <th>Penugasan</th>
+                                                    <th>Action</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($datas['penugasanPpnpn'] as $i => $data)
+                                                    <tr data-type="ppnpn">
+                                                        <td>{{ ++$i }}</td>
+                                                        <td>{{ $data->nama ?? '' }}</td>
+                                                        <td>{{ $data->jabatan ?? '' }}</td>
 
-                                <div class="table-responsive table-internal" id="table-internal-bbgp">
+                                                        <td>
+                                                            <a href="{{ route('internal.create.ppnp', $data->id) }}"
+                                                                class="btn btn-primary my-2">Penugasan PPNPN</a>
+                                                            <a href="{{ route('internal.create.lokakarya', $data->id) }}"
+                                                                class="btn btn-info my-2">Penugasan Lokakarya</a>
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="{{ route('internal.edit', $data->id) }}"
+                                                                class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+
+                                                            <button onclick="deleteData({{ $data->id }}, 'ppnpn')"
+                                                                class="btn btn-danger">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </td>
+
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @else 
+                                @endif
+                                --}}
+
+                                <div class="table-responsive " id="table-internal-bbgp">
                                     <!-- Table BBGP -->
                                     <table class="table table-striped" id="table-bbgp">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>Nama Lengkap</th>
-                                                <th>Golongan</th>
-                                                <th>Jabatan</th>
-                                                <th>NIK</th>
-                                                <th>NIP</th>
-                                                <th>Penugasan</th>
+                                                <th>Kegiatan</th>
+                                                <th>Tempat Kegiatan</th>
+                                                <th>Tanggal Kegiatan</th>
+                                                <th>Jam Kegiatan</th>
+                                                <th>Keterangan</th>
+                                                {{-- <th>Penugasan</th> --}}
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($datas['dataPegawai'] as $i => $data)
+                                            @foreach ($datas['penugasanPegawai'] as $i => $data)
                                                 <tr data-type="bbgp">
+                                                    {{-- {{dd($data)}} --}}
                                                     <td>{{ ++$i }}</td>
-                                                    <td>{{ $data->nama_lengkap }}</td>
-                                                    <td>{{ $data->golongan }}</td>
-                                                    <td>{{ $data->jabatan }}</td>
-                                                    <td>{{ $data->no_ktp }}</td>
-                                                    <td>{{ $data->nip }}</td>
+                                                    <td>{{ $data->nama }} </td>
+                                                    <td>{{ $data->kegiatan }}</td>
+                                                    <td>{{ $data->tempat }}</td>
                                                     <td>
-                                                        {{-- <a href="{{ route('internal.index.pegawai', $data->no_ktp) }}"
-                                                            class="btn btn-primary mb-2">Lihat Penugasan</a> --}}
-                                                        <button class="btn btn-primary my-2"
-                                                            data-nama="{{ $data->nama_lengkap }}"
-                                                            data-id="{{ $data->id }}" data-nik="{{ $data->no_ktp }}"
-                                                            data-toggle="modal" data-target="#modalPenugasan">
-                                                            Menu Penugasan
-                                                        </button>
+                                                        {{ $data->tgl_kegiatan }} -
+                                                        {{ $data->tgl_selesai_kegiatan }}
+                                                    </td>
+                                                    <td>{{ $data->jam_mulai }} WITA - {{ $data->jam_selesai }} WITA</td>
+                                                    <td>{{ $data->deskripsi }}</td>
+                                                    {{-- <td>
+                                                        <a href="{{ route('internal.index.pegawai', $data->nik) }}"
+                                                            class="btn btn-primary mb-2">Lihat Penugasan</a>
 
-                                                        {{-- <a href="{{ route('internal.create.pegawai', $data->id) }}"
-                                                            class="btn btn-primary mb-2">Penugasan Pegawai</a> --}}
+                                                        <a href="{{ route('internal.create.pegawai', $data->id) }}"
+                                                            class="btn btn-primary mb-2">Penugasan Pegawai</a>
 
                                                         <a href="{{ route('internal.create.lokakarya', $data->id) }}"
                                                             class="btn btn-info mb-2">Pendamping Lokakarya</a>
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         {{-- <a href="#"
                                                             class="btn btn-info my-2"><i class="fas fa-info"></i></a> --}}
 
-                                                        <a href="{{ route('pegawai.edit', $data->id) }}"
+                                                        <a href="{{ route('internal.edit.pegawai', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
 
-                                                        <button onclick="deleteData({{ $data->id }}, 'bbgp')"
+                                                        <button onclick="deleteData({{ $data->id }}, 'internal')"
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
@@ -165,6 +178,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+
 
                             </div>
                         </div>
@@ -174,51 +188,11 @@
         </section>
     </div>
 
-    {{-- Modal Penugasan Pegawai --}}
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalPenugasan">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Menu Penugasan Pegawai BBGP</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    {{-- Link dengan id, yang nantinya akan diubah oleh script --}}
-                    <a id="lihatPenugasanLink" class="btn text-white btn-info">Lihat Penugasan</a>
-                    <a id="tambahPenugasanLink" class="btn text-white btn-success">Tambah Penugasan</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
     @push('scripts')
         <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
-
-        <script>
-            // Event yang dijalankan saat modal muncul
-            $('#modalPenugasan').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget); // Button yang membuka modal
-                var nik = button.data('nik'); // Ambil data-nik dari tombol
-                var nama = button.data('nama'); // Ambil data-nama dari tombol
-                var lihatLink = "{{ route('internal.index.pegawai', ':nik') }}".replace(':nik', nik);
-                var tambahLink = "{{ route('internal.create.pegawai', ':id') }}".replace(':id', button.data('id'));
-
-                // Update href dari link di dalam modal
-                $('.modal-title').text(`Pegawai ${nama}`);
-                $('#lihatPenugasanLink').attr('href', lihatLink);
-                $('#tambahPenugasanLink').attr('href', tambahLink);
-            });
-        </script>
-
-
-
         <script type="text/javascript">
             $(document).ready(function() {
 
