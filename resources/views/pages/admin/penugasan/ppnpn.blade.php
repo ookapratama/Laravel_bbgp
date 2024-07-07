@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Internal'])
+@extends('layouts.app', ['title' => 'Data Internal'])
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
@@ -8,7 +8,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Lokakarya</h1>
+                <h1>Tambah Penugasan PPNPN</h1>
             </div>
 
             <div class="section-body">
@@ -16,17 +16,16 @@
                 <div class="row">
 
                     <div class="col-md-12 col-lg-12">
-                        <form
-                            action="{{ route('internal.store.lokakarya') }}"
-                            method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('internal.store.ppnpn') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="id_pegawai" value="{{ $pegawai->id }}">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Nama Pendamping</label>
-                                                <input readonly value="{{ $pegawai->nama_lengkap ??  $pegawai->nama }}" required name="nama"
+                                                <label>Nama</label>
+                                                <input readonly required value="{{ $pegawai->nama }}" name="nama"
                                                     type="text" class="form-control">
                                                 {{-- <select name="nama" class="form-control select2" id="selectNama">
                                                     <option value="">-- Pilih Pegawai --</option>
@@ -39,57 +38,49 @@
                                                 </select> --}}
                                             </div>
                                         </div>
-                                        <div class="col-md">
-                                            <div class="form-group">
-                                                <label>NIK</label>
-                                                <input readonly value="{{ $pegawai->no_ktp ??  $pegawai->nik }}" required name="nik" type="text"
-                                                    class="form-control">
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input readonly value="{{ $pegawai->nip  }}" required name="nip" type="text"
-                                                    class="form-control">
+                                                <input readonly required value="{{ $pegawai->nip }}" id="nip"
+                                                    name="nip" type="number" class="form-control">
                                             </div>
 
                                         </div>
-                                        {{-- <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Tempat</label>
-                                                <input required name="tempat" type="text" class="form-control">
+                                                <label>NIK</label>
+                                                <input readonly required value="{{ $pegawai->nik }}" id="nik"
+                                                    name="nik" type="number" class="form-control">
                                             </div>
 
-                                        </div> --}}
-
+                                        </div>
                                     </div>
-
-                                    {{-- <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Kegiatan</label>
-                                                <input required name="kegiatan" type="text" class="form-control">
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Tanggal Kegiatan</label>
-                                                <input required name="tgl_kegiatan" type="date" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div> --}}
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>-</label>
-                                            <input required readonly name="jenis" type="text"
-                                                value="Pendamping Lokakarya" class="form-control">
+                                            <label>Jabatan</label>
+                                            <input readonly required value="{{ $pegawai->jabatan }}" name="jabatan"
+                                                type="text" class="form-control">
+                                            {{-- <select required name="jabatan" class="form-control select2">
+                                                <option value="">-- Pilih Jabatan --</option>
+                                                @foreach ($datas['jabatanPegawai'] as $v)
+                                                    <option {{ $pegawai->jabatan == $v->name ? 'selected' : '' }}
+                                                        value="{{ $v->name }}">{{ $v->name }}</option>
+                                                @endforeach
+                                            </select> --}}
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <label>Jenis Penugasan</label>
+                                            <input required readonly name="jenis" type="text" value="Penugasan PPNPN"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
                                         <div class="col-md-6">
                                             <label>Kabupaten / Kota</label>
-                                            <select required name="kota" class="form-control select2">
+                                            <select required name="kabupaten" class="form-control select2">
                                                 <option value="">-- Pilih kabupaten/kota --</option>
                                                 @foreach ($datas['kota'] as $v)
                                                     <option value="{{ $v->name }}">{{ $v->name }}</option>
@@ -98,8 +89,16 @@
                                         </div>
                                     </div>
 
+
                                     <div class="row mt-3">
-                                        <div class="col-md">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nama Kegiatan</label>
+                                                <input required placeholder="Nama Kegiatan yang ditugaskan" name="kegiatan"
+                                                    type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Mulai Kegiatan</label>
                                                 <input type="text" name="mulai_kegiatan"
@@ -108,7 +107,7 @@
                                                 {{-- <input required name="tgl_kegiatan" type="date" class="form-control"> --}}
                                             </div>
                                         </div>
-                                        <div class="col-md">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Selesai Kegiatan</label>
                                                 <input type="text" name="selesai_kegiatan"
@@ -119,60 +118,34 @@
                                         </div>
                                     </div>
 
-                                    <div class="row my-3">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Transport Pulang</label>
-                                                <input required name="transport_pulang" type="number" class="form-control">
+                                                <label>Tempat Kegiatan</label>
+                                                <input required placeholder="Lokasi/Tempat Kegiatan yang ditugaskan"
+                                                    name="tempat" type="text" class="form-control">
                                             </div>
 
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Transport Pergi</label>
-                                                <input required name="transport_pergi" type="number" class="form-control">
+                                                <label>Keterangan Kegiatan</label>
+                                                <textarea class="form-control" required placeholder="Deskripsi Kegiatan yang ditugaskan" name="deskripsi" id=""
+                                                    cols="30" rows="100"></textarea>
+                                                {{-- <input required name="deskripsi" type="text" class="form-control"> --}}
                                             </div>
+
                                         </div>
                                     </div>
-
-                                    <div class="row my-3">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Hotel</label>
-                                                <input required name="hotel" type="text" class="form-control">
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Hari 1</label>
-                                                <input required name="hari_1" type="number" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Hari 2</label>
-                                                <input required name="hari_2" type="number" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Hari 3</label>
-                                                <input required name="hari_3" type="number" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-
-
 
 
                                 </div>
 
+
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary " type="submit">Submit</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ session('role') == 'pegawai' ? route('pegawai.show', session('no_ktp')) : route('internal.index') }}"
-                                        class="btn btn-warning">Kembali</a>
+                                    <a href="{{ route('internal.index') }}" class="btn btn-warning">Kembali</a>
                                 </div>
                         </form>
                     </div>

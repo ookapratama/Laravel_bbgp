@@ -131,10 +131,11 @@ Route::group(
                 Route::post('/verifikasi/{id}', 'InternalController@verifikasi')->name('internal.verifikasi');
 
                 // Khusus Loka karya
+                Route::get('/indexLokakarya/{nik}', 'InternalController@indexLokakarya')->name('internal.index.lokakarya');
                 Route::get('/createLokakarya/{id}', 'InternalController@createLokakarya')->name('internal.create.lokakarya');
                 Route::post('/storeLokakarya', 'InternalController@storeLokakarya')->name('internal.store.lokakarya');
                 Route::get('/editLokakarya/{id}', 'InternalController@editLokakarya')->name('internal.edit.lokakarya');
-                Route::put('/updateLokakarya', 'InternalController@updateLokakarya')->name('internal.update.lokakarya');
+                Route::post('/updateLokakarya', 'InternalController@updateLokakarya')->name('internal.update.lokakarya');
                 Route::get('/jadwalLokakarya/{id}', 'InternalController@jadwalLokakarya')->name('internal.jadwal.lokakarya');
                 Route::post('/cariLokakarya', 'InternalController@cariLokakarya')->name('internal.cari.lokakarya');
 
@@ -145,11 +146,14 @@ Route::group(
                 Route::get('/editPegawai/{id}', 'InternalController@editPegawai')->name('internal.edit.pegawai');
                 Route::post('/updatePegawai', 'InternalController@updatePegawai')->name('internal.update.pegawai');
                 
-
+                
                 // Penugasan PPNPN
-                Route::get('/createPpnp/{id}', 'InternalController@createPpnp')->name('internal.create.ppnp');
-                Route::post('/storePpnp', 'InternalController@storePpnp')->name('internal.store.ppnp');
-
+                Route::get('/indexPpnpn/{nik}', 'InternalController@indexPpnpn')->name('internal.index.ppnpn');
+                Route::get('/createPpnp/{id}', 'InternalController@createPpnpn')->name('internal.create.ppnpn');
+                Route::post('/storePpnp', 'InternalController@storePpnpn')->name('internal.store.ppnpn');
+                Route::get('/editPpnp/{id}', 'InternalController@editPpnpn')->name('internal.edit.ppnpn');
+                Route::post('/updatePpnp', 'InternalController@updatePpnpn')->name('internal.update.ppnpn');
+                Route::post('/hapusPpnpn/{id}', 'InternalController@hapusPpnpn')->name('internal.hapus.ppnpn');
 
 
                 Route::post('/store', 'InternalController@store')->name('internal.store');

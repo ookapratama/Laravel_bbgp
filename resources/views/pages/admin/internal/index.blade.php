@@ -70,6 +70,7 @@
                                 </div> --}}
 
                                 <!-- Tables Section -->
+                                <!-- PPNPN -->
                                 <div class="table-responsive table-internal" id="table-internal-ppnpn">
                                     <!-- Table PPNPN -->
                                     <table class="table table-striped" id="table-ppnpn">
@@ -78,6 +79,8 @@
                                                 <th class="text-center">#</th>
                                                 <th>Nama</th>
                                                 <th>Jabatan</th>
+                                                <th>NIK</th>
+                                                <th>NIP</th>
                                                 <th>Penugasan</th>
                                                 <th>Action</th>
                                             </tr>
@@ -88,14 +91,29 @@
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data->nama ?? '' }}</td>
                                                     <td>{{ $data->jabatan ?? '' }}</td>
+                                                    <td>{{ $data->nik ?? '' }}</td>
+                                                    <td>{{ $data->nip ?? '' }}</td>
                                                     <td>
-                                                        <a href="{{ route('internal.create.ppnp', $data->id) }}"
-                                                            class="btn btn-primary my-2">Penugasan PPNPN</a>
-                                                        <a href="{{ route('internal.create.lokakarya', $data->id) }}"
-                                                            class="btn btn-info my-2">Penugasan Lokakarya</a>
+                                                        <button class="btn btn-success my-2" data-nama="{{ $data->nama }}"
+                                                            data-id="{{ $data->id }}" data-nik="{{ $data->nik }}"
+                                                            data-toggle="modal" data-target="#modalPpnpn">
+                                                            Menu Penugasan PPNPN
+                                                        </button>
+
+                                                        <button class="btn btn-info my-2"
+                                                            data-nama="{{ $data->nama }}"
+                                                            data-id="{{ $data->id }}" data-nik="{{ $data->nik }}"
+                                                            data-toggle="modal" data-target="#modalLokakarya">
+                                                            Menu Lokakarya
+                                                        </button>
+
+                                                        {{-- <a href="{{ route('internal.create.ppnp', $data->id) }}"
+                                                            class="btn btn-primary my-2">Penugasan PPNPN</a> --}}
+                                                        {{-- <a href="{{ route('internal.create.lokakarya', $data->id) }}"
+                                                            class="btn btn-info my-2">Penugasan Lokakarya</a> --}}
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('internal.edit', $data->id) }}"
+                                                        <a href="{{ route('internal.edit.ppnpn', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
                                                         <button onclick="deleteData({{ $data->id }}, 'ppnpn')"
                                                             class="btn btn-danger">
@@ -108,6 +126,7 @@
                                     </table>
                                 </div>
 
+                                {{-- BBGP --}}
                                 <div class="table-responsive table-internal" id="table-internal-bbgp">
                                     <!-- Table BBGP -->
                                     <table class="table table-striped" id="table-bbgp">
@@ -146,7 +165,7 @@
                                                             data-nama="{{ $data->nama_lengkap }}"
                                                             data-id="{{ $data->id }}" data-nik="{{ $data->no_ktp }}"
                                                             data-toggle="modal" data-target="#modalLokakarya">
-                                                            Menu Pendamping Lokakarya
+                                                            Menu Lokakarya
                                                         </button>
 
                                                         {{-- <a href="{{ route('internal.create.pegawai', $data->id) }}"
@@ -212,12 +231,32 @@
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     {{-- Link dengan id, yang nantinya akan diubah oleh script --}}
-                    <a id="lihatPenugasanLink" class="btn text-white btn-info">Lihat Penugasan</a>
-                    <a id="tambahPenugasanLink" class="btn text-white btn-success">Tambah Penugasan</a>
+                    <a id="lihatLokakaryaLink" class="btn text-white btn-info">Lihat Lokakarya</a>
+                    <a id="tambahLokakaryaLink" class="btn text-white btn-success">Tambah Lokakarya</a>
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- Modal Penugasan PPNPN --}}
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalPpnpn">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title-ppnpn">Menu Penugasan Pegawai PPNPN BBGP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    {{-- Link dengan id, yang nantinya akan diubah oleh script --}}
+                    <a id="lihatPPNPNLink" class="btn text-white btn-info">Lihat Penugasan PPNPN</a>
+                    <a id="tambahPPNPNLink" class="btn text-white btn-success">Tambah Penugasan PPNPN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -242,18 +281,35 @@
                 $('#tambahPenugasanLink').attr('href', tambahLink);
             });
 
-            // Event yang dijalankan saat modal muncul
+            // Event Lokakarya yang dijalankan saat modal muncul
             $('#modalLokakarya').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget); // Button yang membuka modal
                 var nik = button.data('nik'); // Ambil data-nik dari tombol
                 var nama = button.data('nama'); // Ambil data-nama dari tombol
-                var lihatLink = "{{ route('internal.index.pegawai', ':nik') }}".replace(':nik', nik);
-                var tambahLink = "{{ route('internal.create.pegawai', ':id') }}".replace(':id', button.data('id'));
+                var lihatLink = "{{ route('internal.index.lokakarya', ':nik') }}".replace(':nik', nik);
+                var tambahLink = "{{ route('internal.create.lokakarya', ':id') }}".replace(':id', button.data('id'));
 
                 // Update href dari link di dalam modal
-                $('.modal-title-pegawai').text(`Pegawai ${nama}`);
-                $('#lihatPenugasanLink').attr('href', lihatLink);
-                $('#tambahPenugasanLink').attr('href', tambahLink);
+                $('.modal-title-lokakarya').text(`Pegawai ${nama}`);
+                $('#lihatLokakaryaLink').attr('href', lihatLink);
+                $('#tambahLokakaryaLink').attr('href', tambahLink);
+            });
+
+
+            // Event yang dijalankan saat modal muncul
+            $('#modalPpnpn').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Button yang membuka modal
+                var nik = button.data('nik'); // Ambil data-nik dari tombol
+                var nama = button.data('nama'); // Ambil data-nama dari tombol
+                var id = button.data('id'); // Ambil data-id dari tombol
+
+                var lihatLink = "{{ route('internal.index.ppnpn', ':nik') }}".replace(':nik', nik);
+                var tambahLink = "{{ route('internal.create.ppnpn', ':id') }}".replace(':id', id);
+
+                // Update href dari link di dalam modal
+                $('.modal-title-ppnpn').text(`Pegawai ${nama}`);
+                $('#lihatPPNPNLink').attr('href', lihatLink);
+                $('#tambahPPNPNLink').attr('href', tambahLink);
             });
         </script>
 

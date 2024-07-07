@@ -13,4 +13,9 @@ class PegawaiPpnpn extends Model
     'name',  
     'jabatan',  
     ];
+
+    public function internalPpnpn()
+{
+    return $this->hasMany(InternalPpnpn::class, 'id_pegawai');
+}
 }

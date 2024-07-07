@@ -44,7 +44,7 @@
 
         <!-- Page Specific JS File -->
         <script src="{{ asset('js/page/index-0.js') }}"></script>
-        <script>
+        {{-- <script>
             $(document).ready(function() {
 
                 let token = $("meta[name='csrf-token']").attr("content");
@@ -146,6 +146,49 @@
 
                 // });
             })
+        </script> --}}
+
+        <script>
+            $(document).ready(function() {
+                let token = $("meta[name='csrf-token']").attr("content");
+        
+                $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": token,
+                    },
+                    type: "GET",
+                    url: `dashboard/jadwalKegiatan`,
+                    success: function(response) {
+                        var data = [];
+                        response.jadwal.forEach(element => {
+                            data.push({
+                                title: `Kegiatan: ${element.kegiatan ?? '-'} | Atas Nama: ${element.nama}`,
+                                start: element.tgl_kegiatan,
+                                end: element.tgl_selesai_kegiatan,
+                                backgroundColor: "green",
+                                textColor: '#fff'
+                            });
+                        });
+        
+                        $("#jadwal").fullCalendar({
+                            height: 'auto',
+                            header: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'month,agendaWeek,agendaDay,listWeek'
+                            },
+                            editable: true,
+                            events: data
+                        });
+                    },
+                    error: function(error) {
+                        console.error("AJAX Error:", error);
+                        swal("Error", "Ajax Error.", "error");
+                    },
+                });
+            });
         </script>
+        
+
     @endpush
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Internal;
+use App\Models\InternalPpnpn;
 use App\Models\JabatanPenugasanGolongan;
 use App\Models\JabatanPenugasanPegawai;
 use App\Models\JabatanPenugasanPpnpn;
@@ -55,74 +56,156 @@ class InternalController extends Controller
         ]);
     }
 
+
+    // Lokakarya
+    public function indexLokakarya($nik)
+    {
+        $pegawai = PegawaiPpnpn::where('nik', $nik)->first() ?? Pegawai::where('no_ktp', $nik)->first();
+    // dd($pegawai);
+        $datas = array(
+            'penugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $nik)->get() ,
+            'penugasanPpnpn' => Internal::where('nik', $nik)->get(),
+            'getJenisLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $nik)->first(),
+            'getNama' => Internal::where('nik', $nik)->first(),
+
+            'penugasanLokakaryaPpnpn' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $pegawai->nik)->get() ,
+            // 'penugasanPpnpn' => Internal::where('nik', $pegawai->nik)->get(),
+            'getJenisLokakaryaPpnpn' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $pegawai->nik)->first(),
+            'getNamaPpnpn' => PegawaiPpnpn::where('nik', $pegawai->nik)->first(),
+
+            // 'penugasanLokakaryaPpnpn' => InternalPpnpn::where('id', $pegawai->id)->get() ,
+            // // 'penugasanPpnpn' => InternalPpnpn::where('id', $pegawai->id)->get(),
+            // 'getJenisLokakaryaPpnpn' => InternalPpnpn::where('id', $pegawai->id)->first(),
+            // 'getNamaPpnpn' => InternalPpnpn::where('id', $pegawai->id)->first(),
+            // 'getJenisPpnpn' => InternalPpnpn::where('jenis', 'Pendamping PPNPN')->where('nik', $nik)->first(),
+
+        );
+        // dd($datas);
+
+        return view('pages.admin.internal.indexLokakarya', ['menu' => ''], compact('datas'));
+    }
+
     public function createLokakarya($id)
     {
-        $pegawai = Pegawai::find($id);
-        if ($pegawai == null) {
-            $pegawai = PegawaiPpnpn::find($id);
-        }
+        // $pegawai = Pegawai::find($id);
+        // if ($pegawai == null) {
+        //     $pegawai = PegawaiPpnpn::find($id);
+        // }
+        // $datas = array(
+        //     'golongan' => JabatanPenugasanGolongan::get(),
+        //     'jabatanPegawai' => JabatanPenugasanPegawai::get(),
+        //     'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
+        //     'dataPegawai' => Pegawai::get(),
+        // );
+
         $datas = array(
-            'golongan' => JabatanPenugasanGolongan::get(),
-            'jabatanPegawai' => JabatanPenugasanPegawai::get(),
-            'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
+            'dataPenugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
             'dataPegawai' => Pegawai::get(),
+            'jabatanPegawai' => JabatanPenugasanPegawai::get(),
+            'golongan' => JabatanPenugasanGolongan::get(),
             'kota' => Kabupaten::get()
         );
 
+        $pegawai = Pegawai::find($id) ?? PegawaiPpnpn::find($id);
+
         // dd($pegawai);
+        // dd($id);
         return view('pages.admin.penugasan.lokakarya', ['menu' => ''], compact('pegawai', 'datas'));
     }
 
+    // Khusus Pegawai yg login
     public function storeLokakaryaPegawai(Request $r)
     {
         // dd($r->all());
+        $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
+        $r['tgl_kegiatan'] = $mulai_kegiatan[0];
+        $r['jam_mulai'] = $mulai_kegiatan[1];
+
+        $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
+        $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
+        $r['jam_selesai'] = $selesai_kegiatan[1];
+            
         Internal::create($r->all());
         return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'store');
     }
 
+    // Khusus Admin dan jajarannya
     public function storeLokakarya(Request $r)
     {
+        // dd($r->all());
+        $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
+        $r['tgl_kegiatan'] = $mulai_kegiatan[0];
+        $r['jam_mulai'] = $mulai_kegiatan[1];
 
+        $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
+        $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
+        $r['jam_selesai'] = $selesai_kegiatan[1];
+        // dd($r->all());
         Internal::create($r->all());
         return redirect()->route('internal.index')->with('message', 'store');
     }
 
-
     public function editLokakarya($id)
     {
-        $loka = Internal::find($id);
-        // dd($loka);
-        $pegawai = Pegawai::find($id);
-        if ($pegawai == null) {
-            $pegawai = PegawaiPpnpn::find($id);
-        }
+        // $loka = Internal::find($id);
+        // // dd($loka);
+        // $pegawai = Pegawai::find($id);
+        // if ($pegawai == null) {
+        //     $pegawai = PegawaiPpnpn::find($id);
+        // }
+        // $datas = array(
+        //     'golongan' => JabatanPenugasanGolongan::get(),
+        //     'jabatanPegawai' => JabatanPenugasanPegawai::get(),
+        //     'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
+        //     'kota' => Kabupaten::get(),
+        //     'lokakarya' => $loka,
+        // );
+        $penugasan = Internal::find($id);
+        // dd($penugasan);
         $datas = array(
-            'golongan' => JabatanPenugasanGolongan::get(),
+            'dataPenugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
+            'dataPegawai' => Pegawai::get(),
             'jabatanPegawai' => JabatanPenugasanPegawai::get(),
-            'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
+            'golongan' => JabatanPenugasanGolongan::get(),
             'kota' => Kabupaten::get(),
-            'lokakarya' => $loka,
+            'mulai_kegiatan' => $penugasan->tgl_kegiatan . ' ' . $penugasan->jam_mulai,
+            'selesai_kegiatan' => $penugasan->tgl_selesai_kegiatan . ' ' . $penugasan->jam_selesai,
         );
+        // dd($datas);
 
-        // dd($pegawai);
-        return view('pages.admin.penugasan.Editlokakarya', ['menu' => ''], compact('loka', 'datas'));
+        $pendamping = Internal::find($id);
+
+        // dd($pendamping);
+        return view('pages.admin.penugasan.Editlokakarya', ['menu' => ''], compact('pendamping', 'datas'));
     }
 
     public function updateLokakarya(Request $r)
     {
+        // dd($r->all());
         $loka = Internal::find($r->id);
         // dd($loka);
-        $loka->update($r->all());
-        return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
-    }
 
+
+        $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
+        $r['tgl_kegiatan'] = $mulai_kegiatan[0];
+        $r['jam_mulai'] = $mulai_kegiatan[1];
+
+        $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
+        $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
+        $r['jam_selesai'] = $selesai_kegiatan[1];
+
+        $loka->update($r->all());
+        return redirect()->route('internal.index.lokakarya', $loka->nik)->with('message', 'update');
+    }
 
     // penugasan pegawan BBGP
     public function indexPegawai($nik)
     {
         // dd($nik);
         $datas = array(
-            'penugasanPegawai' => Internal::where('nik', $nik)->get(),
+            'penugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $nik)->get(),
             'penugasanPpnpn' => Internal::where('nik', $nik)->get(),
             'getJenisPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $nik)->first(),
             // 'getJenisPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $nik)->first(),
@@ -147,7 +230,7 @@ class InternalController extends Controller
         return view('pages.admin.penugasan.pegawai', ['menu' => ''], compact('pegawai', 'datas'));
     }
 
-    
+
     public function storePegawai(Request $r)
     {
         // dd($r->mulai_kegiatan);
@@ -155,11 +238,11 @@ class InternalController extends Controller
         // $r = $r->all();
 
         // dd($r['mulai_kegiatan']);
-        $mulai_kegiatan =  explode(" ", $r["mulai_kegiatan"]);
+        $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
         $r['tgl_kegiatan'] = $mulai_kegiatan[0];
         $r['jam_mulai'] = $mulai_kegiatan[1];
 
-        $selesai_kegiatan =  explode(" ", $r["selesai_kegiatan"]);
+        $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
 
@@ -172,15 +255,15 @@ class InternalController extends Controller
     public function editPegawai($id)
     {
         $penugasan = Internal::find($id);
-    
+
         $datas = array(
             'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->get(),
             'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
             'dataPegawai' => Pegawai::find($id),
             'jabatanPegawai' => JabatanPenugasanPegawai::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
-            'mulai_kegiatan' =>  $penugasan->tgl_kegiatan . ' ' . $penugasan->jam_mulai,
-            'selesai_kegiatan' =>  $penugasan->tgl_selesai_kegiatan . ' ' . $penugasan->jam_selesai,
+            'mulai_kegiatan' => $penugasan->tgl_kegiatan . ' ' . $penugasan->jam_mulai,
+            'selesai_kegiatan' => $penugasan->tgl_selesai_kegiatan . ' ' . $penugasan->jam_selesai,
         );
 
 
@@ -189,7 +272,7 @@ class InternalController extends Controller
         return view('pages.admin.internal.editPenugasan', ['menu' => ''], compact('penugasan', 'datas'));
     }
 
-    
+
     public function updatePegawai(Request $r)
     {
         // dd($r->mulai_kegiatan);
@@ -198,14 +281,14 @@ class InternalController extends Controller
         // dd($r['mulai_kegiatan']);
         $find = Internal::find($r->id);
 
-        $mulai_kegiatan =  explode(" ", $r["mulai_kegiatan"]);
+        $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
         $r['tgl_kegiatan'] = $mulai_kegiatan[0];
         $r['jam_mulai'] = $mulai_kegiatan[1];
-        
-        $selesai_kegiatan =  explode(" ", $r["selesai_kegiatan"]);
+
+        $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
-        
+
         // dd($r->all());
         // dd($r->all());
         $find->update($r->all());
@@ -215,26 +298,103 @@ class InternalController extends Controller
 
 
     //  PEgawai PPNPN
-    public function createPpnp($id)
+    public function indexPpnpn($nik)
+    {
+        // dd($nik);
+        $datas = array(
+            'pegawaiPpnpn' => PegawaiPpnpn::where('nik', $nik)->get(),
+            'penugasanPpnpn' => InternalPpnpn::get(),
+            'getNama' => PegawaiPpnpn::where('nik', $nik)->first(),
+            // 'getJenisPpnpn' => InternalPpnpn::where('jenis', 'Penugasan PPNPN')->first(),
+            // 'getJenisPpnpn' => InternalPpnpn::where('jenis', 'Penugasan PPNPN')->where('nik', $nik)->first(),
+
+        );
+        // dd($datas);
+
+        return view('pages.admin.internal.indexPpnpn', ['menu' => ''], compact('datas'));
+    }
+
+    public function createPpnpn($id)
     {
         $pegawai = PegawaiPpnpn::find($id);
         $datas = array(
-            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->get(),
             'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
             'dataPegawai' => Pegawai::get(),
             'jabatanPegawai' => JabatanPenugasanPegawai::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
+            'kota' => Kabupaten::get(),
         );
         // dd($pegawai);
-        return view('pages.admin.penugasan.ppnp', ['menu' => ''], compact('pegawai', 'datas'));
+        return view('pages.admin.penugasan.ppnpn', ['menu' => ''], compact('pegawai', 'datas'));
     }
 
 
-    public function storePpnp(Request $r)
+    public function storePpnpn(Request $r)
     {
 
-        Internal::create($r->all());
+        // dd($r->mulai_kegiatan);
+        // dd($r->all());
+        // $r = $r->all();
+
+        // dd($r['mulai_kegiatan']);
+        $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
+        $r['tgl_kegiatan'] = $mulai_kegiatan[0];
+        $r['jam_mulai'] = $mulai_kegiatan[1];
+
+        $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
+        $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
+        $r['jam_selesai'] = $selesai_kegiatan[1];
+
+        // dd($r->all());
+
+        InternalPpnpn::create($r->all());
         return redirect()->route('internal.index')->with('message', 'store');
+    }
+
+    public function editPpnpn($id)
+    {
+        // $pegawai = PegawaiPpnpn::find($id);
+        $penugasan = InternalPpnpn::where('id', $id)->first();
+        $datas = array(
+            'dataPegawai' => Pegawai::all(),
+            'jabatanPegawai' => JabatanPenugasanPegawai::all(),
+            'golongan' => JabatanPenugasanGolongan::all(),
+            'kota' => Kabupaten::all(),
+            'mulai_kegiatan' => $penugasan->tgl_kegiatan . ' ' . $penugasan->jam_mulai,
+            'selesai_kegiatan' => $penugasan->tgl_selesai_kegiatan . ' ' . $penugasan->jam_selesai,
+        );
+
+        // dd($datas);
+
+        // if (!$pegawai) {
+        //     return redirect()->route('internal.index')->with('error', 'Pegawai tidak ditemukan.');
+        // }
+
+        return view('pages.admin.internal.editPpnpn', ['menu' => ''], compact('datas', 'penugasan'));
+    }
+
+    public function updatePpnpn(Request $r)
+    {
+        $pegawai = InternalPpnpn::find($r->id);
+
+        // if (!$pegawai) {
+        //     return redirect()->route('internal.index')->with('error', 'Pegawai tidak ditemukan.');
+        // }
+        // dd($pegawai);
+
+        // Update data
+        $pegawai->update($r->all());
+
+        return redirect()->route('internal.index')->with('message', 'update');
+    }
+
+
+
+    public function hapusPpnpn($id)
+    {
+        $data = InternalPpnpn::find($id);
+        $data->delete();
+        return response()->json($data);
     }
 
     public function create($jenis)
