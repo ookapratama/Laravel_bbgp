@@ -64,21 +64,35 @@ class KegiatanController extends Controller
 	}
 
 	public function store(Request $request)
-    {
-        $data = new PesertaKegiatan;
-        $data->no_ktp          			= $request->no_ktp;
-        $data->status_keikutpesertaan 	= $request->status_keikutpesertaan;
-        $data->instansi        			= $request->instansi;
-        $data->golongan     			= $request->golongan;
-        $data->jkl        				= $request->gender;
-        $data->kelengkapan_peserta      = $request->kelengkapan_peserta;
-        $data->no_hp     				= $request->no_hp;
-        $data->no_wa    				= $request->no_wa;
-		$data->kabupaten   				= $request->kabupaten;
-		// dd($data);
-        $data->save();
-        return redirect()->route('user.kegiatan');
+{
+    $data = new PesertaKegiatan;
+    $data->no_ktp                              = $request->no_ktp;
+    $data->status_keikutpesertaan              = $request->status_keikutpesertaan;
+    $data->instansi                            = $request->instansi;
+    $data->golongan                            = $request->golongan;
+    $data->jkl                                 = $request->gender;
+    $data->kelengkapan_peserta_transport       = $request->kelengkapan_transport;
+    $data->kelengkapan_peserta_biodata         = $request->kelengkapan_biodata;
+    $data->no_hp                               = $request->no_hp;
+    $data->no_wa                               = $request->no_wa;
+    $data->kabupaten                           = $request->kabupaten;
+
+    // Handle the signature
+    if ($request->has('signature')) {
+        $signatureData = $request->input('signature');
+        $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
+        $signatureData = str_replace(' ', '+', $signatureData);
+        $signatureImage = base64_decode($signatureData);
+        $signaturePath = 'signatures/' . uniqid() . '.png';
+        file_put_contents(public_path($signaturePath), $signatureImage);
+        $data->signature = $signaturePath;
     }
+
+    $data->save();
+
+    return redirect()->route('user.kegiatan');
+}
+
 
 	
 }

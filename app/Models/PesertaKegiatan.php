@@ -10,11 +10,13 @@ class PesertaKegiatan extends Model
     use HasFactory;
     protected $fillable = [
         'no_ktp',
+        'signature',
         'status_keikutpesertaan',
         'instansi',
         'golongan',
         'jkl',
-        'kelengkapan_peserta',
+        'kelengkapan_peserta_transport',
+        'kelengkapan_peserta_biodata',
         'no_hp',
         'no_wa',
         'kabupaten'

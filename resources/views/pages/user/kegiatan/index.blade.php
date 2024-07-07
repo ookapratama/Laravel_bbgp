@@ -27,10 +27,11 @@
                         <th>Instansi</th>
                         <th>Golongan</th>
                         <th>Jenis Kelamin</th>
-                        <th>Kelengkapan Peserta</th>
+                        <th colspan="2">Kelengkapan Peserta</th>
                         <th>Nomor Handphone</th>
                         <th>Nomor WhatsApp</th>
                         <th>Kabupaten</th>
+                        <th>Tanda Tangan</th> <!-- Kolom untuk gambar tanda tangan -->
                     </tr>
                 </thead>
                 <tbody>
@@ -43,18 +44,26 @@
                                 <td>{{ $peserta->instansi }}</td>
                                 <td>{{ $peserta->golongan }}</td>
                                 <td>{{ $peserta->jkl }}</td>
-                                <td>{{ $peserta->kelengkapan_peserta }}</td>
+                                <td>{{ $peserta->kelengkapan_peserta_transport }}</td>
+                                <td>{{ $peserta->kelengkapan_peserta_biodata }}</td>
                                 <td>{{ $peserta->no_hp }}</td>
                                 <td>{{ $peserta->no_wa }}</td>
                                 <td>{{ $peserta->kabupaten }}</td>
+                                <td>
+                                    @if($peserta->signature)
+                                        <img src="{{ asset($peserta->signature) }}" alt="Signature" style="width: 100px; height: auto;">
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="10">{{ $message ?? 'No data found' }}</td>
+                            <td colspan="11">{{ $message ?? 'No data found' }}</td>
                         </tr>
                         <tr>
-                            <td colspan="10">
+                            <td colspan="11">
                                 <a href="{{ route('user.kegiatan_regist') }}" class="badge badge-success">Silahkan Registrasi</a>
                             </td>
                         </tr>
@@ -64,6 +73,7 @@
         </div>
     </section>
 </div>
+
 
 
     @push('scripts')

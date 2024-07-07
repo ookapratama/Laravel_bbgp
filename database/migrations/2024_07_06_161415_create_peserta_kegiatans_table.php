@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('peserta_kegiatans', function (Blueprint $table) {
             $table->id();
             $table->string('no_ktp');
+            $table->string('signature')->nullable();
             $table->enum('status_keikutpesertaan', ['peserta', 'panitia', 'narasumber']);
             $table->string('instansi');
             $table->string('golongan');
             $table->enum('jkl', ['Laki-laki', 'Perempuan']);
-            $table->string('kelengkapan_peserta');
+            $table->string('kelengkapan_peserta_transport');
+            $table->string('kelengkapan_peserta_biodata');
             $table->string('no_hp');
             $table->string('no_wa');
             $table->string('kabupaten');
