@@ -6,6 +6,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            font-size: 11px;
         }
 
         .kop-surat {
@@ -20,10 +21,6 @@
         .kop-surat img {
             width: 110px;
             height: auto;
-        }
-
-        .kop-surat img.logo-kanan {
-            width: 150px;
         }
 
         .kop-surat .kop-text {
@@ -61,39 +58,40 @@
         .no-border {
             border: none;
         }
+
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 
 <body>
     <div class="kop-surat" style="position: relative;">
-        <img src="{{ asset('img_template/iconbbgp.png') }}" style="position: absolute; left: 0; width: 110px"
-            alt="Logo Kiri">
+        <img style="position: absolute; left: 0; top: -10px;" src="{{ asset('img_template/iconbbgp.png') }}" alt="Logo Kiri">
         <div class="kop-text">
             <h3>DAFTAR REGISTRASI PESERTA</h3>
             <?php
             setlocale(LC_TIME, 'id_ID.UTF-8');
-            
             $tgl_kegiatan = strftime('%d %B', strtotime($kegiatan->tgl_kegiatan));
             $tgl_selesai = strftime('%d %B %Y', strtotime($kegiatan->tgl_selesai));
             ?>
             <h4>{{ $kegiatan->nama_kegiatan }}<br> {{ $kegiatan->tempat_kegiatan }} <br> {{ $tgl_kegiatan }} -
                 {{ $tgl_selesai }} </h4>
-            {{-- <h4>Koordinasi Teknis Program Gerak Penggerak<br>Balai Besar Guru Penggerak Sulawesi Selatan</h4>
-            <h4>TANGGAL: 11 - 13 OKTOBER 2023</h4> --}}
         </div>
         <h4 style="position: absolute; top: 0; right: 0; width: 150px">Lembar Registrasi Peserta</h4>
-        {{-- <img class="logo-kanan" style="position: absolute; top: 0; right: 0; width: 150px" src="{{ asset('img_template/absenPeserta.png') }}" alt="Logo Kanan"> --}}
     </div>
     <table style="margin-top: 50px">
         <thead>
             <tr>
                 <th rowspan="2">No</th>
-                <th rowspan="2">Nama</th>
-                <th rowspan="2">Instansi</th>
-                <th rowspan="2">Golongan</th>
-                <th rowspan="2">Jenis Kelamin</th>
-                <th colspan="2">Kelengkapan Peserta</th>
-                <th rowspan="2">TTD</th>
+                <th style="width:150px;" rowspan="2">Nama</th>
+                <th style="width:150px;" rowspan="2">Instansi</th>
+                <th style="width:20px !important; " rowspan="2">Gol</th>
+                <th style="width:30px !important;" rowspan="2">L / P</th>
+                <th style="width:30px;" colspan="2">Kelengkapan Peserta</th>
+                <th style="width:100px;" rowspan="2">TTD</th>
             </tr>
             <tr>
                 <th>Transport</th>
@@ -105,12 +103,12 @@
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $peserta->nama }}</td>
-                    <td>{{ $peserta->instansi }}</td>
+                    <td>{{ $peserta->instansi }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, modi!</td>
                     <td>{{ $peserta->golongan }}</td>
-                    <td>{{ $peserta->jkl }}</td>
+                    <td>{{ $peserta->jkl == 'Perempuan' ? 'P' : 'L' }}</td>
                     <td>{{ $peserta->kelengkapan_peserta_transport }}</td>
                     <td>{{ $peserta->kelengkapan_peserta_biodata }}</td>
-                    <td style="height: 50px; width:60px;" class="{{ $key % 2 == 0 ? '' : '' }}"></td>
+                    <td style="{{ ($key + 1) % 2 == 0 ? 'text-align:right; padding-right: 50%;' : 'text-align:left;' }}" >{{ $key + 1 }}</td>
                 </tr>
                 @if (($key + 1) % 25 == 0)
         </tbody>
@@ -123,7 +121,7 @@
                 <th rowspan="2">Nama</th>
                 <th rowspan="2">Instansi</th>
                 <th rowspan="2">Golongan</th>
-                <th rowspan="2">Jenis Kelamin</th>
+                <th rowspan="2">L / P</th>
                 <th colspan="2">Kelengkapan Peserta</th>
                 <th rowspan="2">TTD</th>
             </tr>

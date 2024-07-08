@@ -24,7 +24,48 @@
                             <div class="card-body">
                                 <!-- Navigation Buttons -->
 
-                                <a href="{{ route('kegiatan.create') }}" class="btn btn-primary text-white my-3">+ Tambah Kegiatan</a>
+                                <a href="{{ route('kegiatan.create') }}" class="btn btn-primary text-white my-3">+ Tambah
+                                    Kegiatan</a>
+
+                                <h6>Print Absensi</h6>
+                                <div class="row">
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <select name="" class="form-control" id="kegiatanSelect">
+                                                <option value="">-- pilih kegiatan --</option>
+                                                @foreach ($datas as $v)
+                                                    <?php
+                                                    setlocale(LC_TIME, 'id_ID.UTF-8');
+                                                    
+                                                    $tgl_kegiatan = strftime('%d %B', strtotime($v->tgl_kegiatan));
+                                                    $tgl_selesai = strftime('%d %B %Y', strtotime($v->tgl_selesai));
+                                                    ?>
+                                                    <option value="{{ $v->id }}">{{ $v->nama_kegiatan }}
+                                                        {{-- ( {{ $tgl_kegiatan }} -
+                                                        {{ $tgl_selesai }}
+                                                       ) --}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md mb-4">
+                                        <div id="btnGroup">
+                                            <button id="btnPrintPeserta" class="btn btn-primary"><i
+                                                    class="fas fa-print mr-2"></i>Absensi Peserta</button>
+                                            <button id="btnPrintRegisPeserta" class="btn btn-primary"><i
+                                                    class="fas fa-print mr-2"></i>Registrasi Peserta</button>
+
+                                            <button id="btnPrintPanitia" class="btn btn-info"><i
+                                                    class="fas fa-print mr-2"></i>Absensi Panitia</button>
+                                            <button id="btnPrintNarsum" class="btn btn-warning"><i
+                                                    class="fas fa-print mr-2"></i>Absensi Narasumber</button>
+                                        </div>
+                                    </div>
+
+
+                                </div>
 
                                 <!-- Filter Section -->
                                 {{-- <h5>Pencarian Data Kegiatan BBGP</h5>
@@ -173,77 +214,61 @@
         <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 
-
-
-
         <script type="text/javascript">
             $(document).ready(function() {
-
+                // Existing DataTable initialization
                 var language = {
                     "sSearch": "Pencarian Data Kegiatan BBGP : ",
                 };
-                // Initialize DataTables for both tables
-                var tablePpnpn = $('#table-kegiatan').DataTable({
+                var tableKegiatan = $('#table-kegiatan').DataTable({
                     paging: true,
                     searching: true,
                     language: language,
-                    // Add more DataTable options as needed
                 });
 
-
-                // Show appropriate table based on button click
-                $('#pegawaiBBGP').on('click', function(event) {
-                    event.preventDefault();
-                    $('.table-internal').hide();
-                    $('#table-internal-bbgp').show();
-                    tableBbgp.columns.adjust().draw(); // Adjust column widths on table show
-                    $('#title-text').text('Data Penugasan Pegawai')
-
+                // Button click event handlers
+                $('#btnPrintPeserta').on('click', function() {
+                    handlePrint('peserta');
                 });
 
-                $('#pegawaiPpnp').on('click', function(event) {
-                    event.preventDefault();
-                    $('.table-internal').hide();
-                    $('#table-internal-ppnpn').show();
-                    tablePpnpn.columns.adjust().draw(); // Adjust column widths on table show
-                    $('#title-text').text('Data Penugasan PPNPN')
-
+                $('#btnPrintRegisPeserta').on('click', function() {
+                    handlePrint('regis_peserta');
                 });
 
-                // Filter tables based on dropdown selection
-                $('#rekapan').on('change', function() {
-                    let jenis = $(this).val().toLowerCase().replace(/ /g, '-');
-                    console.log(jenis);
-                    // Hide all tables initially
-                    $('.table-internal').hide();
+                $('#btnPrintPanitia').on('click', function() {
+                    handlePrint('panitia');
+                });
 
-                    // Show the appropriate table based on the selection
-                    if (jenis === 'penugasan-pegawai') {
-                        $('#table-internal-bbgp').show();
-                        tableBbgp.columns.adjust().draw(); // Adjust column widths on table show
-                    } else if (jenis === 'penugasan-ppnpn') {
-                        $('#table-internal-ppnpn').show();
-                        tablePpnpn.columns.adjust().draw(); // Adjust column widths on table show
+                $('#btnPrintNarsum').on('click', function() {
+                    handlePrint('narsum');
+                });
+
+                function handlePrint(type) {
+                    var kegiatanId = $('#kegiatanSelect').val();
+                    if (kegiatanId === '') {
+                        swal('Warning','Silakan pilih kegiatan terlebih dahulu!', 'warning');
+                        return;
                     }
-                });
 
-                // Filter by Nama
-                $('#namaFilter').on('keyup', function() {
-                    tablePpnpn.column(1).search(this.value).draw();
-                    tablePpnpn.column(2).search(this.value).draw();
-                    tableBbgp.column(1).search(this.value).draw();
-                    tableBbgp.column(2).search(this.value).draw();
-                    tableBbgp.column(3).search(this.value).draw();
-                });
+                    var printUrl = '';
 
-                // Reset button functionality
-                $('#resetBtn').on('click', function() {
-                    $('#rekapan').val('');
-                    $('#namaFilter').val('');
-                    $('.table-internal').hide();
-                    tablePpnpn.search('').columns().search('').draw();
-                    tableBbgp.search('').columns().search('').draw();
-                });
+                    switch (type) {
+                        case 'peserta':
+                            printUrl = '{{ route('print.absensi.peserta') }}' + '?kegiatan_id=' + kegiatanId;
+                            break;
+                        case 'regis_peserta':
+                            printUrl = '{{ route('print.registrasi.peserta') }}' + '?kegiatan_id=' + kegiatanId ;
+                            break;
+                        case 'panitia':
+                            printUrl = '{{ route('print.absensi.panitia') }}' + '?kegiatan_id=' + kegiatanId;
+                            break;
+                        case 'narsum':
+                            printUrl = '{{ route('print.absensi.narasumber') }}' + '?kegiatan_id=' + kegiatanId;
+                            break;
+                    }
+
+                    window.open(printUrl, '_blank');
+                }
             });
         </script>
     @endpush

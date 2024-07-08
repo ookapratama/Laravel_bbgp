@@ -5,6 +5,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            font-size: 11px;
+
         }
         .kop-surat {
             display: flex;
@@ -57,7 +59,7 @@
                 {{ $tgl_selesai }} </h4>
             {{-- <h4>Koordinasi Teknis Program Gerak Penggerak<br>Balai Besar Guru Penggerak Sulawesi Selatan</h4> --}}
         </div>
-        {{-- <img  style="position: absolute; top: 0; right: 0; width: 150px"  src="{{ asset('img_template/absenPeserta.png') }}" alt="Logo Kanan"> --}}
+        <img  style="position: absolute; top: 0; right: 0; width: 150px"  src="{{ asset('img_template/daftarNarum.png') }}" alt="Logo Kanan">
     </div>
     <table>
         <thead>
@@ -66,7 +68,7 @@
                 <th>Nama</th>
                 <th>Instansi</th>
                 <th>Jam Mengajar</th>
-                <th>Tanda Tangan</th>
+                <th>TTD</th>
             </tr>
         </thead>
         <tbody>
@@ -88,7 +90,7 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Instansi</th>
-                            <th>Tanda Tangan</th>
+                            <th>TTD</th>
                         </tr>
                     </thead>
                     <tbody>

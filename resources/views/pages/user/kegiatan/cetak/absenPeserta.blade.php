@@ -6,6 +6,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            font-size: 11px;
+
         }
 
         .kop-surat {
@@ -82,7 +84,7 @@
                 <th>Nama</th>
                 <th>Instansi</th>
                 <th> Kabupaten / Kota</th>
-                <th>Tanda Tangan</th>
+                <th>TTD</th>
             </tr>
         </thead>
         <tbody>
@@ -91,7 +93,7 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $peserta->nama }}</td>
                     <td>{{ $peserta->instansi }}</td>
-                    <td>{{ $peserta->kabupaten }}</td>
+                    <td>{{ str_replace(['Kabupaten ', 'Kota '], '', $peserta->kabupaten)  }}</td>
                     <td style="height: 50px;"></td>
                 </tr>
                 @if (($key + 1) % 25 == 0)
@@ -105,7 +107,7 @@
                 <th>Nama</th>
                 <th>Instansi</th>
                 <th>Asal Kabupaten</th>
-                <th>Tanda Tangan</th>
+                <th>TTD</th>
             </tr>
         </thead>
         <tbody>

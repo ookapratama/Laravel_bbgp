@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                         @else
-                            <h5>Tidak ada kegiatan yang aktif saat ini.</h5>
+                            <h5>Tidak ada kegiatan untuk saat ini.</h5>
                         @endif
                     </div>
                 </div>
@@ -393,7 +393,7 @@
                                             <td>${peserta.no_ktp}</td>
                                             <td>${peserta.status_keikutpesertaan}</td>
                                             <td>${peserta.instansi}</td>
-                                            <td>${peserta.golongan ?? ''}</td>
+                                            <td>${peserta.golongan ?? 'Tidak '}</td>
                                             <td>${peserta.jkl ?? ''}</td>
                                             <td>${peserta.kelengkapan_peserta_transport ?? ''}</td>
                                             <td>${peserta.kelengkapan_peserta_biodata ?? ''}</td>
@@ -419,8 +419,8 @@
                                     'peserta' || statusKeikutpesertaan === 'registrasi');
                                 $('#btnPrintRegisPeserta').toggle(
                                     statusKeikutpesertaan ===
-                                'peserta' 
-                                || statusKeikutpesertaan ===
+                                    'peserta' ||
+                                    statusKeikutpesertaan ===
                                     'registrasi');
                                 $('#btnPrintPanitia').toggle(statusKeikutpesertaan ===
                                     'panitia');
@@ -430,9 +430,24 @@
                                 $('#showKegiatan').hide();
                                 swal({
                                     title: "Warning",
-                                    text: "Peserta tidak ditemukan. Silahkan registrasi untuk mengikuti kegiatan",
+                                    text: "Data anda tidak ditemukan. Silahkan registrasi untuk mengikuti kegiatan",
                                     icon: "warning",
-                                    buttons: true,
+                                    buttons: {
+                                        cancel: {
+                                            text: "Tidak, Terima Kasih",
+                                            value: null,
+                                            visible: true,
+                                            className: "",
+                                            closeModal: true,
+                                        },
+                                        confirm: {
+                                            text: "Registrasi ",
+                                            value: true,
+                                            visible: true,
+                                            className: "btn-primary",
+                                            closeModal: false
+                                        }
+                                    },
                                     dangerMode: true,
                                 }).then((res) => {
                                     if (res) {
