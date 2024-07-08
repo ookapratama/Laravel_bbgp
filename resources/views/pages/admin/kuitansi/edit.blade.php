@@ -16,6 +16,7 @@
                                 <form action="{{ route('kuitansi.update', $kuitansi->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
+                                    <input type="hidden" name="id" value="{{ $kuitansi->id }}">
 
                                     <div class="form-group">
                                         <label for="no_bukti">Nomor Bukti</label>
@@ -24,7 +25,7 @@
 
                                     <div class="form-group">
                                         <label for="tahun_anggaran">Tahun Anggaran</label>
-                                        <input type="number" class="form-control" id="tahun_anggaran" name="tahun_anggaran" value="{{ old('tahun_anggaran', $kuitansi->tahun_anggaran) }}" required>
+                                        <input type="date" class="form-control" id="tahun_anggaran" name="tahun_anggaran" value="{{ old('tahun_anggaran', $kuitansi->tahun_anggaran) }}" required>
                                     </div>
 
                                     <div class="form-group">
@@ -44,12 +45,12 @@
 
                                     <div class="form-group">
                                         <label for="durasi_penginapan">Durasi Penginapan</label>
-                                        <input type="number" class="form-control" id="durasi_penginapan" name="durasi_penginapan" value="{{ old('durasi_penginapan', $kuitansi->durasi_penginapan) }}" required>
+                                        <input type="text" class="form-control" id="durasi_penginapan" name="durasi_penginapan" value="{{ old('durasi_penginapan', $kuitansi->durasi_penginapan) }}" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="durasi_uang_harian">Durasi Uang Harian</label>
-                                        <input type="number" class="form-control" id="durasi_uang_harian" name="durasi_uang_harian" value="{{ old('durasi_uang_harian', $kuitansi->durasi_uang_harian) }}" required>
+                                        <input type="text" class="form-control" id="durasi_uang_harian" name="durasi_uang_harian" value="{{ old('durasi_uang_harian', $kuitansi->durasi_uang_harian) }}" required>
                                     </div>
 
                                     <hr>
@@ -57,41 +58,40 @@
                                     <h5>Data Transportasi</h5>
                                     <div id="transportasiContainer">
                                         @foreach ($transportasis as $index => $transportasi)
-                                        <div class="transportasi-item">
-                                            <h6>Transportasi {{ $index + 1 }}</h6>
+                                            <div class="transportasi-item">
+                                                <h6>Transportasi {{ $index + 1 }}</h6>
 
-                                            <div class="form-group">
-                                                <label for="transportasi_{{ $index }}_nama_transportasi">Nama Transportasi</label>
-                                                <input type="text" class="form-control" id="transportasi_{{ $index }}_nama_transportasi" name="transportasis[{{ $index }}][nama_transportasi]" value="{{ old("transportasis.$index.nama_transportasi", $transportasi->nama_transportasi) }}" required>
+                                                <div class="form-group">
+                                                    <label for="transportasi_{{ $index }}_nama_transportasi">Nama Transportasi</label>
+                                                    <input type="text" class="form-control" id="transportasi_{{ $index }}_nama_transportasi" name="transportasis[{{ $index }}][nama_transportasi]" value="{{ old("transportasis.$index.nama_transportasi", $transportasi->nama_transportasi) }}" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="transportasi_{{ $index }}_asal">Asal</label>
+                                                    <input type="text" class="form-control" id="transportasi_{{ $index }}_asal" name="transportasis[{{ $index }}][asal_transport]" value="{{ old("transportasis.$index.asal_transport", $transportasi->asal_transport) }}" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="transportasi_{{ $index }}_tujuan">Tujuan</label>
+                                                    <input type="text" class="form-control" id="transportasi_{{ $index }}_tujuan" name="transportasis[{{ $index }}][tujuan_transport]" value="{{ old("transportasis.$index.tujuan_transport", $transportasi->tujuan_transport) }}" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="transportasi_{{ $index }}_biaya">Biaya</label>
+                                                    <input type="number" class="form-control" id="transportasi_{{ $index }}_biaya" name="transportasis[{{ $index }}][biaya_transport]" value="{{ old("transportasis.$index.biaya_transport", $transportasi->biaya_transport) }}" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="transportasi_{{ $index }}_keterangan">Keterangan</label>
+                                                    <input type="text" class="form-control" id="transportasi_{{ $index }}_keterangan" name="transportasis[{{ $index }}][keterangan]" value="{{ old("transportasis.$index.keterangan", $transportasi->keterangan) }}">
+                                                </div>
+
+                                                <button type="button" class="btn btn-danger remove-transportasi">Hapus Transportasi</button>
+
+                                                <hr>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label for="transportasi_{{ $index }}_asal">Asal</label>
-                                                <input type="text" class="form-control" id="transportasi_{{ $index }}_asal" name="transportasis[{{ $index }}][asal]" value="{{ old("transportasis.$index.asal", $transportasi->asal) }}" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="transportasi_{{ $index }}_tujuan">Tujuan</label>
-                                                <input type="text" class="form-control" id="transportasi_{{ $index }}_tujuan" name="transportasis[{{ $index }}][tujuan]" value="{{ old("transportasis.$index.tujuan", $transportasi->tujuan) }}" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="transportasi_{{ $index }}_biaya">Biaya</label>
-                                                <input type="number" class="form-control" id="transportasi_{{ $index }}_biaya" name="transportasis[{{ $index }}][biaya_transport]" value="{{ old("transportasis.$index.biaya_transport", $transportasi->biaya_transport) }}" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="transportasi_{{ $index }}_keterangan">Keterangan</label>
-                                                <input type="text" class="form-control" id="transportasi_{{ $index }}_keterangan" name="transportasis[{{ $index }}][keterangan]" value="{{ old("transportasis.$index.keterangan", $transportasi->keterangan) }}">
-                                            </div>
-
-                                            <button type="button" class="btn btn-danger remove-transportasi">Hapus Transportasi</button>
-
-                                            <hr>
-                                        </div>
                                         @endforeach
-                                </div>
-
+                                    </div>
 
                                     <button type="button" class="btn btn-success" id="addTransportasi">Tambah Transportasi</button>
 
@@ -122,27 +122,27 @@
 
                         <div class="form-group">
                             <label for="transportasi_${transportasiIndex}_nama_transportasi">Nama Transportasi</label>
-                            <input type="text" class="form-control" id="transportasi_${transportasiIndex}_nama_transportasi" name="transportasi[${transportasiIndex}][nama_transportasi]" required>
+                            <input type="text" class="form-control" id="transportasi_${transportasiIndex}_nama_transportasi" name="transportasis[${transportasiIndex}][nama_transportasi]" required>
                         </div>
 
                         <div class="form-group">
                             <label for="transportasi_${transportasiIndex}_asal">Asal</label>
-                            <input type="text" class="form-control" id="transportasi_${transportasiIndex}_asal" name="transportasi[${transportasiIndex}][asal]" required>
+                            <input type="text" class="form-control" id="transportasi_${transportasiIndex}_asal" name="transportasis[${transportasiIndex}][asal_transport]" required>
                         </div>
 
                         <div class="form-group">
                             <label for="transportasi_${transportasiIndex}_tujuan">Tujuan</label>
-                            <input type="text" class="form-control" id="transportasi_${transportasiIndex}_tujuan" name="transportasi[${transportasiIndex}][tujuan]" required>
+                            <input type="text" class="form-control" id="transportasi_${transportasiIndex}_tujuan" name="transportasis[${transportasiIndex}][tujuan_transport]" required>
                         </div>
 
                         <div class="form-group">
                             <label for="transportasi_${transportasiIndex}_biaya">Biaya</label>
-                            <input type="number" class="form-control" id="transportasi_${transportasiIndex}_biaya" name="transportasi[${transportasiIndex}][biaya]" required>
+                            <input type="number" class="form-control" id="transportasi_${transportasiIndex}_biaya" name="transportasis[${transportasiIndex}][biaya_transport]" required>
                         </div>
 
                         <div class="form-group">
                             <label for="transportasi_${transportasiIndex}_keterangan">Keterangan</label>
-                            <input type="text" class="form-control" id="transportasi_${transportasiIndex}_keterangan" name="transportasi[${transportasiIndex}][keterangan]">
+                            <input type="text" class="form-control" id="transportasi_${transportasiIndex}_keterangan" name="transportasis[${transportasiIndex}][keterangan]">
                         </div>
 
                         <button type="button" class="btn btn-danger remove-transportasi">Hapus Transportasi</button>
