@@ -83,8 +83,10 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i>
                     <span>Components</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('components/article') ? 'active' : '' }}"><a class="nav-link"
-                            href="{{ route('components.article') }}">Article </a></li>
+                    <li class="{{ Request::is('components/article') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('components.article') }}">Article
+                        </a>
+                    </li>
                     <li class="{{ Request::is('components/avatar') ? 'active' : '' }}"><a class="nav-link"
                             href="{{ route('components.avatar') }}">Avatar </a></li>
                     <li class="{{ Request::is('components/chat-box') ? 'active' : '' }}"><a class="nav-link"

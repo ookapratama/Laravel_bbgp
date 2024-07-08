@@ -24,4 +24,9 @@ class PesertaKegiatan extends Model
         'jam_mengajar',
         'jam_selesai'
     ];
+
+    public function kegiatan() {
+        return $this->hasOne(Kegiatan::class, 'id', 'id_kegiatan');
+    }
+
 }

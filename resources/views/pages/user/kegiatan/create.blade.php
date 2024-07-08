@@ -100,7 +100,7 @@
                                             </div>
                                         </div>
                                         <div class="row" id="narasumberTime">
-                                            <div class="col-md-4">
+                                            {{-- <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Jam Mulai Mengajar</label>
                                                     <input type="time" name="jam_mengajar" id="jam_mulai"
@@ -113,7 +113,7 @@
                                                     <input type="time" name="jam_selesai" id="jam_selesai"
                                                         class="form-control">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4" id="transportContainer">
@@ -205,7 +205,7 @@
                     } else if (status === 'panitia') {
                         $('#formOpsional').show();
                         $('#instansiContainer').show();
-                        $('#golonganContainer').hide();
+                        $('#golonganContainer').show();
                         $('#kabupatenContainer').hide();
                         $('#narasumberTime').hide();
                         $('#transportContainer').hide();
@@ -215,7 +215,7 @@
                     } else if (status === 'narasumber') {
                         $('#formOpsional').show();
                         $('#instansiContainer').show();
-                        $('#golonganContainer').hide();
+                        $('#golonganContainer').show();
                         $('#kabupatenContainer').hide();
                         $('#narasumberTime').show();
                         $('#transportContainer').hide();
@@ -226,7 +226,7 @@
                     } else {
                         $('#formOpsional').hide();
                         $('#instansiContainer').hide();
-                        $('#golonganContainer').hide();
+                        $('#golonganContainer').show();
                         $('#kabupatenContainer').hide();
                         $('#narasumberTime').hide();
                     }

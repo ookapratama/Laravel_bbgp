@@ -222,6 +222,17 @@ Route::group(
                 Route::post('/hapus/{id}', 'KegiatanController@destroy')->name('kegiatan.hapus');
             });
 
+            // Honor
+            Route::prefix('honor')->group(function () {
+                Route::get('/', 'HonorController@index')->name('honor.index');
+                Route::get('/create', 'HonorController@create')->name('honor.create');
+                Route::post('/store', 'HonorController@store')->name('honor.store');
+                Route::get('/edit/{id}', 'HonorController@edit')->name('honor.edit');
+                Route::put('/update', 'HonorController@update')->name('honor.update');
+                Route::post('/hapus/{id}', 'HonorController@destroy')->name('honor.hapus');
+                Route::get('/cetak/{jabatan}', 'HonorController@cetak')->name('honor.cetak');
+            });
+
 
 
 
