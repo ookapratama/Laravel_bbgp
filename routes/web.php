@@ -234,6 +234,17 @@ Route::group(
             });
 
 
+            //kuitansi
+            Route::prefix('kuitansi')->group(function () {
+                Route::get('/', 'KuitansiController@index')->name('kuitansi.index');
+                Route::get('/create', 'KuitansiController@create')->name('kuitansi.create');
+                Route::post('/store', 'KuitansiController@store')->name('kuitansi.store');
+                Route::get('/edit/{id}', 'KuitansiController@edit')->name('kuitansi.edit');
+                Route::put('/update', 'KuitansiController@update')->name('kuitansi.update');
+                Route::post('/hapus/{id}', 'KuitansiController@destroy')->name('kuitansi.hapus');
+            });
+
+
 
 
         });

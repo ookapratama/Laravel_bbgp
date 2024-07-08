@@ -84,7 +84,7 @@ class KegiatanController extends Controller
         $datas->update($r->all());
         $menu = $this->menu;
 
-        return redirect()->route('kegiatan.index',compact('menu'))->with('message', 'update');
+        return redirect()->route('kegiatan.index')->with('message', 'update');
     }
 
     /**
