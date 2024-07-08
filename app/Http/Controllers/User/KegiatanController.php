@@ -194,7 +194,7 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::find($kegiatanId);
         // Logic to generate PDF for Registrasi Peserta
         // Return response with PDF
-         $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->where('id_kegiatan', $kegiatanId)->get();
+        $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->where('id_kegiatan', $kegiatanId)->get();
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 

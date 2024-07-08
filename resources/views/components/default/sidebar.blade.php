@@ -46,6 +46,11 @@
                         <i class="fas fa-users"></i> <span>Data Peserta Kegiatan</span>
                     </a>
                 </li> --}}
+                <li class="{{ $menu == 'kuitansi' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('kuitansi.index') }}">
+                        <i class="fas fa-user"></i> <span>Data Kuitansi</span>
+                    </a>
+                </li>
                 <li class="{{ $menu == 'akun' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('akun.index') }}">
                         <i class="fas fa-user"></i> <span>Data Akun</span>
