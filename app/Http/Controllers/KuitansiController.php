@@ -145,7 +145,7 @@ class KuitansiController extends Controller
             $kuitansi->transportasis()->create($transportasiData);
         }
     }
-    $menu = $this->menu;
+    // $menu = $this->menu;
 
     // Redirect ke halaman index dengan pesan sukses
     return redirect()->route('kuitansi.index')->with('message', 'update');
