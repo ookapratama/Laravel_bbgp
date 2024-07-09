@@ -22,6 +22,8 @@ class PesertaKegiatan extends Model
         'no_wa',
         'kabupaten',
         'jam_mengajar',
-        'jam_selesai'
+        'jam_selesai',
+        'no_surat_tugas',
+        'tgl_surat_tugas',
     ];
 }
