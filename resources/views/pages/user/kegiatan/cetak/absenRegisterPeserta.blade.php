@@ -108,7 +108,7 @@
                     <td>{{ $peserta->jkl == 'Perempuan' ? 'P' : 'L' }}</td>
                     <td>{{ $peserta->kelengkapan_peserta_transport }}</td>
                     <td>{{ $peserta->kelengkapan_peserta_biodata }}</td>
-                    <td style="{{ ($key + 1) % 2 == 0 ? 'text-align:right; padding-right: 50%;' : 'text-align:left;' }}" >{{ $key + 1 }}</td>
+                    <td style="{{ ($key + 1) % 2 == 0 ? 'text-align:right; padding-right: 50%;' : 'text-align:left;' }}" >{{ $key + 1 }}.</td>
                 </tr>
                 @if (($key + 1) % 25 == 0)
         </tbody>
@@ -135,6 +135,9 @@
             @endforeach
         </tbody>
     </table>
+    <footer style="text-align: right; margin-right: 150px">
+        <p>Panitia, </p>
+    </footer>
 </body>
 
 </html>

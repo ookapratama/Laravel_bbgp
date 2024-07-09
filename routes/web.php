@@ -40,7 +40,7 @@ Route::group(
         Route::get('/kegiatan/registrasi', 'KegiatanController@regist')->name('user.kegiatan_regist');
         Route::post('/kegiatan/store', 'KegiatanController@store')->name('user.kegiatan_store');
 
-        // response jsonj
+        // response json
         Route::get('/kegiatan/getStatus', 'KegiatanController@getStatus')->name('user.kegiatan.getStatus');
         Route::get('/kegiatan/cariPeserta', 'KegiatanController@cariPeserta')->name('user.kegiatan.cariPeserta');
         Route::get('/kegiatan/peserta', 'KegiatanController@getPesertaByKegiatan')->name('user.kegiatan.peserta');
@@ -242,6 +242,7 @@ Route::group(
                 Route::get('/edit/{id}', 'KuitansiController@edit')->name('kuitansi.edit');
                 Route::put('/update', 'KuitansiController@update')->name('kuitansi.update');
                 Route::post('/hapus/{id}', 'KuitansiController@destroy')->name('kuitansi.hapus');
+                Route::get('/cetak/{id}', 'KuitansiController@cetak')->name('kuitansi.cetak');
             });
 
 

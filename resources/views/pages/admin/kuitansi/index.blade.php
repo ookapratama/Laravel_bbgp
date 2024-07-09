@@ -22,9 +22,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{ route('kuitansi.create') }}" class="btn btn-primary text-white my-3">+ Tambah
-                                    Kuitansi</a>
-                                <h6>Print Absensi</h6>
+                                <a href="{{ route('kuitansi.create') }}" class="btn btn-primary text-white my-3">
+                                    + Rencana Biaya Perjalanan Dinas
+                                </a>
+
+
+                                {{-- <h6>Print Absensi</h6>
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -53,13 +56,13 @@
                                                     class="fas fa-print mr-2"></i>Absensi Narasumber</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered" id="table-temp">
+                                    <table class="table table-striped table-bordered" id="table_kuitansi">
                                         <thead class="thead-dark">
                                             <tr>
-                                                <th class="text-center">#</th>
+                                                <th class="text-center">No</th>
                                                 <th>Nomor Bukti</th>
                                                 <th>Tahun Anggaran</th>
                                                 <th>Nomor MAK</th>
@@ -74,59 +77,77 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas as $i => $data)
-                                            <tr>
-                                                <td>{{ ++$i }}</td>
-                                                <td>{{ $data->no_bukti ?? '' }}</td>
-                                                <td>{{ $data->tahun_anggaran ?? '' }}</td>
-                                                <td>{{ $data->no_MAK ?? '' }}</td>
-                                                <td>Rp {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}</td>
-                                                <td>Rp {{ number_format($data->biaya_uang_harian ?? 0, 0, ',', '.') }}</td>
-                                                <td>{{ $data->durasi_penginapan ?? '' }}</td>
-                                                <td>{{ $data->durasi_uang_harian ?? '' }}</td>
-                                                <td>Rp {{ number_format($data->total_biaya_penginapan ?? 0, 0, ',', '.') }}</td>
-                                                <td>Rp {{ number_format($data->total_biaya_harian ?? 0, 0, ',', '.') }}</td>
-                                                <td>
-                                                    <a href="{{ route('kuitansi.edit', $data->id) }}" class="btn btn-warning btn-sm"><i
-                                                            class="fas fa-edit"></i> Edit</a>
-                                                    <button onclick="deleteData({{ $data->id }}, 'kuitansi')" class="btn btn-danger btn-sm"><i
-                                                            class="fas fa-trash-alt"></i> Hapus</button>
-                                                </td>
-                                            </tr>
-                                            @if($data->transportasis->isNotEmpty())
-                                            <tr>
-                                                <td colspan="11">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Transportasi</th>
-                                                                    <th>Asal</th>
-                                                                    <th>Tujuan</th>
-                                                                    <th>Biaya</th>
-                                                                    <th>Keterangan</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach ($data->transportasis as $transportasi)
-                                                                    <tr>
-                                                                        <td>{{ $transportasi->transportasi ?? '' }}</td>
-                                                                        <td>{{ $transportasi->asal_transport ?? '' }}</td>
-                                                                        <td>{{ $transportasi->tujuan_transport ?? '' }}</td>
-                                                                        <td>Rp {{ number_format($transportasi->biaya_transport ?? 0, 0, ',', '.') }}</td>
-                                                                        <td>{{ $transportasi->keterangan ?? '' }}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endif
+                                                <tr>
+                                                    <td>
+                                                        <h6> {{ ++$i }} </h6>
+                                                    </td>
+                                                    <td>{{ $data->no_bukti ?? '' }}</td>
+                                                    <td>{{ $data->tahun_anggaran ?? '' }}</td>
+                                                    <td>{{ $data->no_MAK ?? '' }}</td>
+                                                    <td>Rp {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}
+                                                    </td>
+                                                    <td>Rp {{ number_format($data->biaya_uang_harian ?? 0, 0, ',', '.') }}
+                                                    </td>
+                                                    <td>{{ $data->durasi_penginapan ?? '' }} Hari</td>
+                                                    <td>{{ $data->durasi_uang_harian ?? '' }} Hari</td>
+                                                    <td>Rp
+                                                        {{ number_format($data->total_biaya_penginapan ?? 0, 0, ',', '.') }}
+                                                    </td>
+                                                    <td>Rp {{ number_format($data->total_biaya_harian ?? 0, 0, ',', '.') }}
+                                                    </td>
+                                                    <td>
+                                                        <a target="_blank" href="{{ route('kuitansi.cetak' , $data->id) }}"
+                                                            class="btn btn-info "> <i class="fas fa-print"></i> </a>
+
+                                                        <a href="{{ route('kuitansi.edit', $data->id) }}"
+                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i> </a>
+
+                                                        <button onclick="deleteData({{ $data->id }}, 'kuitansi')"
+                                                            class="btn btn-danger "><i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                @if ($data->transportasis->isNotEmpty())
+                                                    <tr>
+                                                        <td colspan="11">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover table-striped table-bordered table-sm">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Transportasi</th>
+                                                                            <th>Asal</th>
+                                                                            <th>Tujuan</th>
+                                                                            <th>Biaya</th>
+                                                                            <th>Keterangan</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($data->transportasis as $transportasi)
+                                                                            <tr>
+                                                                                <td>{{ $transportasi->transportasi ?? '' }}
+                                                                                </td>
+                                                                                <td>{{ $transportasi->asal_transport ?? '' }}
+                                                                                </td>
+                                                                                <td>{{ $transportasi->tujuan_transport ?? '' }}
+                                                                                </td>
+                                                                                <td>Rp
+                                                                                    {{ number_format($transportasi->biaya_transport ?? 0, 0, ',', '.') }}
+                                                                                </td>
+                                                                                <td>{{ $transportasi->keterangan ?? '' }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -146,54 +167,12 @@
                 var language = {
                     "sSearch": "Pencarian Data Kuitansi BBGP : ",
                 };
-                var tableKuitansi = $('#table-temp').DataTable({
+                var tableKuitansi = $('#table_kuitansi').DataTable({
                     paging: true,
                     searching: true,
                     language: language,
                 });
 
-                $('#btnPrintPeserta').on('click', function() {
-                    handlePrint('peserta');
-                });
-
-                $('#btnPrintRegisPeserta').on('click', function() {
-                    handlePrint('regis_peserta');
-                });
-
-                $('#btnPrintPanitia').on('click', function() {
-                    handlePrint('panitia');
-                });
-
-                $('#btnPrintNarsum').on('click', function() {
-                    handlePrint('narsum');
-                });
-
-                function handlePrint(type) {
-                    var kegiatanId = $('#kegiatanSelect').val();
-                    if (kegiatanId === '') {
-                        swal('Warning','Silakan pilih kegiatan terlebih dahulu!', 'warning');
-                        return;
-                    }
-
-                    var printUrl = '';
-
-                    switch (type) {
-                        case 'peserta':
-                            printUrl = '{{ route('print.absensi.peserta') }}' + '?kegiatan_id=' + kegiatanId;
-                            break;
-                        case 'regis_peserta':
-                            printUrl = '{{ route('print.registrasi.peserta') }}' + '?kegiatan_id=' + kegiatanId ;
-                            break;
-                        case 'panitia':
-                            printUrl = '{{ route('print.absensi.panitia') }}' + '?kegiatan_id=' + kegiatanId;
-                            break;
-                        case 'narsum':
-                            printUrl = '{{ route('print.absensi.narasumber') }}' + '?kegiatan_id=' + kegiatanId;
-                            break;
-                    }
-
-                    window.open(printUrl, '_blank');
-                }
             });
         </script>
     @endpush

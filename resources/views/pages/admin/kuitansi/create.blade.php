@@ -11,7 +11,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Data Kuitansi</h1>
+                <h1>Kuitansi - Rencana Biaya Perjalanan Dinas</h1>
             </div>
 
             <div class="section-body">
@@ -22,117 +22,139 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nomor Bukti</label>
                                                 <input required name="no_bukti" type="text" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md">
-                                            <div class="form-group">
-                                                <label>Tahun Anggaran</label>
-                                                <input required name="tahun_anggaran" type="date" class="form-control" id="tahun_anggaran">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-md">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nomor MAK</label>
                                                 <input required name="no_MAK" type="text" class="form-control">
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-md">
+                                        <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Biaya Penginapan</label>
-                                                <input required name="biaya_penginapan" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md">
-                                            <div class="form-group">
-                                                <label>Biaya Uang Harian</label>
-                                                <input required name="biaya_uang_harian" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-md">
-                                            <div class="form-group">
-                                                <label>Durasi Penginapan</label>
-                                                <input required name="durasi_penginapan" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md">
-                                            <div class="form-group">
-                                                <label>Durasi Uang Harian</label>
-                                                <input required name="durasi_uang_harian" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Kategori</label>
-                                                <select name="kategori" class="form-control select2">
-                                                    <option value="">-- pilih kategori --</option>
-                                                    <option value="kategori1">Kategori 1</option>
-                                                    <option value="kategori2">Kategori 2</option>
-                                                    <option value="kategori3">Kategori 3</option>
-                                                </select>
+                                                <label>Tujuan Perjalanan</label>
+                                                <input required name="no_MAK" type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Tanggal Surat</label>
+                                                <input required name="tgl_surat" type="date" class="form-control"
+                                                    id="tgl_surat"  >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Tahun Anggaran</label>
+                                                <input required name="tahun_anggaran" type="text" class="form-control"
+                                                    id="tahun_anggaran" readonly value="{{ date('Y') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Biaya Penginapan (Rp. )</label>
+                                                <input required name="biaya_penginapan" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Biaya Uang Harian (Rp. )</label>
+                                                <input required name="biaya_uang_harian" type="number"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Durasi Penginapan (hari)</label>
+                                                <input required name="durasi_penginapan" type="number"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Durasi Uang Harian (hari)</label>
+                                                <input required name="durasi_uang_harian" type="number"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     {{-- Inputan Transportasi --}}
-                                    <div class="row" id="transportasi_fields">
+                                    <div class="row">
                                         <div class="col-md-12">
                                             <h5>Transportasi</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Jenis Transportasi</label>
+                                                <input required name="transportasis[0][transportasi]" type="text"
+                                                    class="form-control" placeholder="selain kendaraan, wajb isi keterangan">
+                                            </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Asal Transportasi</label>
-                                                <input required name="transportasis[0][asal_transport]" type="text" class="form-control">
+                                                <input required name="transportasis[0][asal_transport]" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
+                                        <span>
+                                            <p>Ke</p>
+                                        </span>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Tujuan Transportasi</label>
-                                                <input required name="transportasis[0][tujuan_transport]" type="text" class="form-control">
+                                                <input required name="transportasis[0][tujuan_transport]" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md">
-                                            <div class="form-group">
-                                                <label>Jenis Transportasi</label>
-                                                <input required name="transportasis[0][transportasi]" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md">
-                                            <div class="form-group">
-                                                <label>Keterangan</label>
-                                                <input name="transportasis[0][keterangan]" type="text" class="form-control">
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Biaya Transportasi</label>
-                                                <input required name="transportasis[0][biaya_transport]" type="text" class="form-control">
+                                                <input required name="transportasis[0][biaya_transport]" type="number"
+                                                class="form-control">
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Keterangan</label>
+                                                <input name="transportasis[0][keterangan]" type="text"
+                                                    class="form-control" placeholder="Keterangan transportasi">
                                             </div>
                                         </div>
                                     </div>
+                                    <div id="transportasi_fields"></div>
 
-<!-- Tombol untuk menambahkan transportasi -->
+                                    <!-- Tombol untuk menambahkan transportasi -->
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button class="btn btn-primary add_transportasi_field" type="button">Tambah Transportasi</button>
+                                            <button class="btn btn-primary add_transportasi_field" type="button">Tambah
+                                                Transportasi</button>
                                         </div>
                                     </div>
 
+                                   
 
                                     {{-- Tombol Aksi --}}
                                 </div>
@@ -171,12 +193,26 @@
                     e.preventDefault();
                     if (x < max_fields) { // max input box allowed
                         x++; // text box increment
-                        $(wrapper).append('<div class="row"><div class="col-md"><div class="form-group"><label>Asal Transportasi</label><input required name="transportasis[' + x + '][asal_transport]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Tujuan Transportasi</label><input required name="transportasis[' + x + '][tujuan_transport]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Jenis Transportasi</label><input required name="transportasis[' + x + '][transportasi]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Keterangan</label><input name="transportasis[' + x + '][keterangan]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Biaya Transportasi</label><input required name="transportasis[' + x + '][biaya_transport]" type="text" class="form-control"></div></div><div class="col-md"><a href="#" class="btn btn-danger remove_field"><i class="fas fa-minus"></i></a></div></div>'); // add input box
+                        $(wrapper).append(
+                            '<div class="row"><div class="col-md"><div class="form-group"><label>Asal Transportasi</label><input required name="transportasis[' +
+                            x +
+                            '][asal_transport]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Tujuan Transportasi</label><input required name="transportasis[' +
+                            x +
+                            '][tujuan_transport]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Jenis Transportasi</label><input required name="transportasis[' +
+                            x +
+                            '][transportasi]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Keterangan</label><input name="transportasis[' +
+                            x +
+                            '][keterangan]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Biaya Transportasi</label><input required name="transportasis[' +
+                            x +
+                            '][biaya_transport]" type="number" class="form-control"></div></div><div class="col-md-1"><a href="#" class="btn btn-danger remove_field"><i class="fas fa-minus"></i></a></div></div>'
+                        ); // add input box
                     }
                 });
 
                 $(wrapper).on("click", ".remove_field", function(e) { // user click on remove text
-                    e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+                    e.preventDefault();
+                    $(this).parent('div').parent('div').remove();
+                    x--;
                 })
             });
         </script>

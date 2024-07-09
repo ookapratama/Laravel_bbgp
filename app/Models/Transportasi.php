@@ -17,4 +17,5 @@ class transportasi extends Model
     ];
 
     
+    
 }

@@ -33,6 +33,7 @@ class HonorController extends Controller
     public function index()
     {
         $menu = $this->menu;
+        $title = $menu;
         $honor = Honor::get();
         $datas = [];
         // $pot = 0;
@@ -74,7 +75,7 @@ class HonorController extends Controller
         }
 
         // dd($datas);
-        return view('pages.admin.honor.index', compact('menu', 'datas'));
+        return view('pages.admin.honor.index', compact('menu', 'datas', 'title'));
     }
 
     public function rupiahFormat($number)
@@ -88,6 +89,8 @@ class HonorController extends Controller
     public function create()
     {
         $menu = $this->menu;
+        $title = $menu;
+        
         $peserta = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')
             ->orWhere('status_keikutpesertaan', 'panitia')
             ->get();
@@ -137,13 +140,14 @@ class HonorController extends Controller
     public function edit(string $id)
     {
         $menu = $this->menu;
+        $title = $menu;
 
         $datas = Honor::find($id);
         $peserta = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')
             ->orWhere('status_keikutpesertaan', 'panitia')
             ->get();
 
-        return view('pages.admin.honor.edit', compact('menu', 'datas', 'peserta'));
+        return view('pages.admin.honor.edit', compact('menu', 'datas', 'peserta', 'title'));
     }
 
     /**

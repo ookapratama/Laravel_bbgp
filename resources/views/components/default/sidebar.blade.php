@@ -46,9 +46,15 @@
 
                     <ul class="dropdown-menu">
 
-                        <li class="{{ $menu == 'honor' ? 'active' : '' }}">
+                        <li class="{{ $title == 'honor' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('honor.index') }}">
                                 Honor
+                            </a>
+                        </li>
+
+                        <li class="{{ $title == 'kuitansi' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('kuitansi.index') }}">
+                                 <span>Data Kuitansi</span>
                             </a>
                         </li>
 
@@ -62,11 +68,7 @@
                     </a>
                 </li> --}}
 
-                <li class="{{ $menu == 'kuitansi' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('kuitansi.index') }}">
-                        <i class="fas fa-user"></i> <span>Data Kuitansi</span>
-                    </a>
-                </li>
+                
 
                 <li class="{{ $menu == 'akun' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('akun.index') }}">

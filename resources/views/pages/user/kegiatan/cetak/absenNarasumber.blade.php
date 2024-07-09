@@ -99,5 +99,8 @@
             @endforeach
         </tbody>
     </table>
+    <footer style="text-align: right; margin-right: 150px">
+        <p>Panitia, </p>
+    </footer>
 </body>
 </html>
