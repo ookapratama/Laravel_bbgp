@@ -245,7 +245,7 @@
             <p style="padding:0">Telah menerima jumlah uang sebesar <br> <span class="highlight bold"> Rp 7,270,100</span></p>
             <p style="padding:0"><strong>Yang menerima</strong></p>
             <p style="padding-top:50px" class="highlight bold">Sitti Kahirah Adami, SH</p>
-            <p style="padding:0" class="highlight bold">NIP. 196810052005012014</p>
+            <p style="padding:0" class="highlight ">NIP. 196810052005012014</p>
         </div>
         <hr style="margin-top: -25px">
 
