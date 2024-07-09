@@ -9,9 +9,10 @@ class kuitansi extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'pegawai_id',
         'no_bukti',
-        'tahun_anggaran',
         'no_MAK',
+        'tahun_anggaran',
         'biaya_penginapan',
         'biaya_uang_harian',
         'durasi_penginapan',

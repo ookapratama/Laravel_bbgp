@@ -99,8 +99,8 @@
                                                         <a target="_blank" href="{{ route('kuitansi.cetak' , $data->id) }}"
                                                             class="btn btn-info "> <i class="fas fa-print"></i> </a>
 
-                                                        <a href="{{ route('kuitansi.edit', $data->id) }}"
-                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i> </a>
+                                                        {{-- <a href="{{ route('kuitansi.edit', $data->id) }}"
+                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i> </a> --}}
 
                                                         <button onclick="deleteData({{ $data->id }}, 'kuitansi')"
                                                             class="btn btn-danger "><i class="fas fa-trash-alt"></i>

@@ -34,7 +34,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-4 text-right">
-                                    <div id="btnGroup">
+                                    {{-- <div id="btnGroup">
                                         <button id="btnPrintPeserta" class="btn btn-primary"><i
                                                 class="fas fa-print mr-2"></i>Print Absensi Peserta</button>
                                         <button id="btnPrintRegisPeserta" class="btn btn-primary"><i
@@ -43,7 +43,7 @@
                                                 class="fas fa-print mr-2"></i>Print Absensi Panitia</button>
                                         <button id="btnPrintNarsum" class="btn btn-warning"><i
                                                 class="fas fa-print mr-2"></i>Print Absensi Narasumber</button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 
@@ -99,7 +99,7 @@
     </div>
 
     <!-- Modal for Peserta Detail -->
-    <div class="modal fade" id="pesertaDetailModal" tabindex="-1" role="dialog" aria-labelledby="pesertaDetailModalLabel"
+    <div  class="modal fade" id="pesertaDetailModal" tabindex="-1" role="dialog" aria-labelledby="pesertaDetailModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -109,7 +109,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" id="pesertaDetailContent">
+                <div  class="modal-body" id="pesertaDetailContent">
                     <!-- Detail content will be loaded here -->
                 </div>
                 <div class="modal-footer">
@@ -260,7 +260,10 @@
                     $('#pesertaDetailContent').html(`
                         <p><strong>NIK:</strong> ${response.no_ktp ?? ''}</p>
                         <p><strong>Nama:</strong> ${response.nama ?? ''}</p>
-                        <p><strong>Status:</strong> ${response.status_keikutpesertaan ?? ''}</p>
+                        <p><strong>Status11:</strong> ${response.status_keikutpesertaan ?? ''}</p>
+                        <p>
+                            <strong>Nomor Surat dan Tanggal Surat:</strong> ${response.no_surat_tugas ?? ''} Tanggal ${response.tgl_surat_tugas}
+                        </p>
                         <p><strong>Instansi:</strong> ${response.instansi ?? ''}</p>
                         <p><strong>Golongan:</strong> ${response.golongan ?? ''}</p>
                         <p><strong>Jenis Kelamin:</strong> ${response.jkl ?? ''}</p>
@@ -482,6 +485,13 @@
                         <p><strong>NIK:</strong> ${response.no_ktp ?? ''}</p>
                         <p><strong>Nama:</strong> ${response.nama ?? ''}</p>
                         <p><strong>Status:</strong> ${response.status_keikutpesertaan ?? ''}</p>
+                        <p>
+                            <strong>Nomor Surat:</strong> ${response.no_surat_tugas ?? ''} 
+                        </p>
+                        <p>
+                            <strong>Tanggal Surat:</strong> ${response.tgl_surat_tugas}
+                        </p>
+
                         <p><strong>Instansi:</strong> ${response.instansi ?? ''}</p>
                         <p><strong>Golongan:</strong> ${response.golongan ?? ''}</p>
                         <p><strong>Jenis Kelamin:</strong> ${response.jkl ?? ''}</p>

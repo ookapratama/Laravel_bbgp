@@ -35,17 +35,36 @@
                     </a>
                 </li>
 
-                <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('kegiatan.index') }}">
-                        <i class="fas fa-calendar-week"></i> <span>Data Kegiatan</span>
-                    </a>
-                </li>
+                
 
+
+                <li class="nav-item dropdown {{ $menu == 'honor' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i> 
+                        <span>Data Kegiatan</span></a>
+                    <ul class="dropdown-menu">
+
+                        <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('kegiatan.index') }}">
+                                Kegiatan</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $title == 'honor' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('honor.index') }}">
+                                Peserta Kegiatan
+                            </a>
+                        </li>
+
+                       
+
+             
+                        
+                    </ul>
+                </li>
 
                 <li class="nav-item dropdown {{ $menu == 'honor' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
                         <span>Data Keuangan</span></a>
-
                     <ul class="dropdown-menu">
 
                         <li class="{{ $title == 'honor' ? 'active' : '' }}">
@@ -59,9 +78,8 @@
                                  <span>Data Kuitansi</span>
                             </a>
                         </li>
-
+                        
                     </ul>
-
                 </li>
 
                 {{-- <li class="{{ $menu == 'peserta' ? 'active' : '' }}">

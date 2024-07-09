@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Kuitansi</title>
+    <title>Kuitansi Rencana Biaya Perjalanan Dinas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -148,7 +148,7 @@
                 <tr>
                     <td class="text-title"><strong>Jumlah Uang</strong></td>
                     <td>
-                        <p><span class="highlight bold">: Rp 7,270,100</span></p>
+                        <p><span class="highlight bold">: Rp   7,270,100 </span></p>
                     </td>
                 </tr>
                 <tr style="padding: 10px">
@@ -159,14 +159,14 @@
                 </tr>
 
                 <tr>
-                    <td width="80" class="text-title"><strong>Untuk Pembayaran</strong></td>
+                    <td valign="top" width="80" class="text-title"><strong>Untuk Pembayaran</strong></td>
                     <td>
                         <p style="text-align: justify">:
                             <span class="highlight">
                                 Transport Petugas dalam rangka Pelaksanaan
                                 Peningkatan Kapasitas Koordinator Program Prioritas pada Satuan kerja di Lingkungan
                                 Ditjen GTK pada tanggal 5 s.d 9 Mei 2024 di BGP Banten (eks kantor PPPPTK Penjas dan
-                                BK).
+                                BK). 
                             </span>
                         </p>
                     </td>
@@ -217,13 +217,13 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td>2</td>
                         <td>Uang Harian 5 hari @ 430,000Rp</td>
                         <td>Rp</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td>3</td>
                         <td>Penginapan 4 hari @ 205,800Rp</td>
                         <td>Rp</td>
                         <td></td>
@@ -242,7 +242,7 @@
 
         <div style="margin-top: -30px; margin-left: 500px;  " class="content">
             <p style="padding:0"><strong>Makassar, 13 Mei 2024</strong></p>
-            <p style="padding:0">Telah menerima jumlah uang sebesar <br> <span class="highlight bold"> Rp 7,270,100</span></p>
+            <p style="padding:0">Telah menerima jumlah uang sebesar <br> <span class="highlight bold">Rp  <span style="margin-left: 50px"> 7,270,100</span></span></p>
             <p style="padding:0"><strong>Yang menerima</strong></p>
             <p style="padding-top:50px" class="highlight bold">Sitti Kahirah Adami, SH</p>
             <p style="padding:0" class="highlight ">NIP. 196810052005012014</p>

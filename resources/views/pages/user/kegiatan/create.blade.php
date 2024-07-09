@@ -24,36 +24,130 @@
                         <form action="{{ route('user.kegiatan_store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             {{-- {{ dd($_GET['kegiatan_id']) }} --}}
-                            <input type="hidden" name="kegiatan_id" id="kegiatan_id"
-                                value="{{ $_GET['kegiatan_id'] }}">
+                            <input type="hidden" name="kegiatan_id" id="kegiatan_id" value="{{ $_GET['kegiatan_id'] }}">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Nama dan NIK</label>
+                                                <select required name="id_pegawai" id="id_pegawai"
+                                                    class="form-control select2">
+                                                    <option value="">-- Pilih pegawai --</option>
+                                                    @foreach ($merge as $v)
+                                                        <option data-no_ktp="{{ $v->no_ktp }}"
+                                                            data-nama="{{ $v->nama_lengkap }}"
+                                                            data-golongan="{{ $v->golongan }}"
+                                                            data-kabupaten="{{ $v->kabupaten }}"
+                                                            data-gender="{{ $v->gender }}"
+                                                            data-jabatan="{{ $v->jabatan ?? $v->status_kepegawaian }}"
+                                                            data-instansi="{{ $v->instansi }}"
+                                                            data-wa="{{ $v->no_wa }}"
+                                                            data-hp="{{ $v->no_hp }}"
+                                                            data-instansi="{{ $v->instansi }}"
+                                                            value="{{ $v->id }}">
+                                                            {{ $v->no_ktp }} - {{ $v->nama_lengkap }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>NIK</label>
+                                                <input readonly name="no_ktp" id="no_ktp" type="number"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Golongan</label>
+                                                <input readonly name="golongan" id="golongan" type="text"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                       
+
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Nomor KTP</label>
-                                                <input name="no_ktp" type="number" class="form-control" required>
+                                                <label>Nama Lengkap</label>
+                                                <input readonly name="nama" id="nama" type="nama" class="form-control" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Nama Lengkap</label>
-                                                <input name="nama" type="text" class="form-control" required>
+                                                <label>Kabupaten / Kota</label>
+                                                <input readonly name="kabupaten" id="kabupaten" type="text"
+                                                    class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jenis Kelamin</label>
-                                                <select required name="gender" class="form-control">
-                                                    <option value="">-- Pilih Jenis Kelamin --</option>
-                                                    <option value="Laki-laki">Laki-laki</option>
-                                                    <option value="Perempuan">Perempuan</option>
-                                                </select>
+                                                <input readonly name="gender" id="gender" type="text"
+                                                    class="form-control" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Status Keikut Pesertaan</label>
+                                                <label>Jabatan</label>
+                                                <input readonly name="jabatan" id="jabatan" type="text"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Instansi</label>
+                                                <input readonly name="instansi" id="instansi" type="text"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Nomor WhatsApp</label>
+                                                <input readonly name="no_wa" id="no_wa" type="number"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Nomor Handphone</label>
+                                                <input readonly name="no_hp" id="no_hp" type="number"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Nomor Surat  (CONTOH : 0562/KEU/IV/2024)</label>
+                                                <input name="no_surat_tugas" type="text" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tanggal Surat Tugas</label>
+                                                <input name="tgl_surat_tugas" type="date" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Status Keikutpesertaan</label>
                                                 <select required name="status_keikutpesertaan" id="status_keikutpesertaan"
                                                     class="form-control">
                                                     <option value="">-- Pilih Status --</option>
@@ -65,76 +159,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Nomor Surat</label>
-                                                <input  name="no_surat_tugas" type="text" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Tanggal Surat Tugas</label>
-                                                <input name="tgl_surat_tugas" type="date" class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div id="formOpsional">
-                                        <div class="row">
-                                            <div class="col-md-4" id="instansiContainer">
-                                                <div class="form-group">
-                                                    <label>Instansi</label>
-                                                    <input  type="text" name="instansi" id="instansi"
-                                                        class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4" id="golonganContainer">
-                                                <div class="form-group">
-                                                    <label>Golongan</label>
-                                                    <select  name="golongan" id="golongan"
-                                                        class="form-control select2">
-                                                        <option value="">-- Pilih Golongan --</option>
-                                                        @foreach ($status['golongan'] as $v)
-                                                            <option value="{{ $v->name }}">{{ $v->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4" id="kabupatenContainer">
-                                                <div class="form-group">
-                                                    <label>Kabupaten / Kota</label>
-                                                    <select  name="kabupaten" id="kabupaten"
-                                                        class="form-control select2">
-                                                        <option value="">-- Pilih Kabupaten --</option>
-                                                        @foreach ($status['kabupaten'] as $v)
-                                                            <option value="{{ $v->name }}">{{ $v->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" id="narasumberTime">
-                                            {{-- <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Jam Mulai Mengajar</label>
-                                                    <input type="time" name="jam_mengajar" id="jam_mulai"
-                                                        class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Jam Selesai Mengajar</label>
-                                                    <input type="time" name="jam_selesai" id="jam_selesai"
-                                                        class="form-control">
-                                                </div>
-                                            </div> --}}
-                                        </div>
                                         <div class="row">
                                             <div class="col-md-4" id="transportContainer">
                                                 <div class="form-group">
                                                     <label>Kelengkapan Peserta (Transport)</label>
-                                                    <select  name="kelengkapan_transport" id="kelengkapan_transport"
+                                                    <select name="kelengkapan_transport" id="kelengkapan_transport"
                                                         class="form-control">
                                                         <option value="">-- Pilih Kelengkapan Transport --</option>
                                                         <option value="Ada">Ada Transport</option>
@@ -145,7 +175,7 @@
                                             <div class="col-md-4" id="biodataContainer">
                                                 <div class="form-group">
                                                     <label>Kelengkapan Peserta (Biodata)</label>
-                                                    <select  name="kelengkapan_biodata" id="kelengkapan_biodata"
+                                                    <select name="kelengkapan_biodata" id="kelengkapan_biodata"
                                                         class="form-control">
                                                         <option value="">-- Pilih Kelengkapan Biodata --</option>
                                                         <option value="Ada">Ada Biodata</option>
@@ -154,20 +184,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4" id="noWaContainer">
-                                                <div class="form-group">
-                                                    <label>Nomor WhatsApp</label>
-                                                    <input name="no_wa" id="no_wa" type="number" class="form-control" >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4" id="noHpContainer">
-                                                <div class="form-group">
-                                                    <label>Nomor Handphone</label>
-                                                    <input name="no_hp" id="no_hp"  type="number" class="form-control" >
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
 
                                     {{-- Signature Section --}}
@@ -213,39 +230,42 @@
                     let status = $(this).val();
                     if (status === 'peserta') {
                         $('#formOpsional').show();
-                        $('#instansiContainer').show();
-                        $('#golonganContainer').show();
-                        $('#kabupatenContainer').show();
-                        $('#narasumberTime').hide();
                     } else if (status === 'panitia') {
-                        $('#formOpsional').show();
-                        $('#instansiContainer').show();
-                        $('#golonganContainer').show();
-                        $('#kabupatenContainer').hide();
-                        $('#narasumberTime').hide();
-                        $('#transportContainer').hide();
-                        $('#biodataContainer').hide();
-                        $('#noWaContainer').hide();
-                        $('#noHpContainer').hide();
+                        $('#formOpsional').hide();
                     } else if (status === 'narasumber') {
-                        $('#formOpsional').show();
-                        $('#instansiContainer').show();
-                        $('#golonganContainer').show();
-                        $('#kabupatenContainer').hide();
-                        $('#narasumberTime').show();
-                        $('#transportContainer').hide();
-                        $('#biodataContainer').hide();
-                        $('#noWaContainer').hide();
-                        $('#noHpContainer').hide();
-                    
+                        $('#formOpsional').hide();
+
                     } else {
                         $('#formOpsional').hide();
-                        $('#instansiContainer').hide();
-                        $('#golonganContainer').show();
-                        $('#kabupatenContainer').hide();
-                        $('#narasumberTime').hide();
                     }
                 });
+
+                $('#id_pegawai').change(function() {
+                    var selectedOption = $(this).find('option:selected');
+                    // console.log(selectedOption);
+                    var jabatan = selectedOption.data('jabatan');
+                    var nama = selectedOption.data('nama');
+                    var no_ktp = selectedOption.data('no_ktp');
+                    var kabupaten = selectedOption.data('kabupaten');
+                    var golongan = selectedOption.data('golongan');
+                    var gender = selectedOption.data('gender');
+                    var instansi = selectedOption.data('instansi');
+                    var no_hp = selectedOption.data('hp');
+                    var no_wa = selectedOption.data('wa');
+                    // console.log(kabupaten);
+
+                    // Isi input form dengan data yang sesuai
+                    $('#no_ktp').val(no_ktp);
+                    $('#nama').val(`${nama}`);
+                    $('#jabatan').val(jabatan);
+                    $('#gender').val(gender);
+                    $('#golongan').val(golongan);
+                    $('#kabupaten').val(kabupaten);
+                    $('#instansi').val(instansi);
+                    $('#no_hp').val(no_hp);
+                    $('#no_wa').val(no_wa);
+                });
+
             });
 
             const canvas = document.querySelector("canvas");

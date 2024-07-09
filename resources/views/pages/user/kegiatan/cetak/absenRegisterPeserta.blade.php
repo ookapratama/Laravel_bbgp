@@ -103,7 +103,7 @@
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $peserta->nama }}</td>
-                    <td>{{ $peserta->instansi }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, modi!</td>
+                    <td>{{ $peserta->instansi }} </td>
                     <td>{{ $peserta->golongan }}</td>
                     <td>{{ $peserta->jkl == 'Perempuan' ? 'P' : 'L' }}</td>
                     <td>{{ $peserta->kelengkapan_peserta_transport }}</td>

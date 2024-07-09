@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Guru;
 use App\Models\JabatanPenugasanGolongan;
 use App\Models\Kabupaten;
 use App\Models\Kegiatan;
+use App\Models\Pegawai;
 use App\Models\PesertaKegiatan;
 
 // use Barryvdh\DomPDF\PDF as PDF;
@@ -19,17 +21,19 @@ class KegiatanController extends Controller
     {
         // Ambil kegiatan yang statusnya aktif (status = 1)
         $dataKegiatan = Kegiatan::where('status', 'true')->get();
+        $dataPegawai = Pegawai::get();
         $data = [];
 
         // Ambil data peserta jika ada kegiatan aktif
         if ($dataKegiatan->isNotEmpty()) {
-            $data = PesertaKegiatan::paginate(10);
+            $data = PesertaKegiatan::get();
         }
 
         return view('pages.user.kegiatan.index', [
             'menu' => 'kegiatan',
             'data' => $data,
-            'kegiatan' => $dataKegiatan
+            'kegiatan' => $dataKegiatan,
+            'pegawai' => $dataPegawai,
         ]);
     }
 
@@ -74,7 +78,10 @@ class KegiatanController extends Controller
     {
         $menu = 'kegiatan';
         $kegiatanId = $r->input('kegiatan_id');
-        // dd($kegiatanId);
+        $pegawai = Pegawai::orderBy('id', 'ASC')->get();
+        $guru = Guru::orderBy('id', 'ASC')->get();
+
+        $merge = $pegawai->merge($guru);
         // Get data for the view, e.g., list of kabupaten, golongan, etc.
         $status = [
             'kegiatanById' => Kegiatan::find($kegiatanId),
@@ -83,7 +90,7 @@ class KegiatanController extends Controller
         ];
         // dd($status);
 
-        return view('pages.user.kegiatan.create', compact('kegiatanId', 'status', 'menu'));
+        return view('pages.user.kegiatan.create', compact('kegiatanId', 'status', 'menu', 'pegawai', 'merge'));
     }
 
     public function store(Request $request)
@@ -91,6 +98,9 @@ class KegiatanController extends Controller
         // dd($request->all());
         $data = new PesertaKegiatan;
         $data->id_kegiatan = $request->kegiatan_id;
+        $data->id_pegawai = $request->id_pegawai;
+        $data->no_surat_tugas = $request->no_surat_tugas;
+        $data->tgl_surat_tugas = $request->tgl_surat_tugas;
         $data->nama = $request->nama;
         $data->no_ktp = $request->no_ktp;
         $data->status_keikutpesertaan = $request->status_keikutpesertaan;

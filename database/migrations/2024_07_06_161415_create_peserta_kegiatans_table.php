@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('peserta_kegiatans', function (Blueprint $table) {
             $table->id();
             $table->string('id_kegiatan');
-            $table->string('no_ktp');
+            $table->string('no_ktp')->nullable();
             $table->string('signature')->nullable();
             $table->enum('status_keikutpesertaan', ['peserta', 'panitia', 'narasumber']);
-            $table->string('instansi');
-            $table->string('golongan');
-            $table->enum('jkl', ['Laki-laki', 'Perempuan']);
-            $table->string('kelengkapan_peserta_transport');
-            $table->string('kelengkapan_peserta_biodata');
-            $table->string('no_hp');
-            $table->string('no_wa');
+            $table->string('instansi')->nullable();
+            $table->string('golongan')->nullable();
+            $table->enum('jkl', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->string('kelengkapan_peserta_transport')->nullable();
+            $table->string('kelengkapan_peserta_biodata')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->string('no_wa')->nullable();
             $table->string('kabupaten');
             $table->string('no_surat_tugas')->nullable();
             $table->date('tgl_surat_tugas')->nullable();
