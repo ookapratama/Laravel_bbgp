@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('no_hp');
             $table->string('no_wa');
             $table->string('kabupaten');
+            $table->string('no_surat_tugas')->nullable();
+            $table->date('tgl_surat_tugas')->nullable();
             $table->timestamps();
         });
     }

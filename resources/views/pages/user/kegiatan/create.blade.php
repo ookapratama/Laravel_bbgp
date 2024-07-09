@@ -65,6 +65,21 @@
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Nomor Surat</label>
+                                                <input  name="no_surat_tugas" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Tanggal Surat Tugas</label>
+                                                <input name="tgl_surat_tugas" type="date" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div id="formOpsional">
                                         <div class="row">
                                             <div class="col-md-4" id="instansiContainer">
