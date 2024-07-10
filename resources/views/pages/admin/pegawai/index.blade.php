@@ -39,7 +39,7 @@
                                                 <th>Alamat Rumah</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>Jabatan</th>
-                                                <th>Stauts</th>
+                                                <th>Status</th>
                                                 <th>Agama</th>
                                                 <th>Pendidikan Terakhir</th>
                                                 <th>Kabupaten/Kota</th>
@@ -97,8 +97,8 @@
                                                         <a href="#" class="btn btn-primary mb-2"
                                                             onclick="verifikasi({{ $data->id }}, 'pegawai', '{{ $data->is_verif }}')">Verifikasi</a>
 
-                                                        <a href="#" class="btn btn-info"><i
-                                                                class="fas fa-print"></i></a>
+                                                        {{-- <a href="#" class="btn btn-info"><i
+                                                                class="fas fa-print"></i></a> --}}
 
                                                         <a href="{{ route('pegawai.edit', $data->id) }} "
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>

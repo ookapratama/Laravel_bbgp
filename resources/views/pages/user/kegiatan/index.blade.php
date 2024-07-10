@@ -99,7 +99,7 @@
     </div>
 
     <!-- Modal for Peserta Detail -->
-    <div  class="modal fade" id="pesertaDetailModal" tabindex="-1" role="dialog" aria-labelledby="pesertaDetailModalLabel"
+    <div class="modal fade" id="pesertaDetailModal" tabindex="-1" role="dialog" aria-labelledby="pesertaDetailModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -109,7 +109,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div  class="modal-body" id="pesertaDetailContent">
+                <div class="modal-body" id="pesertaDetailContent">
                     <!-- Detail content will be loaded here -->
                 </div>
                 <div class="modal-footer">
@@ -170,7 +170,6 @@
                 e.preventDefault();
                 let kegiatanId = $('#daftarKegiatan').val();
                 let nik = $('#nikSearch').val();
-
                 if (kegiatanId && nik) {
                     $.ajax({
                         url: '{{ route('user.kegiatan.cariPeserta') }}',
@@ -221,21 +220,72 @@
                                 $('#btnPrintNarsum').toggle(statusKeikutpesertaan ===
                                     'narasumber');
                             } else {
+
                                 $('#showKegiatan').hide();
-                                swal({
-                                    title: "Warning",
-                                    text: "Peserta tidak ditemukan. Silahkan registrasi untuk mengikuti kegiatan",
-                                    icon: "warning",
-                                    buttons: true,
-                                    dangerMode: true,
-                                }).then((res) => {
-                                    if (res) {
-                                        // Redirect to registrasi page with kegiatan_id
-                                        window.location.href =
-                                            '{{ route('user.kegiatan_regist') }}' +
-                                            '?kegiatan_id=' + kegiatanId;
+                                var pesertaAda;
+                                // console.log(nik);
+                                $.ajax({
+                                    url: '{{ route('user.peserta.cekData') }}',
+                                    type: 'GET',
+                                    data: {
+                                        kegiatan_id: kegiatanId,
+                                        nik: nik
+                                    },
+                                    success: function(response) {
+                                        console.log(response);
+                                        pesertaAda = response.success;
+                                        console.log('pernah ikut : ', pesertaAda);
+                                        
+                                        // ada 2 alert, yg sdh pernah ikut dan belum pernah
+                                        if (response.success) {
+                                            swal({
+                                                title: "Warning",
+                                                text: "Anda tidak terdaftar di kegiatan ini. Tapi anda sudah pernah mengikuti kegiatan BBGP sebelumnya. Lanjut ke Registrasi ? \n Form akan terisi otomatis dari data anda sebelumnya",
+                                                icon: "success",
+                                                buttons: true,
+                                                dangerMode: true,
+                                            }).then((res) => {
+                                                if (res) {
+                                                    // Redirect to registrasi page with kegiatan_id
+                                                    window.location.href =
+                                                        '{{ route('user.kegiatan_regist') }}' +
+                                                        '?kegiatan_id=' +
+                                                        kegiatanId  +
+                                                        '&nik=' +
+                                                        nik;
+                                                }
+                                            });
+                                        } else {
+                                            swal({
+                                                title: "Warning",
+                                                text: "Peserta tidak ditemukan. Silahkan registrasi untuk mengikuti kegiatan",
+                                                icon: "warning",
+                                                buttons: true,
+                                                dangerMode: true,
+                                            }).then((res) => {
+                                                if (res) {
+                                                    // Redirect to registrasi page with kegiatan_id
+                                                    window.location.href =
+                                                        '{{ route('user.kegiatan_regist') }}' +
+                                                        '?kegiatan_id=' +
+                                                        kegiatanId;
+                                                }
+                                            });
+                                        }
+                                    },
+                                    error: function(error) {
+                                        console.error(error);
+                                        alert('Error fetching detail.');
                                     }
                                 });
+
+
+
+
+
+
+
+
                             }
                         },
                         error: function(error) {
@@ -429,8 +479,14 @@
                                     'panitia');
                                 $('#btnPrintNarsum').toggle(statusKeikutpesertaan ===
                                     'narasumber');
+
+
                             } else {
                                 $('#showKegiatan').hide();
+
+
+
+
                                 swal({
                                     title: "Warning",
                                     text: "Data anda tidak ditemukan. Silahkan registrasi untuk mengikuti kegiatan",

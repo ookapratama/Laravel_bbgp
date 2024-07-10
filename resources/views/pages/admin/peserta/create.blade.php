@@ -1,4 +1,4 @@
-@extends('layouts.user.app', ['title' => 'Tambah Data Pegawai'])
+@extends('layouts.user.app', ['title' => 'Tambah Data Peserta'])
 
 @section('content')
     @push('styles')
@@ -15,18 +15,34 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Registrasi Kegiatan {{ $status['kegiatanById']->nama_kegiatan }} </h1>
+                <h1>Tambah Peserta </h1>
             </div>
 
             <div class="section-body">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <form action="{{ route('user.kegiatan_store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('peserta.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            {{-- {{ dd($_GET['kegiatan_id']) }} --}}
-                            <input type="hidden" name="kegiatan_id" id="kegiatan_id" value="{{ $_GET['kegiatan_id'] }}">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Kegiatan yang di daftarkan</label>
+
+                                                <select name="id_kegiatan" id="" class="form-control select2">
+                                                    <option value="">-- pilih kegiatan --</option>
+                                                    @foreach ($kegiatan as $v)
+                                                        <option value="{{ $v->id }}">{{ $v->nama_kegiatan }}</option>
+                                                    @endforeach
+                                                </select>
+                                                {{-- <input  name="golongan" id="golongan" type="text"
+                                                    class="form-control" required> --}}
+                                            </div>
+
+                                        </div>
+                                    </div>
 
                                     <div class="row">
 
@@ -104,64 +120,35 @@
                                                     required>
                                             </div>
                                         </div>
-                                        @if (session('dataAda') != null)
-                                        
+
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Golongan</label>
 
-                                                {{-- <select name="golongan" id="" class="form-control select2">
+                                                <select name="golongan" id="" class="form-control select2">
                                                     <option value="">-- pilih golongan --</option>
                                                     @foreach ($status['golongan'] as $v)
                                                         <option value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
-                                                </select> --}}
-                                                <input  name="golongan" id="golongan" type="text"
-                                                class="form-control" required>
+                                                </select>
+                                                {{-- <input  name="golongan" id="golongan" type="text"
+                                                    class="form-control" required> --}}
                                             </div>
                                         </div>
 
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jenis Kelamin</label>
-                                                {{-- <select name="gender" id="" class="form-control">
+                                                <select name="gender" id="" class="form-control">
                                                     <option value="">-- pilih jenis kelamin --</option>
                                                     <option value="Laki-laki">Laki-laki</option>
                                                     <option value="Perempuan">Perempuan</option>
-                                                </select> --}}
-                                                <input name="gender" id="gender" type="text" class="form-control"
-                                                required>
+                                                </select>
+                                                {{-- <input name="gender" id="gender" type="text" class="form-control"
+                                                    required> --}}
                                             </div>
                                         </div>
-                                        @else
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Golongan</label>
 
-                                                    <select name="golongan" id="" class="form-control select2">
-                                                        <option value="">-- pilih golongan --</option>
-                                                        @foreach ($status['golongan'] as $v)
-                                                            <option value="{{ $v->name }}">{{ $v->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    {{-- <input  name="golongan" id="golongan" type="text"
-                                                    class="form-control" required> --}}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label>Jenis Kelamin</label>
-                                                    <select name="gender" id="" class="form-control">
-                                                        <option value="">-- pilih jenis kelamin --</option>
-                                                        <option value="Laki-laki">Laki-laki</option>
-                                                        <option value="Perempuan">Perempuan</option>
-                                                    </select>
-                                                    {{-- <input name="gender" id="gender" type="text" class="form-control"
-                                                    required> --}}
-                                                </div>
-                                            </div>
-                                        @endif
 
                                     </div>
 
@@ -256,7 +243,7 @@
                                     <button class="btn btn-primary" type="submit"
                                         onclick="submitSignature()">Submit</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ route('user.kegiatan') }}" class="btn btn-warning">Kembali</a>
+                                    <a href="{{ route('peserta.index') }}" class="btn btn-warning">Kembali</a>
                                 </div>
                             </div>
                         </form>

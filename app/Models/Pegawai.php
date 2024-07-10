@@ -28,7 +28,7 @@ class Pegawai extends Model
         'alamat_rumah',
         'no_hp',
         'no_wa',
-        'pas_foto',
+        // 'pas_foto',
         'no_rek',
         'jenis_bank',
         'golongan',

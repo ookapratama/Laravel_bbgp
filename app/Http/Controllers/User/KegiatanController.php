@@ -14,6 +14,7 @@ use App\Models\PesertaKegiatan;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class KegiatanController extends Controller
 {
@@ -80,13 +81,16 @@ class KegiatanController extends Controller
         $kegiatanId = $r->input('kegiatan_id');
         $pegawai = Pegawai::orderBy('id', 'ASC')->get();
         $guru = Guru::orderBy('id', 'ASC')->get();
+        $kabupaten = Kabupaten::orderBy('id', 'ASC')->get();
+        $kabupaten = Kabupaten::orderBy('id', 'ASC')->get();
 
         $merge = $pegawai->merge($guru);
         // Get data for the view, e.g., list of kabupaten, golongan, etc.
         $status = [
             'kegiatanById' => Kegiatan::find($kegiatanId),
             'kabupaten' => Kabupaten::all(),
-            'golongan' => JabatanPenugasanGolongan::all()
+            'golongan' => JabatanPenugasanGolongan::all(),
+            'kabupaten' => $kabupaten
         ];
         // dd($status);
 
@@ -97,6 +101,7 @@ class KegiatanController extends Controller
     {
         // dd($request->all());
         $data = new PesertaKegiatan;
+        $data->nip = $request->nip;
         $data->id_kegiatan = $request->kegiatan_id;
         $data->id_pegawai = $request->id_pegawai;
         $data->no_surat_tugas = $request->no_surat_tugas;
@@ -157,11 +162,29 @@ class KegiatanController extends Controller
         ]);
     }
 
+    public function cekDataPeserta(Request $request)
+    {
+        $nik = $request->input('nik');
+        // dd($nik);
+        $peserta  = PesertaKegiatan::where('no_ktp', $nik)->first();
+        // dd($peserta == null);
+        if ($peserta == null) {
+            $status = false;
+        }else {
+            $status = true;
+        }
+        Session::put('dataAda', $nik);
+
+        return response()->json([
+            'success' => $status,
+            'data' => $peserta,
+        ]);
+    }
+
     public function getPesertaByKegiatan(Request $request)
     {
         $kegiatanId = $request->input('kegiatan_id');
         $data = PesertaKegiatan::where('id_kegiatan', $kegiatanId)->get();
-
         return response()->json(['data' => $data]);
     }
 

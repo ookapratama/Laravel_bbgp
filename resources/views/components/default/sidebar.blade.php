@@ -23,12 +23,27 @@
                     session('role') == 'kepala' ||
                     session('role') == 'keuangan' ||
                     session('role') == 'kepegawaian')
+
+                <li class="nav-item dropdown {{ $menu == 'MasterData' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
+                        <span>Master Data</span></a>
+                    <ul class="dropdown-menu">
+
+                        <li class="{{ $title == 'honor' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('pegawai.index') }}">
+                                Data Pegawai BBPG
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
                 <li class="{{ $menu == 'internal' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('internal.index') }}">
                         <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
                     </a>
                 </li>
-                
+
                 <li class="{{ $menu == 'guru' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('guru.index') }}">
                         <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
@@ -36,8 +51,8 @@
                 </li>
 
 
-                <li class="nav-item dropdown {{ $menu == 'kegiatan' ? 'active' : '' }}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i> 
+                <li class="nav-item dropdown {{ $menu == 'kegiatan' || $menu == 'peserta' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i>
                         <span>Data Kegiatan</span></a>
                     <ul class="dropdown-menu">
 
@@ -47,11 +62,11 @@
                             </a>
                         </li>
 
-                        {{-- <li class="{{ $title == 'honor' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('honor.index') }}">
+                        <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('peserta.index') }}">
                                 Peserta Kegiatan
                             </a>
-                        </li> --}}
+                        </li>
 
                     </ul>
                 </li>
@@ -68,10 +83,10 @@
                         </li>
                         <li class="{{ $title == 'Data Kuitansi' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('kuitansi.index') }}">
-                                 <span>Kuitansi Kegiatan</span>
+                                <span>Kuitansi Kegiatan</span>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
 
@@ -81,7 +96,7 @@
                     </a>
                 </li> --}}
 
-                
+
 
                 <li class="{{ $menu == 'akun' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('akun.index') }}">

@@ -195,7 +195,7 @@
 
 
                                     <div class="row">
-                                        
+
 
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -216,6 +216,13 @@
                                             <div class="form-group">
                                                 <label>Nomor Rekening</label>
                                                 <input type="number" name="no_rek" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Jabatan</label>
+                                                <input type="text" name="jabatan" class="form-control">
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-5">

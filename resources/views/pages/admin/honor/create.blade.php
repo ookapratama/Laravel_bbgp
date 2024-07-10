@@ -26,7 +26,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nama Penerima</label>
-                                                <select name="id_peserta" id="idPeserta" class="form-control select2">
+                                                <select required name="id_peserta" id="idPeserta" class="form-control select2">
                                                     <option value="">-- pilih peserta --</option>
                                                     @foreach ($peserta as $v)
                                                         <?php
@@ -50,7 +50,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Jabatan dalam kegiatan</label>
-                                                <input readonly required name="jabatan" id="jabatan" type="text"
+                                                <input required readonly required name="jabatan" id="jabatan" type="text"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -58,7 +58,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Golongan</label>
-                                                <input readonly required name="golongan" id="golongan" type="text"
+                                                <input required readonly required name="golongan" id="golongan" type="text"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -68,7 +68,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Kegiatan yang diikuti</label>
-                                                <input readonly required name="kegiatan" id="kegiatan" type="text"
+                                                <input required readonly required name="kegiatan" id="kegiatan" type="text"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>JP Realisasi</label>
-                                                <input required name="jp_realisasi" id="jp_realisasi" type="text"
+                                                <input required required name="jp_realisasi" id="jp_realisasi" type="text"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -94,7 +94,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Jumlah Honor</label>
-                                                <input readonly required name="jumlah_honor" id="jumlah_honor"
+                                                <input required readonly required name="jumlah_honor" id="jumlah_honor"
                                                     type="text" class="form-control rupiah">
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Potongan</label>
-                                                <input readonly required name="potongan" id="potongan" type="text"
+                                                <input required readonly required name="potongan" id="potongan" type="text"
                                                     class="form-control rupiah">
                                             </div>
                                         </div>
@@ -112,7 +112,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Jumlah Diterima</label>
-                                                <input readonly required name="jumlah_diterima" id="jumlah_diterima"
+                                                <input required readonly required name="jumlah_diterima" id="jumlah_diterima"
                                                     type="text" class="form-control rupiah">
                                             </div>
                                         </div>

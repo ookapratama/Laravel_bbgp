@@ -1,4 +1,4 @@
-@extends('layouts.user.app', ['title' => 'Tambah Data Pegawai'])
+@extends('layouts.user.app', ['title' => 'Edit Data Peserta'])
 
 @section('content')
     @push('styles')
@@ -15,18 +15,36 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Registrasi Kegiatan {{ $status['kegiatanById']->nama_kegiatan }} </h1>
+                <h1>Edit Peserta </h1>
             </div>
 
             <div class="section-body">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <form action="{{ route('user.kegiatan_store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('peserta.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            {{-- {{ dd($_GET['kegiatan_id']) }} --}}
-                            <input type="hidden" name="kegiatan_id" id="kegiatan_id" value="{{ $_GET['kegiatan_id'] }}">
+                            @method('PUT')
+                            <input type="hidden" name="id" value="{{ $datas->id }}">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Kegiatan yang di daftarkan</label>
+                                                <select name="id_kegiatan" id="" class="form-control select2">
+                                                    <option value="">-- pilih kegiatan --</option>
+                                                    @foreach ($kegiatan as $v)
+                                                        <option {{ $datas->kegiatan->id == $v->id ? 'selected' : '' }}
+                                                            value="{{ $v->id }}">{{ $v->nama_kegiatan }}</option>
+                                                    @endforeach
+                                                </select>
+                                                {{-- <input  name="golongan" id="golongan" type="text"
+                                                    class="form-control" required> --}}
+                                            </div>
+
+                                        </div>
+                                    </div>
 
                                     <div class="row">
 
@@ -60,16 +78,16 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nama Lengkap</label>
-                                                <input name="nama" id="nama" type="nama" class="form-control"
-                                                    required>
+                                                <input value="{{ $datas->nama }}" name="nama" id="nama"
+                                                    type="nama" class="form-control" required>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input name="no_ktp" id="no_ktp" type="number" class="form-control"
-                                                    required>
+                                                <input value="{{ $datas->no_ktp }}" name="no_ktp" id="no_ktp"
+                                                    type="number" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -86,10 +104,11 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Kabupaten / Kota</label>
-                                                <select name="kabupaten" id="" class="form-control select2">
+                                                <select required name="kabupaten" id="" class="form-control select2">
                                                     <option value="">-- piilih kabupaten --</option>
                                                     @foreach ($status['kabupaten'] as $v)
-                                                        <option value=" {{ $v->name }} ">{{ $v->name }}</option>
+                                                        <option {{ $datas->kabupaten == $v->name ? 'selected' : '' }}
+                                                            value=" {{ $v->name }} ">{{ $v->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 {{-- <input  name="kabupaten" id="kabupaten" type="text"
@@ -100,68 +119,42 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Instansi</label>
-                                                <input name="instansi" id="instansi" type="text" class="form-control"
-                                                    required>
+                                                <input value="{{ $datas->instansi }}" name="instansi" id="instansi"
+                                                    type="text" class="form-control" required>
                                             </div>
                                         </div>
-                                        @if (session('dataAda') != null)
-                                        
+
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Golongan</label>
 
-                                                {{-- <select name="golongan" id="" class="form-control select2">
+                                                <select name="golongan" id="" class="form-control select2">
                                                     <option value="">-- pilih golongan --</option>
                                                     @foreach ($status['golongan'] as $v)
-                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                        <option {{ $datas->golongan == $v->name ? 'selected' : '' }}
+                                                            value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
-                                                </select> --}}
-                                                <input  name="golongan" id="golongan" type="text"
-                                                class="form-control" required>
+                                                </select>
+                                                {{-- <input  name="golongan" id="golongan" type="text"
+                                                    class="form-control" required> --}}
                                             </div>
                                         </div>
 
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jenis Kelamin</label>
-                                                {{-- <select name="gender" id="" class="form-control">
+                                                <select name="gender" id="" class="form-control">
                                                     <option value="">-- pilih jenis kelamin --</option>
-                                                    <option value="Laki-laki">Laki-laki</option>
-                                                    <option value="Perempuan">Perempuan</option>
-                                                </select> --}}
-                                                <input name="gender" id="gender" type="text" class="form-control"
-                                                required>
+                                                    <option {{ $datas->jkl == 'Laki-laki' ? 'selected' : '' }}
+                                                        value="Laki-laki">Laki-laki</option>
+                                                    <option {{ $datas->jkl == 'Perempuan' ? 'selected' : '' }}
+                                                        value="Perempuan">Perempuan</option>
+                                                </select>
+                                                {{-- <input name="gender" id="gender" type="text" class="form-control"
+                                                    required> --}}
                                             </div>
                                         </div>
-                                        @else
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Golongan</label>
 
-                                                    <select name="golongan" id="" class="form-control select2">
-                                                        <option value="">-- pilih golongan --</option>
-                                                        @foreach ($status['golongan'] as $v)
-                                                            <option value="{{ $v->name }}">{{ $v->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    {{-- <input  name="golongan" id="golongan" type="text"
-                                                    class="form-control" required> --}}
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label>Jenis Kelamin</label>
-                                                    <select name="gender" id="" class="form-control">
-                                                        <option value="">-- pilih jenis kelamin --</option>
-                                                        <option value="Laki-laki">Laki-laki</option>
-                                                        <option value="Perempuan">Perempuan</option>
-                                                    </select>
-                                                    {{-- <input name="gender" id="gender" type="text" class="form-control"
-                                                    required> --}}
-                                                </div>
-                                            </div>
-                                        @endif
 
                                     </div>
 
@@ -170,13 +163,15 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor WhatsApp</label>
-                                                <input name="no_wa" id="no_wa" type="number" class="form-control">
+                                                <input value="{{ $datas->no_wa }}" name="no_wa" id="no_wa"
+                                                    type="number" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Handphone</label>
-                                                <input name="no_hp" id="no_hp" type="number" class="form-control">
+                                                <input value="{{ $datas->no_hp }}" name="no_hp" id="no_hp"
+                                                    type="number" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -185,13 +180,15 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Surat (CONTOH : 0562/KEU/IV/2024)</label>
-                                                <input name="no_surat_tugas" type="text" class="form-control" required>
+                                                <input value="{{ $datas->no_surat_tugas }}" name="no_surat_tugas"
+                                                    type="text" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Tanggal Surat Tugas</label>
-                                                <input name="tgl_surat_tugas" type="date" class="form-control" required>
+                                                <input value="{{ $datas->tgl_surat_tugas }}" name="tgl_surat_tugas"
+                                                    type="date" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -200,9 +197,15 @@
                                                 <select required name="status_keikutpesertaan" id="status_keikutpesertaan"
                                                     class="form-control">
                                                     <option value="">-- Pilih Status --</option>
-                                                    <option value="peserta">Peserta</option>
-                                                    <option value="panitia">Panitia</option>
-                                                    <option value="narasumber">Narasumber</option>
+                                                    <option
+                                                        {{ $datas->status_keikutpesertaan == 'peserta' ? 'selected' : '' }}
+                                                        value="peserta">Peserta</option>
+                                                    <option
+                                                        {{ $datas->status_keikutpesertaan == 'panitia' ? 'selected' : '' }}
+                                                        value="panitia">Panitia</option>
+                                                    <option
+                                                        {{ $datas->status_keikutpesertaan == 'narasumber' ? 'selected' : '' }}
+                                                        value="">Narasumber</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -213,22 +216,30 @@
                                             <div class="col-md-4" id="transportContainer">
                                                 <div class="form-group">
                                                     <label>Kelengkapan Peserta (Transport)</label>
-                                                    <select name="kelengkapan_transport" id="kelengkapan_transport"
+                                                    <select name="kelengkapan_peserta_transport" id="kelengkapan_peserta_transport"
                                                         class="form-control">
                                                         <option value="">-- Pilih Kelengkapan Transport --</option>
-                                                        <option value="Ada">Ada Transport</option>
-                                                        <option value="Tidak Ada">Tidak Ada Transport</option>
+                                                        <option
+                                                            {{ $datas->kelengkapan_transport == 'Ada' ? 'selected' : '' }}
+                                                            value="Ada">Ada Transport</option>
+                                                        <option
+                                                            {{ $datas->kelengkapan_transport == 'Tidak Ada' ? 'selected' : '' }}
+                                                            value="Tidak Ada">Tidak Ada Transport</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-4" id="biodataContainer">
                                                 <div class="form-group">
                                                     <label>Kelengkapan Peserta (Biodata)</label>
-                                                    <select name="kelengkapan_biodata" id="kelengkapan_biodata"
+                                                    <select name="kelengkapan_peserta_biodata" id="kelengkapan_peserta_biodata"
                                                         class="form-control">
                                                         <option value="">-- Pilih Kelengkapan Biodata --</option>
-                                                        <option value="Ada">Ada Biodata</option>
-                                                        <option value="Tidak Ada">Tidak Ada Biodata</option>
+                                                        <option
+                                                            {{ $datas->kelengkapan_biodata == 'Ada' ? 'selected' : '' }}
+                                                            value="Ada">Ada Biodata</option>
+                                                        <option
+                                                            {{ $datas->kelengkapan_biodata == 'Tidak Ada' ? 'selected' : '' }}
+                                                            value="Tidak Ada">Tidak Ada Biodata</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -256,7 +267,7 @@
                                     <button class="btn btn-primary" type="submit"
                                         onclick="submitSignature()">Submit</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ route('user.kegiatan') }}" class="btn btn-warning">Kembali</a>
+                                    <a href="{{ route('peserta.index') }}" class="btn btn-warning">Kembali</a>
                                 </div>
                             </div>
                         </form>
@@ -272,38 +283,22 @@
         <script>
             $(document).ready(function() {
 
-                $.ajax({
-                    url: '{{ route('user.peserta.cekData') }}',
-                    type: 'GET',
-                    data: {
+                // Initial check on page load
+                let status = $('#status_keikutpesertaan').val()
 
-                        nik: '{{ session('dataAda') }}'
-                    },
-                    success: function(response) {
-                        console.log(response.data);
+                if (status == 'peserta') {
+                    $('#formOpsional').show();
+                    
+                }
+                else {
+                    $('#formOpsional').hide();
 
-                        $('#no_ktp').val(response.data.no_ktp);
-                        $('#nama').val(response.data.nama);
-                        $('#jabatan').val(response.data.jabatan);
-                        $('#gender').val(response.data.jkl);
-                        $('#golongan').val(response.data.golongan);
-                        $('#kabupaten').val(response.data.kabupaten);
-                        $('#instansi').val(response.data.instansi);
-                        $('#no_hp').val(response.data.no_hp);
-                        $('#no_wa').val(response.data.no_wa);
+                }
 
-                        // console.log($('#no_wa').val(response.data.no_wa));
-
-                    },
-                    error: function(error) {
-                        console.error(error);
-                        alert('Error fetching detail.');
-                    }
-                });
 
 
                 $('.select2').select2();
-                $('#formOpsional').hide();
+                // $('#formOpsional').hide();
                 $('#narasumberTime').hide();
 
                 $('#status_keikutpesertaan').change(function() {
