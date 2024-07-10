@@ -7,14 +7,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 11px;
             line-height: 1.6;
             margin: 0;
             padding: 0;
         }
 
         .text-title {
-            /* font-size: 11px; */
+            font-size: 11px;
         }
 
         .container {
@@ -94,7 +94,7 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            /* background-color: white; */
+            background-color: white;
         }
     </style>
 </head>
@@ -118,14 +118,14 @@
             <hr>
 
         </div>
-        <div class="content" style="margin-top:-30px">
-            <h2 style="text-align: center;"> SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK </h2>
-            <table style="margin-top: 20px" cellpadding="0" cellspacing="0">
+        <div class="content" style="margin-top:-10px">
+            <h2 style="text-align: center;"> DAFTAR PENGELUARAN RILL </h2>
+            <table style="margin-top: -10px" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td style="width: 250px" class="text-title">Yang bertanda tangan dibawah ini :</td>
+                    <td style="width: 180px" class="text-title">Yang bertanda tangan dibawah ini :</td>
 
                 </tr>
-                <tr >
+                <tr>
                     <td class="text-title">Nama</td>
                     <td>
                         <p><span class="highlight ">: </span></p>
@@ -149,14 +149,17 @@
 
             </table>
 
-        </div
-        
-        >
+        </div>
         <div class="content">
-            <table style="margin-top:-30px">
-               
+            <table style="margin-top: -20px">
                 <tr>
-                    <td>Menyatakan dengan sesungguhnya bahwa: :</td>
+                    <td>Berdasarkan Surat Tugas Nomor : 132123123 </td>
+                    <td>
+                        <p> <span class="highlight"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>dengan ini kami menyatakan dengan sesungguhnya bahwa :</td>
                     <td>
                         <p> <span class="highlight">
 
@@ -164,46 +167,58 @@
                     </td>
                 </tr>
 
-                <ol style="margin-left: -25px; padding-top: 25px">
-                    <li>Semua dokumen yang saya gunakan dalam melakukan kegiatan <br> Transport Petugas dalam rangka Pelaksanaan Peningkatan Kapasitas Koordinator Program 
-                    </li>
+                <ol style="margin-left: -25px">
+                    <li>Biaya transport atau biaya penginapan dibawah ini yang tidak dapat diperoleh bukti-bukti </li>
 
-                    <p>Prioritas pada Satuan kerja di Lingkungan Ditjen GTK pada tanggal 5 s.d 9 Mei 2024 <br>
-                        di BGP Banten (eks kantor PPPPTK Penjas dan BK). <br>
-                        berdasarkan Surat Tugas Nomor 1008/B7.6/PP.00.08/2024 Tanggal 3 Mei 2024
-
-
-                    </p>
-
-                    <li style="padding-top: 25px">Bertanggung jawab sepenuhnya atas kebenaran seluruh penggunaan biaya perjalanan dinas <br> 
-                        termasuk bukti-bukti pertanggungjawaban perjalanan dinas. Sehubungan dengan hal itu,  <br>
-                        maka saya menyatakan tidak melakukan:
-                    </li>
-
-                    <ol type="a">
-                        <li>
-                            Pemalsuan dokumen;
-                        </li>
-                        <li>
-                            Tindakan berupa menaikkan dari harga sebenarnya (mark up);
-                        </li>
-                        <li>
-                            Perjalanan dinas rangkap.
-                        </li>
-                    </ol>
-
-
-                    </p>
+                    <p>pengeluarannya meliputi :</p>
                 </ol>
 
             </table>
 
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 10px"> No.</th>
+                        <th style="width: 180px">Uraian</th>
+                        <th style="width: 150px">Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td valign="top">1</td>
+                        <td>
+                            
 
-            <p>Demikian pernyataan ini saya buat dengan sesungguhnya dan apabila dikemudian hari terbukti <br>
-                tidak benar serta terdapat selisih biaya perjalanan dinas dan pengeluaran lainnya, maka saya <br>
-                bersedia mengembalikan ke kas negara.
-            </p>
+                            Kab. Luwu - Makassar PP,
+                            <br><br>
+                            <br>
+                            Transport:
+                            <br><br>
+                            <br>
+
+                        </td>
+                        <td valign="top">Rp</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <ol start="2" style="margin-left: -30px">
+                <li>
+                    <p>
+                        Jumlah uang tersebut pada angka 1 diatas benar-benar dikeluarkan untuk pelaksanaan perjalanan
+                        Dinas
+                        <br>
+                        dimaksud dan apabila dikemudian hari terdapat kelebihan atas pembayaran, kami bersedia untuk
+                        <br>
+                        menyetorkan kelebihan tersebut ke Kas Negara.
+                    </p>
+                </li>
+            </ol>
+
+            <p>Demikian pernyataan ini kami buat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.</p>
 
         </div>
 
@@ -214,7 +229,8 @@
         </div>
 
         <div class="footer-surat">
-            <table style="margin-top: -55px; margin-left: -30px">
+            <p>Mengetahui / Menyetujui <br> Pejabat Pembuat Komitmen,
+            <table style="margin-top: -55px;">
                 <tr style="margin-top: -40">
                     <td style=" width: 500px;">
                     </td>
@@ -229,14 +245,16 @@
             <br>
             <br>
             <br>
-            <div style="margin-top: -50px; margin-left: -30px; padding-top: 0px;" class="signature">
+            <div style="margin-top: -50px; padding-top: 40px;" class="signature">
                 <table>
                     <tr>
-                        <td style=" width: 500px;" >
-                            
+                        <td style=" width: 500px;">
+                            <p class="bold"><u>Idhil Nur Mansyur, SE</u>
+                            <p style="margin-top: -10px">NIP.198306212009122002</p>
+                            </p>
                         </td>
-                        <td >
-                            <p class="">Sitti Kahirah Adami, SH 
+                        <td>
+                            <p class="bold"><u>Sitti Kahirah Adami, SH    </u>
                             <p style="margin-top: -10px">NIP.196810052005012014</p>
                             </p>
                         </td>

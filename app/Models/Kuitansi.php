@@ -12,17 +12,40 @@ class kuitansi extends Model
         'pegawai_id',
         'no_bukti',
         'no_MAK',
+        'no_surat_tugas',
+        'tgl_surat_tugas',
         'tahun_anggaran',
+        'lokasi_asal',
+        'lokasi_tujuan',
+        'jenis_angkutan',
+        'biaya_pergi',
+        'biaya_pulang',
+        'total_pp',
+        'pajak_bandara',
+        'biaya_asal',
+        'bea_jarak',
+        'biaya_tujuan',
+        'total_transport',
         'biaya_penginapan',
-        'biaya_uang_harian',
-        'durasi_penginapan',
-        'durasi_uang_harian',
-        'total_biaya_penginapan',
-        'total_biaya_harian',
-        'kategori'
+        'uang_harian',
+        'potongan',
+        'total_penginapan',
+        'total_harian',
+        'jumlah_hari',
+        'total_terima',
     ];
     public function transportasis()
     {
         return $this->hasMany(Transportasi::class);
     }
+
+    public function peserta() {
+        return $this->hasOne(PesertaKegiatan::class, 'id', 'pegawai_id');
+    }
+
+    public function kabupaten() {
+        return $this->hasOne(Kabupaten::class, 'id', 'lokasi_asal');
+    }
+
+
 }

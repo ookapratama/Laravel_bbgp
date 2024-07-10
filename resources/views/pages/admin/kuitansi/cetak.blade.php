@@ -64,7 +64,7 @@
         }
 
         .table th {
-            background-color: #f2f2f2;
+            background-color: #fff;
             height: 1px;
             padding: 0;
             text-align: center;
@@ -96,11 +96,16 @@
 </head>
 
 <body>
+    <?php
+    setlocale(LC_TIME, 'id_ID.UTF-8');
+    
+    $tgl_surat = strftime('%d %B', strtotime(date('d-m-Y')));
+    ?>
     <div class="container">
         <div class=""
             style="
                 position:absolute;
-                right: 0;
+                right: 100px;
                 top:-20;
             ">
             <div class="header">
@@ -119,7 +124,7 @@
                             <strong>Nomor Bukti </strong>
                         </td>
                         <td>
-                            : 18
+                            : {{ $data->no_bukti }}
                         </td>
                     </tr>
                     <tr>
@@ -127,7 +132,7 @@
                             <strong>MAK</strong>
                         </td>
                         <td>
-                            : 5634.SCI.010.052.EB.524111
+                            : {{ $data->no_MAK }}
                         </td>
                     </tr>
 
@@ -148,7 +153,8 @@
                 <tr>
                     <td class="text-title"><strong>Jumlah Uang</strong></td>
                     <td>
-                        <p><span class="highlight bold">: Rp   7,270,100 </span></p>
+                        <p><span class="highlight bold">: Rp. {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}
+                            </span></p>
                     </td>
                 </tr>
                 <tr style="padding: 10px">
@@ -166,7 +172,7 @@
                                 Transport Petugas dalam rangka Pelaksanaan
                                 Peningkatan Kapasitas Koordinator Program Prioritas pada Satuan kerja di Lingkungan
                                 Ditjen GTK pada tanggal 5 s.d 9 Mei 2024 di BGP Banten (eks kantor PPPPTK Penjas dan
-                                BK). 
+                                BK).
                             </span>
                         </p>
                     </td>
@@ -203,36 +209,62 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     <tr>
                         <td>1</td>
-                        <td>Transport: <br>
-                            Kab. Luwu - Makassar PP,
-                            Taksi Makassar PP,
-                            Taksi Jakarta PP,
-                            Tiket Makassar -
-                            Jakarta,
-                            Tiket Jakarta - Makassar
+
+                        <td valign="top" rowspan="3">Transport: <br>
+                            <ul style="list-style-type: none; margin: -1px 0 0 -25px">
+
+                                <li>
+
+                                    {{ $data->kabupaten->name }} - {{ $data->lokasi_tujuan }}, PP
+                                </li>
+                                <table border="0" cellspacing:="0" cellpadding="0">
+                                    <tr >
+                                        <td style="border:solid 0px white;" >
+                                            <li>Uang Harian {{ $data->jumlah_hari }}  hari  Rp. {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }}  </li>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <table border="0" cellspacing:="0" cellpadding="0">
+                                    <tr >
+                                        <td style="border:solid 0px white;" >
+                                            <li>Penginapan 4 hari  {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}</li>
+                                        </td>
+                                    </tr>
+                                </table>
+                             
+                            </ul>
+
                         </td>
-                        <td>Rp</td>
-                        <td></td>
+                        <td>Rp.  {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
+                        <td> {{ $data->jenis_angkutan }} </td>
                     </tr>
+
                     <tr>
                         <td>2</td>
-                        <td>Uang Harian 5 hari @ 430,000Rp</td>
-                        <td>Rp</td>
+
+                        {{-- <td>Uang Harian {{ $data->jumlah_hari }}  hari  Rp. {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }}  </td> --}}
+                        <td>Rp.  {{ number_format($data->total_harian ?? 0, 0, ',', '.') }}</td>
                         <td></td>
                     </tr>
+                    
                     <tr>
+
                         <td>3</td>
-                        <td>Penginapan 4 hari @ 205,800Rp</td>
-                        <td>Rp</td>
-                        <td></td>
+
+                        {{-- <td>Penginapan 4 hari  {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}</td> --}}
+                        <td>Rp.  {{ number_format($data->total_penginapan ?? 0, 0, ',', '.') }}</td>
+                        <td> Rp. {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }} * 30% </td>
                     </tr>
+
                 </tbody>
                 <tfoot style="">
                     <tr style="padding: 0 !important; text-align: center">
                         <td colspan="2" class="right-align bold">Jumlah</td>
-                        <td>Rp 7,270,100</td>
+                        <td>Rp. {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}</td>
                         <td></td>
                     </tr>
                 </tfoot>
@@ -241,8 +273,10 @@
         </div>
 
         <div style="margin-top: -30px; margin-left: 500px;  " class="content">
-            <p style="padding:0"><strong>Makassar, 13 Mei 2024</strong></p>
-            <p style="padding:0">Telah menerima jumlah uang sebesar <br> <span class="highlight bold">Rp  <span style="margin-left: 50px"> 7,270,100</span></span></p>
+            <p style="padding:0"><strong>Makassar, {{ $tgl_surat }} 2024</strong></p>
+            <p style="padding:0">Telah menerima jumlah uang sebesar <br> <span class="highlight bold">Rp. <span
+                        style="margin-left: 50px">
+                        {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}</span></span></p>
             <p style="padding:0"><strong>Yang menerima</strong></p>
             <p style="padding-top:50px" class="highlight bold">Sitti Kahirah Adami, SH</p>
             <p style="padding:0" class="highlight ">NIP. 196810052005012014</p>
@@ -256,7 +290,8 @@
                     <td style="padding: 0;  width: 500px;">
                         <p>Ditetapkan sejumlah </p>
                     </td>
-                    <td><span class="highlight bold">: Rp 7,270,100</span></td>
+                    <td><span class="highlight bold">: Rp.
+                            {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}</span></td>
                 </tr>
                 <tr>
                     <td style="padding: 0; width: 500px;">

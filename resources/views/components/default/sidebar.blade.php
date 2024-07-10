@@ -49,16 +49,12 @@
                             </a>
                         </li>
 
-                        <li class="{{ $title == 'honor' ? 'active' : '' }}">
+                        {{-- <li class="{{ $title == 'honor' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('honor.index') }}">
                                 Peserta Kegiatan
                             </a>
-                        </li>
+                        </li> --}}
 
-                       
-
-             
-                        
                     </ul>
                 </li>
 
@@ -72,10 +68,9 @@
                                 Honor
                             </a>
                         </li>
-
-                        <li class="{{ $title == 'kuitansi' ? 'active' : '' }}">
+                        <li class="{{ $title == 'Data Kuitansi' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('kuitansi.index') }}">
-                                 <span>Data Kuitansi</span>
+                                 <span>Kuitansi Kegiatan</span>
                             </a>
                         </li>
                         

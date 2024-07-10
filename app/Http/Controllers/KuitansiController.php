@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kabupaten;
 use App\Models\Kuitansi;
+use App\Models\PesertaKegiatan;
 use App\Models\Transportasi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -23,7 +25,7 @@ class KuitansiController extends Controller
         $datas = Kuitansi::get();
         $menu = $this->menu;
         $title = 'kuitansi';
-
+        // dd($datas);
         return view('pages.admin.kuitansi.index', compact('menu', 'datas', 'title'));
     }
 
@@ -33,49 +35,71 @@ class KuitansiController extends Controller
     public function create()
     {
         $menu = $this->menu;
-        return view('pages.admin.kuitansi.create', compact('menu'));
+        $datas = array(
+            'peserta' => PesertaKegiatan::orderByDesc('id')->get(),
+            'kabupaten' => Kabupaten::get(),
+        );
+        // foreach ($datas['peserta'] as $i => $v) {
+        //     dd($v->pegawai->nip);
+        // }
+        // dd($datas['peserta'][0]->pegawai->nip);
+
+
+        return view('pages.admin.kuitansi.create', compact('menu', 'datas'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
-        // dd($request->all());
+
         // Membuat objek Kuitansi baru
-        $data = new Kuitansi;
+        // $data = new Kuitansi;
 
-        // Mengisi properti Kuitansi dengan data dari request
-        $data->no_bukti = $request->no_bukti;
-        $data->no_MAK = $request->no_MAK;
-        $data->biaya_penginapan = $request->biaya_penginapan;
-        $data->biaya_uang_harian = $request->biaya_uang_harian;
-        $data->durasi_penginapan = $request->durasi_penginapan;
-        $data->durasi_uang_harian = $request->durasi_uang_harian;
-        $data->kategori = $request->kategori ?? '';
-        $data->tahun_anggaran = $request->tahun_anggaran;
+        // // Mengisi properti Kuitansi dengan data dari request
+        // $data->no_bukti = $request->no_bukti;
+        // $data->no_MAK = $request->no_MAK;
+        // $data->biaya_penginapan = $request->biaya_penginapan;
+        // $data->biaya_uang_harian = $request->biaya_uang_harian;
+        // $data->durasi_penginapan = $request->durasi_penginapan;
+        // $data->durasi_uang_harian = $request->durasi_uang_harian;
+        // $data->kategori = $request->kategori ?? '';
+        // $data->tahun_anggaran = $request->tahun_anggaran;
 
-        // Menghitung total biaya penginapan dan total biaya uang harian
-        $data->total_biaya_penginapan = $data->biaya_penginapan * $data->durasi_penginapan;
-        $data->total_biaya_harian = $data->biaya_uang_harian * $data->durasi_uang_harian;
+        // // Menghitung total biaya penginapan dan total biaya uang harian
+        // $data->total_biaya_penginapan = $data->biaya_penginapan * $data->durasi_penginapan;
+        // $data->total_biaya_harian = $data->biaya_uang_harian * $data->durasi_uang_harian;
 
-        // Menyimpan data kuitansi
-        $data->save();
+        // // Menyimpan data kuitansi
+        // $data->save();
 
-        // Simpan transportasi terkait
-        if ($request->has('transportasis')) {
-            foreach ($request->transportasis as $transportasiData) {
-                $transportasi = new Transportasi([
-                    'asal_transport' => $transportasiData['asal_transport'],
-                    'tujuan_transport' => $transportasiData['tujuan_transport'],
-                    'transportasi' => $transportasiData['transportasi'],
-                    'keterangan' => $transportasiData['keterangan'],
-                    'biaya_transport' => $transportasiData['biaya_transport'],
-                ]);
-                $data->transportasis()->save($transportasi);
-                // dd($transportasi);
-            }
-        }
+        // // Simpan transportasi terkait
+        // if ($request->has('transportasis')) {
+        //     foreach ($request->transportasis as $transportasiData) {
+        //         $transportasi = new Transportasi([
+        //             'asal_transport' => $transportasiData['asal_transport'],
+        //             'tujuan_transport' => $transportasiData['tujuan_transport'],
+        //             'transportasi' => $transportasiData['transportasi'],
+        //             'keterangan' => $transportasiData['keterangan'],
+        //             'biaya_transport' => $transportasiData['biaya_transport'],
+        //         ]);
+        //         $data->transportasis()->save($transportasi);
+        //         // dd($transportasi);
+        //     }
+        // }
+
+        $r['pegawai_id'] = $r['id_pegawai'];
+        $r['uang_penginapan'] = $r['jumlah_biaya'];
+        $r['total_pp'] = $r['jumlah_biaya'];
+        $r['total_pp'] = $r['jumlah_biaya'];
+        $r['biaya_tujuan'] = $r['tujuan'];
+        $r['total_harian'] = $r['biaya_harian'];
+        $r['total_terima'] = $r['jumlah_biaya_diterima'];
+        // dd($r->all());
+
+        Kuitansi::create($r->all());
+
 
         // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('kuitansi.index')->with('message', 'store');
@@ -84,10 +108,12 @@ class KuitansiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $kuitansi = Kuitansi::findOrFail($id);
+        return view('kuitansi.detail', compact('kuitansi'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -186,5 +212,68 @@ class KuitansiController extends Controller
 
 
         return $pdf->stream('data_kuitansi.pdf');
+    }
+
+    public function cetakRill(string $id)
+    {
+
+        $data = Kuitansi::find($id);
+
+        // $trasport = Transportasi::where('id_kuitansi' , $data->id)->get();
+        // foreach ($data->transportasis as $key => $value) {
+        //     dump($value);
+        // }
+        // dd($data);
+
+
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakRill', compact('data'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+
+
+        return $pdf->stream('data_pengeluaran_rill.pdf');
+    }
+
+    public function cetakPJmutlak(string $id)
+    {
+
+        $data = Kuitansi::find($id);
+
+        // $trasport = Transportasi::where('id_kuitansi' , $data->id)->get();
+        // foreach ($data->transportasis as $key => $value) {
+        //     dump($value);
+        // }
+        // dd($data);
+
+
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakPJmutlak', compact('data'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+
+
+        return $pdf->stream('data_PJ_mutlak.pdf');
+    }
+
+    public function cetakAmplop(string $id)
+    {
+
+        $data = Kuitansi::find($id);
+
+        // $trasport = Transportasi::where('id_kuitansi' , $data->id)->get();
+        // foreach ($data->transportasis as $key => $value) {
+        //     dump($value);
+        // }
+        // dd($data);
+
+        
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAmplop', compact('data'));
+
+        // Set properties PDF
+        $pdf->setPaper(array(0,0, 825  ,465   )); // Set kertas ke mode landscape
+
+
+        return $pdf->stream('data_amplop.pdf');
     }
 }

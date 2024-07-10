@@ -33,7 +33,7 @@ class PesertaKegiatan extends Model
     }
 
     public function pegawai() {
-        return $this->hasOne(Pegawai::class, 'id', 'id_pegawai');
+        return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id');
     }
 
 }

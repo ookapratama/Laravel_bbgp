@@ -11,7 +11,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Kuitansi - Rencana Biaya Perjalanan Dinas</h1>
+                <h1>Buat Kuitansi</h1>
             </div>
 
             <div class="section-body">
@@ -19,8 +19,155 @@
                     <div class="col-md-12 col-lg-12">
                         <form action="{{ route('kuitansi.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            <input required name="tahun_anggaran" type="hidden" class="form-control" id="tahun_anggaran"
+                                readonly value="{{ date('Y') }}">
+
+
                             <div class="card">
                                 <div class="card-body">
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nama dan NIK</label>
+                                                <select required name="id_pegawai" id="id_pegawai"
+                                                    class="form-control select2">
+                                                    <option value="">-- Pilih pegawai --</option>
+                                                    @foreach ($datas['peserta'] as $i => $v)
+                                                        {{-- {{ dd($v->pegawai->nip) }} --}}
+                                                        <option data-no_ktp="{{ $v->no_ktp }}"
+                                                            data-nama="{{ $v->nama }}"
+                                                            data-golongan="{{ $v->golongan }}"
+                                                            data-kabupaten="{{ $v->kabupaten }}"
+                                                            data-jabatan="{{ $v->jabatan ?? $v->status_kepegawaian }}"
+                                                            data-instansi="{{ $v->instansi }}"
+                                                            data-no_surat_tugas="{{ $v->no_surat_tugas }}"
+                                                            data-tgl_surat_tugas="{{ $v->tgl_surat_tugas }}"
+                                                            data-status_keikutpesertaan="{{ $v->status_keikutpesertaan }}"
+                                                            value="{{ $v->id }}">
+                                                            {{ $v->pegawai->nip ?? '' }} - {{ $v->nama }} (
+                                                            {{ $v->status_keikutpesertaan }} )
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Nama </label>
+                                                <input readonly required name="nama" id="nama" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>NIP</label>
+                                                <input readonly required name="nip" id="nip" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Jabatan dalam kegiatan</label>
+                                                <input readonly required name="status_keikutpesertaan"
+                                                    id="status_keikutpesertaan" type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Golongan</label>
+                                                <input readonly required name="golongan" id="golongan" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Instansi </label>
+                                                <input readonly required name="instansi" id="instansi" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Nomor Surat Tugas</label>
+                                                <input readonly required name="no_surat_tugas" id="no_surat_tugas"
+                                                    type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Tanggal Surat Tugas</label>
+                                                <input readonly required name="tgl_surat_tugas" id="tgl_surat_tugas"
+                                                    type="date" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Kabupaten / Kota</label>
+                                                <input readonly required name="kabupaten" id="kabupaten" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Lokasi Asal</label>
+                                                {{-- <input required name="biaya_penginapan" type="number"
+                                                    class="form-control"> --}}
+                                                <select required name="lokasi_asal" id="lokasi_asal"
+                                                    class="form-control select2">
+                                                    <option value="">-- Pilih kabupaten / kota --</option>
+                                                    @foreach ($datas['kabupaten'] as $i => $v)
+                                                        {{-- {{ dd($v->pegawai->nip) }} --}}
+                                                        <option value="{{ $v->id }}">
+                                                            {{ $v->name ?? '' }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Lokasi Tujuan</label>
+                                                <input required name="lokasi_tujuan" type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Jenis Angkutan</label>
+                                                <input required name="jenis_angkutan" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -34,49 +181,181 @@
                                                 <input required name="no_MAK" type="text" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Tujuan Perjalanan</label>
-                                                <input required name="no_MAK" type="text" class="form-control">
-                                            </div>
+                                    </div>
+
+                                    <div>
+                                        <hr>
+                                        <div class="card-title">
+                                            <h5>Tiket</h5>
                                         </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Biaya Pergi (Rp. )</label>
+                                                    <input required name="biaya_pergi" id="biaya_pergi" type="number"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Biaya Pulang (Rp. )</label>
+                                                    <input required name="biaya_pulang" id="biaya_pulang" type="number"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Jumlah Biaya (Rp. )</label>
+                                                    <input readonly required name="jumlah_biaya" id="jumlah_biaya_tiket"
+                                                        type="number" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Tax / Pajak Bandara (Rp. ) (Opsional)</label>
+                                                    <input name="pajak_bandara" id="pajak_bandara"
+                                                        placeholder="diisi jika ada" type="number" class="form-control">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+                                        <hr>
+                                        <div class="card-title">
+                                            <h5>Transport Darat / Laut / Taxi</h5>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Biaya Asal (Rp. )</label>
+                                                    <input required name="biaya_asal" id="biaya_asal" type="number"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Biaya Bea Jarak (Rp. )</label>
+                                                    <input required name="bea_jarak" id="bea_jarak" type="number"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Tujuan (Rp. )</label>
+                                                    <input required name="tujuan" id="tujuan" placeholder=""
+                                                        type="number" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Jumlah Biaya Transport</label>
+                                                    <input readonly required name="total_transport" id="total_transport"
+                                                        placeholder="" type="number" class="form-control">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+                                        <hr>
+                                        <div class="row">
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Penginapan (Rp. )</label>
+                                                    <input required name="biaya_penginapan" id="biaya_penginapan"
+                                                        type="number" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Uang Harian (Rp. )</label>
+                                                    <input required name="uang_harian" id="uang_harian" type="number"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Potongan</label>
+                                                    <input required name="potongan" id="potongan"
+                                                        placeholder="diisi jika ada" type="number" class="form-control">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
 
                                     <div class="row">
-                                        
                                         <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Tanggal Surat</label>
-                                                <input required name="tgl_surat" type="date" class="form-control"
-                                                    id="tgl_surat"  >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>Tahun Anggaran</label>
-                                                <input required name="tahun_anggaran" type="text" class="form-control"
-                                                    id="tahun_anggaran" readonly value="{{ date('Y') }}">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Biaya Penginapan (Rp. )</label>
-                                                <input required name="biaya_penginapan" type="number" class="form-control">
+                                                <input readonly required name="total_penginapan" id="total_penginapan"
+                                                    type="number" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+
+                                        <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Biaya Uang Harian (Rp. )</label>
-                                                <input required name="biaya_uang_harian" type="number"
+                                                <label>Biaya Harian (Rp. )</label>
+                                                <input readonly required name="biaya_harian" id="biaya_harian"
+                                                    type="number" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Jumlah Hari</label>
+                                                <input required name="jumlah_hari" id="jumlah_hari" type="number"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Jumlah Uang Diterima</label>
+                                                <input readonly required name="jumlah_biaya_diterima"
+                                                    id="jumlah_biaya_diterima" placeholder="" type="number"
                                                     class="form-control">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
+
+                                    {{-- <div class="row">
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Jumlah Hari</label>
+                                                <input required name="jumlah_hari" placeholder="diisi jika ada" type="number"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+    
+
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Durasi Penginapan (hari)</label>
@@ -91,11 +370,11 @@
                                                     class="form-control">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
                                     {{-- Inputan Transportasi --}}
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-12">
                                             <h5>Transportasi</h5>
                                         </div>
@@ -103,7 +382,8 @@
                                             <div class="form-group">
                                                 <label>Jenis Transportasi</label>
                                                 <input required name="transportasis[0][transportasi]" type="text"
-                                                    class="form-control" placeholder="selain kendaraan, wajb isi keterangan">
+                                                    class="form-control"
+                                                    placeholder="selain kendaraan, wajb isi keterangan">
                                             </div>
                                         </div>
                                         <div class="col-md">
@@ -114,7 +394,6 @@
                                             </div>
                                         </div>
                                         <span>
-                                            <p>Ke</p>
                                         </span>
                                         <div class="col-md">
                                             <div class="form-group">
@@ -123,17 +402,17 @@
                                                     class="form-control">
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Biaya Transportasi</label>
                                                 <input required name="transportasis[0][biaya_transport]" type="number"
-                                                class="form-control">
+                                                    class="form-control">
                                             </div>
-                                           
+
                                         </div>
-                                        
-                                        
+
+
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5">
@@ -143,18 +422,19 @@
                                                     class="form-control" placeholder="Keterangan transportasi">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
+
                                     <div id="transportasi_fields"></div>
 
                                     <!-- Tombol untuk menambahkan transportasi -->
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-12">
                                             <button class="btn btn-primary add_transportasi_field" type="button">Tambah
                                                 Transportasi</button>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
-                                   
+
 
                                     {{-- Tombol Aksi --}}
                                 </div>
@@ -184,36 +464,137 @@
         <script>
             // Menambahkan field transportasi tambahan
             $(document).ready(function() {
-                var max_fields = 10; // maximum input fields allowed
-                var wrapper = $("#transportasi_fields"); // fields wrapper
-                var add_button = $(".add_transportasi_field"); // Add button ID
+                // var max_fields = 10; // maximum input fields allowed
+                // var wrapper = $("#transportasi_fields"); // fields wrapper
+                // var add_button = $(".add_transportasi_field"); // Add button ID
 
-                var x = 1; // initial text box count
-                $(add_button).click(function(e) { // on add input button click
-                    e.preventDefault();
-                    if (x < max_fields) { // max input box allowed
-                        x++; // text box increment
-                        $(wrapper).append(
-                            '<div class="row"><div class="col-md"><div class="form-group"><label>Asal Transportasi</label><input required name="transportasis[' +
-                            x +
-                            '][asal_transport]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Tujuan Transportasi</label><input required name="transportasis[' +
-                            x +
-                            '][tujuan_transport]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Jenis Transportasi</label><input required name="transportasis[' +
-                            x +
-                            '][transportasi]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Keterangan</label><input name="transportasis[' +
-                            x +
-                            '][keterangan]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Biaya Transportasi</label><input required name="transportasis[' +
-                            x +
-                            '][biaya_transport]" type="number" class="form-control"></div></div><div class="col-md-1"><a href="#" class="btn btn-danger remove_field"><i class="fas fa-minus"></i></a></div></div>'
-                        ); // add input box
-                    }
+                // var x = 1; // initial text box count
+                // $(add_button).click(function(e) { // on add input button click
+                //     e.preventDefault();
+                //     if (x < max_fields) { // max input box allowed
+                //         x++; // text box increment
+                //         $(wrapper).append(
+                //             '<div class="row"><div class="col-md"><div class="form-group"><label>Asal Transportasi</label><input required name="transportasis[' +
+                //             x +
+                //             '][asal_transport]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Tujuan Transportasi</label><input required name="transportasis[' +
+                //             x +
+                //             '][tujuan_transport]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Jenis Transportasi</label><input required name="transportasis[' +
+                //             x +
+                //             '][transportasi]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Keterangan</label><input name="transportasis[' +
+                //             x +
+                //             '][keterangan]" type="text" class="form-control"></div></div><div class="col-md"><div class="form-group"><label>Biaya Transportasi</label><input required name="transportasis[' +
+                //             x +
+                //             '][biaya_transport]" type="number" class="form-control"></div></div><div class="col-md-1"><a href="#" class="btn btn-danger remove_field"><i class="fas fa-minus"></i></a></div></div>'
+                //         ); // add input box
+                //     }
+                // });
+
+                // $(wrapper).on("click", ".remove_field", function(e) { // user click on remove text
+                //     e.preventDefault();
+                //     $(this).parent('div').parent('div').remove();
+                //     x--;
+                // })
+
+
+
+                $('#id_pegawai').change(function() {
+                    var selectedOption = $(this).find('option:selected');
+                    // console.log(selectedOption);
+                    var status_keikutpesertaan = selectedOption.data('status_keikutpesertaan');
+                    var jabatan = selectedOption.data('jabatan');
+                    var nama = selectedOption.data('nama');
+                    var no_ktp = selectedOption.data('no_ktp');
+                    var kabupaten = selectedOption.data('kabupaten');
+                    var golongan = selectedOption.data('golongan');
+                    var gender = selectedOption.data('gender');
+                    var instansi = selectedOption.data('instansi');
+                    var no_surat_tugas = selectedOption.data('no_surat_tugas');
+                    var tgl_surat_tugas = selectedOption.data('tgl_surat_tugas');
+                    var no_wa = selectedOption.data('wa');
+                    console.log(status_keikutpesertaan);
+
+                    // Isi input form dengan data yang sesuai
+                    $('#nip').val(no_ktp);
+                    $('#nama').val(`${nama}`);
+                    $('#status_keikutpesertaan').val(status_keikutpesertaan);
+                    $('#jabatan').val(jabatan);
+                    $('#gender').val(gender);
+                    $('#golongan').val(golongan);
+                    $('#kabupaten').val(kabupaten);
+                    $('#instansi').val(instansi);
+                    $('#no_surat_tugas').val(no_surat_tugas);
+                    $('#tgl_surat_tugas').val(tgl_surat_tugas);
+
+
                 });
 
-                $(wrapper).on("click", ".remove_field", function(e) { // user click on remove text
-                    e.preventDefault();
-                    $(this).parent('div').parent('div').remove();
-                    x--;
-                })
+
+                // Calculation functions
+                function calculateTiket() {
+                    var biayaPergi = parseFloat($('#biaya_pergi').val()) || 0;
+                    var biayaPulang = parseFloat($('#biaya_pulang').val()) || 0;
+                    var pajakBandara = parseFloat($('#pajak_bandara').val()) || 0;
+                    $('#jumlah_biaya_tiket').val((biayaPergi + biayaPulang) - pajakBandara);
+                }
+
+                function calculateTransport() {
+                    var biayaAsal = parseFloat($('#biaya_asal').val()) || 0;
+                    var beaJarak = parseFloat($('#bea_jarak').val()) || 0;
+                    var biayaTujuan = parseFloat($('#tujuan').val()) || 0;
+                    $('#total_transport').val(biayaAsal + beaJarak + biayaTujuan);
+                }
+
+                function calculatePenginapan() {
+                    var biayaPerMalam = parseFloat($('#biaya_penginapan').val()) || 0;
+                    var jumlah_hari = parseFloat($('#jumlah_hari').val()) || 0;
+
+                    $('#total_penginapan').val((biayaPerMalam * 0.3) * jumlah_hari);
+                }
+
+                function calculateHarian() {
+                    var biayaPerHari = parseFloat($('#uang_harian').val()) || 0;
+                    var jumlahHari = parseFloat($('#jumlah_hari').val()) || 0;
+                    $('#biaya_harian').val(biayaPerHari * jumlahHari);
+                }
+
+                // function calculateRepresentasi() {
+                //     var biayaRepresentasi = parseFloat($('#biaya_representasi').val()) || 0;
+                //     var jumlahHariRepresentasi = parseFloat($('#jumlah_hari_representasi').val()) || 0;
+                //     $('#jumlah_biaya_representasi').val(biayaRepresentasi * jumlahHariRepresentasi);
+                // }
+
+                function calculateTotalBiaya() {
+                    var jumlahBiayaTiket = parseFloat($('#jumlah_biaya_tiket').val()) || 0;
+                    var jumlahBiayaTransport = parseFloat($('#total_transport').val()) || 0;
+                    var jumlahBiayaPenginapan = parseFloat($('#total_penginapan').val()) || 0;
+                    var jumlahBiayaHarian = parseFloat($('#biaya_harian').val()) || 0;
+                    var potongan = parseFloat($('#potongan').val()) || 0;
+
+                    $('#jumlah_biaya_diterima').val(
+                         jumlahBiayaTiket + jumlahBiayaTransport + jumlahBiayaPenginapan +
+                        jumlahBiayaHarian
+                    );
+                }
+
+                // Event listeners for calculation
+                $('#biaya_pergi, #biaya_pulang, #pajak_bandara').on('input', calculateTiket);
+                $('#biaya_asal, #bea_jarak, #tujuan').on('input', calculateTransport);
+                $('#biaya_penginapan, #jumlah_hari').on('input', calculatePenginapan);
+                $('#uang_harian, #jumlah_hari').on('input', calculateHarian);
+
+                $('#jumlah_biaya_tiket, #pajak_bandara , #jumlah_hari, #tujuan, #uang_harian, #potongan')
+                    .on('input', calculateTotalBiaya);
+
+                // Initialize calculations
+                calculateTiket();
+                calculateTransport();
+                calculatePenginapan();
+                calculateHarian();
+                calculateTotalBiaya();
+
+
+
+
             });
         </script>
     @endpush

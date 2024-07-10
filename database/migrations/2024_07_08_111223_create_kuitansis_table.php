@@ -13,16 +13,30 @@ return new class extends Migration
     {
         Schema::create('kuitansis', function (Blueprint $table) {
             $table->id();
+            $table->string('pegawai_id');
             $table->string('no_bukti');
-            $table->date('tahun_anggaran');
             $table->string('no_MAK');
-            $table->integer('biaya_penginapan');
-            $table->integer('biaya_uang_harian');
-            $table->integer('durasi_penginapan');
-            $table->integer('durasi_uang_harian');
-            $table->integer('total_biaya_penginapan');
-            $table->integer('total_biaya_harian');
-            $table->string('kategori');
+            $table->string('no_surat_tugas');
+            $table->date('tgl_surat_tugas');
+            $table->string('tahun_anggaran');
+            $table->string('lokasi_asal');
+            $table->string('lokasi_tujuan');
+            $table->string('jenis_angkutan');
+            $table->integer('biaya_pergi');
+            $table->integer('biaya_pulang');
+            $table->integer('total_pp');
+            $table->integer('pajak_bandara');
+            $table->integer('biaya_asal');
+            $table->integer('bea_jarak');
+            $table->integer('biaya_tujuan');
+            $table->integer('total_transport');
+            // $table->integer('biaya_penginapan');
+            // $table->integer('uang_harian');
+            $table->integer('potongan');
+            $table->integer('total_penginapan');
+            $table->integer('total_harian');
+            $table->integer('jumlah_hari');
+            $table->integer('total_terima');
             $table->timestamps();
         });
     }
