@@ -218,6 +218,14 @@
                                                 <input type="number" name="no_rek" class="form-control">
                                             </div>
                                         </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Jabatan</label>
+                                                <input type="text" name="jabatan" class="form-control">
+                                            </div>
+                                        </div>
+
                                         {{-- <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Pas Foto</label>

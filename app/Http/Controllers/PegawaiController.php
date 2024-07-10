@@ -16,7 +16,8 @@ use App\Models\SatuanPendidikan;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
-{
+{   
+    
     /**
      * Display a listing of the resource.
      */
@@ -78,8 +79,8 @@ class PegawaiController extends Controller
 
         Pegawai::create($r);
 
-        return redirect()->route('internal.index')->with('message', 'store');
-        // return redirect()->route('pegawai.index')->with('message', 'store');
+        // return redirect()->route('internal.index')->with('message', 'store');
+        return redirect()->route('pegawai.index')->with('message', 'store');
     }
 
     /**
@@ -151,8 +152,8 @@ class PegawaiController extends Controller
 
             return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
         } 
-        return redirect()->route('internal.index')->with('message', 'update');
-        // return redirect()->route('pegawai.index')->with('message', 'update');
+        // return redirect()->route('internal.index')->with('message', 'update');
+        return redirect()->route('pegawai.index')->with('message', 'update');
     }
 
     /**

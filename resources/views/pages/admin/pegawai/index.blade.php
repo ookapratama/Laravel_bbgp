@@ -39,7 +39,7 @@
                                                 <th>Alamat Rumah</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>Jabatan</th>
-                                                <th>Stauts</th>
+                                                <th>Status</th>
                                                 <th>Agama</th>
                                                 <th>Pendidikan Terakhir</th>
                                                 <th>Kabupaten/Kota</th>
