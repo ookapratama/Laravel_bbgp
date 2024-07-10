@@ -250,6 +250,40 @@ Route::group(
                 Route::get('/cetakPJmutlak/{id}', 'KuitansiController@cetakPJmutlak')->name('kuitansi.cetakPJmutlak');
                 Route::get('/cetakAmplop/{id}', 'KuitansiController@cetakAmplop')->name('kuitansi.cetakAmplop');
             });
+            
+
+            
+
+            //Master Jabatan Pegawai BBGP
+            // Route::prefix('kependudukan')->group(function () {
+            //     Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
+            //     Route::get('/create', 'KependudukanController@create')->name('kependudukan.create');
+            //     Route::post('/store', 'KependudukanController@store')->name('kependudukan.store');
+            //     Route::get('/edit/{id}', 'KependudukanController@edit')->name('kependudukan.edit');
+            //     Route::put('/update', 'KependudukanController@update')->name('kependudukan.update');
+            //     Route::post('/hapus/{id}', 'KependudukanController@hapus')->name('kependudukan.hapus');
+            //     // Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
+            // });
+
+            // Route::prefix('kependudukan')->group(function () {
+            //     Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
+            //     Route::get('/create', 'KependudukanController@create')->name('kependudukan.create');
+            //     Route::post('/store', 'KependudukanController@store')->name('kependudukan.store');
+            //     Route::get('/edit/{id}', 'KependudukanController@edit')->name('kependudukan.edit');
+            //     Route::put('/update', 'KependudukanController@update')->name('kependudukan.update');
+            //     Route::post('/hapus/{id}', 'KependudukanController@hapus')->name('kependudukan.hapus');
+            //     Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
+            // });
+
+            // Route::prefix('kependudukan')->group(function () {
+            //     Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
+            //     Route::get('/create', 'KependudukanController@create')->name('kependudukan.create');
+            //     Route::post('/store', 'KependudukanController@store')->name('kependudukan.store');
+            //     Route::get('/edit/{id}', 'KependudukanController@edit')->name('kependudukan.edit');
+            //     Route::put('/update', 'KependudukanController@update')->name('kependudukan.update');
+            //     Route::post('/hapus/{id}', 'KependudukanController@hapus')->name('kependudukan.hapus');
+            //     Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
+            // });
 
 
 
