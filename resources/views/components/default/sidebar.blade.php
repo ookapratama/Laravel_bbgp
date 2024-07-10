@@ -18,6 +18,20 @@
                         class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
 
+            <li class="nav-item dropdown {{ $menu == 'MasterData' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
+                        <span>Master Data</span></a>
+                    <ul class="dropdown-menu">
+
+                        <li class="{{ $title == 'honor' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('pegawai.index') }}">
+                                Data Pegawai BBPG
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+
             @if (session('role') == 'admin' ||
                     session('role') == 'superadmin' ||
                     session('role') == 'kepala' ||
@@ -56,6 +70,7 @@
                     </ul>
                 </li>
 
+                
                 <li class="nav-item dropdown {{ $menu == 'honor' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
                         <span>Data Keuangan</span></a>
@@ -68,7 +83,7 @@
                         </li>
                         <li class="{{ $title == 'Data Kuitansi' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('kuitansi.index') }}">
-                                 <span>Kuitansi Kegiatan</span>
+                                <span>Kuitansi Kegiatan</span>
                             </a>
                         </li>
                         
@@ -136,3 +151,5 @@
         </div>
     </aside>
 </div>
+
+
