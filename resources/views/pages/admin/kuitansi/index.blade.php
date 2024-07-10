@@ -22,13 +22,15 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{ route('kuitansi.create') }}" class="btn btn-primary text-white my-3">
-                                    + Buat Kuitansi
-                                </a>
-                                {{-- {{ dd($title) }} --}}
 
-                                <h6>Print Permintaan</h6>
-                                <div class="row">
+                                <div class="row mb-4">
+                                    <div class="col-md-2">
+                                        <a href="{{ route('kuitansi.create') }}" class="btn btn-primary text-white ">
+                                            + Buat Kuitansi
+                                        </a>
+
+                                    </div>
+                                    {{-- {{ dd($title) }} --}}
                                     {{-- <div class="col-md-3">
                                         <div class="form-group">
                                             <select name="" class="form-control" id="kegiatanSelect">
@@ -44,10 +46,20 @@
                                             </select>
                                         </div>
                                     </div> --}}
-                                    <div class="col-md mb-4">
+
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        {{-- <h6>Print Permintaan</h6> --}}
+
                                         <div id="btnGroup">
-                                            <button id="btnPrintPeserta" class="btn btn-info"><i
-                                                    class="fas fa-print mr-2"></i>Permintaan</button>
+                                            <a target="_blank" href="{{ route('kuitansi.cetakPermintaan') }}" class="btn btn-info mr-2"><i
+                                                    class="fas fa-print mr-2"></i>Cetak Permintaan Kuitansi</a>
+
+                                            <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}" class="btn btn-info"><i
+                                                    class="fas fa-print mr-2"></i>Cetak Lampiran </a>
+
                                             {{-- <button id="btnPrintRegisPeserta" class="btn btn-primary"><i
                                                     class="fas fa-print mr-2"></i>Registrasi Peserta</button>
                                             <button id="btnPrintPanitia" class="btn btn-info"><i
@@ -103,11 +115,12 @@
                                                     <td>
                                                         <div class="">
 
-                                                            <a target="_blank" href="{{ route('kuitansi.cetak', $data->id) }}"
+                                                            <a target="_blank"
+                                                                href="{{ route('kuitansi.cetak', $data->id) }}"
                                                                 class="btn btn-info "> <i class="fas fa-print"></i> Kuitansi
                                                             </a>
-    
-    
+
+
                                                             <a target="_blank"
                                                                 href="{{ route('kuitansi.cetakRill', $data->id) }}"
                                                                 class="btn btn-info my-2"> <i class="fas fa-print"></i>
@@ -117,11 +130,12 @@
                                                         <div class="">
                                                             <a target="_blank"
                                                                 href="{{ route('kuitansi.cetakPJmutlak', $data->id) }}"
-                                                                class="btn btn-info "> <i class="fas fa-print"></i> PJ Mutlak
+                                                                class="btn btn-info "> <i class="fas fa-print"></i> PJ
+                                                                Mutlak
                                                             </a>
-    
+
                                                             <a target="_blank"
-                                                            href="{{ route('kuitansi.cetakAmplop', $data->id) }}"
+                                                                href="{{ route('kuitansi.cetakAmplop', $data->id) }}"
                                                                 class="btn btn-info my-2"> <i class="fas fa-print"></i>
                                                                 Amplop </a>
 
@@ -130,13 +144,14 @@
                                                     <td>
 
 
-                                                        {{-- <a href="{{ route('kuitansi.edit', $data->id) }}"
-                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i> </a> --}}
 
                                                         <button class="btn btn-primary btn-detail"
                                                             data-id="{{ $data->id }}">
-                                                            <i class="fas fa-eye"></i> Detail
+                                                            <i class="fas fa-eye"></i>
                                                         </button>
+
+                                                        <a href="{{ route('kuitansi.edit', $data->id) }}"
+                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i> </a>
 
                                                         <button onclick="deleteData({{ $data->id }}, 'kuitansi')"
                                                             class="btn btn-danger "><i class="fas fa-trash-alt"></i>
@@ -238,7 +253,9 @@
                 $('.btn-detail').on('click', function() {
                     var kuitansiId = $(this).data('id');
                     $.ajax({
-                        url: '{{ route('kuitansi.show', ['id' => ':kuitansiId']) }}'.replace(':kuitansiId', kuitansiId), // Ganti dengan rute yang sesuai untuk mengambil detail kuitansi
+                        url: '{{ route('kuitansi.show', ['id' => ':kuitansiId']) }}'.replace(
+                            ':kuitansiId', kuitansiId
+                        ), // Ganti dengan rute yang sesuai untuk mengambil detail kuitansi
                         type: 'GET',
                         success: function(response) {
                             // Memuat konten detail kuitansi ke dalam modal
