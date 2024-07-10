@@ -35,8 +35,6 @@
                     </a>
                 </li>
 
-                
-
 
                 <li class="nav-item dropdown {{ $menu == 'honor' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i> 

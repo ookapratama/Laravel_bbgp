@@ -101,25 +101,31 @@
                                                     </td> --}}
 
                                                     <td>
-                                                        <a target="_blank" href="{{ route('kuitansi.cetak', $data->id) }}"
-                                                            class="btn btn-info "> <i class="fas fa-print"></i> Kuitansi
-                                                        </a>
+                                                        <div class="">
 
+                                                            <a target="_blank" href="{{ route('kuitansi.cetak', $data->id) }}"
+                                                                class="btn btn-info "> <i class="fas fa-print"></i> Kuitansi
+                                                            </a>
+    
+    
+                                                            <a target="_blank"
+                                                                href="{{ route('kuitansi.cetakRill', $data->id) }}"
+                                                                class="btn btn-info my-2"> <i class="fas fa-print"></i>
+                                                                Pengeluaran Rill </a>
+                                                        </div>
 
-                                                        <a target="_blank"
-                                                            href="{{ route('kuitansi.cetakRill', $data->id) }}"
-                                                            class="btn btn-info my-2"> <i class="fas fa-print"></i>
-                                                            Pengeluaran Rill </a>
+                                                        <div class="">
+                                                            <a target="_blank"
+                                                                href="{{ route('kuitansi.cetakPJmutlak', $data->id) }}"
+                                                                class="btn btn-info "> <i class="fas fa-print"></i> PJ Mutlak
+                                                            </a>
+    
+                                                            <a target="_blank"
+                                                            href="{{ route('kuitansi.cetakAmplop', $data->id) }}"
+                                                                class="btn btn-info my-2"> <i class="fas fa-print"></i>
+                                                                Amplop </a>
 
-                                                        <a target="_blank"
-                                                            href="{{ route('kuitansi.cetakPJmutlak', $data->id) }}"
-                                                            class="btn btn-info "> <i class="fas fa-print"></i> PJ Mutlak
-                                                        </a>
-
-                                                        <a target="_blank"
-                                                        href="{{ route('kuitansi.cetakAmplop', $data->id) }}"
-                                                            class="btn btn-info my-2"> <i class="fas fa-print"></i>
-                                                            Amplop </a>
+                                                        </div>
                                                     </td>
                                                     <td>
 
@@ -127,10 +133,10 @@
                                                         {{-- <a href="{{ route('kuitansi.edit', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i> </a> --}}
 
-                                                        {{-- <button class="btn btn-primary btn-detail"
+                                                        <button class="btn btn-primary btn-detail"
                                                             data-id="{{ $data->id }}">
                                                             <i class="fas fa-eye"></i> Detail
-                                                        </button> --}}
+                                                        </button>
 
                                                         <button onclick="deleteData({{ $data->id }}, 'kuitansi')"
                                                             class="btn btn-danger "><i class="fas fa-trash-alt"></i>
@@ -232,8 +238,7 @@
                 $('.btn-detail').on('click', function() {
                     var kuitansiId = $(this).data('id');
                     $.ajax({
-                        url: '/kuitansi/' +
-                            kuitansiId, // Ganti dengan rute yang sesuai untuk mengambil detail kuitansi
+                        url: '{{ route('kuitansi.show', ['id' => ':kuitansiId']) }}'.replace(':kuitansiId', kuitansiId), // Ganti dengan rute yang sesuai untuk mengambil detail kuitansi
                         type: 'GET',
                         success: function(response) {
                             // Memuat konten detail kuitansi ke dalam modal

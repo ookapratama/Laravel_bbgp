@@ -211,52 +211,59 @@
                 <tbody>
 
                     <tr>
-                        <td>1</td>
+                        <td valign="top">
+                            1
+                        </td>
 
-                        <td valign="top" rowspan="3">Transport: <br>
+                        <td valign="top"  >Transport: <br>
                             <ul style="list-style-type: none; margin: -1px 0 0 -25px">
 
                                 <li>
-
                                     {{ $data->kabupaten->name }} - {{ $data->lokasi_tujuan }}, PP
                                 </li>
-                                <table border="0" cellspacing:="0" cellpadding="0">
-                                    <tr >
-                                        <td style="border:solid 0px white;" >
-                                            <li>Uang Harian {{ $data->jumlah_hari }}  hari  Rp. {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }}  </li>
+
+                                {{-- <table style="padding-top: 55px" border="0" cellspacing:="0" cellpadding="0">
+                                    <tr>
+                                        <td style="border:solid 0px white;">
+                                            <li>Uang Harian {{ $data->jumlah_hari }} hari Rp.
+                                                {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }} </li>
                                         </td>
                                     </tr>
                                 </table>
-                                
+
                                 <table border="0" cellspacing:="0" cellpadding="0">
-                                    <tr >
-                                        <td style="border:solid 0px white;" >
-                                            <li>Penginapan 4 hari  {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}</li>
+                                    <tr>
+                                        <td style="border:solid 0px white;">
+                                            <li>Penginapan 4 hari
+                                                {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}</li>
                                         </td>
                                     </tr>
-                                </table>
-                             
+                                </table> --}}
+
                             </ul>
 
                         </td>
-                        <td>Rp.  {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
+
+                        <td>Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
                         <td> {{ $data->jenis_angkutan }} </td>
                     </tr>
 
                     <tr>
                         <td>2</td>
 
-                        {{-- <td>Uang Harian {{ $data->jumlah_hari }}  hari  Rp. {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }}  </td> --}}
-                        <td>Rp.  {{ number_format($data->total_harian ?? 0, 0, ',', '.') }}</td>
+                        <td>Uang Harian {{ $data->jumlah_hari }}  hari  Rp. {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }}  </td>
+                        <td>Rp. {{ number_format($data->total_harian ?? 0, 0, ',', '.') }}</td>
                         <td></td>
                     </tr>
-                    
+
                     <tr>
 
-                        <td>3</td>
+                        <td valign="top">
+                            3
+                        </td>
 
-                        {{-- <td>Penginapan 4 hari  {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}</td> --}}
-                        <td>Rp.  {{ number_format($data->total_penginapan ?? 0, 0, ',', '.') }}</td>
+                        <td>Penginapan 4 hari  {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}</td>
+                        <td>Rp. {{ number_format($data->total_penginapan ?? 0, 0, ',', '.') }}</td>
                         <td> Rp. {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }} * 30% </td>
                     </tr>
 

@@ -111,7 +111,7 @@ class KuitansiController extends Controller
     public function show($id)
     {
         $kuitansi = Kuitansi::findOrFail($id);
-        return view('kuitansi.detail', compact('kuitansi'));
+        return view('pages.admin.kuitansi.detail', compact('kuitansi'));
     }
 
 
