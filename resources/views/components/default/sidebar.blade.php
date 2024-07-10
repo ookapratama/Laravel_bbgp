@@ -50,7 +50,7 @@
                 </li>
 
 
-                <li class="nav-item dropdown {{ $menu == 'honor' ? 'active' : '' }}">
+                <li class="nav-item dropdown {{ $menu == 'data_Kegiatan' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i> 
                         <span>Data Kegiatan</span></a>
                     <ul class="dropdown-menu">
@@ -61,11 +61,11 @@
                             </a>
                         </li>
 
-                        {{-- <li class="{{ $title == 'honor' ? 'active' : '' }}">
+                        <li class="{{ $title == 'peserta' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('honor.index') }}">
                                 Peserta Kegiatan
                             </a>
-                        </li> --}}
+                        </li>
 
                     </ul>
                 </li>
