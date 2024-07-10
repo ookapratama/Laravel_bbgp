@@ -100,6 +100,12 @@
 </head>
 
 <body>
+    <?php
+    setlocale(LC_TIME, 'id_ID.UTF-8');
+    
+    $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
+    $tgl_sekarang = strftime('%d %B %Y', strtotime(date('d-m-Y')));
+    ?>
     <div class="container">
         <div class="" style="
               margin-top: -40px
@@ -120,28 +126,28 @@
         </div>
         <div class="content" style="margin-top:-30px">
             <h2 style="text-align: center;"> SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK </h2>
-            <table style="margin-top: 20px" cellpadding="0" cellspacing="0">
+            <p style="margin-top: 20px"  class="text-title">Yang bertanda tangan dibawah ini :</p>
+            <table  cellpadding="0" cellspacing="0">
                 <tr>
-                    <td style="width: 250px" class="text-title">Yang bertanda tangan dibawah ini :</td>
 
                 </tr>
-                <tr >
-                    <td class="text-title">Nama</td>
+                <tr>
+                    <td style="width: 110px" class="text-title">Nama</td>
                     <td>
-                        <p><span class="highlight ">: </span></p>
+                        <p><span class="highlight ">: {{ $data->peserta->nama }}</span></p>
                     </td>
                 </tr>
                 <tr style="padding: 10px">
                     <td class="text-title">NIP</td>
                     <td>
-                        <p><span class="highlight">:</span></p>
+                        <p><span class="highlight">: {{ $data->peserta->pegawai->nip }}</span></p>
                     </td>
                 </tr>
 
                 <tr>
                     <td valign="top" width="80" class="text-title">Jabatan</td>
                     <td>
-                        <p style="text-align: justify">:
+                        <p style="text-align: justify">:  {{ $data->peserta->pegawai->jabatan }}
 
                         </p>
                     </td>
@@ -149,12 +155,10 @@
 
             </table>
 
-        </div
-        
-        >
+        </div>
         <div class="content">
             <table style="margin-top:-30px">
-               
+
                 <tr>
                     <td>Menyatakan dengan sesungguhnya bahwa: :</td>
                     <td>
@@ -165,7 +169,8 @@
                 </tr>
 
                 <ol style="margin-left: -25px; padding-top: 25px">
-                    <li>Semua dokumen yang saya gunakan dalam melakukan kegiatan <br> Transport Petugas dalam rangka Pelaksanaan Peningkatan Kapasitas Koordinator Program 
+                    <li>Semua dokumen yang saya gunakan dalam melakukan kegiatan <br> Transport Petugas dalam rangka
+                        Pelaksanaan Peningkatan Kapasitas Koordinator Program
                     </li>
 
                     <p>Prioritas pada Satuan kerja di Lingkungan Ditjen GTK pada tanggal 5 s.d 9 Mei 2024 <br>
@@ -175,8 +180,9 @@
 
                     </p>
 
-                    <li style="padding-top: 25px">Bertanggung jawab sepenuhnya atas kebenaran seluruh penggunaan biaya perjalanan dinas <br> 
-                        termasuk bukti-bukti pertanggungjawaban perjalanan dinas. Sehubungan dengan hal itu,  <br>
+                    <li style="padding-top: 25px">Bertanggung jawab sepenuhnya atas kebenaran seluruh penggunaan biaya
+                        perjalanan dinas <br>
+                        termasuk bukti-bukti pertanggungjawaban perjalanan dinas. Sehubungan dengan hal itu, <br>
                         maka saya menyatakan tidak melakukan:
                     </li>
 
@@ -218,11 +224,11 @@
                 <tr style="margin-top: -40">
                     <td style=" width: 500px;">
                     </td>
-                    <td  valign="top"><span class="highlight ">
-                        Makassar, 13 Mei 2024 <br> 
-                        Yang melaksanakan <br> 
-                        Perjalanan Dinas, 
-                    </span></td>
+                    <td valign="top"><span class="highlight ">
+                            Makassar, {{ $tgl_sekarang }}  <br>
+                            Yang melaksanakan <br>
+                            Perjalanan Dinas,
+                        </span></td>
                 </tr>
             </table>
             <br>
@@ -232,11 +238,11 @@
             <div style="margin-top: -50px; margin-left: -30px; padding-top: 0px;" class="signature">
                 <table>
                     <tr>
-                        <td style=" width: 500px;" >
-                            
+                        <td style=" width: 500px;">
+
                         </td>
-                        <td >
-                            <p class="">Sitti Kahirah Adami, SH 
+                        <td>
+                            <p class="">Sitti Kahirah Adami, SH
                             <p style="margin-top: -10px">NIP.196810052005012014</p>
                             </p>
                         </td>

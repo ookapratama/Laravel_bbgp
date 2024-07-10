@@ -124,60 +124,77 @@ class KuitansiController extends Controller
         $kuitansi = Kuitansi::findOrFail($id);
         $menu = $this->menu;
         $title = 'kuitansi';
+        $datas = array(
+            'peserta' => PesertaKegiatan::orderByDesc('id')->get(),
+            'kabupaten' => Kabupaten::get(),
+        );
 
         // Memuat data terkait seperti transportasi
         $transportasis = $kuitansi->transportasis;
 
         // Mengembalikan view dengan data kuitansi dan transportasi
-        return view('pages.admin.kuitansi.edit', compact('menu', 'kuitansi', 'transportasis', 'title'));
+        return view('pages.admin.kuitansi.edit', compact('menu', 'kuitansi', 'transportasis', 'title', 'datas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $r)
     {
 
-        // Validasi inputan
-        $validatedData = $request->validate([
-            'no_bukti' => 'required|string',
-            'tahun_anggaran' => 'required|date',
-            'no_MAK' => 'required|string',
-            'biaya_penginapan' => 'required|numeric',
-            'biaya_uang_harian' => 'required|numeric',
-            'durasi_penginapan' => 'required|string',
-            'durasi_uang_harian' => 'required|string',
-            'kategori' => 'required|string',
-            'transportasis.*.asal_transport' => 'required|string',
-            'transportasis.*.tujuan_transport' => 'required|string',
-            'transportasis.*.jenis_transportasi' => 'required|string',
-            'transportasis.*.keterangan' => 'nullable|string',
-            'transportasis.*.biaya_transport' => 'required|numeric',
-        ]);
+        // // Validasi inputan
+        // $validatedData = $request->validate([
+        //     'no_bukti' => 'required|string',
+        //     'tahun_anggaran' => 'required|date',
+        //     'no_MAK' => 'required|string',
+        //     'biaya_penginapan' => 'required|numeric',
+        //     'biaya_uang_harian' => 'required|numeric',
+        //     'durasi_penginapan' => 'required|string',
+        //     'durasi_uang_harian' => 'required|string',
+        //     'kategori' => 'required|string',
+        //     'transportasis.*.asal_transport' => 'required|string',
+        //     'transportasis.*.tujuan_transport' => 'required|string',
+        //     'transportasis.*.jenis_transportasi' => 'required|string',
+        //     'transportasis.*.keterangan' => 'nullable|string',
+        //     'transportasis.*.biaya_transport' => 'required|numeric',
+        // ]);
 
-        // Cari data Kuitansi berdasarkan ID yang diterima dari request
-        $kuitansi = Kuitansi::findOrFail($request->id);
+        // // Cari data Kuitansi berdasarkan ID yang diterima dari request
+        // $kuitansi = Kuitansi::findOrFail($request->id);
 
-        // Update data Kuitansi
-        $kuitansi->update([
-            'no_bukti' => $validatedData['no_bukti'],
-            'tahun_anggaran' => $validatedData['tahun_anggaran'],
-            'no_MAK' => $validatedData['no_MAK'],
-            'biaya_penginapan' => $validatedData['biaya_penginapan'],
-            'biaya_uang_harian' => $validatedData['biaya_uang_harian'],
-            'durasi_penginapan' => $validatedData['durasi_penginapan'],
-            'durasi_uang_harian' => $validatedData['durasi_uang_harian'],
-            'kategori' => $validatedData['kategori'],
-        ]);
+        // // Update data Kuitansi
+        // $kuitansi->update([
+        //     'no_bukti' => $validatedData['no_bukti'],
+        //     'tahun_anggaran' => $validatedData['tahun_anggaran'],
+        //     'no_MAK' => $validatedData['no_MAK'],
+        //     'biaya_penginapan' => $validatedData['biaya_penginapan'],
+        //     'biaya_uang_harian' => $validatedData['biaya_uang_harian'],
+        //     'durasi_penginapan' => $validatedData['durasi_penginapan'],
+        //     'durasi_uang_harian' => $validatedData['durasi_uang_harian'],
+        //     'kategori' => $validatedData['kategori'],
+        // ]);
 
-        // Update atau hapus data transportasi
-        foreach ($validatedData['transportasis'] as $index => $transportasiData) {
-            if (isset($kuitansi->transportasis[$index])) {
-                $kuitansi->transportasis[$index]->update($transportasiData);
-            } else {
-                $kuitansi->transportasis()->create($transportasiData);
-            }
-        }
+        // // Update atau hapus data transportasi
+        // foreach ($validatedData['transportasis'] as $index => $transportasiData) {
+        //     if (isset($kuitansi->transportasis[$index])) {
+        //         $kuitansi->transportasis[$index]->update($transportasiData);
+        //     } else {
+        //         $kuitansi->transportasis()->create($transportasiData);
+        //     }
+        // }
+        $r = $r->all();
+        $datas = Kuitansi::find($r['id']);
+
+        $r['pegawai_id'] = $r['id_pegawai'];
+        $r['uang_penginapan'] = $r['jumlah_biaya'];
+        $r['total_pp'] = $r['jumlah_biaya'];
+        $r['total_pp'] = $r['jumlah_biaya'];
+        $r['biaya_tujuan'] = $r['tujuan'];
+        $r['total_harian'] = $r['biaya_harian'];
+        $r['total_terima'] = $r['jumlah_biaya_diterima'];
+
+        // dd($datas);
+        $datas->update($r);
 
         // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('kuitansi.index')->with('message', 'update');
@@ -198,10 +215,6 @@ class KuitansiController extends Controller
 
         $data = Kuitansi::find($id);
 
-        // $trasport = Transportasi::where('id_kuitansi' , $data->id)->get();
-        // foreach ($data->transportasis as $key => $value) {
-        //     dump($value);
-        // }
         // dd($data);
 
 
@@ -219,10 +232,6 @@ class KuitansiController extends Controller
 
         $data = Kuitansi::find($id);
 
-        // $trasport = Transportasi::where('id_kuitansi' , $data->id)->get();
-        // foreach ($data->transportasis as $key => $value) {
-        //     dump($value);
-        // }
         // dd($data);
 
 
@@ -240,14 +249,10 @@ class KuitansiController extends Controller
 
         $data = Kuitansi::find($id);
 
-        // $trasport = Transportasi::where('id_kuitansi' , $data->id)->get();
-        // foreach ($data->transportasis as $key => $value) {
-        //     dump($value);
-        // }
         // dd($data);
 
 
-        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakPJmutlak', compact('data'));
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakPjMutlak', compact('data'));
 
         // Set properties PDF
         $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
@@ -261,19 +266,40 @@ class KuitansiController extends Controller
 
         $data = Kuitansi::find($id);
 
-        // $trasport = Transportasi::where('id_kuitansi' , $data->id)->get();
-        // foreach ($data->transportasis as $key => $value) {
-        //     dump($value);
-        // }
-        // dd($data);
-
-        
         $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAmplop', compact('data'));
 
         // Set properties PDF
-        $pdf->setPaper(array(0,0, 825  ,465   )); // Set kertas ke mode landscape
+        $pdf->setPaper(array(0, 0, 825, 465)); // Set kertas ke mode landscape
 
 
         return $pdf->stream('data_amplop.pdf');
+    }
+
+    public function cetakPermintaan()
+    {
+
+        $data = Kuitansi::get();
+
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakPermintaan', compact('data'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'landscape'); // Set kertas ke mode landscape
+
+        return $pdf->stream('data_Permintaan.pdf');
+    }
+
+    public function cetakLampiran()
+    {
+
+        $data = Kuitansi::get();
+
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakLampiran', compact('data'));
+
+        // Set properties PDF
+        // $pdf->setPaper('a4', 'landscape'); // Set kertas ke mode landscape
+        $pdf->setPaper(array(0, 0, 2025, 865)); // Set kertas ke mode landscape
+
+
+        return $pdf->stream('data_Lampiran.pdf');
     }
 }

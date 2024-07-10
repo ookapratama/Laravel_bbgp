@@ -98,7 +98,7 @@
                     <td>{{ ++$i }}</td>
                     <td>{{ $honor['nama'] }} </td>
                     <td>{{ explode('/', $honor['golongan'])[0] }}</td>
-                    <td>{{ $honor['jp_realisasi'] }}</td>
+                    <td>{{ $honor['jp_realisasi'] }}.0</td>
                     <td>{{ $honor['jumlah'] }}</td>
                     <td>{{ $honor['pot'] }}</td>
                     <td>{{ $honor['total'] }}</td>

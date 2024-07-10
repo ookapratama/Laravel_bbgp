@@ -100,6 +100,7 @@
     setlocale(LC_TIME, 'id_ID.UTF-8');
     
     $tgl_surat = strftime('%d %B', strtotime(date('d-m-Y')));
+    $tgl_sekarang = strftime('%d %B', strtotime(date('d-m-Y')));
     ?>
     <div class="container">
         <div class=""
@@ -280,7 +281,7 @@
         </div>
 
         <div style="margin-top: -30px; margin-left: 500px;  " class="content">
-            <p style="padding:0"><strong>Makassar, {{ $tgl_surat }} 2024</strong></p>
+            <p style="padding:0"><strong>Makassar, {{ $tgl_sekarang }} 2024</strong></p>
             <p style="padding:0">Telah menerima jumlah uang sebesar <br> <span class="highlight bold">Rp. <span
                         style="margin-left: 50px">
                         {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}</span></span></p>

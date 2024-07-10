@@ -100,6 +100,12 @@
 </head>
 
 <body>
+    <?php
+    setlocale(LC_TIME, 'id_ID.UTF-8');
+    
+    $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
+    $tgl_sekarang = strftime('%d %B %Y', strtotime(date('d-m-Y')));
+    ?>
     <div class="container">
         <div class="" style="
               margin-top: -40px
@@ -128,20 +134,20 @@
                 <tr>
                     <td class="text-title">Nama</td>
                     <td>
-                        <p><span class="highlight ">: </span></p>
+                        <p><span class="highlight ">: {{ $data->peserta->nama }} </span></p>
                     </td>
                 </tr>
                 <tr style="padding: 10px">
                     <td class="text-title">NIP</td>
                     <td>
-                        <p><span class="highlight">:</span></p>
+                        <p><span class="highlight">:  {{ $data->peserta->pegawai->nip }}</span></p>
                     </td>
                 </tr>
 
                 <tr>
                     <td valign="top" width="80" class="text-title">Jabatan</td>
                     <td>
-                        <p style="text-align: justify">:
+                        <p style="text-align: justify">:  {{ $data->peserta->pegawai->jabatan }}
 
                         </p>
                     </td>
@@ -153,7 +159,8 @@
         <div class="content">
             <table style="margin-top: -20px">
                 <tr>
-                    <td>Berdasarkan Surat Tugas Nomor : 132123123 </td>
+                    <td>Berdasarkan Surat Tugas Nomor : {{ $data->no_surat_tugas }} tanggal {{ $tgl_surat }}
+                    </td>
                     <td>
                         <p> <span class="highlight"></span></p>
                     </td>
@@ -188,20 +195,21 @@
                     <tr>
                         <td valign="top">1</td>
                         <td>
-                            
-
-                            Kab. Luwu - Makassar PP,
-                            <br><br>
-                            <br>
                             Transport:
-                            <br><br>
+                            <br>
                             <br>
 
+
+                            {{ $data->kabupaten->name }} - {{ $data->lokasi_tujuan }}, PP
+                            <br><br>
+                            <br>
+                            
                         </td>
-                        <td valign="top">Rp</td>
+                        <td >Rp.  {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
                     </tr>
 
                 </tbody>
+                
 
             </table>
 
@@ -234,11 +242,11 @@
                 <tr style="margin-top: -40">
                     <td style=" width: 500px;">
                     </td>
-                    <td  valign="top"><span class="highlight ">
-                        Makassar, 13 Mei 2024 <br> 
-                        Yang melaksanakan <br> 
-                        Perjalanan Dinas, 
-                    </span></td>
+                    <td valign="top"><span class="highlight ">
+                            Makassar, {{ $tgl_surat }} <br>
+                            Yang melaksanakan <br>
+                            Perjalanan Dinas,
+                        </span></td>
                 </tr>
             </table>
             <br>
@@ -254,7 +262,7 @@
                             </p>
                         </td>
                         <td>
-                            <p class="bold"><u>Sitti Kahirah Adami, SH    </u>
+                            <p class="bold"><u>Sitti Kahirah Adami, SH </u>
                             <p style="margin-top: -10px">NIP.196810052005012014</p>
                             </p>
                         </td>
