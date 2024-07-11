@@ -192,14 +192,16 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            <a href="#"
-                                                                onclick="verifikasi({{ $data->id }}, 'eksternal', '{{ $data->is_verif }}')"
-                                                                class="btn btn-primary mb-2">Verifikasi</a>
-                                                            <a href="{{ route('guru.edit', $data->id) }}"
-                                                                class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                            <button onclick="deleteData({{ $data->id }}, 'eksternal')"
-                                                                class="btn btn-danger"><i
-                                                                    class="fas fa-trash-alt"></i></button>
+                                                            @if (in_array(session('role'), ['admin', 'superadmin']) && $data->is_verif !== 'sudah')
+                                                                <a href="#" class="btn btn-primary mb-2"
+                                                                    onclick="verifikasi({{ $data->id }}, 'eksternal', '{{ $data->is_verif }}')">Verifikasi</a>
+                                                            @endif
+                                                        
+                                                            <a href="{{ route('guru.edit', $data->id) }}" class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+                                                        
+                                                            <button onclick="deleteData({{ $data->id }}, 'eksternal')" class="btn btn-danger">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
                                                         </td>
 
 

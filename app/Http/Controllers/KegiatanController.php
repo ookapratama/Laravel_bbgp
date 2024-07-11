@@ -16,7 +16,7 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $datas = Kegiatan::get();
+        $datas = Kegiatan::orderBy('id', 'DESC')->get();
         $menu = $this->menu;
         return view('pages.admin.kegiatan.index', compact('menu', 'datas'));
     }

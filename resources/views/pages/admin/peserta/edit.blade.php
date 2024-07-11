@@ -1,4 +1,4 @@
-@extends('layouts.user.app', ['title' => 'Edit Data Peserta'])
+@extends('layouts.app', ['title' => 'Edit Data Peserta'])
 
 @section('content')
     @push('styles')
@@ -88,6 +88,15 @@
                                                 <label>NIK</label>
                                                 <input value="{{ $datas->no_ktp }}" name="no_ktp" id="no_ktp"
                                                     type="number" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>NIP</label>
+                                                <input name="nip" id="nip" value="{{ $datas->nip }}" type="number" class="form-control"
+                                                    required>
                                             </div>
                                         </div>
 
@@ -205,7 +214,7 @@
                                                         value="panitia">Panitia</option>
                                                     <option
                                                         {{ $datas->status_keikutpesertaan == 'narasumber' ? 'selected' : '' }}
-                                                        value="">Narasumber</option>
+                                                        value="narasumber">Narasumber</option>
                                                 </select>
                                             </div>
                                         </div>

@@ -140,14 +140,14 @@
                 <tr style="padding: 10px">
                     <td class="text-title">NIP</td>
                     <td>
-                        <p><span class="highlight">: {{ $data->peserta->pegawai->nip }}</span></p>
+                        <p><span class="highlight">: {{ $data->peserta->pegawai->nip ?? $data->peserta->nip }}</span></p>
                     </td>
                 </tr>
 
                 <tr>
                     <td valign="top" width="80" class="text-title">Jabatan</td>
                     <td>
-                        <p style="text-align: justify">:  {{ $data->peserta->pegawai->jabatan }}
+                        <p style="text-align: justify">:  {{ $data->peserta->pegawai->jabatan ?? $data->peserta->nip }}
 
                         </p>
                     </td>

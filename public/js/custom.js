@@ -25,7 +25,7 @@ const deleteData = (id, tabel) => {
                     "X-CSRF-TOKEN": token,
                 },
                 type: "POST",
-                url: `/dashboard/${tabel}/hapus/${id}`,
+                url: `${tabel}/hapus/${id}`,
                 success: function (response) {
                     console.log(response);
                     if (response) {
@@ -73,7 +73,13 @@ const verifikasi = (id, tabel, status) => {
                     "X-CSRF-TOKEN": token,
                 },
                 type: "POST",
-                url: `/dashboard/${tabel}/verifikasi/${id}`,
+                url: `${tabel}/verifikasi/${id}`,
+                // url: `{{ route('${tabel}.' verifikasi'/${id}') }}`, 
+                // url: `{{ route('${tabel}.verifikasi', ['id' => ${id}]) }}`,
+                // let url = $(this).data('url'),
+                // url: `{{ route('${tabel}.verifikasi', ['tabel' => $tabel, 'id' => $id]) }}`,
+                //    url : `{{ route('${tabel}.verifikasi', ['tabel' => ${tabel}, 'id' => ${id}]) }}`,
+                // url : `{{ route('${tabel}.verifikasi', ['tabel' => ${tabel}, 'id' => ${id}]) }}`,
                 success: function (response) {
                     console.log(response.data.data);
                     console.log(response.data.stats);
@@ -86,7 +92,7 @@ const verifikasi = (id, tabel, status) => {
 
                         swal(
                             "Berhasil",
-                            "Data telah diverifikasi",
+                            "Data telah diverifikasi, Akun telah dibuatkan, silahkan cek di data akun",
                             "success"
                         ).then(() => {
                             location.reload();
@@ -121,7 +127,7 @@ function register(data) {
         },
         type: "POST",
 
-        url: `/dashboard/akun/regis`,
+        url: `akun/regis`,
         data: {
             // Data tambahan yang ingin dikirim
             username: data.nama_lengkap, // Data diambil dari respons verifikasi

@@ -60,10 +60,11 @@ class HonorController extends Controller
 
             $total = $v->jumlah_honor - $v->pot;
 
+            // dd($v);
             // Tambahkan hasil perhitungan ke array $datas
             $datas[] = [
-                'nama' => $v->peserta->nama,
-                'jabatan' => $v->peserta->status_keikutpesertaan,
+                'nama' => $v->peserta->nama ?? '',
+                'jabatan' => $v->peserta->status_keikutpesertaan ?? '',
                 'jp_realisasi' => $v->jp_realisasi,
                 'jumlah' => $this->rupiahFormat($v->jumlah),
                 'jumlah_honor' => $this->rupiahFormat($v->jumlah_honor),
@@ -74,7 +75,6 @@ class HonorController extends Controller
             ];
         }
 
-        // dd($datas);
         return view('pages.admin.honor.index', compact('menu', 'datas', 'title'));
     }
 
@@ -91,7 +91,7 @@ class HonorController extends Controller
         $menu = $this->menu;
         $title = $menu;
         
-        $peserta = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')
+        $peserta = PesertaKegiatan::orderBy('id', 'DESC')->where('status_keikutpesertaan', 'narasumber')
             ->orWhere('status_keikutpesertaan', 'panitia')
             ->get();
         // dd($peserta);

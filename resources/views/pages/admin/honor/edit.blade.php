@@ -37,12 +37,12 @@
                                                         $tgl_selesai = strftime('%d %B %Y', strtotime($v->tgl_selesai));
                                                         ?>
                                                         <option {{ $datas->id_peserta == $v->id ? 'selected' : '' }}
-                                                            data-jabatan="{{ $v->status_keikutpesertaan }}"
+                                                            data-jabatan="{{ $v->status_keikutpesertaa ?? '' }}"
                                                             data-golongan="{{ $v->golongan }}"
                                                             data-jabatan="{{ $v->jabatan }}"
                                                             data-mulai="{{ $tgl_kegiatan }}"
                                                             data-selesai="{{ $tgl_selesai }}"
-                                                            data-kegiatan="{{ $v->kegiatan->nama_kegiatan }}"
+                                                            data-kegiatan="{{ $v->kegiatan->nama_kegiatan ?? '' }}"
                                                             value="{{ $v->id }}">
                                                             {{ $v->no_ktp . ' - ' . $v->nama }}
                                                         </option>
@@ -55,7 +55,7 @@
                                             <div class="form-group">
                                                 <label>Jabatan dalam kegiatan</label>
                                                 <input readonly required name="jabatan" id="jabatan" type="text"
-                                                    class="form-control" value="{{ $datas->peserta->status_keikutpesertaan }}">
+                                                    class="form-control" value="{{ $datas->peserta->status_keikutpesertaan ?? '' }}">
                                             </div>
                                         </div>
 
@@ -73,7 +73,7 @@
                                             <div class="form-group">
                                                 <label>Kegiatan yang diikuti</label>
                                                 <input readonly required name="kegiatan" id="kegiatan" type="text"
-                                                    class="form-control" value="{{ $datas->peserta->kegiatan->nama_kegiatan }}">
+                                                    class="form-control" value="{{ $datas->peserta->kegiatan->nama_kegiatan ?? '' }}">
                                             </div>
                                         </div>
                                     </div>

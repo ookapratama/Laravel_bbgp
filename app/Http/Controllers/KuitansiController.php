@@ -22,7 +22,7 @@ class KuitansiController extends Controller
      */
     public function index()
     {
-        $datas = Kuitansi::get();
+        $datas = Kuitansi::orderBy('id', 'DESC')->get();
         $menu = $this->menu;
         $title = 'kuitansi';
         // dd($datas);

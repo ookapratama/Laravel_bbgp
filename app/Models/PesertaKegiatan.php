@@ -13,6 +13,7 @@ class PesertaKegiatan extends Model
         'id_pegawai',
         'nama',
         'no_ktp',
+        'nip',
         'signature',
         'status_keikutpesertaan',
         // 'instansi',

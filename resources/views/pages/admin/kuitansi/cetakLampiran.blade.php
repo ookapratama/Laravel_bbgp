@@ -113,9 +113,9 @@
                 <tr>
                     <td>{{ ++$i }} </td>
                     <td>{{ $v->peserta->nama }}</td>
-                    <td>{{ $v->peserta->pegawai->nip }}</td>
+                    <td>{{ $v->peserta->pegawai->nip  ?? $v->peserta->nip }}</td>
                     <td>{{ $v->peserta->golongan }}</td>
-                    <td>{{ $v->peserta->pegawai->jabatan }}</td>
+                    <td>{{ $v->peserta->pegawai->jabatan ?? $v->peserta->jabatan }}</td>
                     <td>{{ $v->kabupaten->name }}</td>
                     <td>{{ $v->lokasi_tujuan }}</td>
                     <td>C</td>

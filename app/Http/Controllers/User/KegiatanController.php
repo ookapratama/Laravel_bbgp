@@ -134,6 +134,7 @@ class KegiatanController extends Controller
         // dd($data);
         // dd($request->all());
         $data->save();
+        Session::flush();
 
         return redirect()->route('user.kegiatan')->with('message', 'sukses daftar');
     }
@@ -173,8 +174,9 @@ class KegiatanController extends Controller
         }else {
             $status = true;
         }
-        Session::put('dataAda', $nik);
-
+        Session::put('nik', $nik);
+        Session::put('dataAda', $status);
+        // dd($peserta->nama);
         return response()->json([
             'success' => $status,
             'data' => $peserta,

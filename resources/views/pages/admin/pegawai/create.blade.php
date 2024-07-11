@@ -181,7 +181,7 @@
 
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Golongan / Jabatan</label>
+                                                <label>Golongan</label>
                                                 <select required name="golongan" class="form-control select2">
                                                     <option value="">-- Pilih Golongan --</option>
                                                     @foreach ($datas['golongan'] as $v)
@@ -222,9 +222,15 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Jabatan</label>
-                                                <input type="text" name="jabatan" class="form-control">
+                                                <select required name="golongan" class="form-control select2">
+                                                    <option value="">-- Pilih Golongan --</option>
+                                                    @foreach ($datas['jabatan'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
+
                                         {{-- <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Pas Foto</label>

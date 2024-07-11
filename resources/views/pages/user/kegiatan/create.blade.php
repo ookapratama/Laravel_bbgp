@@ -73,6 +73,14 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>NIP</label>
+                                                <input name="nip" id="nip" type="number" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+
 
 
 
@@ -104,35 +112,35 @@
                                                     required>
                                             </div>
                                         </div>
-                                        @if (session('dataAda') != null)
-                                        
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Golongan</label>
+                                        @if (session('dataAda'))
+                                        {{-- {{ dump(session('dataAda') ) }} --}}
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Golongan</label>
 
-                                                {{-- <select name="golongan" id="" class="form-control select2">
+                                                    {{-- <select name="golongan" id="" class="form-control select2">
                                                     <option value="">-- pilih golongan --</option>
                                                     @foreach ($status['golongan'] as $v)
                                                         <option value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
                                                 </select> --}}
-                                                <input  name="golongan" id="golongan" type="text"
-                                                class="form-control" required>
+                                                    <input name="golongan" id="golongan" type="text"
+                                                        class="form-control" required>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label>Jenis Kelamin</label>
-                                                {{-- <select name="gender" id="" class="form-control">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Jenis Kelamin</label>
+                                                    {{-- <select name="gender" id="" class="form-control">
                                                     <option value="">-- pilih jenis kelamin --</option>
                                                     <option value="Laki-laki">Laki-laki</option>
                                                     <option value="Perempuan">Perempuan</option>
                                                 </select> --}}
-                                                <input name="gender" id="gender" type="text" class="form-control"
-                                                required>
+                                                    <input name="gender" id="gender" type="text" class="form-control"
+                                                        required>
+                                                </div>
                                             </div>
-                                        </div>
                                         @else
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -276,11 +284,11 @@
                     url: '{{ route('user.peserta.cekData') }}',
                     type: 'GET',
                     data: {
-
-                        nik: '{{ session('dataAda') }}'
+                        nik: '{{ session('nik') }}'
                     },
                     success: function(response) {
                         console.log(response.data);
+                        // console.log(response);
 
                         $('#no_ktp').val(response.data.no_ktp);
                         $('#nama').val(response.data.nama);

@@ -31,21 +31,21 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input name="no_ktp" required placeholder="Masukkan Nomor KTP"
+                                                <input value="{{ $datas->no_ktp }}" name="no_ktp" required placeholder="Masukkan Nomor KTP"
                                                     type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Nama</label>
-                                                <input name="name" required placeholder="Masukkan Nama Akun"
+                                                <input  value="{{ $datas->name }}" name="name" required placeholder="Masukkan Nama Akun"
                                                     type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input name="username" required placeholder="Masukkan Usernam untuk login"
+                                                <input  value="{{ $datas->name }}"name="username" required placeholder="Masukkan Usernam untuk login"
                                                     type="text" class="form-control">
                                             </div>
                                         </div>
@@ -77,13 +77,17 @@
                                     </div>
 
                                     <div class="row">
-
                                         <div class="col-md-4">
-
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-plus"></i>
                                                 Update Data Akun
                                             </button>
+                                        </div>
+                                        <div class="col-md-8 text-right">
+                                            <a href="{{ route('akun.index') }}" class="btn btn-warning my-2">
+                                                <i class="fas fa-arrow-left"></i>
+                                                Kembali
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

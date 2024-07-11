@@ -40,6 +40,7 @@ class PegawaiController extends Controller
             's_kabupaten' => Kabupaten::get(),
             's_kecamatan' => Kecamatan::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
+            'jabatan' => JabatanPenugasanPegawai::get(),
             // 's_sekolah' => Sekolah::select('npsn_sekolah', 'nama_sekolah', 'kecamatan', 'kabupaten')->get(),
             // 's_sekolah' => $sekolahs,
             // 's_jabPendidik' => JabatanPendidik::get(),
@@ -145,7 +146,7 @@ class PegawaiController extends Controller
         // } else {
         // }
         $r['pas_foto'] = '';
-        $r['is_verif'] = 'belum';
+        // $r['is_verif'] = 'belum';
         // dd($r);
         $data->update($r);
         if (session('role') == 'pegawai') {

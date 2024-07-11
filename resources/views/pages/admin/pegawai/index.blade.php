@@ -31,7 +31,6 @@
                                                 <th class="text-center">
                                                     #
                                                 </th>
-                                                <th>Pas Foto</th>
                                                 <th>Nama Lengkap</th>
                                                 <th>Email</th>
                                                 <th>Nomor KTP</th>
@@ -39,12 +38,10 @@
                                                 <th>Alamat Rumah</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>Jabatan</th>
-                                                <th>Status</th>
                                                 <th>Agama</th>
                                                 <th>Pendidikan Terakhir</th>
                                                 <th>Kabupaten/Kota</th>
                                                 <th>Satuan Pendidikan</th>
-                                                <th>Alamat Satuan Pendidikan</th>
                                                 <th>Nomor Aktif</th>
                                                 <th>No Rekening</th>
                                                 <th>Status Verifikasi</th>
@@ -57,11 +54,7 @@
                                                     <td>
                                                         {{ ++$i }}
                                                     </td>
-                                                    <td>
-                                                        <img src="{{ asset('/upload/pegawai/' . $data->pas_foto) }}"
-                                                            alt="" class="img-fluid">
-
-                                                    </td>
+                                     
                                                     <td>{{ $data->nama_lengkap }}</td>
                                                     <td>{{ $data->email }} </td>
                                                     <td>{{ $data->no_ktp }}</td>
@@ -69,15 +62,11 @@
                                                     <td>{{ $data->alamat_rumah }}</td>
                                                     <td>{{ $data->gender }}</td>
                                                     <td>{{ $data->jabatan }}</td>
-                                                    <td>{{ $data->status }}</td>
                                                     <td>{{ $data->agama }}</td>
                                                     <td>{{ $data->pendidikan }}</td>
                                                     <td>{{ $data->kabupaten }}</td>
                                                     <td>
-                                                        {{ $data->satuan_pendidikan }}>
-                                                    </td>
-                                                    <td>
-                                                        {{ $data->alamat_satuan }}
+                                                        {{ $data->satuan_pendidikan }}
                                                     </td>
                                                     <td>No. Hp : {{ $data->no_hp }} <br>
                                                         No. Whatsapp : {{ $data->no_wa }}
@@ -94,17 +83,14 @@
 
                                                     </td>
                                                     <td>
-                                                        <a href="#" class="btn btn-primary mb-2"
-                                                            onclick="verifikasi({{ $data->id }}, 'pegawai', '{{ $data->is_verif }}')">Verifikasi</a>
-
-                                                        {{-- <a href="#" class="btn btn-info"><i
-                                                                class="fas fa-print"></i></a> --}}
-
-                                                        <a href="{{ route('pegawai.edit', $data->id) }} "
-                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-
-                                                        <button onclick="deleteData({{ $data->id }}, 'pegawai')"
-                                                            class="btn btn-danger">
+                                                        @if (in_array(session('role'), ['admin', 'superadmin']) && $data->is_verif !== 'sudah')
+                                                            <a href="#" class="btn btn-primary mb-2"
+                                                                onclick="verifikasi({{ $data->id }}, 'pegawai', '{{ $data->is_verif }}')">Verifikasi</a>
+                                                        @endif
+                                                    
+                                                        <a href="{{ route('pegawai.edit', $data->id) }}" class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+                                                    
+                                                        <button onclick="deleteData({{ $data->id }}, 'pegawai')" class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
                                                     </td>

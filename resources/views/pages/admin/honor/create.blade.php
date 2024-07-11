@@ -38,7 +38,7 @@
                                                             data-golongan="{{ $v->golongan }}"
                                                             data-mulai="{{ $tgl_kegiatan }}"
                                                             data-selesai="{{ $tgl_selesai }}"
-                                                            data-kegiatan="{{ $v->kegiatan->nama_kegiatan }}"
+                                                            data-kegiatan="{{ $v->kegiatan->nama_kegiatan ?? '' }}"
                                                             value="{{ $v->id }}">
                                                             {{ $v->no_ktp . ' - ' . $v->nama }}
                                                         </option>

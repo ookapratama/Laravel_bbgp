@@ -89,6 +89,14 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>NIP</label>
+                                                <input name="nip" id="nip" type="number" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+
 
 
 
