@@ -73,7 +73,8 @@
                                                 <th>NIK</th>
                                                 <th>Status Keikutpesertaan</th>
                                                 <th>Instansi</th>
-                                                <th>Golongan</th>
+                                                <th>Golongan</th>                                                
+                                                <th>Jenis Golongan</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>Kelengkapan Trasnport</th>
                                                 <th>Kelengkapan Biodata</th>
@@ -190,6 +191,7 @@
                                             <td>${peserta.status_keikutpesertaan}</td>
                                             <td>${peserta.instansi}</td>
                                             <td>${peserta.golongan ?? ''}</td>
+                                            <td>${peserta.jenis_gol ?? ''}</td>
                                             <td>${peserta.jkl ?? ''}</td>
                                             <td>${peserta.kelengkapan_peserta_transport ?? ''}</td>
                                             <td>${peserta.kelengkapan_peserta_biodata ?? ''}</td>
@@ -316,6 +318,7 @@
                         </p>
                         <p><strong>Instansi:</strong> ${response.instansi ?? ''}</p>
                         <p><strong>Golongan:</strong> ${response.golongan ?? ''}</p>
+                        <p><strong>jenis_gol:</strong> ${response.jenis_gol ?? ''}</p>
                         <p><strong>Jenis Kelamin:</strong> ${response.jkl ?? ''}</p>
                         <p><strong>Kelengkapan Peserta Transport:</strong> ${response.kelengkapan_peserta_transport ?? ''}</p>
                         <p><strong>Kelengkapan Peserta Biodata:</strong> ${response.kelengkapan_peserta_biodata ?? ''}</p>
@@ -447,6 +450,7 @@
                                             <td>${peserta.status_keikutpesertaan}</td>
                                             <td>${peserta.instansi}</td>
                                             <td>${peserta.golongan ?? 'Tidak '}</td>
+                                            <td>${peserta.jenis_gol ?? 'Tidak '}</td>
                                             <td>${peserta.jkl ?? ''}</td>
                                             <td>${peserta.kelengkapan_peserta_transport ?? ''}</td>
                                             <td>${peserta.kelengkapan_peserta_biodata ?? ''}</td>
@@ -550,6 +554,7 @@
 
                         <p><strong>Instansi:</strong> ${response.instansi ?? ''}</p>
                         <p><strong>Golongan:</strong> ${response.golongan ?? ''}</p>
+                        <p><strong>Golongan:</strong> ${response.jenis_gol ?? ''}</p>
                         <p><strong>Jenis Kelamin:</strong> ${response.jkl ?? ''}</p>
                         <p><strong>Kelengkapan Peserta Transport:</strong> ${response.kelengkapan_peserta_transport ?? ''}</p>
                         <p><strong>Kelengkapan Peserta Biodata:</strong> ${response.kelengkapan_peserta_biodata ?? ''}</p>

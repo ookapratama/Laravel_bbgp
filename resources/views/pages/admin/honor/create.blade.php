@@ -23,7 +23,21 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
+
                                         <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Kegiatan yang diikuti</label>
+                                                <select name="kegiatan" id="kegiatan" class="form-control select2">
+                                                    <option value="">-- pilih Kegiatan --</option>
+                                                    @foreach ($kegiatan as $v)
+                                                        <option value="{{ $v->id }}">{{ $v->nama_kegiatan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+
                                             <div class="form-group">
                                                 <label>Nama Penerima</label>
                                                 <select required name="id_peserta" id="idPeserta" class="form-control select2">
@@ -54,6 +68,31 @@
                                                     class="form-control">
                                             </div>
                                         </div>
+                                        
+                                        
+                                    </div>
+
+                                    <div class="row">
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Instansi</label>
+                                                <input required required name="instansi" id="instansi" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Jenis Golongan</label>
+                                                <select name="jenis_gol" id="jenis_gol" class="form-control select2">
+                                                    <option value="">-- pilih jenis kelamin --</option>
+                                                    <option value="PNS">PNS</option>
+                                                    <option value="P3K">P3K</option>
+                                                    <option value="P3K">Tidak Ada Golongan</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
@@ -62,17 +101,7 @@
                                                     class="form-control">
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Kegiatan yang diikuti</label>
-                                                <input required readonly required name="kegiatan" id="kegiatan" type="text"
-                                                    class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div>                
 
                                     <div class="row">
                                         <div class="col-md-4">

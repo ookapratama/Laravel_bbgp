@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Honor;
+use App\Models\Kegiatan;
 use App\Models\PesertaKegiatan;
 // use Dompdf\Dompdf;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -33,7 +34,8 @@ class HonorController extends Controller
     public function index()
     {
         $menu = $this->menu;
-        $title = $menu;
+        $title = 'honor';
+        $kegiatan = PesertaKegiatan::get();
         $honor = Honor::get();
         $datas = [];
         // $pot = 0;
@@ -71,7 +73,9 @@ class HonorController extends Controller
                 'pot' => $this->rupiahFormat($v->potongan),
                 'total' => $this->rupiahFormat($total),
                 'id' => $v->id, // Jika perlu tambahkan ID atau atribut lain yang relevan
-                'golongan' => $v->golongan, // Atau atribut lainnya yang ingin ditampilkan
+                'golongan' => $v->golongan,
+                'jenis_gol' => $v->jenis_gol,
+                'instansi' => $v->instansi, // Atau atribut lainnya yang ingin ditampilkan
             ];
         }
 
@@ -89,7 +93,10 @@ class HonorController extends Controller
     public function create()
     {
         $menu = $this->menu;
-        $title = $menu;
+        $title ='honor';
+        $kegiatan = Kegiatan::orderBy('id', 'DESC')->get();
+        // dd($kegiatan);
+
         
         $peserta = PesertaKegiatan::orderBy('id', 'DESC')->where('status_keikutpesertaan', 'narasumber')
             ->orWhere('status_keikutpesertaan', 'panitia')
@@ -100,7 +107,7 @@ class HonorController extends Controller
         //     dump($value->kegiatan);
         // }
         // dd(true);
-        return view('pages.admin.honor.create', compact('menu', 'peserta'));
+        return view('pages.admin.honor.create', compact('menu', 'peserta', 'kegiatan'));
     }
 
     /**

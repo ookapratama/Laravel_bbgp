@@ -11,6 +11,7 @@ class Honor extends Model
     protected $fillable = [
         'id_peserta',
         'golongan',
+        'jenis_gol',
         'jp_realisasi',
         'jumlah',
         'jumlah_honor',

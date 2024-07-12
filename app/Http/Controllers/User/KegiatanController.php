@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\GolonganP3k;
 use App\Models\Guru;
 use App\Models\JabatanPenugasanGolongan;
 use App\Models\Kabupaten;
@@ -90,7 +91,10 @@ class KegiatanController extends Controller
             'kegiatanById' => Kegiatan::find($kegiatanId),
             'kabupaten' => Kabupaten::all(),
             'golongan' => JabatanPenugasanGolongan::all(),
-            'kabupaten' => $kabupaten
+            'kabupaten' => $kabupaten,
+            'golongan_p3k' => GolonganP3k::get(),
+
+            
         ];
         // dd($status);
 
@@ -111,6 +115,7 @@ class KegiatanController extends Controller
         $data->status_keikutpesertaan = $request->status_keikutpesertaan;
         $data->instansi = $request->instansi;
         $data->golongan = $request->golongan;
+        $data->jenis_gol = $request->jenis_gol;
         $data->jkl = $request->gender;
         $data->kelengkapan_peserta_transport = $request->kelengkapan_transport;
         $data->kelengkapan_peserta_biodata = $request->kelengkapan_biodata;

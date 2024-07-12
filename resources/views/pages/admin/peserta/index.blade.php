@@ -105,6 +105,7 @@
                                                 <th>Status Keikutpesertaan</th>
                                                 <th>Nama Kegiatan</th>
                                                 <th>Instansi</th>
+                                                <th>Jenis Golongan</th>
                                                 <th>Golongan</th>
                                                 <th>Kontak</th>
                                                 <th>Action</th>
@@ -119,6 +120,7 @@
                                                     <td>{{ $data->status_keikutpesertaan ?? '' }}</td>
                                                     <td><b> {{ $data->kegiatan->nama_kegiatan ?? '' }} </b></td>
                                                     <td>{{ $data->instansi }}</td>
+                                                    <td>{{ $data->jenis_gol }}</td>
                                                     <td>{{ $data->golongan }}</td>
                                                     <td>No : Hp {{ $data->no_hp }}
                                                         <br>

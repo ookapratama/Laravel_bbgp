@@ -82,11 +82,6 @@
                                         </div>
 
 
-
-
-
-
-
                                     </div>
 
                                     <div class="row">
@@ -112,8 +107,30 @@
                                                     required>
                                             </div>
                                         </div>
+
+
+
+
+                                    </div>
+
+                                    <div class="row">
                                         @if (session('dataAda'))
-                                        {{-- {{ dump(session('dataAda') ) }} --}}
+                                            {{-- {{ dump(session('dataAda') ) }} --}}
+
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Jenis Kelamin</label>
+                                                    {{-- <select name="gender" id="" class="form-control">
+                                                    <option value="">-- pilih jenis kelamin --</option>
+                                                    <option value="Laki-laki">Laki-laki</option>
+                                                    <option value="Perempuan">Perempuan</option>
+                                                </select> --}}
+                                                    <input name="gender" id="gender" type="text" class="form-control"
+                                                        required>
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Golongan</label>
@@ -128,25 +145,48 @@
                                                         class="form-control" required>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label>Jenis Kelamin</label>
-                                                    {{-- <select name="gender" id="" class="form-control">
-                                                    <option value="">-- pilih jenis kelamin --</option>
-                                                    <option value="Laki-laki">Laki-laki</option>
-                                                    <option value="Perempuan">Perempuan</option>
-                                                </select> --}}
-                                                    <input name="gender" id="gender" type="text" class="form-control"
-                                                        required>
-                                                </div>
-                                            </div>
                                         @else
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label>Golongan</label>
+                                                    <label>Jenis Kelamin</label>
+                                                    <select name="gender" id="" class="form-control">
+                                                        <option value="">-- pilih jenis kelamin --</option>
+                                                        <option value="Laki-laki">Laki-laki</option>
+                                                        <option value="Perempuan">Perempuan</option>
+                                                    </select>
+                                                    {{-- <input name="gender" id="gender" type="text" class="form-control"
+                                                    required> --}}
+                                                </div>
+                                            </div>
 
-                                                    <select name="golongan" id="" class="form-control select2">
+                                            
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Jenis Golongan</label>
+                                                    <select name="jenis_gol" id="jenis_gol" class="form-control select2">
+                                                        <option value="">-- pilih jenis kelamin --</option>
+                                                        <option value="PNS">PNS</option>
+                                                        <option value="P3K">P3K</option>
+                                                        <option value="tidak ada golongan">Tidak Ada Golongan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-3" id="diluar_gol">
+                                                <div class="form-group">
+                                                    <label>Isi Jenis Golongan </label>
+                                                    <input name="diluar_gol" id="diluar_gol" type="text"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Golongan PNS</label>
+
+                                                    <select name="golongan" id="golongan_pns" class="form-control select2">
                                                         <option value="">-- pilih golongan --</option>
                                                         @foreach ($status['golongan'] as $v)
                                                             <option value="{{ $v->name }}">{{ $v->name }}</option>
@@ -159,32 +199,41 @@
 
                                             <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label>Jenis Kelamin</label>
-                                                    <select name="gender" id="" class="form-control">
-                                                        <option value="">-- pilih jenis kelamin --</option>
-                                                        <option value="Laki-laki">Laki-laki</option>
-                                                        <option value="Perempuan">Perempuan</option>
+                                                    <label>Golongan P3K</label>
+
+                                                    <select name="golongan" id="golongan_p3k" class="form-control select2">
+                                                        <option value="">-- pilih golongan --</option>
+                                                        @foreach ($status['golongan_p3k'] as $v)
+                                                            <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                        @endforeach
                                                     </select>
-                                                    {{-- <input name="gender" id="gender" type="text" class="form-control"
-                                                    required> --}}
+                                                    {{-- <input  name="golongan" id="golongan" type="text"
+                                                    class="form-control" required> --}}
                                                 </div>
                                             </div>
-                                        @endif
 
+                                        @endif
                                     </div>
 
                                     <div class="row">
 
+
+
+
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor WhatsApp</label>
-                                                <input name="no_wa" id="no_wa" type="number" class="form-control">
+                                                <input name="no_wa" id="no_wa" type="number"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Handphone</label>
-                                                <input name="no_hp" id="no_hp" type="number" class="form-control">
+                                                <input name="no_hp" id="no_hp" type="number"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -193,13 +242,15 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Surat (CONTOH : 0562/KEU/IV/2024)</label>
-                                                <input name="no_surat_tugas" type="text" class="form-control" required>
+                                                <input name="no_surat_tugas" type="text" class="form-control"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Tanggal Surat Tugas</label>
-                                                <input name="tgl_surat_tugas" type="date" class="form-control" required>
+                                                <input name="tgl_surat_tugas" type="date" class="form-control"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -216,7 +267,7 @@
                                         </div>
                                     </div>
 
-                                    <div id="formOpsional">
+                                    {{-- <div id="formOpsional">
                                         <div class="row">
                                             <div class="col-md-4" id="transportContainer">
                                                 <div class="form-group">
@@ -242,7 +293,7 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> --}}
 
                                     {{-- Signature Section --}}
                                     <div class="row">
@@ -295,6 +346,7 @@
                         $('#jabatan').val(response.data.jabatan);
                         $('#gender').val(response.data.jkl);
                         $('#golongan').val(response.data.golongan);
+                        $('#jenis_gol').val(response.data.jenis_gol);
                         $('#kabupaten').val(response.data.kabupaten);
                         $('#instansi').val(response.data.instansi);
                         $('#no_hp').val(response.data.no_hp);
@@ -328,6 +380,18 @@
                     }
                 });
 
+                $('#jenis_gol').change(function() {
+                    let status = $(this).val();
+                    if (status === 'tidak ada golongan') {
+                        $('#formOpsional').show();
+                    } else if (status === 'PNS') {
+                        $('#formOpsional').hide();
+                    } else if (status === 'P3K') {
+                        $('#formOpsional').hide();
+
+                    }
+                });
+
                 $('#id_pegawai').change(function() {
                     var selectedOption = $(this).find('option:selected');
                     // console.log(selectedOption);
@@ -336,6 +400,7 @@
                     var no_ktp = selectedOption.data('no_ktp');
                     var kabupaten = selectedOption.data('kabupaten');
                     var golongan = selectedOption.data('golongan');
+                    var jenis_gol = selectedOption.data('jenis_gol');
                     var gender = selectedOption.data('gender');
                     var instansi = selectedOption.data('instansi');
                     var no_hp = selectedOption.data('hp');
@@ -348,6 +413,7 @@
                     $('#jabatan').val(jabatan);
                     $('#gender').val(gender);
                     $('#golongan').val(golongan);
+                    $('#jenis_gol').val(jenis_gol);
                     $('#kabupaten').val(kabupaten);
                     $('#instansi').val(instansi);
                     $('#no_hp').val(no_hp);

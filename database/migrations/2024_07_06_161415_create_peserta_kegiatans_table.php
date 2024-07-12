@@ -19,6 +19,8 @@ return new class extends Migration
             $table->enum('status_keikutpesertaan', ['peserta', 'panitia', 'narasumber']);
             $table->string('instansi')->nullable();
             $table->string('golongan')->nullable();
+            $table->string('jenis_gol')->nullable();
+            $table->string('diluar_gol')->nullable();
             $table->enum('jkl', ['Laki-laki', 'Perempuan'])->nullable();
             $table->string('kelengkapan_peserta_transport')->nullable();
             $table->string('kelengkapan_peserta_biodata')->nullable();
