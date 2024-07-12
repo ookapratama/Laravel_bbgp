@@ -72,7 +72,9 @@
                                                 <th class="text-center">#</th>
                                                 <th>Nama Penerima</th>
                                                 <th>Jabatan dalam kegiatan</th>
+                                                <th>Jenis Golongan</th>
                                                 <th>Golongan</th>
+                                                <th>Instansi</th>
                                                 <th>JP Realisasi</th>
                                                 <th>Jumlah</th>
                                                 <th>Jumlah Honor</th>
@@ -88,7 +90,9 @@
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data['nama'] ?? '' }}</td>
                                                     <td>{{ $data['jabatan'] ?? '' }}</td>
+                                                    <td>{{ $data['jenis_gol'] ?? '' }}</td>
                                                     <td>{{ $data['golongan'] ?? '' }}</td>
+                                                    <td>{{ $data['instansi'] ?? '' }}</td>
                                                     <td>{{ $data['jp_realisasi'] }}.0</td>
                                                     <td>{{ $data['jumlah'] ?? 0 }} </td>
                                                     <td>{{ $data['jumlah_honor'] ?? 0 }}</td>

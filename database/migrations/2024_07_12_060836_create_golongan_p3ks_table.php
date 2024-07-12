@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('honors', function (Blueprint $table) {
+        Schema::create('golongan_p3ks', function (Blueprint $table) {
             $table->id();
-            $table->string('id_peserta');
-            $table->string('golongan');
-            $table->string('jenis_gol');
-            $table->integer('jp_realisasi');
-            $table->integer('jumlah');
-            $table->integer('jumlah_honor');
-            $table->integer('potongan');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('honors');
+        Schema::dropIfExists('golongan_p3ks');
     }
 };

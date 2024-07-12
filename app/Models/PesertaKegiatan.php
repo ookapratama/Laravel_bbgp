@@ -18,6 +18,8 @@ class PesertaKegiatan extends Model
         'status_keikutpesertaan',
         // 'instansi',
         'golongan',
+        'jenis_gol',
+        'diluar_gol',
         'jkl',
         'kelengkapan_peserta_transport',
         'kelengkapan_peserta_biodata',
