@@ -16,7 +16,7 @@ class PesertaKegiatan extends Model
         'nip',
         'signature',
         'status_keikutpesertaan',
-        // 'instansi',
+        'instansi',
         'golongan',
         'jenis_gol',
         'diluar_gol',
@@ -30,7 +30,6 @@ class PesertaKegiatan extends Model
         // 'jam_mengajar',
         // 'jam_selesai',
         'no_surat_tugas',
-        'instansi',
         'tgl_surat_tugas',
     ];
 

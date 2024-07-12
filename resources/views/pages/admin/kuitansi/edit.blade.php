@@ -536,27 +536,30 @@
                     var biayaPergi = parseFloat($('#biaya_pergi').val()) || 0;
                     var biayaPulang = parseFloat($('#biaya_pulang').val()) || 0;
                     var pajakBandara = parseFloat($('#pajak_bandara').val()) || 0;
-                    $('#jumlah_biaya_tiket').val((biayaPergi + biayaPulang) - pajakBandara);
+                    var jumlahBiayaTiket = (biayaPergi + biayaPulang) - pajakBandara;
+                    $('#jumlah_biaya_tiket').val(formatRupiah(jumlahBiayaTiket));
                 }
 
                 function calculateTransport() {
                     var biayaAsal = parseFloat($('#biaya_asal').val()) || 0;
                     var beaJarak = parseFloat($('#bea_jarak').val()) || 0;
                     var biayaTujuan = parseFloat($('#tujuan').val()) || 0;
-                    $('#total_transport').val(biayaAsal + beaJarak + biayaTujuan);
+                    var totalTransport = biayaAsal + beaJarak + biayaTujuan;
+                    $('#total_transport').val(formatRupiah(totalTransport));
                 }
 
                 function calculatePenginapan() {
                     var biayaPerMalam = parseFloat($('#biaya_penginapan').val()) || 0;
                     var jumlah_hari = parseFloat($('#jumlah_hari').val()) || 0;
-
-                    $('#total_penginapan').val((biayaPerMalam * 0.3) * jumlah_hari);
+                    var totalPenginapan = (biayaPerMalam * 0.3) * jumlahHari;
+                    $('#total_penginapan').val(formatRupiah(totalPenginapan));
                 }
 
                 function calculateHarian() {
                     var biayaPerHari = parseFloat($('#uang_harian').val()) || 0;
                     var jumlahHari = parseFloat($('#jumlah_hari').val()) || 0;
-                    $('#biaya_harian').val(biayaPerHari * jumlahHari);
+                    var biayaHarian = biayaPerHari * jumlahHari;
+                    $('#biaya_harian').val(formatRupiah(biayaHarian));
                 }
 
                 // function calculateRepresentasi() {
@@ -572,10 +575,8 @@
                     var jumlahBiayaHarian = parseFloat($('#biaya_harian').val()) || 0;
                     var potongan = parseFloat($('#potongan').val()) || 0;
 
-                    $('#jumlah_biaya_diterima').val(
-                         jumlahBiayaTiket + jumlahBiayaTransport + jumlahBiayaPenginapan +
-                        jumlahBiayaHarian
-                    );
+                    var jumlahBiayaDiterima = jumlahBiayaTiket + jumlahBiayaTransport + jumlahBiayaPenginapan + jumlahBiayaHarian - potongan;
+                    $('#jumlah_biaya_diterima').val(formatRupiah(jumlahBiayaDiterima));
                 }
 
                 // Event listeners for calculation
@@ -587,6 +588,10 @@
                 $('#jumlah_biaya_tiket, #pajak_bandara , #jumlah_hari, #tujuan, #uang_harian, #potongan')
                     .on('input', calculateTotalBiaya);
 
+                $('.rupiah').mask('000.000.000.000.000', {
+                    reverse: true
+                });
+
                 // Initialize calculations
                 calculateTiket();
                 calculateTransport();
@@ -594,6 +599,11 @@
                 calculateHarian();
                 calculateTotalBiaya();
 
+                function formatRupiah(number) {
+                var reverse = number.toString().split('').reverse().join('');
+                var ribuan = reverse.match(/\d{1,3}/g);
+                return ribuan.join('.').split('').reverse().join('');
+            }
 
 
 

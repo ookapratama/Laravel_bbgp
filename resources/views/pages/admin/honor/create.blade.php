@@ -82,7 +82,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jenis Golongan</label>
                                                 <select name="jenis_gol" id="jenis_gol" class="form-control select2">
@@ -94,7 +94,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Golongan</label>
                                                 <input required readonly required name="golongan" id="golongan" type="text"

@@ -116,7 +116,7 @@ class KegiatanController extends Controller
         $data->instansi = $request->instansi;
         $data->golongan = $request->golongan;
         $data->jenis_gol = $request->jenis_gol;
-        $data->jkl = $request->gender;
+        $data->jkl = $request->g    ender;
         $data->kelengkapan_peserta_transport = $request->kelengkapan_transport;
         $data->kelengkapan_peserta_biodata = $request->kelengkapan_biodata;
         $data->no_hp = $request->no_hp;

@@ -16,6 +16,7 @@ class Honor extends Model
         'jumlah',
         'jumlah_honor',
         'potongan',
+        
     ];
 
     public function peserta() {
