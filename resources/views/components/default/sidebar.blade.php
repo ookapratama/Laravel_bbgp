@@ -23,7 +23,6 @@
                     session('role') == 'kepala' ||
                     session('role') == 'keuangan' ||
                     session('role') == 'kepegawaian')
-
                 <li class="nav-item dropdown {{ $menu == 'MasterData' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
                         <span>Master Data</span></a>
@@ -76,7 +75,7 @@
                         <span>Data Keuangan</span></a>
                     <ul class="dropdown-menu">
 
-                        <li class="{{ $title == 'honor' ? 'active' : '' }}">
+                        <li class="{{ $title == 'Data Honor Kegiatan' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('honor.index') }}">
                                 Honor
                             </a>

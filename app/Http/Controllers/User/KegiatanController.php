@@ -91,7 +91,7 @@ class KegiatanController extends Controller
             'kegiatanById' => Kegiatan::find($kegiatanId),
             'kabupaten' => Kabupaten::all(),
             'golongan' => JabatanPenugasanGolongan::all(),
-            'kabupaten' => $kabupaten,
+            // 'kabupaten' => $kabupaten,
             'golongan_p3k' => GolonganP3k::get(),
         ];
         // dd($status);
@@ -126,7 +126,7 @@ class KegiatanController extends Controller
                 'golongan_p3k' => GolonganP3k::get(),
             ];
             // dd($status['kegiatanById']->id);
-            
+
 
             return redirect()->route('user.kegiatan_regist', [
                 'kegiatan_id' => $status['kegiatanById']->id,

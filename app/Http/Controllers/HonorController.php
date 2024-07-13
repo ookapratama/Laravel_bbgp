@@ -74,9 +74,11 @@ class HonorController extends Controller
                 'total' => $this->rupiahFormat($total),
                 'id' => $v->id, // Jika perlu tambahkan ID atau atribut lain yang relevan
                 'golongan' => $v->golongan,
-                'jenis_gol' => $v->jenis_gol,
-                'instansi' => $v->instansi, // Atau atribut lainnya yang ingin ditampilkan
+                'jenis_gol' => $v->peserta->jenis_gol ?? $v->jenis_gol,
+                'instansi' => $v->peserta->instansi ?? $v->instansi, // Atau atribut lainnya yang ingin ditampilkan
             ];
+
+            // dd($datas);
         }
 
         return view('pages.admin.honor.index', compact('menu', 'datas', 'title'));
@@ -93,16 +95,23 @@ class HonorController extends Controller
     public function create()
     {
         $menu = $this->menu;
-        $title ='honor';
+        $title = 'honor';
         $kegiatan = Kegiatan::orderBy('id', 'DESC')->get();
         // dd($kegiatan);
 
-        
+
         $peserta = PesertaKegiatan::orderBy('id', 'DESC')->where('status_keikutpesertaan', 'narasumber')
             ->orWhere('status_keikutpesertaan', 'panitia')
             ->get();
         // dd($peserta);
+        $status_gol = array(
+            'partisipanPanitia' => PesertaKegiatan::with('kegiatan')->where('status_keikutpesertaan', 'panitia')->orderByDesc(
+                'id'
+            )->get(),
+            'partisipanNarasumber' => PesertaKegiatan::with('kegiatan')->where('status_keikutpesertaan', 'narasumber')->orderByDesc('id')->get(),
 
+        );
+        // dd($status_gol);
         // foreach ($peserta as $key => $value) {
         //     dump($value->kegiatan);
         // }
@@ -176,9 +185,6 @@ class HonorController extends Controller
         $datas->update($req);
 
         return redirect()->route('honor.index')->with('message', 'update');
-
-
-
     }
 
     /**
@@ -194,9 +200,10 @@ class HonorController extends Controller
     public function cetak($jenis)
     {
         // Ambil data honor berdasarkan jenis (panitia/narasumber)
-        $honors = Honor::whereHas('peserta', function($query) use ($jenis) {
+        $honors = Honor::whereHas('peserta', function ($query) use ($jenis) {
             $query->where('status_keikutpesertaan', $jenis);
-        })->with('peserta')->get(); $honors = Honor::whereHas('peserta', function($query) use ($jenis) {
+        })->with('peserta')->get();
+        $honors = Honor::whereHas('peserta', function ($query) use ($jenis) {
             $query->where('status_keikutpesertaan', $jenis);
         })->with('peserta')->get();
 

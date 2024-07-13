@@ -113,6 +113,12 @@
         </script>
     @endif
 
+    @if (session('message') == 'error nik')
+        <script>
+            swal("Peringatan", "NIK atau NIP yang anda masukkan sudah terdaftar", "error");
+        </script>
+    @endif
+
     @if (session('message') == 'error golongan')
         <script>
             swal("Warning", "Golongan tidak valid", "error");

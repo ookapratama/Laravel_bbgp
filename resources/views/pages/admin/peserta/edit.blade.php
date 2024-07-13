@@ -91,12 +91,12 @@
                                             </div>
                                         </div>
 
-                                        
+
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input name="nip" id="nip" value="{{ $datas->nip }}" type="number" class="form-control"
-                                                    required>
+                                                <input name="nip" id="nip" value="{{ $datas->nip }}"
+                                                    type="number" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -113,7 +113,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Kabupaten / Kota</label>
-                                                <select required name="kabupaten" id="" class="form-control select2">
+                                                <select required name="kabupaten" id=""
+                                                    class="form-control select2">
                                                     <option value="">-- piilih kabupaten --</option>
                                                     @foreach ($status['kabupaten'] as $v)
                                                         <option {{ $datas->kabupaten == $v->name ? 'selected' : '' }}
@@ -133,7 +134,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        {{-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Golongan</label>
 
@@ -144,10 +145,16 @@
                                                             value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
                                                 </select>
-                                                {{-- <input  name="golongan" id="golongan" type="text"
-                                                    class="form-control" required> --}}
+                                                <input  name="golongan" id="golongan" type="text"
+                                                    class="form-control" required>
                                             </div>
-                                        </div>
+                                        </div> --}}
+
+
+
+                                    </div>
+
+                                    <div class="row">
 
                                         <div class="col-md-2">
                                             <div class="form-group">
@@ -164,8 +171,64 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Jenis Golongan</label>
+                                                <select required name="jenis_gol" id="jenis_gol" class="form-control ">
+                                                    <option value="">-- pilih jenis kelamin --</option>
+                                                    <option value="PNS">PNS</option>
+                                                    <option value="P3K">PPPK/P3K</option>
+                                                    <option value="Tidak ada golongan">Tidak Ada Golongan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-3" id="form_diluar_gol">
+                                            <div class="form-group">
+                                                <label>Isi Golongan </label>
+                                                <input name="diluar_gol" id="diluar_gol" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2" id="form_golongan_pns">
+                                            <div class="form-group">
+                                                <label>Golongan PNS</label>
+
+                                                <select name="golongan_pns" id="golongan_pns" class="form-control select2">
+                                                    <option id="valPns" value="">-- pilih golongan --
+                                                    </option>
+                                                    @foreach ($status['golongan'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                {{-- <input  name="golongan" id="golongan" type="text"
+                                                class="form-control" required> --}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3" id="form_golongan_p3k">
+                                            <div class="form-group">
+                                                <label>Golongan PPPK/P3K</label>
+
+                                                <select name="golongan_p3k" id="golongan_p3k"
+                                                    class="form-control select2">
+                                                    <option id="valP3K" value="">-- pilih golongan --
+                                                    </option>
+                                                    @foreach ($status['golongan_p3k'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                {{-- <input  name="golongan" id="golongan" type="text"
+                                                class="form-control" required> --}}
+                                            </div>
+                                        </div>
 
                                     </div>
+
 
                                     <div class="row">
 
@@ -225,14 +288,14 @@
                                             <div class="col-md-4" id="transportContainer">
                                                 <div class="form-group">
                                                     <label>Kelengkapan Peserta (Transport)</label>
-                                                    <select name="kelengkapan_peserta_transport" id="kelengkapan_peserta_transport"
-                                                        class="form-control">
+                                                    <select name="kelengkapan_peserta_transport"
+                                                        id="kelengkapan_transport" class="form-control">
                                                         <option value="">-- Pilih Kelengkapan Transport --</option>
                                                         <option
-                                                            {{ $datas->kelengkapan_transport == 'Ada' ? 'selected' : '' }}
+                                                            {{ $datas->kelengkapan_peserta_transport == 'Ada' ? 'selected' : '' }}
                                                             value="Ada">Ada Transport</option>
                                                         <option
-                                                            {{ $datas->kelengkapan_transport == 'Tidak Ada' ? 'selected' : '' }}
+                                                            {{ $datas->kelengkapan_peserta_transport == 'Tidak Ada' ? 'selected' : '' }}
                                                             value="Tidak Ada">Tidak Ada Transport</option>
                                                     </select>
                                                 </div>
@@ -240,14 +303,14 @@
                                             <div class="col-md-4" id="biodataContainer">
                                                 <div class="form-group">
                                                     <label>Kelengkapan Peserta (Biodata)</label>
-                                                    <select name="kelengkapan_peserta_biodata" id="kelengkapan_peserta_biodata"
+                                                    <select name="kelengkapan_peserta_biodata" id="kelengkapan_biodata"
                                                         class="form-control">
                                                         <option value="">-- Pilih Kelengkapan Biodata --</option>
                                                         <option
-                                                            {{ $datas->kelengkapan_biodata == 'Ada' ? 'selected' : '' }}
+                                                            {{ $datas->kelengkapan_peserta_biodata == 'Ada' ? 'selected' : '' }}
                                                             value="Ada">Ada Biodata</option>
                                                         <option
-                                                            {{ $datas->kelengkapan_biodata == 'Tidak Ada' ? 'selected' : '' }}
+                                                            {{ $datas->kelengkapan_peserta_biodata == 'Tidak Ada' ? 'selected' : '' }}
                                                             value="Tidak Ada">Tidak Ada Biodata</option>
                                                     </select>
                                                 </div>
@@ -297,9 +360,8 @@
 
                 if (status == 'peserta') {
                     $('#formOpsional').show();
-                    
-                }
-                else {
+
+                } else {
                     $('#formOpsional').hide();
 
                 }
@@ -323,6 +385,100 @@
                         $('#formOpsional').hide();
                     }
                 });
+
+
+
+                // change jenis golongan 
+                let gol_pns = $('#form_golongan_pns');
+                let gol_p3k = $('#form_golongan_p3k')
+                let tdk_gol = $('#form_diluar_gol')
+
+                $('#form_diluar_gol').hide();
+                $('#form_golongan_pns').hide();
+                $('#form_golongan_p3k').hide();
+
+                let valPns = $('#valPns');
+                let valP3K = $('#valP3K')
+
+                $('#jenis_gol').change(function() {
+                    let status = $(this).val();
+                    console.log(status);
+                    if (status == 'PNS') {
+                        gol_pns.show();
+                        gol_p3k.hide().val('');
+                        tdk_gol.hide().val('');
+                    } else if (status == 'P3K') {
+                        gol_p3k.show();
+                        gol_pns.hide().val('');
+                        tdk_gol.hide().val('');
+                    } else if (status == 'Tidak ada golongan') {
+                        gol_pns.hide().val('');
+                        gol_p3k.hide().val('');
+                        tdk_gol.show();
+                    } else {
+                        gol_pns.hide().val('');
+                        gol_p3k.hide().val('');
+                        tdk_gol.hide();
+                    }
+
+                });
+
+
+                let data = {!! json_encode($datas, JSON_PRETTY_PRINT) !!}
+                let jenis_gol = $.trim(data.jenis_gol);
+
+                if (data.status_keikutpesertaan == 'peserta') {
+                    $('#formOpsional').show()
+                    $(`#kelengkapan_peserta_transport option[value="${data.kelengkapan_peserta_transport}"]`).prop(
+                        'selected', true)
+                    $(`#kelengkapan_peserta_biodata option[value="${data.kelengkapan_peserta_biodata}"]`).prop(
+                        'selected', true)
+                }
+                // console.log(datas['nama'])
+
+                $(`#gender option[value="${data.jkl}"]`).prop('selected', true);
+
+                // change jenis golongan 
+                let gol = ''
+                $(`#jenis_gol option[value="${data.jenis_gol}"]`).prop('selected', true);
+                if (jenis_gol == 'PNS') {
+                    gol_pns.show();
+                    gol = data.golongan
+                    $('#golongan_pns').append($("<option>")
+                        .text(gol)
+                        .attr('value', gol)
+                        .removeAttr('disabled')
+                        .prop('selected', true)
+                    );
+                    // $(`#jenis_gol option[value="${golongan}"]`).prop('selected', true);
+                } else if (jenis_gol == 'P3K') {
+                    gol_p3k.show();
+                    gol = data.golongan
+                    $('#golongan_p3k').append($("<option>")
+                        .text(gol)
+                        .attr('value', gol)
+                        .removeAttr('disabled')
+                        .prop('selected', true)
+                    );
+                } else if (jenis_gol == 'Tidak ada golongan') {
+                    tdk_gol.show();
+                    gol = data.golongan
+                    $('#diluar_gol').val(gol)
+                }
+
+                // $(`#kabupaten option[value="${data.kabupaten}"]`).prop('selected', true);
+                // $('#kabupaten').select2();
+                // $('#kabupaten').val(kb).trigger('change');
+                let selectedKab = $('#kabupaten')
+
+                selectedKab.append($("<option>")
+                    .text(data.kabupaten)
+                    .attr('value', data.kabupaten)
+                    .removeAttr('disabled')
+                    .prop('selected', true)
+                );
+
+
 
                 $('#id_pegawai').change(function() {
                     var selectedOption = $(this).find('option:selected');
