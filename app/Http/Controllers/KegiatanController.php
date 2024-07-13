@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GolonganP3k;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,7 @@ class KegiatanController extends Controller
     {
         $datas = Kegiatan::orderBy('id', 'DESC')->get();
         $menu = $this->menu;
+        
         return view('pages.admin.kegiatan.index', compact('menu', 'datas'));
     }
     
@@ -27,6 +29,7 @@ class KegiatanController extends Controller
     public function create()
     {
         $menu = $this->menu;
+        
         return view('pages.admin.kegiatan.create', compact('menu'));
     }
 

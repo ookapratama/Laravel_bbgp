@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GolonganP3k;
 use App\Models\JabatanPenugasanGolongan;
 use App\Models\Kabupaten;
 use App\Models\Kegiatan;
@@ -11,7 +12,8 @@ use Illuminate\Http\Request;
 class PesertaKegiatanController extends Controller
 {
     private $menu;
-    public function __construct() {
+    public function __construct()
+    {
         $this->menu = 'peserta';
     }
     /**
@@ -24,7 +26,6 @@ class PesertaKegiatanController extends Controller
         $datas = PesertaKegiatan::orderBy('id', 'DESC')->get();
         $kegiatan = Kegiatan::get();
         return view('pages.admin.peserta.index', compact('datas', 'menu', 'kegiatan'));
-
     }
 
     /**
@@ -34,9 +35,10 @@ class PesertaKegiatanController extends Controller
     {
         $kegiatan = Kegiatan::get();
         $menu = $this->menu;
-        $status = array (
+        $status = array(
             'kabupaten' => Kabupaten::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
+            'golongan_p3k' => GolonganP3k::get(),
         );
 
         return view('pages.admin.peserta.create', compact('kegiatan', 'menu', 'status'));
@@ -48,10 +50,56 @@ class PesertaKegiatanController extends Controller
     public function store(Request $request)
     {
         $r = $request->all();
-        // dd($r);
-        PesertaKegiatan::create($r);
 
-        return redirect()->route('peserta.index')->with('message', 'store');
+        // dd($r);
+        $getNik = PesertaKegiatan::where('no_ktp', $r['no_ktp'])->first();
+        // dd($getNik);
+        if ($getNik == null) {
+
+            dd(false);
+
+            if ($r['jenis_gol'] == 'PNS' && $r['golongan_pns'] != null) {
+                $r['golongan'] = $r['golongan_pns'];
+                $r['diluar_gol'] = null;
+                $r['golongan_p3k'] = null;
+            } else if ($r['jenis_gol'] == 'P3K' && $r['golongan_p3k'] != null) {
+                $r['golongan'] = $r['golongan_p3k'];
+                $r['diluar_gol'] = null;
+                $r['golongan_pns'] = null;
+            } else if ($r['jenis_gol'] == 'Tidak ada golongan' && $r['diluar_gol'] != null) {
+                $r['golongan'] = $r['diluar_gol'];
+                $r['golongan_p3k'] = null;
+                $r['golongan_pns'] = null;
+            } else {
+                // Handle case where none of the golongan values are set
+                $status = [
+                    'kegiatanById' => Kegiatan::find($r['id_kegiatan']),
+                    'kabupaten' => Kabupaten::all(),
+                    'golongan' => JabatanPenugasanGolongan::all(),
+                    'golongan_p3k' => GolonganP3k::get(),
+                ];
+                // dd($status['kegiatanById']->id);
+
+
+                return redirect()->route('peserta.create', [
+                    'kegiatan_id' => $status['kegiatanById']->id,
+                ])->with([
+                    'status' => $status,
+                    'message' => 'error golongan',
+                    'menu' => 'kegiatan',
+                ]);
+            }
+            dd($r);
+            PesertaKegiatan::create($r);
+
+            return redirect()->route('peserta.index')->with('message', 'store');
+        } else {
+            // dd(true);
+            return redirect()->route('peserta.create')->with([
+                'message' => 'error form',
+                'menu' => 'kegiatan',
+            ]);
+        }
     }
 
     /**
@@ -71,13 +119,12 @@ class PesertaKegiatanController extends Controller
         $kegiatan = Kegiatan::get();
 
         $menu = $this->menu;
-        $status = array (
+        $status = array(
             'kabupaten' => Kabupaten::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
         );
 
         return view('pages.admin.peserta.edit', compact('datas', 'menu', 'status', 'kegiatan'));
-        
     }
 
     /**
@@ -89,7 +136,6 @@ class PesertaKegiatanController extends Controller
         // dd($r->all());
         $datas->update($r->all());
         return redirect()->route('peserta.index')->with('message', 'update');
-
     }
 
     /**

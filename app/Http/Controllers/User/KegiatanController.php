@@ -93,8 +93,6 @@ class KegiatanController extends Controller
             'golongan' => JabatanPenugasanGolongan::all(),
             'kabupaten' => $kabupaten,
             'golongan_p3k' => GolonganP3k::get(),
-
-            
         ];
         // dd($status);
 
@@ -103,42 +101,47 @@ class KegiatanController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        $data = new PesertaKegiatan;
-        $data->nip = $request->nip;
-        $data->id_kegiatan = $request->kegiatan_id;
-        $data->id_pegawai = $request->id_pegawai;
-        $data->no_surat_tugas = $request->no_surat_tugas;
-        $data->tgl_surat_tugas = $request->tgl_surat_tugas;
-        $data->nama = $request->nama;
-        $data->no_ktp = $request->no_ktp;
-        $data->status_keikutpesertaan = $request->status_keikutpesertaan;
-        $data->instansi = $request->instansi;
-        $data->golongan = $request->golongan;
-        $data->jenis_gol = $request->jenis_gol;
-        $data->jkl = $request->gender;
-        $data->kelengkapan_peserta_transport = $request->kelengkapan_transport;
-        $data->kelengkapan_peserta_biodata = $request->kelengkapan_biodata;
-        $data->no_hp = $request->no_hp;
-        $data->no_wa = $request->no_wa;
-        $data->kabupaten = $request->kabupaten;
-        $data->jam_mengajar = $request->jam_mengajar;
-        $data->jam_selesai = $request->jam_selesai;
+        $r = $request->all();
+        // dd($r['golongan_pns'] == null && $r['diluar_gol'] == null);
+        $menu = 'kegiatan';
 
-        // Handle the signature
-        if ($request->has('signature')) {
-            $signatureData = $request->input('signature');
-            $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
-            $signatureData = str_replace(' ', '+', $signatureData);
-            $signatureImage = base64_decode($signatureData);
-            $signaturePath = 'signatures/' . uniqid() . '.png';
-            file_put_contents(public_path($signaturePath), $signatureImage);
-            $data->signature = $signaturePath;
+        if ($r['jenis_gol'] == 'PNS' && $r['golongan_pns'] != null) {
+            $r['golongan'] = $r['golongan_pns'];
+            $r['diluar_gol'] = null;
+            $r['golongan_p3k'] = null;
+        } else if ($r['jenis_gol'] == 'P3K' && $r['golongan_p3k'] != null) {
+            $r['golongan'] = $r['golongan_p3k'];
+            $r['diluar_gol'] = null;
+            $r['golongan_pns'] = null;
+        } else if ($r['jenis_gol'] == 'Tidak ada golongan' && $r['diluar_gol'] != null) {
+            $r['golongan'] = $r['diluar_gol'];
+            $r['golongan_p3k'] = null;
+            $r['golongan_pns'] = null;
+        } else {
+            // Handle case where none of the golongan values are set
+            $status = [
+                'kegiatanById' => Kegiatan::find($r['kegiatan_id']),
+                'kabupaten' => Kabupaten::all(),
+                'golongan' => JabatanPenugasanGolongan::all(),
+                'golongan_p3k' => GolonganP3k::get(),
+            ];
+            // dd($status['kegiatanById']->id);
+            
+
+            return redirect()->route('user.kegiatan_regist', [
+                'kegiatan_id' => $status['kegiatanById']->id,
+            ])->with([
+                'status' => $status,
+                'message' => 'error golongan',
+                'menu' => 'kegiatan',
+            ]);
         }
 
-        // dd($data);
-        // dd($request->all());
-        $data->save();
+        $r['id_kegiatan'] = $r['kegiatan_id'];
+        // dd($r);
+
+        PesertaKegiatan::create($r);
+
         Session::flush();
 
         return redirect()->route('user.kegiatan')->with('message', 'sukses daftar');
@@ -176,7 +179,7 @@ class KegiatanController extends Controller
         // dd($peserta == null);
         if ($peserta == null) {
             $status = false;
-        }else {
+        } else {
             $status = true;
         }
         Session::put('nik', $nik);
@@ -270,7 +273,7 @@ class KegiatanController extends Controller
         // Download PDF dengan nama file 'data_guru.pdf'
         return $pdf->stream('data_absensi_panitia_kegiatan.pdf');
     }
-    
+
 
     public function printAbsensiNarasumber(Request $request)
     {
@@ -283,7 +286,7 @@ class KegiatanController extends Controller
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 
-        $pdf = PDF::loadView('pages.user.kegiatan.cetak.absenNarasumber', compact('data', 'kegiatan' ));
+        $pdf = PDF::loadView('pages.user.kegiatan.cetak.absenNarasumber', compact('data', 'kegiatan'));
 
         // Set properties PDF
         $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
@@ -293,6 +296,4 @@ class KegiatanController extends Controller
         // Download PDF dengan nama file 'data_guru.pdf'
         return $pdf->stream('data_absensi_narasumber_kegiatan.pdf');
     }
-
-
 }

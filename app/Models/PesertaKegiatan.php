@@ -10,13 +10,12 @@ class PesertaKegiatan extends Model
     use HasFactory;
     protected $fillable = [
         'id_kegiatan',
-        'id_pegawai',
         'nama',
         'no_ktp',
         'nip',
-        'signature',
+        'kabupaten',
         'status_keikutpesertaan',
-        // 'instansi',
+        'instansi',
         'golongan',
         'jenis_gol',
         'diluar_gol',
@@ -25,13 +24,13 @@ class PesertaKegiatan extends Model
         'kelengkapan_peserta_biodata',
         'no_hp',
         'no_wa',
-        'kabupaten',
-        'nip',
-        // 'jam_mengajar',
-        // 'jam_selesai',
         'no_surat_tugas',
         'instansi',
         'tgl_surat_tugas',
+        // 'id_pegawai',
+        // 'signature',
+        // 'jam_mengajar',
+        // 'jam_selesai',
     ];
 
     public function kegiatan() {

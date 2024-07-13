@@ -107,6 +107,18 @@
         </script>
     @endif
 
+    @if (session('message') == 'error form')
+        <script>
+            swal("Warning", "Ada kesalahan dalam pengisian form anda", "warning");
+        </script>
+    @endif
+
+    @if (session('message') == 'error golongan')
+        <script>
+            swal("Warning", "Golongan tidak valid", "error");
+        </script>
+    @endif
+
     {{-- success login --}}
     @if (session('message') == 'sukses login')
         <script>
