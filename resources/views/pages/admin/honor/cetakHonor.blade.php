@@ -83,12 +83,13 @@
                 <th style="width: 10px" rowspan="2">No</th>
                 <th style="width: 250px; " rowspan="2">Nama Lengkap</th>
                 <th style="width: 10px" rowspan="2">Gol</th>
-                <th colspan="3">Perhitungan</th>
+                <th style="text-align:center" colspan="4">Perhitungan</th>
                 <th rowspan="2">Jumlah Diterima</th>
             </tr>
             <tr>
                 <th style="width: 10px">Realisasi JP</th>
                 <th>Jumlah</th>
+                <th>Jumlah Honor</th>
                 <th>Pot</th>
             </tr>
         </thead>
@@ -100,6 +101,7 @@
                     <td>{{ explode('/', $honor['golongan'])[0] }}</td>
                     <td>{{ $honor['jp_realisasi'] }}.0</td>
                     <td>{{ $honor['jumlah'] }}</td>
+                    <td>{{ $honor['jumlah_honor'] }}</td>
                     <td>{{ $honor['pot'] }}</td>
                     <td>{{ $honor['total'] }}</td>
                 </tr>

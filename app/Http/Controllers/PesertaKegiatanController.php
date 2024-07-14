@@ -137,6 +137,13 @@ class PesertaKegiatanController extends Controller
     {
         $datas = PesertaKegiatan::find($r->id);
 
+        $getNik = PesertaKegiatan::where('no_ktp', $r['no_ktp'])->first();
+        if ($getNik != null) {
+            return redirect()->route('peserta.create')->with([
+                'message' => 'error nik',
+                'menu' => 'kegiatan',
+            ]);
+        }
 
         if ($r['jenis_gol'] == 'PNS' && $r['golongan_pns'] != null) {
             $r['golongan'] = $r['golongan_pns'];

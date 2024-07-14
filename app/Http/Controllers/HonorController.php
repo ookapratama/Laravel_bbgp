@@ -60,9 +60,9 @@ class HonorController extends Controller
             //     $pot = $jumlah_honor;
             // }
 
-            $total = $v->jumlah_honor - $v->pot;
+            $total = $v->jumlah_honor - $v->potongan;
 
-            // dd($v);
+            // dd($v->potongan);
             // Tambahkan hasil perhitungan ke array $datas
             $datas[] = [
                 'nama' => $v->peserta->nama ?? '',
@@ -108,6 +108,7 @@ class HonorController extends Controller
             'partisipanPanitia' => PesertaKegiatan::with('kegiatan')->where('status_keikutpesertaan', 'panitia')->orderByDesc(
                 'id'
             )->get(),
+
             'partisipanNarasumber' => PesertaKegiatan::with('kegiatan')->where('status_keikutpesertaan', 'narasumber')->orderByDesc('id')->get(),
 
         );
@@ -157,13 +158,15 @@ class HonorController extends Controller
     {
         $menu = $this->menu;
         $title = $menu;
-
+        $kegiatan = Kegiatan::orderBy('id', 'DESC')->get();
+        
         $datas = Honor::find($id);
         $peserta = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')
-            ->orWhere('status_keikutpesertaan', 'panitia')
-            ->get();
-
-        return view('pages.admin.honor.edit', compact('menu', 'datas', 'peserta', 'title'));
+        ->orWhere('status_keikutpesertaan', 'panitia')
+        ->get();
+        // dd($datas);
+        
+        return view('pages.admin.honor.edit', compact('menu', 'datas', 'peserta', 'title', 'kegiatan'));
     }
 
     /**
@@ -173,6 +176,7 @@ class HonorController extends Controller
     {
         $req = $r->all();
         $datas = Honor::find($req['id']);
+        // dd($req);
 
         $req['jp_realisasi'] = (int) str_replace(".", "", $r->jp_realisasi);
         $req['jumlah'] = (int) str_replace(".", "", $r->jumlah);
@@ -181,7 +185,6 @@ class HonorController extends Controller
         $req['jumlah_diterima'] = (int) str_replace(".", "", $r->jumlah_diterima);
         // dd($r->jumlah);
         $req['golongan'] = explode('/', $req['golongan'])[0];
-
         $datas->update($req);
 
         return redirect()->route('honor.index')->with('message', 'update');
@@ -215,8 +218,8 @@ class HonorController extends Controller
             $mainGolongan = explode('/', $v->golongan)[0];
 
 
-            $total = $v->jumlah_honor - $v->pot;
-
+            $total = $v->jumlah_honor - $v->potongan;
+            // dd($v);
             // Tambahkan hasil perhitungan ke array $datas
             $datas[] = [
                 'nama' => $v->peserta->nama,
@@ -231,7 +234,7 @@ class HonorController extends Controller
             ];
             // dump($datas);
         }
-        // dd($honors);
+        // dd($datas);
         // Load view untuk PDF
         $pdf = PDF::loadView('pages.admin.honor.cetakHonor', compact('datas', 'jenis'));
 
@@ -244,5 +247,19 @@ class HonorController extends Controller
 
         // Kirimkan PDF ke browser
         return $pdf->stream("daftar_honor_$jenis.pdf");
+    }
+
+    public function getPeserta(Request $r) {
+        // dd($r->all());
+        $kegiatan = $r->input('kegiatan');
+        $peserta = PesertaKegiatan::orderBy('id', 'DESC')
+        ->where('id_kegiatan', $kegiatan)
+        ->where(function($query) {
+            $query->where('status_keikutpesertaan', 'panitia')
+                  ->orWhere('status_keikutpesertaan', 'narasumber');
+        })
+        ->get();
+        // dd($peserta);
+        return response()->json($peserta);
     }
 }

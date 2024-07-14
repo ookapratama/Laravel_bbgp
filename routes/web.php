@@ -244,6 +244,7 @@ Route::group(
                 Route::put('/update', 'HonorController@update')->name('honor.update');
                 Route::post('/hapus/{id}', 'HonorController@destroy')->name('honor.hapus');
                 Route::get('/cetak/{jabatan}', 'HonorController@cetak')->name('honor.cetak');
+                Route::get('/getPeserta', 'HonorController@getPeserta')->name('honor.getPeserta');
             });
 
 

@@ -84,7 +84,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas as $i => $data)
-                                               
+                                               {{-- {{ dd($data) }} --}}
 
                                                 <tr>
                                                     <td>{{ ++$i }}</td>
