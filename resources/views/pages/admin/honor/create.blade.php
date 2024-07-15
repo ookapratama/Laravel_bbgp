@@ -22,7 +22,9 @@
                             @csrf
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
+                                    <small>*Jika ingin mengubah data peserta, silahkan ke <u> Data kegiatan > Peserta
+                                        Kegiatan </u></small>
+                                    <div class="row mt-2">
 
                                         <div class="col-md-4">
                                             <div class="form-group">

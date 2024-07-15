@@ -35,7 +35,8 @@ class HonorController extends Controller
     {
         $menu = $this->menu;
         $title = 'honor';
-        $kegiatan = PesertaKegiatan::get();
+        // $kegiatan = PesertaKegiatan::get();
+        $kegiatan = Kegiatan::get();
         $honor = Honor::get();
         $datas = [];
         // $pot = 0;
@@ -67,6 +68,7 @@ class HonorController extends Controller
             $datas[] = [
                 'nama' => $v->peserta->nama ?? '',
                 'jabatan' => $v->peserta->status_keikutpesertaan ?? '',
+                'kegiatan' => $v->peserta->kegiatan->nama_kegiatan ?? '',
                 'jp_realisasi' => $v->jp_realisasi,
                 'jumlah' => $this->rupiahFormat($v->jumlah),
                 'jumlah_honor' => $this->rupiahFormat($v->jumlah_honor),
@@ -81,7 +83,7 @@ class HonorController extends Controller
             // dd($datas);
         }
 
-        return view('pages.admin.honor.index', compact('menu', 'datas', 'title'));
+        return view('pages.admin.honor.index', compact('menu', 'datas', 'title','kegiatan'));
     }
 
     public function rupiahFormat($number)

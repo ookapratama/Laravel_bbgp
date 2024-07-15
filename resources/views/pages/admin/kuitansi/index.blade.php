@@ -49,16 +49,56 @@
 
                                 </div>
 
+                                <h6>Filter By Kegiatan dan Status Keikutpesertaan</h6>
+                                <div class="row">
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <select name="" class="form-control" id="kegiatanSelect">
+                                                <option value="">-- pilih kegiatan --</option>
+                                                @foreach ($kegiatan as $v)
+                                                    <?php
+                                                    setlocale(LC_TIME, 'id_ID.UTF-8');
+                                                    
+                                                    $tgl_kegiatan = strftime('%d %B', strtotime($v->tgl_kegiatan));
+                                                    $tgl_selesai = strftime('%d %B %Y', strtotime($v->tgl_selesai));
+                                                    ?>
+                                                    <option value="{{ $v->nama_kegiatan }}">{{ $v->nama_kegiatan }}
+                                                        {{-- ( {{ $tgl_kegiatan }} -
+                                                        {{ $tgl_selesai }}
+                                                       ) --}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <select name="" class="form-control" id="jabatanKegiatan">
+                                                <option value="">-- pilih status keikutsertaan --</option>
+                                                <option value="peserta">Peserta</option>
+                                                <option value="panitia">Panitia</option>
+                                                <option value="narasumber">Narasumber</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         {{-- <h6>Print Permintaan</h6> --}}
 
                                         <div id="btnGroup">
-                                            <a target="_blank" href="{{ route('kuitansi.cetakPermintaan') }}" class="btn btn-info mr-2"><i
-                                                    class="fas fa-print mr-2"></i>Cetak Permintaan Kuitansi</a>
+                                            <a target="_blank" href="{{ route('kuitansi.cetakPermintaan') }}"
+                                                class="btn btn-info mr-2"><i class="fas fa-print mr-2"></i>Cetak Permintaan
+                                                Kuitansi</a>
 
-                                            <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}" class="btn btn-info"><i
-                                                    class="fas fa-print mr-2"></i>Cetak Lampiran </a>
+                                            <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
+                                                class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a>
 
                                             {{-- <button id="btnPrintRegisPeserta" class="btn btn-primary"><i
                                                     class="fas fa-print mr-2"></i>Registrasi Peserta</button>

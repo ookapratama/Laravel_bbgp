@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kabupaten;
+use App\Models\Kegiatan;
 use App\Models\Kuitansi;
 use App\Models\PesertaKegiatan;
 use App\Models\Transportasi;
@@ -25,8 +26,9 @@ class KuitansiController extends Controller
         $datas = Kuitansi::orderBy('id', 'DESC')->get();
         $menu = $this->menu;
         $title = 'kuitansi';
+        $kegiatan = Kegiatan::orderByDesc('id')->get();
         // dd($datas);
-        return view('pages.admin.kuitansi.index', compact('menu', 'datas', 'title'));
+        return view('pages.admin.kuitansi.index', compact('menu', 'datas', 'title', 'kegiatan'));
     }
 
     /**
@@ -35,6 +37,8 @@ class KuitansiController extends Controller
     public function create()
     {
         $menu = $this->menu;
+        $kegiatan = Kegiatan::orderBy('id', 'DESC')->get();
+
         $datas = array(
             'peserta' => PesertaKegiatan::orderByDesc('id')->get(),
             'kabupaten' => Kabupaten::get(),
@@ -45,7 +49,7 @@ class KuitansiController extends Controller
         // dd($datas['peserta'][0]->pegawai->nip);
 
 
-        return view('pages.admin.kuitansi.create', compact('menu', 'datas'));
+        return view('pages.admin.kuitansi.create', compact('menu', 'datas', 'kegiatan'));
     }
 
     /**
@@ -301,5 +305,20 @@ class KuitansiController extends Controller
 
 
         return $pdf->stream('data_Lampiran.pdf');
+    }
+
+    
+    public function getPeserta(Request $r) {
+        // dd($r->all());
+        $kegiatan = $r->input('kegiatan');
+        $peserta = PesertaKegiatan::orderBy('id', 'DESC')
+        ->where('id_kegiatan', $kegiatan)
+        ->where(function($query) {
+            $query->where('status_keikutpesertaan', 'panitia')
+                  ->orWhere('status_keikutpesertaan', 'narasumber');
+        })
+        ->get();
+        // dd($peserta);
+        return response()->json($peserta);
     }
 }

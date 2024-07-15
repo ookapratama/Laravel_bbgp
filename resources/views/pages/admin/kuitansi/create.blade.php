@@ -25,17 +25,30 @@
 
                             <div class="card">
                                 <div class="card-body">
+                                    <small>*Jika ingin mengubah data peserta, silahkan ke <u> Data kegiatan > Peserta
+                                            Kegiatan </u></small>
+                                    <div class="row mt-2">
 
-                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Kegiatan yang diikuti</label>
+                                                <select name="kegiatan" id="kegiatan" class="form-control select2">
+                                                    <option value="">-- pilih Kegiatan --</option>
+                                                    @foreach ($kegiatan as $v)
+                                                        <option value="{{ $v->id }}">{{ $v->nama_kegiatan }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nama dan NIK</label>
-                                                <select required name="id_pegawai" id="id_pegawai"
+                                                <select required name="id_pegawai" id="idPeserta"
                                                     class="form-control select2">
-                                                    <option value="">-- Pilih pegawai --</option>
-                                                    @foreach ($datas['peserta'] as $i => $v)
-                                                        {{-- {{ dd($v->pegawai->nip) }} --}}
+                                                    <option value="">-- Pilih peserta --</option>
+                                                    {{-- @foreach ($datas['peserta'] as $i => $v)
                                                         <option data-no_ktp="{{ $v->no_ktp }}"
                                                             data-nama="{{ $v->nama }}"
                                                             data-golongan="{{ $v->golongan }}"
@@ -49,7 +62,7 @@
                                                             {{ $v->pegawai->nip ?? '' }} - {{ $v->nama }} (
                                                             {{ $v->status_keikutpesertaan }} )
                                                         </option>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </select>
                                             </div>
                                         </div>
@@ -76,6 +89,13 @@
                                             </div>
                                         </div>
 
+
+
+                                    </div>
+
+                                    <div class="row">
+
+
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Jabatan dalam kegiatan</label>
@@ -84,7 +104,16 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-2">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Jenis Golongan</label>
+                                                <input readonly required name="jenis_gol" id="jenis_gol" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Golongan</label>
                                                 <input readonly required name="golongan" id="golongan" type="text"
@@ -195,7 +224,7 @@
                                                 <div class="form-group">
                                                     <label>Biaya Pergi (Rp. )</label>
                                                     <input required name="biaya_pergi" id="biaya_pergi" type="number"
-                                                        class="form-control">
+                                                        class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -203,7 +232,7 @@
                                                 <div class="form-group">
                                                     <label>Biaya Pulang (Rp. )</label>
                                                     <input required name="biaya_pulang" id="biaya_pulang" type="number"
-                                                        class="form-control">
+                                                        class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -211,7 +240,7 @@
                                                 <div class="form-group">
                                                     <label>Jumlah Biaya (Rp. )</label>
                                                     <input readonly required name="jumlah_biaya" id="jumlah_biaya_tiket"
-                                                        type="number" class="form-control">
+                                                        type="number" class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -219,7 +248,8 @@
                                                 <div class="form-group">
                                                     <label>Tax / Pajak Bandara (Rp. ) (Opsional)</label>
                                                     <input name="pajak_bandara" id="pajak_bandara"
-                                                        placeholder="diisi jika ada" type="number" class="form-control">
+                                                        placeholder="diisi jika ada" type="number"
+                                                        class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -237,9 +267,9 @@
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label>Biaya Asal (Rp. )</label>
+                                                    <label>Biaya (Rp. )</label>
                                                     <input required name="biaya_asal" id="biaya_asal" type="number"
-                                                        class="form-control">
+                                                        class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -247,7 +277,7 @@
                                                 <div class="form-group">
                                                     <label>Biaya Bea Jarak (Rp. )</label>
                                                     <input required name="bea_jarak" id="bea_jarak" type="number"
-                                                        class="form-control">
+                                                        class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -255,7 +285,7 @@
                                                 <div class="form-group">
                                                     <label>Tujuan (Rp. )</label>
                                                     <input required name="tujuan" id="tujuan" placeholder=""
-                                                        type="number" class="form-control">
+                                                        type="number" class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -263,7 +293,7 @@
                                                 <div class="form-group">
                                                     <label>Jumlah Biaya Transport</label>
                                                     <input readonly required name="total_transport" id="total_transport"
-                                                        placeholder="" type="number" class="form-control">
+                                                        placeholder="" type="number" class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -279,7 +309,7 @@
                                                 <div class="form-group">
                                                     <label>Penginapan (Rp. )</label>
                                                     <input required name="biaya_penginapan" id="biaya_penginapan"
-                                                        type="number" class="form-control">
+                                                        type="number" class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -287,7 +317,7 @@
                                                 <div class="form-group">
                                                     <label>Uang Harian (Rp. )</label>
                                                     <input required name="uang_harian" id="uang_harian" type="number"
-                                                        class="form-control">
+                                                        class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -297,7 +327,8 @@
                                                 <div class="form-group">
                                                     <label>Potongan</label>
                                                     <input required name="potongan" id="potongan"
-                                                        placeholder="diisi jika ada" type="number" class="form-control">
+                                                        placeholder="diisi jika ada" type="number"
+                                                        class="form-control rupiah">
                                                 </div>
                                             </div>
 
@@ -310,7 +341,7 @@
                                             <div class="form-group">
                                                 <label>Biaya Penginapan (Rp. )</label>
                                                 <input readonly required name="total_penginapan" id="total_penginapan"
-                                                    type="number" class="form-control">
+                                                    type="number" class="form-control rupiah">
                                             </div>
                                         </div>
 
@@ -318,7 +349,7 @@
                                             <div class="form-group">
                                                 <label>Biaya Harian (Rp. )</label>
                                                 <input readonly required name="biaya_harian" id="biaya_harian"
-                                                    type="number" class="form-control">
+                                                    type="number" class="form-control rupiah">
                                             </div>
                                         </div>
 
@@ -326,7 +357,7 @@
                                             <div class="form-group">
                                                 <label>Jumlah Hari</label>
                                                 <input required name="jumlah_hari" id="jumlah_hari" type="number"
-                                                    class="form-control">
+                                                    class="form-control rupiah">
                                             </div>
                                         </div>
 
@@ -339,7 +370,7 @@
                                                 <label>Jumlah Uang Diterima</label>
                                                 <input readonly required name="jumlah_biaya_diterima"
                                                     id="jumlah_biaya_diterima" placeholder="" type="number"
-                                                    class="form-control">
+                                                    class="form-control rupiah">
                                             </div>
                                         </div>
                                     </div>
@@ -460,6 +491,8 @@
         <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.id.js') }}"></script>
         <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
         <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
 
         <script>
             // Menambahkan field transportasi tambahan
@@ -495,15 +528,65 @@
                 //     x--;
                 // })
 
+                $('#kegiatan').change(function() {
+                    console.log($(this).val())
+
+                    var kegiatan = $(this).val();
+
+                    if (kegiatan === '') {
+                        $('#idPeserta').html('<option value="">-- pilih peserta --</option>');
+                        $('#instansi').val('');
+                        $('#golongan').val('');
+                        $('#jabatan').val('');
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{{ route('kuitansi.getPeserta') }}",
+                        type: "GET",
+                        data: {
+                            kegiatan: kegiatan,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            var options = '<option value="">-- pilih peserta --</option>';
+
+                            $.each(response, function(index, peserta) {
+                                console.log(peserta)
+                                options += `<option data-jabatan="${peserta.status_keikutpesertaan}" 
+                                data-golongan="${peserta.golongan}" 
+                                data-nama="${peserta.nama}" 
+                                data-nip="${peserta.nip}" 
+                                data-no_surat_tugas="${peserta.no_surat_tugas}" 
+                                data-tgl_surat_tugas="${peserta.tgl_surat_tugas}" 
+                                data-kabupaten="${peserta.kabupaten}" 
+                                data-mulai="${peserta.tgl_kegiatan}" 
+                                data-selesai="${peserta.tgl_selesai}" 
+                                data-instansi="${peserta.instansi}" 
+                                data-jenis_gol="${peserta.jenis_gol}" 
+                                data-golongan="${peserta.golongan}" 
+                                data-diluar_gol="${peserta.diluar_gol}" 
+                                value="${peserta.id}">
+                                    ${peserta.no_ktp} - ${peserta.nama} (${peserta.status_keikutpesertaan})
+                                </option>`;
+                            });
+
+                            $('#idPeserta').html(options);
+                        }
+                    });
+
+                });
 
 
-                $('#id_pegawai').change(function() {
+                $('#idPeserta').change(function() {
                     var selectedOption = $(this).find('option:selected');
                     // console.log(selectedOption);
-                    var status_keikutpesertaan = selectedOption.data('status_keikutpesertaan');
+                    var status_keikutpesertaan = selectedOption.data('jabatan');
                     var jabatan = selectedOption.data('jabatan');
                     var nama = selectedOption.data('nama');
                     var no_ktp = selectedOption.data('no_ktp');
+                    var nip = selectedOption.data('nip');
+                    var jenis_gol = selectedOption.data('jenis_gol');
                     var kabupaten = selectedOption.data('kabupaten');
                     var golongan = selectedOption.data('golongan');
                     var gender = selectedOption.data('gender');
@@ -514,10 +597,11 @@
                     console.log(status_keikutpesertaan);
 
                     // Isi input form dengan data yang sesuai
-                    $('#nip').val(no_ktp);
+                    $('#nip').val(nip);
                     $('#nama').val(`${nama}`);
                     $('#status_keikutpesertaan').val(status_keikutpesertaan);
                     $('#jabatan').val(jabatan);
+                    $('#jenis_gol').val(jenis_gol);
                     $('#gender').val(gender);
                     $('#golongan').val(golongan);
                     $('#kabupaten').val(kabupaten);
@@ -536,6 +620,7 @@
                     var pajakBandara = parseFloat($('#pajak_bandara').val().replace(/[^0-9]/g, '')) || 0;
                     var jumlahBiayaTiket = (biayaPergi + biayaPulang) - pajakBandara;
                     $('#jumlah_biaya_tiket').val(formatRupiah(jumlahBiayaTiket));
+                    calculateTotalBiaya(); 
                 }
 
                 function calculateTransport() {
@@ -544,6 +629,7 @@
                     var biayaTujuan = parseFloat($('#tujuan').val().replace(/[^0-9]/g, '')) || 0;
                     var totalTransport = biayaAsal + beaJarak + biayaTujuan;
                     $('#total_transport').val(formatRupiah(totalTransport));
+                    calculateTotalBiaya(); 
                 }
 
                 function calculatePenginapan() {
@@ -551,6 +637,7 @@
                     var jumlahHari = parseFloat($('#jumlah_hari').val().replace(/[^0-9]/g, '')) || 0;
                     var totalPenginapan = (biayaPerMalam * 0.3) * jumlahHari;
                     $('#total_penginapan').val(formatRupiah(totalPenginapan));
+                    calculateTotalBiaya(); 
                 }
 
                 function calculateHarian() {
@@ -558,6 +645,7 @@
                     var jumlahHari = parseFloat($('#jumlah_hari').val().replace(/[^0-9]/g, '')) || 0;
                     var biayaHarian = biayaPerHari * jumlahHari;
                     $('#biaya_harian').val(formatRupiah(biayaHarian));
+                    calculateTotalBiaya(); 
                 }
 
                 // function calculateRepresentasi() {
@@ -571,10 +659,14 @@
                     var jumlahBiayaTransport = parseFloat($('#total_transport').val().replace(/[^0-9]/g, '')) || 0;
                     var jumlahBiayaPenginapan = parseFloat($('#total_penginapan').val().replace(/[^0-9]/g, '')) || 0;
                     var jumlahBiayaHarian = parseFloat($('#biaya_harian').val().replace(/[^0-9]/g, '')) || 0;
-                    var potongan = parseFloat($('#potongan').val().replace(/[^0-9]/g, '')) || 0;
-
+                    // var potongan = parseFloat($('#potongan').val().replace(/[^0-9]/g, '')) || 0;
+                    console.log(jumlahBiayaTiket)
+                    console.log(jumlahBiayaTransport)
+                    console.log(jumlahBiayaPenginapan)
+                    console.log(jumlahBiayaHarian)
                     var jumlahBiayaDiterima = jumlahBiayaTiket + jumlahBiayaTransport + jumlahBiayaPenginapan +
-                        jumlahBiayaHarian - potongan;
+                        jumlahBiayaHarian;
+                    console.log(jumlahBiayaDiterima)
                     $('#jumlah_biaya_diterima').val(formatRupiah(jumlahBiayaDiterima));
                 }
 
@@ -586,7 +678,7 @@
 
                 // $('#jumlah_biaya_tiket, #pajak_bandara , #jumlah_hari, #tujuan, #uang_harian, #potongan')
                 //     .on('input', calculateTotalBiaya);
-                $('#jumlah_biaya_tiket, #total_transport, #total_penginapan, #biaya_harian').on('input',
+                $('#jumlah_biaya_tiket, #total_transport, #total_penginapan, #biaya_harian', '#jumlah_hari').on('input',
                     calculateTotalBiaya);
 
                 $('.rupiah').mask('000.000.000.000.000', {
@@ -600,14 +692,13 @@
                 calculateHarian();
                 calculateTotalBiaya();
 
-                function formatRupiah(number) {
-                    var reverse = number.toString().split('').reverse().join('');
-                    var ribuan = reverse.match(/\d{1,3}/g);
-                    return ribuan.join('.').split('').reverse().join('');
-                }
-
-
             });
+
+            function formatRupiah(number) {
+                var reverse = number.toString().split('').reverse().join('');
+                var ribuan = reverse.match(/\d{1,3}/g);
+                return ribuan.join('.').split('').reverse().join('');
+            }
         </script>
     @endpush
 @endsection

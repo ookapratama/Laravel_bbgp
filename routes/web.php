@@ -246,7 +246,7 @@ Route::group(
                 Route::get('/cetak/{jabatan}', 'HonorController@cetak')->name('honor.cetak');
                 Route::get('/getPeserta', 'HonorController@getPeserta')->name('honor.getPeserta');
             });
-
+            
 
             //kuitansi
             Route::prefix('kuitansi')->group(function () {
@@ -257,6 +257,7 @@ Route::group(
                 Route::put('/update', 'KuitansiController@update')->name('kuitansi.update');
                 Route::post('/hapus/{id}', 'KuitansiController@destroy')->name('kuitansi.hapus');
                 Route::get('/show/{id}', 'KuitansiController@show')->name('kuitansi.show');
+                Route::get('/getPeserta', 'KuitansiController@getPeserta')->name('kuitansi.getPeserta');
 
                 Route::get('/cetak/{id}', 'KuitansiController@cetak')->name('kuitansi.cetak');
                 Route::get('/cetakRill/{id}', 'KuitansiController@cetakRill')->name('kuitansi.cetakRill');

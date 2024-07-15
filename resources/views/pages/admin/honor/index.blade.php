@@ -27,14 +27,64 @@
 
                                     <a href="{{ route('honor.create') }}" class="btn btn-primary text-white my-3">+ Tambah
                                         Honor</a>
-    
-                                    <a target="_blank" href="{{ route('honor.cetak', 'panitia') }}" class="btn btn-info mx-3"><i class="fas fa-print mr-2"></i>Print Honor
-                                        Panitia</a>
-    
-                                    <a target="_blank" href="{{ route('honor.cetak', 'narasumber') }}" class="btn btn-info "><i class="fas fa-print mr-2"></i>Print Honor
-                                        Narasumber</a>
+
 
                                 </div>
+
+
+                                <h6>Filter By Kegiatan dan Status Keikutpesertaan</h6>
+                                <div class="row">
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <select name="" class="form-control" id="kegiatanSelect">
+                                                <option value="">-- pilih kegiatan --</option>
+                                                @foreach ($kegiatan as $v)
+                                                    <?php
+                                                    setlocale(LC_TIME, 'id_ID.UTF-8');
+                                                    
+                                                    $tgl_kegiatan = strftime('%d %B', strtotime($v->tgl_kegiatan));
+                                                    $tgl_selesai = strftime('%d %B %Y', strtotime($v->tgl_selesai));
+                                                    ?>
+                                                    <option value="{{ $v->nama_kegiatan }}">{{ $v->nama_kegiatan }}
+                                                        {{-- ( {{ $tgl_kegiatan }} -
+                                                        {{ $tgl_selesai }}
+                                                       ) --}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <select name="" class="form-control" id="jabatanKegiatan">
+                                                <option value="">-- pilih status keikutsertaan --</option>
+                                                <option value="peserta">Peserta</option>
+                                                <option value="panitia">Panitia</option>
+                                                <option value="narasumber">Narasumber</option>
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    
+                                </div>
+                                
+                                <div class="row mb-3" id="printShow">
+                                    <div class="text-white">
+                                        <a id="printBy" target="_blank" href="{{ route('honor.cetak', 'panitia') }}"
+                                            class="btn btn-info mx-3"><i class="fas fa-print mr-2"></i>Print Honor
+                                            Panitia</a>
+
+                                        <a id="printBy" target="_blank"
+                                            href="{{ route('honor.cetak', 'narasumber') }}" class="btn btn-info "><i
+                                                class="fas fa-print mr-2"></i>Print Honor
+                                            Narasumber</a>
+
+                                    </div>
+                                </div>
+
 
 
                                 <!-- Filter Section -->
@@ -72,6 +122,7 @@
                                                 <th class="text-center">#</th>
                                                 <th>Nama Penerima</th>
                                                 <th>Jabatan dalam kegiatan</th>
+                                                <th>Kegiatan</th>
                                                 <th>Jenis Golongan</th>
                                                 <th>Golongan</th>
                                                 <th>Instansi</th>
@@ -84,12 +135,13 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas as $i => $data)
-                                               {{-- {{ dd($data) }} --}}
+                                                {{-- {{ dd($data) }} --}}
 
                                                 <tr>
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data['nama'] ?? '' }}</td>
                                                     <td>{{ $data['jabatan'] ?? '' }}</td>
+                                                    <td>{{ $data['kegiatan'] ?? '' }}</td>
                                                     <td>{{ $data['jenis_gol'] ?? '' }}</td>
                                                     <td>{{ $data['golongan'] ?? '' }}</td>
                                                     <td>{{ $data['instansi'] ?? '' }}</td>
@@ -136,6 +188,33 @@
         <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 
-        <script type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                var tableKegiatan = $('#table-kegiatan').DataTable();
+                
+                var showPrint = $('#printShow').hide();
+
+                $('#kegiatanSelect').on('change', function(e) {
+                    e.preventDefault();
+                    var kegiatanValue = $(this).val();
+                    console.log(kegiatanValue)
+
+                    tableKegiatan.column(3).search(kegiatanValue).draw();
+                    showPrint.show();
+                });
+
+                $('#jabatanKegiatan').on('change', function(e) {
+                    e.preventDefault();
+                    var jabatanValue = $(this).val();
+                    console.log(jabatanValue)
+
+                    tableKegiatan.column(2).search(jabatanValue).draw();
+                    // showPrint.show();
+                });
+
+
+            })
+        </script>
     @endpush
 @endsection
