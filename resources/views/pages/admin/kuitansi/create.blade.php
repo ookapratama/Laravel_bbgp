@@ -77,6 +77,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nama </label>
+                                                {{-- <input readonly required name="nip" id="nip" type="hidden"
+                                                    class="form-control"> --}}
                                                 <input readonly required name="nama" id="nama" type="text"
                                                     class="form-control">
                                             </div>
@@ -223,16 +225,16 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya Pergi (Rp. )</label>
-                                                    <input required name="biaya_pergi" id="biaya_pergi" type="number"
-                                                        class="form-control rupiah">
+                                                    <input  name="biaya_pergi" id="biaya_pergi" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya Pulang (Rp. )</label>
-                                                    <input required name="biaya_pulang" id="biaya_pulang" type="number"
-                                                        class="form-control rupiah">
+                                                    <input  name="biaya_pulang" id="biaya_pulang" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -240,7 +242,7 @@
                                                 <div class="form-group">
                                                     <label>Jumlah Biaya (Rp. )</label>
                                                     <input readonly required name="jumlah_biaya" id="jumlah_biaya_tiket"
-                                                        type="number" class="form-control rupiah">
+                                                        type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -248,8 +250,8 @@
                                                 <div class="form-group">
                                                     <label>Tax / Pajak Bandara (Rp. ) (Opsional)</label>
                                                     <input name="pajak_bandara" id="pajak_bandara"
-                                                        placeholder="diisi jika ada" type="number"
-                                                        class="form-control rupiah">
+                                                        placeholder="diisi jika ada" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -268,24 +270,24 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya (Rp. )</label>
-                                                    <input required name="biaya_asal" id="biaya_asal" type="number"
-                                                        class="form-control rupiah">
+                                                    <input  name="biaya_asal" id="biaya_asal" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya Bea Jarak (Rp. )</label>
-                                                    <input required name="bea_jarak" id="bea_jarak" type="number"
-                                                        class="form-control rupiah">
+                                                    <input  name="bea_jarak" id="bea_jarak" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Tujuan (Rp. )</label>
-                                                    <input required name="tujuan" id="tujuan" placeholder=""
-                                                        type="number" class="form-control rupiah">
+                                                    <input  name="tujuan" id="tujuan" placeholder=""
+                                                        type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -293,7 +295,7 @@
                                                 <div class="form-group">
                                                     <label>Jumlah Biaya Transport</label>
                                                     <input readonly required name="total_transport" id="total_transport"
-                                                        placeholder="" type="number" class="form-control rupiah">
+                                                        placeholder="" type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -308,16 +310,16 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Penginapan (Rp. )</label>
-                                                    <input required name="biaya_penginapan" id="biaya_penginapan"
-                                                        type="number" class="form-control rupiah">
+                                                    <input  name="biaya_penginapan" id="biaya_penginapan"
+                                                        type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Uang Harian (Rp. )</label>
-                                                    <input required name="uang_harian" id="uang_harian" type="number"
-                                                        class="form-control rupiah">
+                                                    <input  name="uang_harian" id="uang_harian" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -326,9 +328,9 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Potongan</label>
-                                                    <input required name="potongan" id="potongan"
-                                                        placeholder="diisi jika ada" type="number"
-                                                        class="form-control rupiah">
+                                                    <input  name="potongan" id="potongan"
+                                                        placeholder="diisi jika ada" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -341,7 +343,7 @@
                                             <div class="form-group">
                                                 <label>Biaya Penginapan (Rp. )</label>
                                                 <input readonly required name="total_penginapan" id="total_penginapan"
-                                                    type="number" class="form-control rupiah">
+                                                    type="text" class="form-control currency">
                                             </div>
                                         </div>
 
@@ -349,15 +351,15 @@
                                             <div class="form-group">
                                                 <label>Biaya Harian (Rp. )</label>
                                                 <input readonly required name="biaya_harian" id="biaya_harian"
-                                                    type="number" class="form-control rupiah">
+                                                    type="text" class="form-control currency">
                                             </div>
                                         </div>
 
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jumlah Hari</label>
-                                                <input required name="jumlah_hari" id="jumlah_hari" type="number"
-                                                    class="form-control rupiah">
+                                                <input  name="jumlah_hari" id="jumlah_hari" type="text"
+                                                    class="form-control currency">
                                             </div>
                                         </div>
 
@@ -369,8 +371,8 @@
                                             <div class="form-group">
                                                 <label>Jumlah Uang Diterima</label>
                                                 <input readonly required name="jumlah_biaya_diterima"
-                                                    id="jumlah_biaya_diterima" placeholder="" type="number"
-                                                    class="form-control rupiah">
+                                                    id="jumlah_biaya_diterima" placeholder="" type="text"
+                                                    class="form-control currency">
                                             </div>
                                         </div>
                                     </div>
@@ -381,7 +383,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jumlah Hari</label>
-                                                <input required name="jumlah_hari" placeholder="diisi jika ada" type="number"
+                                                <input required name="jumlah_hari" placeholder="diisi jika ada" type="text"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -390,14 +392,14 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Durasi Penginapan (hari)</label>
-                                                <input required name="durasi_penginapan" type="number"
+                                                <input required name="durasi_penginapan" type="text"
                                                     class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Durasi Uang Harian (hari)</label>
-                                                <input required name="durasi_uang_harian" type="number"
+                                                <input required name="durasi_uang_harian" type="text"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -437,7 +439,7 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Biaya Transportasi</label>
-                                                <input required name="transportasis[0][biaya_transport]" type="number"
+                                                <input required name="transportasis[0][biaya_transport]" type="text"
                                                     class="form-control">
                                             </div>
 
@@ -483,6 +485,8 @@
     </div>
 
     @push('scripts')
+        <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
+
         <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
         <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
         <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
@@ -497,6 +501,13 @@
         <script>
             // Menambahkan field transportasi tambahan
             $(document).ready(function() {
+
+                $('.currency').each(function() {
+                    new Cleave(this, {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand'
+                    });
+                });
                 // var max_fields = 10; // maximum input fields allowed
                 // var wrapper = $("#transportasi_fields"); // fields wrapper
                 // var add_button = $(".add_transportasi_field"); // Add button ID
@@ -620,7 +631,7 @@
                     var pajakBandara = parseFloat($('#pajak_bandara').val().replace(/[^0-9]/g, '')) || 0;
                     var jumlahBiayaTiket = (biayaPergi + biayaPulang) - pajakBandara;
                     $('#jumlah_biaya_tiket').val(formatRupiah(jumlahBiayaTiket));
-                    calculateTotalBiaya(); 
+                    calculateTotalBiaya();
                 }
 
                 function calculateTransport() {
@@ -629,7 +640,7 @@
                     var biayaTujuan = parseFloat($('#tujuan').val().replace(/[^0-9]/g, '')) || 0;
                     var totalTransport = biayaAsal + beaJarak + biayaTujuan;
                     $('#total_transport').val(formatRupiah(totalTransport));
-                    calculateTotalBiaya(); 
+                    calculateTotalBiaya();
                 }
 
                 function calculatePenginapan() {
@@ -637,7 +648,7 @@
                     var jumlahHari = parseFloat($('#jumlah_hari').val().replace(/[^0-9]/g, '')) || 0;
                     var totalPenginapan = (biayaPerMalam * 0.3) * jumlahHari;
                     $('#total_penginapan').val(formatRupiah(totalPenginapan));
-                    calculateTotalBiaya(); 
+                    calculateTotalBiaya();
                 }
 
                 function calculateHarian() {
@@ -645,7 +656,7 @@
                     var jumlahHari = parseFloat($('#jumlah_hari').val().replace(/[^0-9]/g, '')) || 0;
                     var biayaHarian = biayaPerHari * jumlahHari;
                     $('#biaya_harian').val(formatRupiah(biayaHarian));
-                    calculateTotalBiaya(); 
+                    calculateTotalBiaya();
                 }
 
                 // function calculateRepresentasi() {
@@ -697,7 +708,7 @@
             function formatRupiah(number) {
                 var reverse = number.toString().split('').reverse().join('');
                 var ribuan = reverse.match(/\d{1,3}/g);
-                return ribuan.join('.').split('').reverse().join('');
+                return ribuan.join(',').split('').reverse().join('');
             }
         </script>
     @endpush

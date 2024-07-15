@@ -136,7 +136,7 @@
                                                     <td>{{ $data->no_bukti ?? '' }}</td>
                                                     <td>{{ $data->no_MAK ?? '' }}</td>
                                                     <td>{{ $data->peserta->nama ?? '' }}</td>
-                                                    <td>{{ $data->peserta->pegawai->nip ?? '' }}</td>
+                                                    <td>{{ $data->peserta->nip ?? '' }}</td>
                                                     <td>{{ $data->jenis_angkutan ?? '' }}</td>
                                                     <td>{{ $data->kabupaten->name ?? '' }}</td>
                                                     <td>{{ $data->lokasi_tujuan ?? '' }}</td>

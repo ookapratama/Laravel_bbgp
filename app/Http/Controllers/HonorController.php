@@ -118,7 +118,7 @@ class HonorController extends Controller
         // foreach ($peserta as $key => $value) {
         //     dump($value->kegiatan);
         // }
-        // dd(true);
+        // dd($peserta);
         return view('pages.admin.honor.create', compact('menu', 'peserta', 'kegiatan'));
     }
 
@@ -129,6 +129,15 @@ class HonorController extends Controller
     {
         // dd(true);
         $req = $r->all();
+
+        $getNik = Honor::where('id_peserta', $req['id_peserta'])->first();
+        if ($getNik != null) {
+            return redirect()->route('honor.create')->with([
+                'message' => 'error nik',
+                'menu' => 'kegiatan',
+            ]);
+        }
+
         $req['jp_realisasi'] = (int) str_replace(".", "", $r->jp_realisasi);
         $req['jumlah'] = (int) str_replace(".", "", $r->jumlah);
         $req['jumlah_honor'] = (int) str_replace(".", "", $r->jumlah_honor);

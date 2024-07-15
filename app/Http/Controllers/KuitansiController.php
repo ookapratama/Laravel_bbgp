@@ -92,7 +92,31 @@ class KuitansiController extends Controller
         //         // dd($transportasi);
         //     }
         // }
+        $getNik = Kuitansi::where('pegawai_id', $r['id_pegawai'])->first();
+        if ($getNik != null) {
+            return redirect()->route('peserta.create')->with([
+                'message' => 'error nik',
+                'menu' => 'kegiatan',
+            ]);
+        }
 
+        $r['biaya_pergi']  = (int) str_replace(',', '', $r['biaya_pergi']) ?? 0 ;
+        $r['biaya_pulang']  = (int) str_replace(',', '', $r['biaya_pulang']) ?? 0 ;
+        $r['jumlah_biaya']  = (int) str_replace(',', '', $r['jumlah_biaya']) ?? 0 ;
+        $r['pajak_bandara']  = (int) str_replace(',', '', $r['pajak_bandara']) ?? 0 ;
+        $r['biaya_asal']  = (int) str_replace(',', '', $r['biaya_asal']) ?? 0 ;
+        $r['bea_jarak']  = (int) str_replace(',', '', $r['bea_jarak']) ?? 0 ;
+        $r['tujuan']  = (int) str_replace(',', '', $r['tujuan']) ?? 0 ;
+        $r['total_transport']  = (int) str_replace(',', '', $r['total_transport']) ?? 0 ;
+        $r['biaya_penginapan']  = (int) str_replace(',', '', $r['biaya_penginapan']) ?? 0 ;
+        $r['uang_harian']  = (int) str_replace(',', '', $r['uang_harian']) ?? 0 ;
+        $r['potongan']  = (int) str_replace(',', '', $r['potongan']) ?? 0 ;
+        $r['total_penginapan']  = (int) str_replace(',', '', $r['total_penginapan']) ?? 0 ;
+        $r['biaya_harian']  = (int) str_replace(',', '', $r['biaya_harian']) ?? 0 ;
+        $r['jumlah_hari']  = (int) str_replace(',', '', $r['jumlah_hari']) ?? 0 ;
+        $r['jumlah_biaya_diterima']  = (int) str_replace(',', '', $r['jumlah_biaya_diterima']) ?? 0 ;
+        // dd($r->all());
+        
         $r['pegawai_id'] = $r['id_pegawai'];
         $r['uang_penginapan'] = $r['jumlah_biaya'];
         $r['total_pp'] = $r['jumlah_biaya'];
@@ -307,17 +331,18 @@ class KuitansiController extends Controller
         return $pdf->stream('data_Lampiran.pdf');
     }
 
-    
-    public function getPeserta(Request $r) {
+
+    public function getPeserta(Request $r)
+    {
         // dd($r->all());
         $kegiatan = $r->input('kegiatan');
         $peserta = PesertaKegiatan::orderBy('id', 'DESC')
-        ->where('id_kegiatan', $kegiatan)
-        ->where(function($query) {
-            $query->where('status_keikutpesertaan', 'panitia')
-                  ->orWhere('status_keikutpesertaan', 'narasumber');
-        })
-        ->get();
+            ->where('id_kegiatan', $kegiatan)
+            ->where(function ($query) {
+                $query->where('status_keikutpesertaan', 'panitia')
+                    ->orWhere('status_keikutpesertaan', 'narasumber');
+            })
+            ->get();
         // dd($peserta);
         return response()->json($peserta);
     }
