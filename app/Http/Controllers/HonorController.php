@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\HonorPanitiaExport;
+use App\Exports\HonorNarasumberExport;
+
 use App\Models\Honor;
 use App\Models\Kegiatan;
 use App\Models\PesertaKegiatan;
+use Maatwebsite\Excel\Facades\Excel;
 // use Dompdf\Dompdf;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 // use Dompdf\Options;
@@ -159,13 +163,13 @@ class HonorController extends Controller
         $menu = $this->menu;
         $title = $menu;
         $kegiatan = Kegiatan::orderBy('id', 'DESC')->get();
-        
+
         $datas = Honor::find($id);
         $peserta = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')
-        ->orWhere('status_keikutpesertaan', 'panitia')
-        ->get();
+            ->orWhere('status_keikutpesertaan', 'panitia')
+            ->get();
         // dd($datas);
-        
+
         return view('pages.admin.honor.edit', compact('menu', 'datas', 'peserta', 'title', 'kegiatan'));
     }
 
@@ -249,17 +253,29 @@ class HonorController extends Controller
         return $pdf->stream("daftar_honor_$jenis.pdf");
     }
 
-    public function getPeserta(Request $r) {
+    public function getPeserta(Request $r)
+    {
         // dd($r->all());
         $kegiatan = $r->input('kegiatan');
         $peserta = PesertaKegiatan::orderBy('id', 'DESC')
-        ->where('id_kegiatan', $kegiatan)
-        ->where(function($query) {
-            $query->where('status_keikutpesertaan', 'panitia')
-                  ->orWhere('status_keikutpesertaan', 'narasumber');
-        })
-        ->get();
+            ->where('id_kegiatan', $kegiatan)
+            ->where(function ($query) {
+                $query->where('status_keikutpesertaan', 'panitia')
+                    ->orWhere('status_keikutpesertaan', 'narasumber');
+            })
+            ->get();
         // dd($peserta);
         return response()->json($peserta);
     }
+
+    public function honorNarasumber()
+    {
+        return Excel::download(new HonorNarasumberExport, 'HonorNarasaumber.xlsx');
+    }
+    public function honorPanitia()
+    {
+        // Gunakan method Excel::download() untuk men-download file Excel
+        return Excel::download(new HonorPanitiaExport, 'HonorPanitia.xlsx');
+    }
+    
 }

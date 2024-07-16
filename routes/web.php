@@ -45,7 +45,7 @@ Route::group(
         Route::get('/kegiatan/cariPeserta', 'KegiatanController@cariPeserta')->name('user.kegiatan.cariPeserta');
         Route::get('/kegiatan/peserta', 'KegiatanController@getPesertaByKegiatan')->name('user.kegiatan.peserta');
         Route::get('/peserta/detail', 'KegiatanController@getPesertaDetail')->name('user.peserta.detail');
-        
+
         // trace pesrta dari kegiatan sebelum nya
         Route::get('/peserta/cekData', 'KegiatanController@cekDataPeserta')->name('user.peserta.cekData');
 
@@ -53,9 +53,6 @@ Route::group(
         Route::get('/print/registrasi-peserta', 'KegiatanController@printRegistrasiPeserta')->name('print.registrasi.peserta');
         Route::get('/print/absensi-panitia', 'KegiatanController@printAbsensiPanitia')->name('print.absensi.panitia');
         Route::get('/print/absensi-narasumber', 'KegiatanController@printAbsensiNarasumber')->name('print.absensi.narasumber');
-
-
-
     }
 );
 
@@ -117,8 +114,6 @@ Route::group(
 
                 Route::get('/penugasan/{id}', 'PegawaiController@editPenugasan')->name('pegawai.editPenugasan');
                 Route::get('/pendamping/{id}', 'PegawaiController@editPendamping')->name('pegawai.editPendamping');
-
-
             });
 
             // Kepegawaian
@@ -244,6 +239,8 @@ Route::group(
                 Route::put('/update', 'HonorController@update')->name('honor.update');
                 Route::post('/hapus/{id}', 'HonorController@destroy')->name('honor.hapus');
                 Route::get('/cetak/{jabatan}', 'HonorController@cetak')->name('honor.cetak');
+                Route::get('/cetakExcelPanitia', 'HonorController@honorPanitia')->name('honor.cetakExcelPanitia');
+                Route::get('/cetakExcelNarasumber', 'HonorController@honorNarasumber')->name('honor.cetakExcelNarasumber');
                 Route::get('/getPeserta', 'HonorController@getPeserta')->name('honor.getPeserta');
             });
 
@@ -265,10 +262,11 @@ Route::group(
                 Route::get('/cetakAmplop/{id}', 'KuitansiController@cetakAmplop')->name('kuitansi.cetakAmplop');
                 Route::get('/cetakPermintaan', 'KuitansiController@cetakPermintaan')->name('kuitansi.cetakPermintaan');
                 Route::get('/cetakLampiran', 'KuitansiController@cetakLampiran')->name('kuitansi.cetakLampiran');
+                Route::get('/cetakExcel', 'KuitansiController@cetakExcel')->name('kuitansi.cetakexcel');
             });
 
 
-            
+
             // Master Jabatan Pegawai BBGP
             Route::prefix('kependudukan')->group(function () {
                 Route::get('/', 'KependudukanController@index')->name('kependudukan.index');
