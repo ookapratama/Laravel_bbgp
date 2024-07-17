@@ -47,7 +47,6 @@
                                         <div class="form-group">
                                             <select name="jabatanKegiatan" class="form-control" id="jabatanKegiatan">
                                                 <option value="">-- pilih status keikutsertaan --</option>
-                                                <option value="peserta">Peserta</option>
                                                 <option value="panitia">Panitia</option>
                                                 <option value="narasumber">Narasumber</option>
                                             </select>
@@ -55,15 +54,51 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3" id="printShow">
-                                    <div class="text-white">
-                                        <a target="_blank" href="#" id="printHonorPanitia"
-                                            class="btn btn-success mx-3">
-                                            <i class="fas fa-print mr-2"></i>Print Honor Panitia
-                                        </a>
-                                        <a target="_blank" href="#" id="printHonorNarasumber" class="btn btn-success">
-                                            <i class="fas fa-print mr-2"></i>Print Honor Narasumber
-                                        </a>
+                                <div id="printShow">
+
+                                    <div class="row mb-3">
+                                        <div class="text-white">
+                                            <a href="#" id="printHonorPanitia" class="btn btn-success mx-3">
+                                                <i class="fas fa-print mr-2"></i>Print Honor Panitia
+                                            </a>
+                                            <a href="#" id="printHonorNarasumber" class="btn btn-success">
+                                                <i class="fas fa-print mr-2"></i>Print Honor Narasumber
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Nomor Surat</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="masukkan nomor surat" id="no_surat" name="no_surat">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Tanggal Surat</label>
+                                                <div class="input-group">
+                                                    <input type="date" class="form-control" id="tgl_surat"
+                                                        name="tgl_surat">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Kode Anggaran</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="masukkan kode anggaran" id="kode_anggaran"
+                                                        name="kode_anggaran">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -132,45 +167,158 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                var tableKegiatan = $('#table-kegiatan').DataTable();
-                var showPrint = $('#printShow').hide();
+    var tableKegiatan = $('#table-kegiatan').DataTable();
+    var showPrint = $('#printShow').hide();
 
-                $('#kegiatanSelect').on('change', function(e) {
-                    e.preventDefault();
-                    var kegiatanValue = $(this).val();
-                    console.log(kegiatanValue)
+    var kegiatan = '';
+    var jabatan = '';
 
-                    tableKegiatan.column(3).search(kegiatanValue).draw();
-                    showPrint.show();
+    $('#kegiatanSelect').on('change', function(e) {
+        e.preventDefault();
+        var kegiatanValue = $(this).val();
+        console.log(kegiatanValue);
 
-                    // Update the export link
-                    var jabatanValue = $('#jabatanKegiatan').val();
-                    updatePrintLink(kegiatanValue, jabatanValue);
-                });
+        tableKegiatan.column(3).search(kegiatanValue).draw();
+        showPrint.show();
 
-                $('#jabatanKegiatan').on('change', function(e) {
-                    e.preventDefault();
-                    var jabatanValue = $(this).val();
-                    console.log(jabatanValue)
+        // Update the export link
+        var jabatanValue = $('#jabatanKegiatan').val();
+        kegiatan = kegiatanValue;
+        jabatan = jabatanValue;
+        updatePrintLink(kegiatanValue, jabatanValue);
+    });
 
-                    tableKegiatan.column(2).search(jabatanValue).draw();
+    $('#jabatanKegiatan').on('change', function(e) {
+        e.preventDefault();
+        var jabatanValue = $(this).val();
+        console.log(jabatanValue);
 
-                    // Update the export link
-                    var kegiatanValue = $('#kegiatanSelect').val();
-                    updatePrintLink(kegiatanValue, jabatanValue);
-                });
+        tableKegiatan.column(2).search(jabatanValue).draw();
 
-                function updatePrintLink(kegiatan, jabatan) {
-                    var printLinkPanitia = '{{ route('honor.cetakExcelPanitia', [':kegiatan', ':jabatan']) }}';
-                    printLinkPanitia = printLinkPanitia.replace(':kegiatan', kegiatan).replace(':jabatan', 'panitia');
-                    $('#printHonorPanitia').attr('href', printLinkPanitia);
+        // Update the export link
+        var kegiatanValue = $('#kegiatanSelect').val();
+        kegiatan = kegiatanValue;
+        jabatan = jabatanValue;
+        updatePrintLink(kegiatanValue, jabatanValue);
+    });
 
-                    var printLinkNarasumber = '{{ route('honor.cetakExcelNarasumber', [':kegiatan', ':jabatan']) }}';
-                    printLinkNarasumber = printLinkNarasumber.replace(':kegiatan', kegiatan).replace(':jabatan',
-                        'narasumber');
-                    $('#printHonorNarasumber').attr('href', printLinkNarasumber);
-                }
+    $('#printHonorPanitia').on('click', function(e) {
+        let no_surat = $('[name="no_surat"]').val();
+        let tgl_surat = $('[name="tgl_surat"]').val();
+        let kode_anggaran = $('[name="kode_anggaran"]').val();
+
+        e.preventDefault();
+        swal({
+                title: 'Apakah anda sudah yakin?',
+                text: 'pastikan anda sudah mengisi Nomor, Tanggal Surat dan Kode Anggaran ',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
             })
+            .then((willDelete) => {
+                if (willDelete) {
+                    if (no_surat == '' || tgl_surat == '' || kode_anggaran == '') {
+                        swal('Nomor, Tanggal Surat atau Kode Anggaran Tidak Valid / Tidak boleh kosong', {
+                            icon: 'error',
+                        });
+                        return;
+                    }
+
+                    $.ajax({
+                        url: '{{ route('honor.storeNomor') }}',
+                        type: 'GET',
+                        data: {
+                            no_surat: no_surat,
+                            tgl_surat: tgl_surat,
+                            kode_anggaran: kode_anggaran,
+                            kegiatan_id: kegiatan,
+                        },
+                        success: function(response) {
+                            console.log(kegiatan, jabatan);
+
+                            if (jabatan != 'panitia') {
+                                jabatan = 'panitia'
+                            }
+
+                            // Construct the URL dynamically
+                            var printUrl = '{{ route('honor.cetakExcelPanitia', ['id_kegiatan' => '__KEGIATAN__', 'jabatan' => '__JABATAN__']) }}'
+                                .replace('__KEGIATAN__', encodeURIComponent(kegiatan))
+                                .replace('__JABATAN__', encodeURIComponent('panitia'));
+
+                            window.location.href = printUrl;
+                        },
+                        error: function(error) {
+                            console.error(error);
+                            alert('Error fetching detail.');
+                        }
+                    });
+                }
+            });
+    });
+
+    $('#printHonorNarasumber').on('click', function(e) {
+        let no_surat = $('[name="no_surat"]').val();
+        let tgl_surat = $('[name="tgl_surat"]').val();
+        let kode_anggaran = $('[name="kode_anggaran"]').val();
+
+        e.preventDefault();
+        swal({
+                title: 'Apakah anda sudah yakin?',
+                text: 'pastikan anda sudah mengisi Nomor, Tanggal Surat dan Kode Anggaran ',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    if (no_surat == '' || tgl_surat == '' || kode_anggaran == '') {
+                        swal('Nomor, Tanggal Surat atau Kode Anggaran Tidak Valid / Tidak boleh kosong', {
+                            icon: 'error',
+                        });
+                        return;
+                    }
+
+                    $.ajax({
+                        url: '{{ route('honor.storeNomor') }}',
+                        type: 'GET',
+                        data: {
+                            no_surat: no_surat,
+                            tgl_surat: tgl_surat,
+                            kode_anggaran: kode_anggaran,
+                            kegiatan_id: kegiatan,
+                        },
+                        success: function(response) {
+                            console.log(kegiatan, jabatan);
+
+                            if (jabatan != 'narasumber') {
+                                jabatan = 'narasumber'
+                            }
+
+                            // Construct the URL dynamically
+                            var printUrl = '{{ route('honor.cetakExcelNarasumber', ['id_kegiatan' => '__KEGIATAN__', 'jabatan' => '__JABATAN__']) }}'
+                                .replace('__KEGIATAN__', encodeURIComponent(kegiatan))
+                                .replace('__JABATAN__', encodeURIComponent('narasumber'));
+
+                            window.location.href = printUrl;
+                        },
+                        error: function(error) {
+                            console.error(error);
+                            alert('Error fetching detail.');
+                        }
+                    });
+                }
+            });
+    });
+
+
+
+    function updatePrintLink(kegiatan, jabatan) {
+        // var printLinkNarasumber = '{{ route('honor.cetakExcelNarasumber', [':kegiatan', ':jabatan']) }}';
+        // printLinkNarasumber = printLinkNarasumber.replace(':kegiatan', encodeURIComponent(kegiatan)).replace(':jabatan', 'narasumber');
+        // $('#printHonorNarasumber').attr('href', printLinkNarasumber);
+    }
+});
+
         </script>
     @endpush
 @endsection

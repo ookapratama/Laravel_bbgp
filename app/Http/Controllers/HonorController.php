@@ -7,6 +7,7 @@ use App\Exports\HonorNarasumberExport;
 
 use App\Models\Honor;
 use App\Models\Kegiatan;
+use App\Models\PenomoranKegiatan;
 use App\Models\PesertaKegiatan;
 use Maatwebsite\Excel\Facades\Excel;
 // use Dompdf\Dompdf;
@@ -290,15 +291,35 @@ class HonorController extends Controller
     //     return Excel::download(new HonorPanitiaExport, 'HonorPanitia.xlsx');
     // }
 
-    public function cetakExcelPanitia($id_kegiatan, $jabatan)
+    public function cetakExcelPanitia($id_kegiatan, $jabatan = 'panitia')
     {
-        return Excel::download(new HonorPanitiaExport($id_kegiatan, $jabatan), 'HonorPanitia.xlsx');
+        // dd('tes');
+        $datas = PenomoranKegiatan::orderByDesc('id')->first();
+        $id_nomor = $datas->id;
+        return Excel::download(new HonorPanitiaExport($id_kegiatan, $jabatan, $id_nomor), 'HonorPanitia.xlsx');
+    }
+    
+    public function cetakExcelNarasumber($id_kegiatan, $jabatan = 'narasumber')
+    {
+        // dd($id_kegiatan);
+        $datas = PenomoranKegiatan::orderByDesc('id')->first();
+        $id_nomor = $datas->id;
+        return Excel::download(new HonorNarasumberExport($id_kegiatan, $jabatan, $id_nomor), 'HonorNarasumber.xlsx');
     }
 
-    public function cetakExcelNarasumber($id_kegiatan, $jabatan)
+    public function storeNomor(Request $r)
     {
-        return Excel::download(new HonorNarasumberExport($id_kegiatan, $jabatan), 'HonorNarasumber.xlsx');
+        // dd($r->all());
+        PenomoranKegiatan::create($r->all());
+
+        return response()->json([
+            'status' => true,
+            'data' => PenomoranKegiatan::get(), 
+            // 'data' => $r->all(), 
+        ]);
     }
+
+
 
 
     // public function cetakExcelFiltered($kegiatan, $jabatan)

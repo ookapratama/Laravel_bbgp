@@ -18,4 +18,9 @@ class Kegiatan extends Model
         'deskripsi_kegiatan',
         'status' // aktif tidak nya kegiatan itu
     ];
+
+    public function penomoran () {
+        return $this->hasOne(PenomoranKegiatan::class);
+    } 
+
 }

@@ -231,18 +231,18 @@
                         if (golongan == 'IV')
                             potongan = jumlahHonor * 0.15
                         else if (golongan == 'III')
-                            potongan = jumlahHonor * 0.5
+                            potongan = jumlahHonor * 0.05
                         else
                             potongan = 0;
                     } else if (jenis_gol == 'P3K') {
                         console.log('p3k')
-                        potongan = jumlahHonor * 0.5
+                        potongan = jumlahHonor * 0.05
                     } else {
                         console.log('uncategory')
                         potongan = 0
                     }
                     // console.log(jumlahHonor)
-                    // console.log(potongan * 0.15)
+                    // console.log(potongan)
                     let jumlahDiterima = jumlahHonor - potongan;
                     console.log(jumlahDiterima)
 

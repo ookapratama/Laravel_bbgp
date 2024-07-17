@@ -75,6 +75,12 @@
                         <span>Data Keuangan</span></a>
                     <ul class="dropdown-menu">
 
+                        <li class="{{ $title == 'Data Honor Kegiatan' ? '' : '' }}">
+                            <a class="nav-link" href="{{ route('honor.index') }}">
+                                Penomoran 
+                            </a>
+                        </li>
+
                         <li class="{{ $title == 'Data Honor Kegiatan' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('honor.index') }}">
                                 Honor

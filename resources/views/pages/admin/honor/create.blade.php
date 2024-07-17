@@ -23,7 +23,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <small>*Jika ingin mengubah data peserta, silahkan ke <u> Data kegiatan > Peserta
-                                        Kegiatan </u></small>
+                                            Kegiatan </u></small>
                                     <div class="row mt-2">
 
                                         <div class="col-md-4">
@@ -272,12 +272,12 @@
                         if (golongan == 'IV')
                             potongan = jumlahHonor * 0.15
                         else if (golongan == 'III')
-                            potongan = jumlahHonor * 0.5
+                            potongan = jumlahHonor * 0.05
                         else
                             potongan = 0;
                     } else if (jenis_gol == 'P3K') {
                         console.log('p3k')
-                        potongan = jumlahHonor * 0.5
+                        potongan = jumlahHonor * 0.05
                     } else {
                         console.log('uncategory')
                         potongan = 0
