@@ -49,6 +49,45 @@
 
                                 </div>
 
+                                <h6>Filter By Kegiatan dan Status Keikutpesertaan</h6>
+                                <div class="row">
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <select name="" class="form-control" id="kegiatanSelect">
+                                                <option value="">-- pilih kegiatan --</option>
+                                                @foreach ($kegiatan as $v)
+                                                    <?php
+                                                    setlocale(LC_TIME, 'id_ID.UTF-8');
+                                                    
+                                                    $tgl_kegiatan = strftime('%d %B', strtotime($v->tgl_kegiatan));
+                                                    $tgl_selesai = strftime('%d %B %Y', strtotime($v->tgl_selesai));
+                                                    ?>
+                                                    <option value="{{ $v->nama_kegiatan }}">{{ $v->nama_kegiatan }}
+                                                        {{-- ( {{ $tgl_kegiatan }} -
+                                                        {{ $tgl_selesai }}
+                                                       ) --}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <select name="" class="form-control" id="jabatanKegiatan">
+                                                <option value="">-- pilih status keikutsertaan --</option>
+                                                <option value="peserta">Peserta</option>
+                                                <option value="panitia">Panitia</option>
+                                                <option value="narasumber">Narasumber</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
                                 <div class="row mb-3">
                                     <div class="col-md-8">
                                         {{-- <h6>Print Permintaan</h6> --}}
@@ -58,11 +97,17 @@
                                                 class="btn btn-info mr-2"><i class="fas fa-print mr-2"></i>Cetak Permintaan
                                                 Kuitansi</a>
 
+
                                             <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
                                                 class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a>
 
                                             <a target="_blank" href="{{ route('kuitansi.cetakexcel') }}"
                                                 class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Excel </a>
+
+
+
+                                            <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
+                                                class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a>
 
 
                                             {{-- <button id="btnPrintRegisPeserta" class="btn btn-primary"><i
@@ -101,7 +146,7 @@
                                                     <td>{{ $data->no_bukti ?? '' }}</td>
                                                     <td>{{ $data->no_MAK ?? '' }}</td>
                                                     <td>{{ $data->peserta->nama ?? '' }}</td>
-                                                    <td>{{ $data->peserta->pegawai->nip ?? '' }}</td>
+                                                    <td>{{ $data->peserta->nip ?? '' }}</td>
                                                     <td>{{ $data->jenis_angkutan ?? '' }}</td>
                                                     <td>{{ $data->kabupaten->name ?? '' }}</td>
                                                     <td>{{ $data->lokasi_tujuan ?? '' }}</td>

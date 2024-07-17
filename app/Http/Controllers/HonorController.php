@@ -39,7 +39,8 @@ class HonorController extends Controller
     {
         $menu = $this->menu;
         $title = 'honor';
-        $kegiatan = PesertaKegiatan::get();
+        // $kegiatan = PesertaKegiatan::get();
+        $kegiatan = Kegiatan::get();
         $honor = Honor::get();
         $datas = [];
         // $pot = 0;
@@ -71,6 +72,7 @@ class HonorController extends Controller
             $datas[] = [
                 'nama' => $v->peserta->nama ?? '',
                 'jabatan' => $v->peserta->status_keikutpesertaan ?? '',
+                'kegiatan' => $v->peserta->kegiatan->nama_kegiatan ?? '',
                 'jp_realisasi' => $v->jp_realisasi,
                 'jumlah' => $this->rupiahFormat($v->jumlah),
                 'jumlah_honor' => $this->rupiahFormat($v->jumlah_honor),
@@ -85,7 +87,7 @@ class HonorController extends Controller
             // dd($datas);
         }
 
-        return view('pages.admin.honor.index', compact('menu', 'datas', 'title'));
+        return view('pages.admin.honor.index', compact('menu', 'datas', 'title','kegiatan'));
     }
 
     public function rupiahFormat($number)
@@ -120,7 +122,7 @@ class HonorController extends Controller
         // foreach ($peserta as $key => $value) {
         //     dump($value->kegiatan);
         // }
-        // dd(true);
+        // dd($peserta);
         return view('pages.admin.honor.create', compact('menu', 'peserta', 'kegiatan'));
     }
 
@@ -131,6 +133,15 @@ class HonorController extends Controller
     {
         // dd(true);
         $req = $r->all();
+
+        $getNik = Honor::where('id_peserta', $req['id_peserta'])->first();
+        if ($getNik != null) {
+            return redirect()->route('honor.create')->with([
+                'message' => 'error nik',
+                'menu' => 'kegiatan',
+            ]);
+        }
+
         $req['jp_realisasi'] = (int) str_replace(".", "", $r->jp_realisasi);
         $req['jumlah'] = (int) str_replace(".", "", $r->jumlah);
         $req['jumlah_honor'] = (int) str_replace(".", "", $r->jumlah_honor);

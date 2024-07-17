@@ -22,7 +22,9 @@
                             @csrf
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
+                                    <small>*Jika ingin mengubah data peserta, silahkan ke <u> Data kegiatan > Peserta
+                                        Kegiatan </u></small>
+                                    <div class="row mt-2">
 
                                         <div class="col-md-4">
                                             <div class="form-group">
@@ -38,7 +40,8 @@
                                         </div>
 
                                         <div class="col-md-4">
-
+                                            <input type="hidden" name="no_ktp" id="no_ktp">
+                                            <input type="hidden" name="id_peserta" id="id_peserta">
                                             <div class="form-group">
                                                 <label>Nama Penerima</label>
                                                 <select required name="id_peserta" id="idPeserta"
@@ -201,7 +204,8 @@
                             var options = '<option value="">-- pilih peserta --</option>';
 
                             $.each(response, function(index, peserta) {
-                                options += `<option data-jabatan="${peserta.status_keikutpesertaan}" 
+                                options += `
+                                <option data-jabatan="${peserta.status_keikutpesertaan}" 
                                 data-golongan="${peserta.golongan}" 
                                 data-mulai="${peserta.tgl_kegiatan}" 
                                 data-selesai="${peserta.tgl_selesai}" 
@@ -209,6 +213,8 @@
                                 data-jenis_gol="${peserta.jenis_gol}" 
                                 data-golongan="${peserta.golongan}" 
                                 data-diluar_gol="${peserta.diluar_gol}" 
+                                data-no_ktp="${peserta.no_ktp}" 
+                                data-id="${peserta.id}" 
                                 value="${peserta.id}">
                                     ${peserta.no_ktp} - ${peserta.nama} (${peserta.status_keikutpesertaan})
                                 </option>`;
@@ -231,6 +237,8 @@
                     var jenis_gol = selectedOption.data('jenis_gol');
                     var golongan = selectedOption.data('golongan');
                     var diluar_gol = selectedOption.data('diluar_gol');
+                    var no_ktp = selectedOption.data('no_ktp');
+                    var id = selectedOption.data('id');
                     var tglKegiatan = selectedOption.data('mulai');
                     var tglSelesai = selectedOption.data('selesai');
 
@@ -240,6 +248,8 @@
                     $('#kegiatan').val(kegiatan);
                     $('#instansi').val(instansi);
                     $('#jenis_gol').val(jenis_gol);
+                    $('#no_ktp').val(no_ktp);
+                    $('#id').val(id);
                     // $(`#jenis_gol option[value="${jenis_gol}"]`).prop(
                     //     'selected', true)
                 });

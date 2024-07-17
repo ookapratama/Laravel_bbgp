@@ -11,6 +11,7 @@ class kuitansi extends Model
     protected $fillable = [
         'pegawai_id',
         'no_bukti',
+        // 'nip',
         'no_MAK',
         'no_surat_tugas',
         'tgl_surat_tugas',
