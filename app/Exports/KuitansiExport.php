@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Kuitansi;
 use App\Models\PesertaKegiatan;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -13,8 +14,20 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
+
 class KuitansiExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
+
+    private $date_today;
+    
+    public function __construct()
+    {
+        Carbon::setLocale('id');
+        setlocale(LC_TIME, 'id_ID.UTF-8');
+        $this->date_today = Carbon::now()->translatedFormat('d F Y');
+    }
+
+
     public function collection()
     {
         $pesertaKegiatan = PesertaKegiatan::all(); // Fetch all participants
@@ -86,7 +99,7 @@ class KuitansiExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 // Insert custom headers
                 $sheet->insertNewRowBefore(1, 4);
                 $sheet->mergeCells('A1:G1');
-                $sheet->setCellValue('A1', 'DAFTAR PEMBAYARAN PERJALANAN DINAS');
+                $sheet->setCellValue('A1', 'DAFTAR PEMBAYARAN');
                 $sheet->mergeCells('A2:G2');
                 $sheet->setCellValue('A2', 'Pelatihan Penggunaan dan Pemanfaatan Chromebook');
                 $sheet->mergeCells('A3:G3');
@@ -127,7 +140,8 @@ class KuitansiExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 $sheet->setCellValue('B' . ($totalRows), 'TOTAL');
                 $sheet->mergeCells('B39:D39');
                 // Menempatkan teks tanda tangan dan menggabungkan sel
-                $sheet->setCellValue('F' . ($totalRows + 3), 'Makassar, 28 Juni 2024');
+
+                $sheet->setCellValue('F' . ($totalRows + 3), 'Makassar, ' . $this->date_today);
                 $sheet->mergeCells('F' . ($totalRows + 3) . ':G' . ($totalRows + 3));
 
                 $sheet->setCellValue('F' . ($totalRows + 4), '        ');

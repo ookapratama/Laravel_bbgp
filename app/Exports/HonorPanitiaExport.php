@@ -18,6 +18,16 @@ class HonorPanitiaExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     use Exportable;
 
+    protected $id_kegiatan, $id_peserta;
+    protected $jabatan;
+    protected $namaKegiatan;
+
+    public function __construct($id_kegiatan, $jabatan)
+    {
+        $this->id_kegiatan = $id_kegiatan;
+        $this->jabatan = $jabatan;
+    }
+
     protected $headers = [
         'No',
         'Nama Lengkap',
@@ -43,7 +53,15 @@ class HonorPanitiaExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function collection()
     {
         // Fetch data from PesertaKegiatan and Honor models
-        $pesertaKegiatan = PesertaKegiatan::where('status_keikutpesertaan', 'panitia')->get();
+        $pesertaKegiatan = PesertaKegiatan::where('id_kegiatan', $this->id_kegiatan)
+        ->where('status_keikutpesertaan', 'panitia')
+        ->get();
+
+        $this->namaKegiatan = $pesertaKegiatan[0]->kegiatan->nama_kegiatan;
+        $this->id_kegiatan = $pesertaKegiatan[0]->kegiatan->id;
+
+        // dd($this->id_kegiatan);
+
         $honor = Honor::get();
 
         // Check if either collection is empty

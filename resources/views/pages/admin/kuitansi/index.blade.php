@@ -93,21 +93,19 @@
                                         {{-- <h6>Print Permintaan</h6> --}}
 
                                         <div id="btnGroup">
-                                            <a target="_blank" href="{{ route('kuitansi.cetakPermintaan') }}"
+                                            {{-- <a target="_blank" href="{{ route('kuitansi.cetakPermintaan') }}"
                                                 class="btn btn-info mr-2"><i class="fas fa-print mr-2"></i>Cetak Permintaan
-                                                Kuitansi</a>
+                                                Kuitansi</a> --}}
 
 
-                                            <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
-                                                class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a>
+                                            {{-- <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
+                                                class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a> --}}
 
                                             <a target="_blank" href="{{ route('kuitansi.cetakexcel') }}"
-                                                class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Excel </a>
+                                                class="btn btn-success"><i class="fas fa-print mr-2"></i>Cetak Permintaan
+                                                Kuitansi </a>
 
 
-
-                                            <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
-                                                class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a>
 
 
                                             {{-- <button id="btnPrintRegisPeserta" class="btn btn-primary"><i
@@ -127,7 +125,9 @@
                                                 <th class="text-center">No</th>
                                                 <th>Nomor Bukti</th>
                                                 <th>Nomor MAK</th>
-                                                <th>Nama Pegawai</th>
+                                                <th>Nama Kegiatan</th>
+                                                <th>Nama Peserta</th>
+                                                <th>Jabatan Kegiatan</th>
                                                 <th>NIP</th>
                                                 <th>Jenis Angkutan</th>
                                                 <th>Lokasi Asal</th>
@@ -145,7 +145,9 @@
                                                     </td>
                                                     <td>{{ $data->no_bukti ?? '' }}</td>
                                                     <td>{{ $data->no_MAK ?? '' }}</td>
+                                                    <td>{{ $data->peserta->kegiatan->nama_kegiatan ?? '' }}</td>
                                                     <td>{{ $data->peserta->nama ?? '' }}</td>
+                                                    <td>{{ $data->peserta->status_keikutpesertaan ?? '' }}</td>
                                                     <td>{{ $data->peserta->nip ?? '' }}</td>
                                                     <td>{{ $data->jenis_angkutan ?? '' }}</td>
                                                     <td>{{ $data->kabupaten->name ?? '' }}</td>
@@ -295,6 +297,27 @@
                     language: language,
                 });
 
+                var btnGroup = $('#btnGroup').hide();
+
+                $('#kegiatanSelect').on('change', function(e) {
+                    e.preventDefault();
+                    var kegiatanValue = $(this).val();
+                    console.log(kegiatanValue)
+
+                    tableKuitansi.column(3).search(kegiatanValue).draw();
+                    btnGroup.show();
+                });
+
+                $('#jabatanKegiatan').on('change', function(e) {
+                    e.preventDefault();
+                    var jabatanValue = $(this).val();
+                    console.log(jabatanValue)
+
+                    tableKuitansi.column(5).search(jabatanValue).draw();
+                    // btnGroup.show();
+                });
+
+
             });
         </script>
 
@@ -317,6 +340,10 @@
                         }
                     });
                 });
+
+
+
+
             });
         </script>
     @endpush

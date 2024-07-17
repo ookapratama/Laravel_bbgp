@@ -21,4 +21,7 @@ class Honor extends Model
     public function peserta() {
         return $this->hasOne(PesertaKegiatan::class, 'id', 'id_peserta');
     }
+
+
+    
 }

@@ -17,6 +17,14 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 class HonorNarasumberExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
     use Exportable;
+    protected $id_kegiatan;
+    protected $jabatan;
+
+    public function __construct($id_kegiatan, $jabatan)
+    {
+        $this->id_kegiatan = $id_kegiatan;
+        $this->jabatan = $jabatan;
+    }
 
     protected $headers = [
         'No',
@@ -43,9 +51,15 @@ class HonorNarasumberExport implements FromCollection, WithHeadings, ShouldAutoS
     public function collection()
     {
         // Fetch data from PesertaKegiatan and Honor models
-        $pesertaKegiatan = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')->get();
+        $pesertaKegiatan = PesertaKegiatan::where('id_kegiatan', $this->id_kegiatan)
+        ->where('status_keikutpesertaan', 'narasumber')
+        ->get();
         $honor = Honor::get();
+        // dd($pesertaKegiatan);
 
+        // $honor = Honor::where('kegiatan_id', $this->id_kegiatan)
+        //             ->where('jabatan', $this->jabatan)
+        //             ->get();
         // Check if either collection is empty
         if ($pesertaKegiatan->isEmpty() || $honor->isEmpty()) {
             return new Collection([]);

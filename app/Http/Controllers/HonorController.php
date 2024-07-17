@@ -73,6 +73,7 @@ class HonorController extends Controller
                 'nama' => $v->peserta->nama ?? '',
                 'jabatan' => $v->peserta->status_keikutpesertaan ?? '',
                 'kegiatan' => $v->peserta->kegiatan->nama_kegiatan ?? '',
+                'id_kegiatan' => $v->peserta->kegiatan->id ?? '',
                 'jp_realisasi' => $v->jp_realisasi,
                 'jumlah' => $this->rupiahFormat($v->jumlah),
                 'jumlah_honor' => $this->rupiahFormat($v->jumlah_honor),
@@ -87,7 +88,7 @@ class HonorController extends Controller
             // dd($datas);
         }
 
-        return view('pages.admin.honor.index', compact('menu', 'datas', 'title','kegiatan'));
+        return view('pages.admin.honor.index', compact('menu', 'datas', 'title', 'kegiatan'));
     }
 
     public function rupiahFormat($number)
@@ -279,14 +280,33 @@ class HonorController extends Controller
         return response()->json($peserta);
     }
 
-    public function honorNarasumber()
+    // public function honorNarasumber($id_kegiatan)
+    // {
+    //     return Excel::download(new HonorNarasumberExport, 'HonorNarasaumber.xlsx');
+    // }
+    // public function honorPanitia($id_kegiatan)
+    // {
+    //     // Gunakan method Excel::download() untuk men-download file Excel
+    //     return Excel::download(new HonorPanitiaExport, 'HonorPanitia.xlsx');
+    // }
+
+    public function cetakExcelPanitia($id_kegiatan, $jabatan)
     {
-        return Excel::download(new HonorNarasumberExport, 'HonorNarasaumber.xlsx');
+        return Excel::download(new HonorPanitiaExport($id_kegiatan, $jabatan), 'HonorPanitia.xlsx');
     }
-    public function honorPanitia()
+
+    public function cetakExcelNarasumber($id_kegiatan, $jabatan)
     {
-        // Gunakan method Excel::download() untuk men-download file Excel
-        return Excel::download(new HonorPanitiaExport, 'HonorPanitia.xlsx');
+        return Excel::download(new HonorNarasumberExport($id_kegiatan, $jabatan), 'HonorNarasumber.xlsx');
     }
-    
+
+
+    // public function cetakExcelFiltered($kegiatan, $jabatan)
+    // {
+    //     $datas = Honor::where('kegiatan', $kegiatan)
+    //         ->where('jabatan', $jabatan)
+    //         ->get();
+
+    //     return Excel::download(new HonorExport($datas), 'honor_filtered.xlsx');
+    // }
 }
