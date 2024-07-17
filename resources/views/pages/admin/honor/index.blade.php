@@ -19,7 +19,7 @@
 
             <div class="section-body">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-14">
                         <div class="card">
                             <div class="card-body">
                                 <!-- Navigation Buttons -->
@@ -27,6 +27,23 @@
 
                                     <a href="{{ route('honor.create') }}" class="btn btn-primary text-white my-3">+ Tambah
                                         Honor</a>
+
+
+                                    <a target="_blank" href="{{ route('honor.cetak', 'panitia') }}"
+                                        class="btn btn-info mx-3"><i class="fas fa-print mr-2"></i>Print Honor
+                                        Panitia</a>
+
+                                    <a target="_blank" href="{{ route('honor.cetak', 'narasumber') }}"
+                                        class="btn btn-info "><i class="fas fa-print mr-2"></i>Print Honor
+                                        Narasumber</a>
+
+                                    <a target="_blank" href="{{ route('honor.cetakExcelPanitia') }}"
+                                        class="btn btn-info mx-3"><i class="fas fa-print mr-2"></i>Excel Honor
+                                        Panitia</a>
+
+                                    <a target="_blank" href="{{ route('honor.cetakExcelNarasumber', 'narasumber') }}"
+                                        class="btn btn-info "><i class="fas fa-print mr-2"></i>Excel Honor
+                                        Narasumber</a>
 
 
                                 </div>

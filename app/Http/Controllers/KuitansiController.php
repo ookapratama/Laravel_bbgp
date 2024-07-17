@@ -8,6 +8,8 @@ use App\Models\Kegiatan;
 use App\Models\Kuitansi;
 use App\Models\PesertaKegiatan;
 use App\Models\Transportasi;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\KuitansiExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -30,7 +32,10 @@ class KuitansiController extends Controller
         // dd($datas);
         return view('pages.admin.kuitansi.index', compact('menu', 'datas', 'title', 'kegiatan'));
     }
-
+    public function cetakExcel()
+    {
+        return Excel::download(new KuitansiExport, 'kuitansi.xlsx');
+    }
     /**
      * Show the form for creating a new resource.
      */

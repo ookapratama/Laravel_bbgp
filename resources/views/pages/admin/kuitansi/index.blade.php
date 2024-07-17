@@ -89,7 +89,7 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         {{-- <h6>Print Permintaan</h6> --}}
 
                                         <div id="btnGroup">
@@ -97,8 +97,18 @@
                                                 class="btn btn-info mr-2"><i class="fas fa-print mr-2"></i>Cetak Permintaan
                                                 Kuitansi</a>
 
+
                                             <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
                                                 class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a>
+
+                                            <a target="_blank" href="{{ route('kuitansi.cetakexcel') }}"
+                                                class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Excel </a>
+
+
+
+                                            <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
+                                                class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a>
+
 
                                             {{-- <button id="btnPrintRegisPeserta" class="btn btn-primary"><i
                                                     class="fas fa-print mr-2"></i>Registrasi Peserta</button>
