@@ -50,7 +50,7 @@ Several quick start options are available:
 -   Run `cd` to the newly created `/laravel-stisla` directory
 -   Run `composer install` command
 -   Run `npm install` command
--   Run `npm run dev` command
+-   Run `npx mix` command
 -   Run `cp .env.example .env` command
 -   Run `php artisan key:generate` command
 -   Run `php artisan serve` command
