@@ -25,7 +25,7 @@
                                     Tambah Data Pegawai BBGP
                                 </a>
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-1">
+                                    <table class="table table-striped" id="table-temp">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">

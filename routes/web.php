@@ -268,6 +268,8 @@ Route::group(
                 Route::get('/show/{id}', 'KuitansiController@show')->name('kuitansi.show');
                 Route::get('/getPeserta', 'KuitansiController@getPeserta')->name('kuitansi.getPeserta');
                 
+                Route::get('/cetakAll/{rows}', 'KuitansiController@cetakAll')->name('kuitansi.cetakAll');
+                
                 Route::get('/cetak/{id}', 'KuitansiController@cetak')->name('kuitansi.cetak');
                 Route::get('/cetakRill/{id}', 'KuitansiController@cetakRill')->name('kuitansi.cetakRill');
                 Route::get('/cetakPJmutlak/{id}', 'KuitansiController@cetakPJmutlak')->name('kuitansi.cetakPJmutlak');

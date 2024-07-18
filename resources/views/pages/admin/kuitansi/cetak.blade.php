@@ -170,10 +170,7 @@
                     <td>
                         <p style="text-align: justify">:
                             <span class="highlight">
-                                Transport Petugas dalam rangka Pelaksanaan
-                                Peningkatan Kapasitas Koordinator Program Prioritas pada Satuan kerja di Lingkungan
-                                Ditjen GTK pada tanggal 5 s.d 9 Mei 2024 di BGP Banten (eks kantor PPPPTK Penjas dan
-                                BK).
+                                {{ $data->peserta->kegiatan->nama_kegiatan }}
                             </span>
                         </p>
                     </td>
@@ -216,7 +213,7 @@
                             1
                         </td>
 
-                        <td valign="top"  >Transport: <br>
+                        <td valign="top">Transport: <br>
                             <ul style="list-style-type: none; margin: -1px 0 0 -25px">
 
                                 <li>
@@ -252,7 +249,8 @@
                     <tr>
                         <td>2</td>
 
-                        <td>Uang Harian {{ $data->jumlah_hari }}  hari  Rp. {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }}  </td>
+                        <td>Uang Harian {{ $data->jumlah_hari }} hari Rp.
+                            {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }} </td>
                         <td>Rp. {{ number_format($data->total_harian ?? 0, 0, ',', '.') }}</td>
                         <td></td>
                     </tr>
@@ -263,16 +261,22 @@
                             3
                         </td>
 
-                        <td>Penginapan 4 hari  {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}</td>
+                        <td>Penginapan {{ $data->jumlah_hari - 1 }} malam
+                            Rp. {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}
+                        </td>
                         <td>Rp. {{ number_format($data->total_penginapan ?? 0, 0, ',', '.') }}</td>
-                        <td> Rp. {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }} * 30% </td>
+                        {{-- <td> Rp. {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }} * 30% </td> --}}
+                        <td> </td>
                     </tr>
 
                 </tbody>
                 <tfoot style="">
                     <tr style="padding: 0 !important; text-align: center">
-                        <td colspan="2" class="right-align bold">Jumlah</td>
-                        <td>Rp. {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}</td>
+                        <td colspan="2" style="text-align: center"  class=" bold">Total</td>
+                        <?php
+                            $total_kuitansi = $data->total_penginapan + $data->total_harian + $data->total_transport
+                        ?>
+                        <td>Rp. {{ number_format($total_kuitansi ?? 0, 0, ',', '.') }}</td>
                         <td></td>
                     </tr>
                 </tfoot>
@@ -284,7 +288,7 @@
             <p style="padding:0"><strong>Makassar, {{ $tgl_sekarang }} 2024</strong></p>
             <p style="padding:0">Telah menerima jumlah uang sebesar <br> <span class="highlight bold">Rp. <span
                         style="margin-left: 50px">
-                        {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}</span></span></p>
+                        {{ number_format($total_kuitansi ?? 0, 0, ',', '.') }}</span></span></p>
             <p style="padding:0"><strong>Yang menerima</strong></p>
             <p style="padding-top:50px" class="highlight bold">Sitti Kahirah Adami, SH</p>
             <p style="padding:0" class="highlight ">NIP. 196810052005012014</p>
@@ -299,7 +303,7 @@
                         <p>Ditetapkan sejumlah </p>
                     </td>
                     <td><span class="highlight bold">: Rp.
-                            {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}</span></td>
+                            {{ number_format($total_kuitansi ?? 0, 0, ',', '.') }}</span></td>
                 </tr>
                 <tr>
                     <td style="padding: 0; width: 500px;">

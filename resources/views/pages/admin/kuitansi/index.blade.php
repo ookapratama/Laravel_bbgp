@@ -90,7 +90,7 @@
 
                                 <div id="btnGroup">
                                     <div class="row mb-3">
-                                        <div class="col-md-8">
+                                        <div class="col-md-3">
                                             {{-- <h6>Print Permintaan</h6> --}}
 
                                             {{-- <a target="_blank" href="{{ route('kuitansi.cetakPermintaan') }}"
@@ -100,7 +100,7 @@
                                             {{-- <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
                                                 class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a> --}}
 
-                                            <a  href="#" id="printKuitansi" class="btn btn-success"><i
+                                            <a href="#" id="printKuitansi" class="btn btn-success"><i
                                                     class="fas fa-print mr-2"></i>Cetak Permintaan
                                                 Kuitansi </a>
 
@@ -114,6 +114,28 @@
                                             <button id="btnPrintNarsum" class="btn btn-warning"><i
                                                     class="fas fa-print mr-2"></i>Absensi Narasumber</button> --}}
                                         </div>
+
+                                        <div class="col-md-8">
+                                            {{-- <h6>Print Permintaan</h6> --}}
+
+
+                                            {{-- <a href="#" id="printAllKuitansi" class="btn btn-info"><i
+                                                    class="fas fa-print mr-2"></i>Cetak Semua
+                                                Kuitansi </a>
+
+                                            <a href="#" id="printAllRill" class="btn btn-info"><i
+                                                    class="fas fa-print mr-2"></i>Cetak Pengeluaran Rill </a>
+
+                                            <a href="#" id="printAllPJ" class="btn btn-info"><i
+                                                    class="fas fa-print mr-2"></i>Cetak PJ Mutlak </a>
+
+                                            <a href="#" id="printAllAmplop" class="btn btn-info"><i
+                                                    class="fas fa-print mr-2"></i>Cetak Amplop </a> --}}
+
+                                        </div>
+
+
+
                                     </div>
 
                                     <div class="row">
@@ -344,6 +366,11 @@
                     tableKuitansi.column(3).search(kegiatanValue).draw();
                     kegiatan = kegiatanValue;
                     btnGroup.show();
+
+                    // var totalFilteredRows = tableKuitansi.rows({
+                    //     search: 'applied'
+                    // }).count();
+                    // console.log("Total number of filtered rows: " + totalFilteredRows);
                 });
 
                 $('#jabatanKegiatan').on('change', function(e) {
@@ -404,6 +431,30 @@
                             }
                         });
                 });
+
+                $('#printAllKuitansi').on('click', function() {
+                    var selectedKegiatan = $('#kegiatanSelect').val();
+                    if (selectedKegiatan) {
+                        window.open("{{ url('kuitansi/print-all') }}?kegiatan_id=" + selectedKegiatan,
+                            '_blank');
+                    } else {
+                        swal("Silakan pilih kegiatan terlebih dahulu.");
+                    }
+                });
+
+                $('#printAllRill').on('click', function() {
+
+                });
+
+                $('#printAllPJ').on('click', function() {
+
+                });
+
+                $('#printAllAmplop').on('click', function() {
+
+                });
+
+
             });
         </script>
 
@@ -426,6 +477,10 @@
                         }
                     });
                 });
+
+
+
+
 
 
 

@@ -125,7 +125,7 @@ class KuitansiExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 $sheet->mergeCells('A1:G1');
                 $sheet->setCellValue('A1', 'DAFTAR PEMBAYARAN');
                 $sheet->mergeCells('A2:G2');
-                $sheet->setCellValue('A2', $this->namaKegiatan);
+                $sheet->setCellValue('A2', 'Kegiatan ' . $this->namaKegiatan);
                 $sheet->mergeCells('A3:G3');
                 $sheet->setCellValue('A3', 'SESUAI SURAT TUGAS '. $this->no_surat .' tanggal ' . $this->tgl_surat);
                 $sheet->mergeCells('A4:G4');

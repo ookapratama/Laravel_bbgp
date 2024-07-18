@@ -237,7 +237,7 @@ class KuitansiController extends Controller
         $r['jumlah_biaya_diterima']  = (int) str_replace(',', '', $r['jumlah_biaya_diterima']) ?? 0;
         $r['bill_malam']  = (int) str_replace(',', '', $r['bill_penginapan']) ?? 0;
         $r['jumlah_malam']  = (int) str_replace(',', '', $r['jumlah_nginap']) ?? 0;
-        
+
         $r['pegawai_id'] = $r['id_pegawai'] ?? $r['id_pegawai_old'];
         $r['uang_penginapan'] = $r['jumlah_biaya'];
         $r['total_pp'] = $r['jumlah_biaya'];
@@ -268,6 +268,22 @@ class KuitansiController extends Controller
     {
 
         $data = Kuitansi::find($id);
+
+        // dd($data);
+
+
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetak', compact('data'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+
+
+        return $pdf->stream('data_kuitansi.pdf');
+    }
+
+    public function cetakAll($rows)
+    {
+
 
         // dd($data);
 
