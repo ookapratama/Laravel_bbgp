@@ -160,6 +160,20 @@
         </script>
     @endif
 
+    {{--  update proffile --}}
+    @if (session('message') == 'error surat')
+        <script>
+            swal("Error", "Tidak ada data honor dari kegiatan ini", "error");
+        </script>
+    @endif
+
+    {{--  update proffile --}}
+    @if (session('message') == 'error suratk')
+        <script>
+            swal("Error", "Tidak ada data kuitansi dari kegiatan ini", "error");
+        </script>
+    @endif
+
 
 
 </body>

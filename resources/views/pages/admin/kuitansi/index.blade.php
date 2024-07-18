@@ -49,7 +49,7 @@
 
                                 </div>
 
-                                <h6>Filter By Kegiatan dan Status Keikutpesertaan</h6>
+                                <h6>Filter By Kegiatan </h6>
                                 <div class="row">
                                     <div class="col-md-3">
 
@@ -63,7 +63,7 @@
                                                     $tgl_kegiatan = strftime('%d %B', strtotime($v->tgl_kegiatan));
                                                     $tgl_selesai = strftime('%d %B %Y', strtotime($v->tgl_selesai));
                                                     ?>
-                                                    <option value="{{ $v->nama_kegiatan }}">{{ $v->nama_kegiatan }}
+                                                    <option value="{{ $v->id }}">{{ $v->nama_kegiatan }}
                                                         {{-- ( {{ $tgl_kegiatan }} -
                                                         {{ $tgl_selesai }}
                                                        ) --}}
@@ -72,7 +72,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    {{-- <div class="col-md-3">
 
                                         <div class="form-group">
                                             <select name="" class="form-control" id="jabatanKegiatan">
@@ -83,26 +83,25 @@
 
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
                                 </div>
 
-                                <div class="row mb-3">
-                                    <div class="col-md-8">
-                                        {{-- <h6>Print Permintaan</h6> --}}
+                                <div id="btnGroup">
+                                    <div class="row mb-3">
+                                        <div class="col-md-8">
+                                            {{-- <h6>Print Permintaan</h6> --}}
 
-                                        <div id="btnGroup">
                                             {{-- <a target="_blank" href="{{ route('kuitansi.cetakPermintaan') }}"
                                                 class="btn btn-info mr-2"><i class="fas fa-print mr-2"></i>Cetak Permintaan
                                                 Kuitansi</a> --}}
 
-
                                             {{-- <a target="_blank" href="{{ route('kuitansi.cetakLampiran') }}"
                                                 class="btn btn-info"><i class="fas fa-print mr-2"></i>Cetak Lampiran </a> --}}
 
-                                            <a target="_blank" href="{{ route('kuitansi.cetakexcel') }}"
-                                                class="btn btn-success"><i class="fas fa-print mr-2"></i>Cetak Permintaan
+                                            <a  href="#" id="printKuitansi" class="btn btn-success"><i
+                                                    class="fas fa-print mr-2"></i>Cetak Permintaan
                                                 Kuitansi </a>
 
 
@@ -116,6 +115,43 @@
                                                     class="fas fa-print mr-2"></i>Absensi Narasumber</button> --}}
                                         </div>
                                     </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Nomor Surat</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="masukkan nomor surat" id="no_surat" name="no_surat">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Tanggal Surat</label>
+                                                <div class="input-group">
+                                                    <input type="date" class="form-control" id="tgl_surat"
+                                                        name="tgl_surat">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Kode Anggaran</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="masukkan kode anggaran" id="kode_anggaran"
+                                                        name="kode_anggaran">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
                                 </div>
 
                                 <div class="table-responsive">
@@ -145,7 +181,9 @@
                                                     </td>
                                                     <td>{{ $data->no_bukti ?? '' }}</td>
                                                     <td>{{ $data->no_MAK ?? '' }}</td>
-                                                    <td>{{ $data->peserta->kegiatan->nama_kegiatan ?? '' }}</td>
+                                                    <td>{{ $data->peserta->kegiatan->nama_kegiatan ?? '' }} <p
+                                                            class="text-white">{{ $data->peserta->kegiatan->id }}</p>
+                                                    </td>
                                                     <td>{{ $data->peserta->nama ?? '' }}</td>
                                                     <td>{{ $data->peserta->status_keikutpesertaan ?? '' }}</td>
                                                     <td>{{ $data->peserta->nip ?? '' }}</td>
@@ -288,36 +326,84 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                var language = {
-                    "sSearch": "Pencarian Data Kuitansi BBGP : ",
-                };
-                var tableKuitansi = $('#table_kuitansi').DataTable({
-                    paging: true,
-                    searching: true,
-                    language: language,
-                });
-
+                var tableKuitansi = $('#table_kuitansi').DataTable();
                 var btnGroup = $('#btnGroup').hide();
+
+                var kegiatan = '';
+                var jabatan = '';
 
                 $('#kegiatanSelect').on('change', function(e) {
                     e.preventDefault();
-                    var kegiatanValue = $(this).val();
-                    console.log(kegiatanValue)
+                    kegiatanValue = $(this).val();
+                    if (kegiatanValue == '') {
+                        btnGroup.hide();
+                        return;
+                    }
+                    console.log(kegiatanValue);
 
                     tableKuitansi.column(3).search(kegiatanValue).draw();
+                    kegiatan = kegiatanValue;
                     btnGroup.show();
                 });
 
                 $('#jabatanKegiatan').on('change', function(e) {
                     e.preventDefault();
-                    var jabatanValue = $(this).val();
-                    console.log(jabatanValue)
+                    jabatan = $(this).val();
+                    console.log(jabatan);
 
-                    tableKuitansi.column(5).search(jabatanValue).draw();
-                    // btnGroup.show();
+                    tableKuitansi.column(5).search(jabatan).draw();
                 });
 
+                $('#printKuitansi').on('click', function(e) {
+                    e.preventDefault();
+                    let no_surat = $('#no_surat').val();
+                    let tgl_surat = $('#tgl_surat').val();
+                    let kode_anggaran = $('#kode_anggaran').val();
 
+                    swal({
+                            title: 'Apakah anda sudah yakin?',
+                            text: 'pastikan anda sudah mengisi Nomor, Tanggal Surat dan Kode Anggaran ',
+                            icon: 'warning',
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                if (no_surat == '' || tgl_surat == '' || kode_anggaran == '') {
+                                    swal('Nomor, Tanggal Surat atau Kode Anggaran Tidak Valid / Tidak boleh kosong', {
+                                        icon: 'error',
+                                    });
+                                    return;
+                                }
+
+                                $.ajax({
+                                    url: '{{ route('kuitansi.storeNomor') }}',
+                                    type: 'GET',
+                                    data: {
+                                        no_surat: no_surat,
+                                        tgl_surat: tgl_surat,
+                                        kode_anggaran: kode_anggaran,
+                                        kegiatan_id: kegiatan,
+                                    },
+                                    success: function(response) {
+                                        console.log(kegiatan);
+
+                                        // Construct the URL dynamically
+                                        var printUrl =
+                                            '{{ route('kuitansi.cetakexcel', ['id_kegiatan' => '__KEGIATAN__']) }}'
+                                            .replace('__KEGIATAN__', encodeURIComponent(
+                                                kegiatan));
+
+                                        window.location.href = printUrl;
+                                    },
+                                    error: function(error) {
+                                        console.error(error);
+                                        alert('Error fetching detail.');
+                                    }
+                                });
+                            }
+                        });
+                });
             });
         </script>
 

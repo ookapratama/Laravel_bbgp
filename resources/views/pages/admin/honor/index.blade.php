@@ -47,6 +47,8 @@
                                         <div class="form-group">
                                             <select name="jabatanKegiatan" class="form-control" id="jabatanKegiatan">
                                                 <option value="">-- pilih status keikutsertaan --</option>
+                                                <option value="peserta">Peserta</option>
+
                                                 <option value="panitia">Panitia</option>
                                                 <option value="narasumber">Narasumber</option>
                                             </select>
@@ -167,158 +169,167 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-    var tableKegiatan = $('#table-kegiatan').DataTable();
-    var showPrint = $('#printShow').hide();
+                var tableKegiatan = $('#table-kegiatan').DataTable();
+                var showPrint = $('#printShow').hide();
 
-    var kegiatan = '';
-    var jabatan = '';
+                var kegiatan = '';
+                var jabatan = '';
 
-    $('#kegiatanSelect').on('change', function(e) {
-        e.preventDefault();
-        var kegiatanValue = $(this).val();
-        console.log(kegiatanValue);
-
-        tableKegiatan.column(3).search(kegiatanValue).draw();
-        showPrint.show();
-
-        // Update the export link
-        var jabatanValue = $('#jabatanKegiatan').val();
-        kegiatan = kegiatanValue;
-        jabatan = jabatanValue;
-        updatePrintLink(kegiatanValue, jabatanValue);
-    });
-
-    $('#jabatanKegiatan').on('change', function(e) {
-        e.preventDefault();
-        var jabatanValue = $(this).val();
-        console.log(jabatanValue);
-
-        tableKegiatan.column(2).search(jabatanValue).draw();
-
-        // Update the export link
-        var kegiatanValue = $('#kegiatanSelect').val();
-        kegiatan = kegiatanValue;
-        jabatan = jabatanValue;
-        updatePrintLink(kegiatanValue, jabatanValue);
-    });
-
-    $('#printHonorPanitia').on('click', function(e) {
-        let no_surat = $('[name="no_surat"]').val();
-        let tgl_surat = $('[name="tgl_surat"]').val();
-        let kode_anggaran = $('[name="kode_anggaran"]').val();
-
-        e.preventDefault();
-        swal({
-                title: 'Apakah anda sudah yakin?',
-                text: 'pastikan anda sudah mengisi Nomor, Tanggal Surat dan Kode Anggaran ',
-                icon: 'warning',
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    if (no_surat == '' || tgl_surat == '' || kode_anggaran == '') {
-                        swal('Nomor, Tanggal Surat atau Kode Anggaran Tidak Valid / Tidak boleh kosong', {
-                            icon: 'error',
-                        });
-                        return;
+                $('#kegiatanSelect').on('change', function(e) {
+                    e.preventDefault();
+                    var kegiatanValue = $(this).val();
+                    if (kegiatanValue == '') {
+                        showPrint.hide();
+                        return
                     }
+                    console.log(kegiatanValue);
 
-                    $.ajax({
-                        url: '{{ route('honor.storeNomor') }}',
-                        type: 'GET',
-                        data: {
-                            no_surat: no_surat,
-                            tgl_surat: tgl_surat,
-                            kode_anggaran: kode_anggaran,
-                            kegiatan_id: kegiatan,
-                        },
-                        success: function(response) {
-                            console.log(kegiatan, jabatan);
+                    tableKegiatan.column(3).search(kegiatanValue).draw();
+                    showPrint.show();
 
-                            if (jabatan != 'panitia') {
-                                jabatan = 'panitia'
+                    // Update the export link
+                    var jabatanValue = $('#jabatanKegiatan').val();
+                    kegiatan = kegiatanValue;
+                    jabatan = jabatanValue;
+                    updatePrintLink(kegiatanValue, jabatanValue);
+                });
+
+                $('#jabatanKegiatan').on('change', function(e) {
+                    e.preventDefault();
+                    var jabatanValue = $(this).val();
+                    console.log(jabatanValue);
+
+                    tableKegiatan.column(2).search(jabatanValue).draw();
+
+                    // Update the export link
+                    var kegiatanValue = $('#kegiatanSelect').val();
+                    kegiatan = kegiatanValue;
+                    jabatan = jabatanValue;
+                    updatePrintLink(kegiatanValue, jabatanValue);
+                });
+
+                $('#printHonorPanitia').on('click', function(e) {
+                    e.preventDefault();
+                    let no_surat = $('[name="no_surat"]').val();
+                    let tgl_surat = $('[name="tgl_surat"]').val();
+                    let kode_anggaran = $('[name="kode_anggaran"]').val();
+
+                    swal({
+                            title: 'Apakah anda sudah yakin?',
+                            text: 'pastikan anda sudah mengisi Nomor, Tanggal Surat dan Kode Anggaran ',
+                            icon: 'warning',
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                if (no_surat == '' || tgl_surat == '' || kode_anggaran == '') {
+                                    swal('Nomor, Tanggal Surat atau Kode Anggaran Tidak Valid / Tidak boleh kosong', {
+                                        icon: 'error',
+                                    });
+                                    return;
+                                }
+
+                                $.ajax({
+                                    url: '{{ route('honor.storeNomor') }}',
+                                    type: 'GET',
+                                    data: {
+                                        no_surat: no_surat,
+                                        tgl_surat: tgl_surat,
+                                        kode_anggaran: kode_anggaran,
+                                        kegiatan_id: kegiatan,
+                                    },
+                                    success: function(response) {
+                                        console.log(kegiatan, jabatan);
+
+                                        if (jabatan != 'panitia') {
+                                            jabatan = 'panitia'
+                                        }
+
+                                        // Construct the URL dynamically
+                                        var printUrl =
+                                            '{{ route('honor.cetakExcelPanitia', ['id_kegiatan' => '__KEGIATAN__', 'jabatan' => '__JABATAN__']) }}'
+                                            .replace('__KEGIATAN__', encodeURIComponent(
+                                                kegiatan))
+                                            .replace('__JABATAN__', encodeURIComponent(
+                                                'panitia'));
+
+                                        window.location.href = printUrl;
+                                    },
+                                    error: function(error) {
+                                        console.error(error);
+                                        alert('Error fetching detail.');
+                                    }
+                                });
                             }
+                        });
+                });
 
-                            // Construct the URL dynamically
-                            var printUrl = '{{ route('honor.cetakExcelPanitia', ['id_kegiatan' => '__KEGIATAN__', 'jabatan' => '__JABATAN__']) }}'
-                                .replace('__KEGIATAN__', encodeURIComponent(kegiatan))
-                                .replace('__JABATAN__', encodeURIComponent('panitia'));
+                $('#printHonorNarasumber').on('click', function(e) {
+                    let no_surat = $('[name="no_surat"]').val();
+                    let tgl_surat = $('[name="tgl_surat"]').val();
+                    let kode_anggaran = $('[name="kode_anggaran"]').val();
 
-                            window.location.href = printUrl;
-                        },
-                        error: function(error) {
-                            console.error(error);
-                            alert('Error fetching detail.');
-                        }
-                    });
+                    e.preventDefault();
+                    swal({
+                            title: 'Apakah anda sudah yakin?',
+                            text: 'pastikan anda sudah mengisi Nomor, Tanggal Surat dan Kode Anggaran ',
+                            icon: 'warning',
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                if (no_surat == '' || tgl_surat == '' || kode_anggaran == '') {
+                                    swal('Nomor, Tanggal Surat atau Kode Anggaran Tidak Valid / Tidak boleh kosong', {
+                                        icon: 'error',
+                                    });
+                                    return;
+                                }
+
+                                $.ajax({
+                                    url: '{{ route('honor.storeNomor') }}',
+                                    type: 'GET',
+                                    data: {
+                                        no_surat: no_surat,
+                                        tgl_surat: tgl_surat,
+                                        kode_anggaran: kode_anggaran,
+                                        kegiatan_id: kegiatan,
+                                    },
+                                    success: function(response) {
+                                        console.log(kegiatan, jabatan);
+
+                                        if (jabatan != 'narasumber') {
+                                            jabatan = 'narasumber'
+                                        }
+
+                                        // Construct the URL dynamically
+                                        var printUrl =
+                                            '{{ route('honor.cetakExcelNarasumber', ['id_kegiatan' => '__KEGIATAN__', 'jabatan' => '__JABATAN__']) }}'
+                                            .replace('__KEGIATAN__', encodeURIComponent(
+                                                kegiatan))
+                                            .replace('__JABATAN__', encodeURIComponent(
+                                                'narasumber'));
+
+                                        window.location.href = printUrl;
+                                    },
+                                    error: function(error) {
+                                        console.error(error);
+                                        alert('Error fetching detail.');
+                                    }
+                                });
+                            }
+                        });
+                });
+
+
+
+                function updatePrintLink(kegiatan, jabatan) {
+                    // var printLinkNarasumber = '{{ route('honor.cetakExcelNarasumber', [':kegiatan', ':jabatan']) }}';
+                    // printLinkNarasumber = printLinkNarasumber.replace(':kegiatan', encodeURIComponent(kegiatan)).replace(':jabatan', 'narasumber');
+                    // $('#printHonorNarasumber').attr('href', printLinkNarasumber);
                 }
             });
-    });
-
-    $('#printHonorNarasumber').on('click', function(e) {
-        let no_surat = $('[name="no_surat"]').val();
-        let tgl_surat = $('[name="tgl_surat"]').val();
-        let kode_anggaran = $('[name="kode_anggaran"]').val();
-
-        e.preventDefault();
-        swal({
-                title: 'Apakah anda sudah yakin?',
-                text: 'pastikan anda sudah mengisi Nomor, Tanggal Surat dan Kode Anggaran ',
-                icon: 'warning',
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    if (no_surat == '' || tgl_surat == '' || kode_anggaran == '') {
-                        swal('Nomor, Tanggal Surat atau Kode Anggaran Tidak Valid / Tidak boleh kosong', {
-                            icon: 'error',
-                        });
-                        return;
-                    }
-
-                    $.ajax({
-                        url: '{{ route('honor.storeNomor') }}',
-                        type: 'GET',
-                        data: {
-                            no_surat: no_surat,
-                            tgl_surat: tgl_surat,
-                            kode_anggaran: kode_anggaran,
-                            kegiatan_id: kegiatan,
-                        },
-                        success: function(response) {
-                            console.log(kegiatan, jabatan);
-
-                            if (jabatan != 'narasumber') {
-                                jabatan = 'narasumber'
-                            }
-
-                            // Construct the URL dynamically
-                            var printUrl = '{{ route('honor.cetakExcelNarasumber', ['id_kegiatan' => '__KEGIATAN__', 'jabatan' => '__JABATAN__']) }}'
-                                .replace('__KEGIATAN__', encodeURIComponent(kegiatan))
-                                .replace('__JABATAN__', encodeURIComponent('narasumber'));
-
-                            window.location.href = printUrl;
-                        },
-                        error: function(error) {
-                            console.error(error);
-                            alert('Error fetching detail.');
-                        }
-                    });
-                }
-            });
-    });
-
-
-
-    function updatePrintLink(kegiatan, jabatan) {
-        // var printLinkNarasumber = '{{ route('honor.cetakExcelNarasumber', [':kegiatan', ':jabatan']) }}';
-        // printLinkNarasumber = printLinkNarasumber.replace(':kegiatan', encodeURIComponent(kegiatan)).replace(':jabatan', 'narasumber');
-        // $('#printHonorNarasumber').attr('href', printLinkNarasumber);
-    }
-});
-
         </script>
     @endpush
 @endsection

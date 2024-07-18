@@ -225,7 +225,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya Pergi (Rp. )</label>
-                                                    <input  name="biaya_pergi" id="biaya_pergi" type="text"
+                                                    <input name="biaya_pergi" id="biaya_pergi" type="text"
                                                         class="form-control currency">
                                                 </div>
                                             </div>
@@ -233,7 +233,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya Pulang (Rp. )</label>
-                                                    <input  name="biaya_pulang" id="biaya_pulang" type="text"
+                                                    <input name="biaya_pulang" id="biaya_pulang" type="text"
                                                         class="form-control currency">
                                                 </div>
                                             </div>
@@ -270,7 +270,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya (Rp. )</label>
-                                                    <input  name="biaya_asal" id="biaya_asal" type="text"
+                                                    <input name="biaya_asal" id="biaya_asal" type="text"
                                                         class="form-control currency">
                                                 </div>
                                             </div>
@@ -278,7 +278,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya Bea Jarak (Rp. )</label>
-                                                    <input  name="bea_jarak" id="bea_jarak" type="text"
+                                                    <input name="bea_jarak" id="bea_jarak" type="text"
                                                         class="form-control currency">
                                                 </div>
                                             </div>
@@ -286,8 +286,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Tujuan (Rp. )</label>
-                                                    <input  name="tujuan" id="tujuan" placeholder=""
-                                                        type="text" class="form-control currency">
+                                                    <input name="tujuan" id="tujuan" placeholder="" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -310,15 +310,37 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Penginapan (Rp. )</label>
-                                                    <input  name="biaya_penginapan" id="biaya_penginapan"
-                                                        type="text" class="form-control currency">
+                                                    <input name="biaya_penginapan" id="biaya_penginapan" type="text"
+                                                        class="form-control currency">
+                                                    <div class="form-group mt-2">
+                                                        <div class="custom-switches-stacked mt-2">
+                                                            <label class="custom-switch">
+                                                                <input type="checkbox" name="switch_penginapan"
+                                                                    id="switch_penginapan" class="custom-switch-input">
+                                                                <span class="custom-switch-indicator"></span>
+                                                                <span class="custom-switch-description">Bill atau
+                                                                    30%</span>
+                                                            </label>
+                                                        </div>
+
+                                                        <label>Jumlah Bill</label>
+                                                        <input required name="bill_penginapan" id="bill_penginapan"
+                                                            type="text" value="0" class="form-control currency">
+
+
+                                                        <div class="form-group mt-3">
+                                                            <label>Jumlah Malam Menginap (otomatis)</label>
+                                                            <input readonly name="jumlah_nginap" id="jumlah_nginap" type="text"
+                                                                class="form-control ">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Uang Harian (Rp. )</label>
-                                                    <input  name="uang_harian" id="uang_harian" type="text"
+                                                    <input name="uang_harian" id="uang_harian" type="text"
                                                         class="form-control currency">
                                                 </div>
                                             </div>
@@ -328,9 +350,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Potongan</label>
-                                                    <input  name="potongan" id="potongan"
-                                                        placeholder="diisi jika ada" type="text"
-                                                        class="form-control currency">
+                                                    <input name="potongan" id="potongan" placeholder="diisi jika ada"
+                                                        type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -344,6 +365,8 @@
                                                 <label>Biaya Penginapan (Rp. )</label>
                                                 <input readonly required name="total_penginapan" id="total_penginapan"
                                                     type="text" class="form-control currency">
+
+
                                             </div>
                                         </div>
 
@@ -358,10 +381,11 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jumlah Hari</label>
-                                                <input  name="jumlah_hari" id="jumlah_hari" type="text"
-                                                    class="form-control currency">
+                                                <input name="jumlah_hari" id="jumlah_hari" type="text"
+                                                    class="form-control ">
                                             </div>
                                         </div>
+
 
                                     </div>
 
@@ -623,6 +647,18 @@
 
                 });
 
+                const bill_penginapan = $('#bill_penginapan');
+
+                $('#switch_penginapan').change(function() {
+
+                    console.log($(this).val())
+                    if ($(this).is(':checked')) {
+
+                        bill_penginapan.val(formatRupiah(210000)); // Set nilai 210000
+                    } else {
+                        bill_penginapan.val(0); // Set nilai 0 jika tidak aktif
+                    }
+                });
 
                 // Calculation functions
                 function calculateTiket() {
@@ -646,7 +682,20 @@
                 function calculatePenginapan() {
                     var biayaPerMalam = parseFloat($('#biaya_penginapan').val().replace(/[^0-9]/g, '')) || 0;
                     var jumlahHari = parseFloat($('#jumlah_hari').val().replace(/[^0-9]/g, '')) || 0;
-                    var totalPenginapan = (biayaPerMalam * 0.3) * jumlahHari;
+
+                    var jumlahNginap = parseFloat($('#jumlah_nginap').val().replace(/[^0-9]/g, '')) || 0;
+                    var jumlahBill = parseFloat($('#bill_penginapan').val().replace(/[^0-9]/g, '')) || 0;
+
+                    if (jumlahHari <= 1) {
+                        jumlahNginap = 0;
+                        var totalPenginapan = (biayaPerMalam + jumlahBill);
+                    } else {
+                        jumlahNginap = jumlahHari - 1
+                        var totalPenginapan = (biayaPerMalam + jumlahBill) * jumlahNginap;
+                    }
+
+                    $('#jumlah_nginap').val(jumlahNginap)
+
                     $('#total_penginapan').val(formatRupiah(totalPenginapan));
                     calculateTotalBiaya();
                 }
@@ -654,6 +703,8 @@
                 function calculateHarian() {
                     var biayaPerHari = parseFloat($('#uang_harian').val().replace(/[^0-9]/g, '')) || 0;
                     var jumlahHari = parseFloat($('#jumlah_hari').val().replace(/[^0-9]/g, '')) || 0;
+
+
                     var biayaHarian = biayaPerHari * jumlahHari;
                     $('#biaya_harian').val(formatRupiah(biayaHarian));
                     calculateTotalBiaya();
@@ -668,23 +719,21 @@
                 function calculateTotalBiaya() {
                     var jumlahBiayaTiket = parseFloat($('#jumlah_biaya_tiket').val().replace(/[^0-9]/g, '')) || 0;
                     var jumlahBiayaTransport = parseFloat($('#total_transport').val().replace(/[^0-9]/g, '')) || 0;
+
                     var jumlahBiayaPenginapan = parseFloat($('#total_penginapan').val().replace(/[^0-9]/g, '')) || 0;
+
                     var jumlahBiayaHarian = parseFloat($('#biaya_harian').val().replace(/[^0-9]/g, '')) || 0;
                     // var potongan = parseFloat($('#potongan').val().replace(/[^0-9]/g, '')) || 0;
-                    console.log(jumlahBiayaTiket)
-                    console.log(jumlahBiayaTransport)
-                    console.log(jumlahBiayaPenginapan)
-                    console.log(jumlahBiayaHarian)
+
                     var jumlahBiayaDiterima = jumlahBiayaTiket + jumlahBiayaTransport + jumlahBiayaPenginapan +
                         jumlahBiayaHarian;
-                    console.log(jumlahBiayaDiterima)
                     $('#jumlah_biaya_diterima').val(formatRupiah(jumlahBiayaDiterima));
                 }
 
                 // Event listeners for calculation
                 $('#biaya_pergi, #biaya_pulang, #pajak_bandara').on('input', calculateTiket);
                 $('#biaya_asal, #bea_jarak, #tujuan').on('input', calculateTransport);
-                $('#biaya_penginapan, #jumlah_hari').on('input', calculatePenginapan);
+                $('#biaya_penginapan, #jumlah_hari, #bill_penginapan').on('input', calculatePenginapan);
                 $('#uang_harian, #jumlah_hari').on('input', calculateHarian);
 
                 // $('#jumlah_biaya_tiket, #pajak_bandara , #jumlah_hari, #tujuan, #uang_harian, #potongan')
@@ -702,6 +751,9 @@
                 calculatePenginapan();
                 calculateHarian();
                 calculateTotalBiaya();
+
+
+
 
             });
 

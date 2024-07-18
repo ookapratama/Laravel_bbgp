@@ -10,6 +10,7 @@ use App\Models\PesertaKegiatan;
 use App\Models\Transportasi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\KuitansiExport;
+use App\Models\PenomoranKegiatan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -32,10 +33,7 @@ class KuitansiController extends Controller
         // dd($datas);
         return view('pages.admin.kuitansi.index', compact('menu', 'datas', 'title', 'kegiatan'));
     }
-    public function cetakExcel()
-    {
-        return Excel::download(new KuitansiExport, 'kuitansi.xlsx');
-    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -105,23 +103,25 @@ class KuitansiController extends Controller
             ]);
         }
 
-        $r['biaya_pergi']  = (int) str_replace(',', '', $r['biaya_pergi']) ?? 0 ;
-        $r['biaya_pulang']  = (int) str_replace(',', '', $r['biaya_pulang']) ?? 0 ;
-        $r['jumlah_biaya']  = (int) str_replace(',', '', $r['jumlah_biaya']) ?? 0 ;
-        $r['pajak_bandara']  = (int) str_replace(',', '', $r['pajak_bandara']) ?? 0 ;
-        $r['biaya_asal']  = (int) str_replace(',', '', $r['biaya_asal']) ?? 0 ;
-        $r['bea_jarak']  = (int) str_replace(',', '', $r['bea_jarak']) ?? 0 ;
-        $r['tujuan']  = (int) str_replace(',', '', $r['tujuan']) ?? 0 ;
-        $r['total_transport']  = (int) str_replace(',', '', $r['total_transport']) ?? 0 ;
-        $r['biaya_penginapan']  = (int) str_replace(',', '', $r['biaya_penginapan']) ?? 0 ;
-        $r['uang_harian']  = (int) str_replace(',', '', $r['uang_harian']) ?? 0 ;
-        $r['potongan']  = (int) str_replace(',', '', $r['potongan']) ?? 0 ;
-        $r['total_penginapan']  = (int) str_replace(',', '', $r['total_penginapan']) ?? 0 ;
-        $r['biaya_harian']  = (int) str_replace(',', '', $r['biaya_harian']) ?? 0 ;
-        $r['jumlah_hari']  = (int) str_replace(',', '', $r['jumlah_hari']) ?? 0 ;
-        $r['jumlah_biaya_diterima']  = (int) str_replace(',', '', $r['jumlah_biaya_diterima']) ?? 0 ;
+        $r['biaya_pergi']  = (int) str_replace(',', '', $r['biaya_pergi']) ?? 0;
+        $r['biaya_pulang']  = (int) str_replace(',', '', $r['biaya_pulang']) ?? 0;
+        $r['jumlah_biaya']  = (int) str_replace(',', '', $r['jumlah_biaya']) ?? 0;
+        $r['pajak_bandara']  = (int) str_replace(',', '', $r['pajak_bandara']) ?? 0;
+        $r['biaya_asal']  = (int) str_replace(',', '', $r['biaya_asal']) ?? 0;
+        $r['bea_jarak']  = (int) str_replace(',', '', $r['bea_jarak']) ?? 0;
+        $r['tujuan']  = (int) str_replace(',', '', $r['tujuan']) ?? 0;
+        $r['total_transport']  = (int) str_replace(',', '', $r['total_transport']) ?? 0;
+        $r['biaya_penginapan']  = (int) str_replace(',', '', $r['biaya_penginapan']) ?? 0;
+        $r['uang_harian']  = (int) str_replace(',', '', $r['uang_harian']) ?? 0;
+        $r['potongan']  = (int) str_replace(',', '', $r['potongan']) ?? 0;
+        $r['total_penginapan']  = (int) str_replace(',', '', $r['total_penginapan']) ?? 0;
+        $r['biaya_harian']  = (int) str_replace(',', '', $r['biaya_harian']) ?? 0;
+        $r['jumlah_hari']  = (int) str_replace(',', '', $r['jumlah_hari']) ?? 0;
+        $r['jumlah_biaya_diterima']  = (int) str_replace(',', '', $r['jumlah_biaya_diterima']) ?? 0;
+        $r['bill_malam']  = (int) str_replace(',', '', $r['bill_penginapan']) ?? 0;
+        $r['jumlah_malam']  = (int) str_replace(',', '', $r['jumlah_nginap']) ?? 0;
         // dd($r->all());
-        
+
         $r['pegawai_id'] = $r['id_pegawai'];
         $r['uang_penginapan'] = $r['jumlah_biaya'];
         $r['total_pp'] = $r['jumlah_biaya'];
@@ -157,6 +157,8 @@ class KuitansiController extends Controller
         $kuitansi = Kuitansi::findOrFail($id);
         $menu = $this->menu;
         $title = 'kuitansi';
+        $kegiatan = Kegiatan::orderBy('id', 'DESC')->get();
+
         $datas = array(
             'peserta' => PesertaKegiatan::orderByDesc('id')->get(),
             'kabupaten' => Kabupaten::get(),
@@ -166,7 +168,7 @@ class KuitansiController extends Controller
         $transportasis = $kuitansi->transportasis;
 
         // Mengembalikan view dengan data kuitansi dan transportasi
-        return view('pages.admin.kuitansi.edit', compact('menu', 'kuitansi', 'transportasis', 'title', 'datas'));
+        return view('pages.admin.kuitansi.edit', compact('menu', 'kuitansi', 'transportasis', 'title', 'datas', 'kegiatan'));
     }
 
     /**
@@ -218,7 +220,25 @@ class KuitansiController extends Controller
         $r = $r->all();
         $datas = Kuitansi::find($r['id']);
 
-        $r['pegawai_id'] = $r['id_pegawai'];
+        $r['biaya_pergi']  = (int) str_replace(',', '', $r['biaya_pergi']) ?? 0;
+        $r['biaya_pulang']  = (int) str_replace(',', '', $r['biaya_pulang']) ?? 0;
+        $r['jumlah_biaya']  = (int) str_replace(',', '', $r['jumlah_biaya']) ?? 0;
+        $r['pajak_bandara']  = (int) str_replace(',', '', $r['pajak_bandara']) ?? 0;
+        $r['biaya_asal']  = (int) str_replace(',', '', $r['biaya_asal']) ?? 0;
+        $r['bea_jarak']  = (int) str_replace(',', '', $r['bea_jarak']) ?? 0;
+        $r['tujuan']  = (int) str_replace(',', '', $r['tujuan']) ?? 0;
+        $r['total_transport']  = (int) str_replace(',', '', $r['total_transport']) ?? 0;
+        $r['biaya_penginapan']  = (int) str_replace(',', '', $r['biaya_penginapan']) ?? 0;
+        $r['uang_harian']  = (int) str_replace(',', '', $r['uang_harian']) ?? 0;
+        $r['potongan']  = (int) str_replace(',', '', $r['potongan']) ?? 0;
+        $r['total_penginapan']  = (int) str_replace(',', '', $r['total_penginapan']) ?? 0;
+        $r['biaya_harian']  = (int) str_replace(',', '', $r['biaya_harian']) ?? 0;
+        $r['jumlah_hari']  = (int) str_replace(',', '', $r['jumlah_hari']) ?? 0;
+        $r['jumlah_biaya_diterima']  = (int) str_replace(',', '', $r['jumlah_biaya_diterima']) ?? 0;
+        $r['bill_malam']  = (int) str_replace(',', '', $r['bill_penginapan']) ?? 0;
+        $r['jumlah_malam']  = (int) str_replace(',', '', $r['jumlah_nginap']) ?? 0;
+        
+        $r['pegawai_id'] = $r['id_pegawai'] ?? $r['id_pegawai_old'];
         $r['uang_penginapan'] = $r['jumlah_biaya'];
         $r['total_pp'] = $r['jumlah_biaya'];
         $r['total_pp'] = $r['jumlah_biaya'];
@@ -226,6 +246,7 @@ class KuitansiController extends Controller
         $r['total_harian'] = $r['biaya_harian'];
         $r['total_terima'] = $r['jumlah_biaya_diterima'];
 
+        // dd($r['id_pegawai']);
         // dd($datas);
         $datas->update($r);
 
@@ -350,5 +371,37 @@ class KuitansiController extends Controller
             ->get();
         // dd($peserta);
         return response()->json($peserta);
+    }
+
+
+    public function cetakExcel($id_kegiatan)
+    {
+        $kuitansi = Kuitansi::whereHas('peserta', function ($query) use ($id_kegiatan) {
+            $query->where('id_kegiatan', $id_kegiatan);
+        })->with('peserta.kegiatan')->get();
+        // dd($kuitansi);
+        if ($kuitansi->isEmpty()) {
+            return redirect()->route('kuitansi.index')->with('message', 'error suratk');
+        }
+
+
+        $datas = PenomoranKegiatan::orderByDesc('id')->first();
+        $id_nomor = $datas->id;
+
+
+        return Excel::download(new KuitansiExport($id_kegiatan, $id_nomor), 'kuitansi_' . $datas->kegiatan->nama_kegiatan . '.xlsx');
+    }
+
+
+    public function storeNomor(Request $r)
+    {
+        // dd($r->all());
+        PenomoranKegiatan::create($r->all());
+
+        return response()->json([
+            'status' => true,
+            'data' => PenomoranKegiatan::get(),
+            // 'data' => $r->all(), 
+        ]);
     }
 }

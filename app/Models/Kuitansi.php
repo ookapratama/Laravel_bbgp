@@ -33,6 +33,8 @@ class kuitansi extends Model
         'total_penginapan',
         'total_harian',
         'jumlah_hari',
+        'jumlah_malam',
+        'bill_malam',
         'total_terima',
     ];
     public function transportasis()

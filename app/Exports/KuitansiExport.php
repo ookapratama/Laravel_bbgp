@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Kuitansi;
+use App\Models\PenomoranKegiatan;
 use App\Models\PesertaKegiatan;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -19,38 +20,61 @@ class KuitansiExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
 {
 
     private $date_today;
-    
-    public function __construct()
+    private $id_kegiatan, $namaKegiatan;
+    private $id_nomor, $no_surat, $kode_anggaran, $tgl_surat;
+
+    public function __construct($id_kegiatan, $id_nomor)
     {
         Carbon::setLocale('id');
         setlocale(LC_TIME, 'id_ID.UTF-8');
         $this->date_today = Carbon::now()->translatedFormat('d F Y');
+        $this->id_kegiatan = $id_kegiatan;
+        $this->id_nomor = $id_nomor;
     }
 
 
     public function collection()
     {
-        $pesertaKegiatan = PesertaKegiatan::all(); // Fetch all participants
+
+        $nomor = PenomoranKegiatan::find($this->id_nomor);
+        // dd($this->id_kegiatan);
+        $this->no_surat = $nomor->no_surat;
+        $this->kode_anggaran = $nomor->kode_anggaran;
+        $this->tgl_surat = Carbon::parse($nomor->tgl_surat)->translatedFormat('d F Y');
+
+        $pesertaKegiatan = PesertaKegiatan::where('id_kegiatan', $this->id_kegiatan)
+            ->get();
+        $this->namaKegiatan = $pesertaKegiatan[0]->kegiatan->nama_kegiatan;
+        $id_kegiatan = $this->id_kegiatan;
+
+        $kuitansi = Kuitansi::whereHas('peserta', function ($query) use ($id_kegiatan) {
+            $query->where('id_kegiatan', $id_kegiatan);
+        })->with('peserta.kegiatan')->get();
+
+        // dump($nomor);
+        // dump($pesertaKegiatan);
+        // dump($kuitansi);
+        // dd(true);
         $datas = [];
 
         $totalTransport = 0;
         $totalUangHarian = 0;
         $totalJumlahDiterima = 0;
 
-        foreach ($pesertaKegiatan as $index => $peserta) {
+        foreach ($kuitansi as $index => $v) {
             // Fetch kuitansi data based on peserta kegiatan
-            $kuitansi = Kuitansi::where('pegawai_id', $peserta->id)->first();
+            // $kuitansi = Kuitansi::where('pegawai_id', $v->id)->first();
 
             // Prepare data for export
-            $transport = $kuitansi ? $kuitansi->total_transport : 0;
-            $uangHarian = $kuitansi ? $kuitansi->uang_harian : 0;
-            $jumlahDiterima = $kuitansi ? $kuitansi->total_terima : 0;
+            $transport = $v ? $v->total_transport : 0;
+            $uangHarian = $v ? $v->uang_harian : 0;
+            $jumlahDiterima = $v ? $v->total_terima : 0;
 
             $datas[] = [
                 'No' => $index + 1,
-                'Nama Lengkap' => $peserta->nama,
-                'Instansi' => $peserta->instansi,
-                'Asal - Tujuan' => $peserta->kabupaten . ' - ' . ($kuitansi ? $kuitansi->lokasi_tujuan : ''),
+                'Nama Lengkap' => $v->peserta->nama,
+                'Instansi' => $v->peserta->instansi,
+                'Asal - Tujuan' => $v->kabupaten->name . ' - ' . ($v ? $v->lokasi_tujuan : ''),
                 'Transport' => $transport,
                 'Uang Harian' => $uangHarian,
                 'Jumlah Diterima' => $jumlahDiterima,
@@ -101,11 +125,11 @@ class KuitansiExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
                 $sheet->mergeCells('A1:G1');
                 $sheet->setCellValue('A1', 'DAFTAR PEMBAYARAN');
                 $sheet->mergeCells('A2:G2');
-                $sheet->setCellValue('A2', 'Pelatihan Penggunaan dan Pemanfaatan Chromebook');
+                $sheet->setCellValue('A2', $this->namaKegiatan);
                 $sheet->mergeCells('A3:G3');
-                $sheet->setCellValue('A3', 'SESUAI SURAT TUGAS 07/106.18/SMPN3/SS/III/2024 tanggal 25-03-2024');
+                $sheet->setCellValue('A3', 'SESUAI SURAT TUGAS '. $this->no_surat .' tanggal ' . $this->tgl_surat);
                 $sheet->mergeCells('A4:G4');
-                $sheet->setCellValue('A4', 'Kode Anggaran : DI.5634.QDC.011.052.DA.524119');
+                $sheet->setCellValue('A4', 'Kode Anggaran : ' . $this->kode_anggaran);
 
                 // Apply bold and center alignment to custom headers
                 $sheet->getStyle('A1:G4')->getFont()->setBold(true);
@@ -116,10 +140,19 @@ class KuitansiExport implements FromCollection, WithHeadings, ShouldAutoSize, Wi
 
                 // Add border to header row
                 $sheet->getStyle('A5:G5')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+                $sheet->insertNewRowBefore(5, 2);
+                $sheet->mergeCells('A' . 5 . ':G' . 5);
+                $sheet->mergeCells('A' . 6 . ':G' . 6);
+
 
                 // Calculate total rows and columns
                 $totalRows = $sheet->getHighestRow();
                 $totalColumns = $sheet->getHighestColumn();
+
+                // $sheet->insertNewRowBefore($totalRows, 1);
+                $sheet->setCellValue('A' . $totalRows, 'TOTAL');
+                $sheet->mergeCells('A' . $totalRows . ':' . 'D' . $totalRows);
+                $sheet->getStyle('A' . $totalRows . ':' . $totalColumns . $totalRows)->getFont()->setBold(true);
 
                 // Apply border to all cells in the sheet
                 $sheet->getStyle('A1:' . $totalColumns . $totalRows)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);

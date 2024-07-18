@@ -54,15 +54,17 @@ $tgl_surat = strftime('%d %B %Y', strtotime($kuitansi->tgl_surat_tugas));
 
 </div>
 <hr>
-<h6>Biaya Harian - {{ $kuitansi->jumlah_hari }} hari</h6>
+<h6>Biaya Harian - {{ $kuitansi->jumlah_hari }} hari {{ $kuitansi->jumlah_malam  }} Malam</h6>
 <div class="row">
     <div class="col-md-5">
-        <p><strong>Penginapan  :</strong>  Rp. {{ number_format($kuitansi->biaya_penginapan ?? 0, 0, ',', '.') }} </p>
+        <p></p>
         <p><strong>Uang Harian:</strong>  Rp. {{ number_format($kuitansi->uang_harian ?? 0, 0, ',', '.') }} </p>
+        <p><strong>Total Uang Harian:  Rp. {{ number_format($kuitansi->total_harian ?? 0, 0, ',', '.') }} </strong> </p>
     </div>
     <div class="col-md-7">
-        <p><strong>Total Penginapan*30%  :  Rp. {{ number_format($kuitansi->total_penginapan ?? 0, 0, ',', '.') }} </strong></p>
-        <p><strong>Total Uang Harian:  Rp. {{ number_format($kuitansi->total_harian ?? 0, 0, ',', '.') }} </strong> </p>
+        <p><strong>Penginapan  :</strong>  Rp. {{ number_format($kuitansi->biaya_penginapan ?? 0, 0, ',', '.') }} </p>
+        <p><strong>Total Bill {{ $kuitansi->bill_malam == 210000 ? '30%' : $kuitansi->bill_malam }} :  Rp. {{ number_format($kuitansi->bill_malam ?? 0, 0, ',', '.') }} </strong></p>
+        <p><strong>Total Penginapan  :  Rp. {{ number_format($kuitansi->total_penginapan ?? 0, 0, ',', '.') }} </strong></p>
         
     </div>
 

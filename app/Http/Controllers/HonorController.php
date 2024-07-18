@@ -293,15 +293,30 @@ class HonorController extends Controller
 
     public function cetakExcelPanitia($id_kegiatan, $jabatan = 'panitia')
     {
-        // dd('tes');
+        $honor = Honor::whereHas('peserta', function ($query) use ($id_kegiatan) {
+            $query->where('id_kegiatan', $id_kegiatan);
+            $query->where('status_keikutpesertaan', 'panitia');
+        })->with('peserta.kegiatan')->get();
+        if ($honor->isEmpty()) {
+            return redirect()->route('honor.index')->with('message', 'error surat');
+        }
+
+
         $datas = PenomoranKegiatan::orderByDesc('id')->first();
         $id_nomor = $datas->id;
         return Excel::download(new HonorPanitiaExport($id_kegiatan, $jabatan, $id_nomor), 'HonorPanitia.xlsx');
     }
-    
+
     public function cetakExcelNarasumber($id_kegiatan, $jabatan = 'narasumber')
-    {
-        // dd($id_kegiatan);
+    {   
+        $honor = Honor::whereHas('peserta', function ($query) use ($id_kegiatan) {
+            $query->where('id_kegiatan', $id_kegiatan);
+            $query->where('status_keikutpesertaan', 'panitia');
+        })->with('peserta.kegiatan')->get();
+        if ($honor->isEmpty()) {
+            return redirect()->route('honor.index')->with('message', 'error surat');
+        }
+        
         $datas = PenomoranKegiatan::orderByDesc('id')->first();
         $id_nomor = $datas->id;
         return Excel::download(new HonorNarasumberExport($id_kegiatan, $jabatan, $id_nomor), 'HonorNarasumber.xlsx');
@@ -314,7 +329,7 @@ class HonorController extends Controller
 
         return response()->json([
             'status' => true,
-            'data' => PenomoranKegiatan::get(), 
+            'data' => PenomoranKegiatan::get(),
             // 'data' => $r->all(), 
         ]);
     }

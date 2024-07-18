@@ -17,6 +17,6 @@ class PenomoranKegiatan extends Model
 
 
     public function kegiatan () {
-        return $this->hasOne(Kegiatan::class);
+        return $this->hasOne(Kegiatan::class, 'id', 'kegiatan_id');
     }
 }
