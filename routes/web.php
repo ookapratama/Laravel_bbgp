@@ -21,7 +21,13 @@ Route::group(
     function () {
         Route::redirect('/', '/');
         // Dashboard
-        Route::get('/', 'UserController@index')->name('user.index');
+        Route::get(
+            '/',
+            function () {
+                return view('pages.landing.index');
+            }
+        )->name('user.index');
+        // Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
         Route::get('/eksternal', 'UserController@guru')->name('user.guru');
 
@@ -240,19 +246,19 @@ Route::group(
                 Route::post('/hapus/{id}', 'HonorController@destroy')->name('honor.hapus');
                 Route::get('/cetak/{jabatan}', 'HonorController@cetak')->name('honor.cetak');
                 Route::get('/cetak/{jabatan}', 'HonorController@cetak')->name('honor.cetak');
-                
+
                 // Route::get('/cetakExcelPanitia/{kegiatan}', 'HonorController@honorPanitia')->name('honor.cetakExcelPanitia');
                 // Route::get('/cetakExcelNarasumber/{kegiatan}', 'HonorController@honorNarasumber')->name('honor.cetakExcelNarasumber');
-                
+
                 Route::get('/cetakExcelPanitia/{id_kegiatan}/{jabatan}', 'HonorController@cetakExcelPanitia')->name('honor.cetakExcelPanitia');
                 Route::get('/cetakExcelNarasumber/{id_kegiatan}/{jabatan}', 'HonorController@cetakExcelNarasumber')->name('honor.cetakExcelNarasumber');
                 Route::get('/storeNomor', 'HonorController@storeNomor')->name('honor.storeNomor');
-                
-                
+
+
                 Route::get('honor/cetakExcelFiltered/{kegiatan}/{jabatan}', 'HonorController@cetakExcelFiltered')->name('honor.cetakExcelFiltered');
-                
+
                 Route::get('/getPeserta', 'HonorController@getPeserta')->name('honor.getPeserta');
-                
+
                 Route::get('/penomoran', 'HonorController@Penomoran')->name('honor.penomoran');
             });
 
@@ -267,9 +273,9 @@ Route::group(
                 Route::post('/hapus/{id}', 'KuitansiController@destroy')->name('kuitansi.hapus');
                 Route::get('/show/{id}', 'KuitansiController@show')->name('kuitansi.show');
                 Route::get('/getPeserta', 'KuitansiController@getPeserta')->name('kuitansi.getPeserta');
-                
+
                 Route::get('/cetakAll/{rows}', 'KuitansiController@cetakAll')->name('kuitansi.cetakAll');
-                
+
                 Route::get('/cetak/{id}', 'KuitansiController@cetak')->name('kuitansi.cetak');
                 Route::get('/cetakRill/{id}', 'KuitansiController@cetakRill')->name('kuitansi.cetakRill');
                 Route::get('/cetakPJmutlak/{id}', 'KuitansiController@cetakPJmutlak')->name('kuitansi.cetakPJmutlak');
@@ -278,10 +284,9 @@ Route::group(
                 Route::get('/cetakPermintaan', 'KuitansiController@cetakPermintaan')->name('kuitansi.cetakPermintaan');
                 Route::get('/cetakLampiran', 'KuitansiController@cetakLampiran')->name('kuitansi.cetakLampiran');
                 Route::get('/cetakExcel/{id_kegiatan}', 'KuitansiController@cetakExcel')->name('kuitansi.cetakexcel');
-                
+
                 Route::get('/storeNomor', 'KuitansiController@storeNomor')->name('kuitansi.storeNomor');
                 Route::get('/penomoran', 'KuitansiController@Penomoran')->name('honor.penomoran');
-                
             });
 
 

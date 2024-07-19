@@ -49,9 +49,9 @@
 
                                 </div>
 
-                                <h6>Filter By Kegiatan </h6>
                                 <div class="row">
                                     <div class="col-md-3">
+                                        <h6>Filter By Kegiatan </h6>
 
                                         <div class="form-group">
                                             <select name="" class="form-control" id="kegiatanSelect">
@@ -71,6 +71,23 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                    </div>
+
+                                    <div class="col-md">
+                                        <h6>Print semua data dari :</h6>
+
+                                        <a href="#" id="printAllKuitansi" class="btn btn-info"><i
+                                                class="fas fa-print mr-2"></i>
+                                            Kuitansi Peserta</a>
+
+                                        <a href="#" id="printAllRill" class="btn btn-info"><i
+                                                class="fas fa-print mr-2"></i>Pengeluaran Rill Peserta </a>
+
+                                        <a href="#" id="printAllPJ" class="btn btn-info"><i
+                                                class="fas fa-print mr-2"></i>PJ Mutlak Peserta</a>
+
+                                        <a href="#" id="printAllAmplop" class="btn btn-info"><i
+                                                class="fas fa-print mr-2"></i>Amplop Peserta</a>
                                     </div>
                                     {{-- <div class="col-md-3">
 
