@@ -284,11 +284,10 @@ class KuitansiController extends Controller
     public function cetakAll($rows)
     {
 
-
+    
         // dd($data);
-
-
-        $pdf = Pdf::loadView('pages.admin.kuitansi.cetak', compact('data'));
+        
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakAll', compact('datas'));
 
         // Set properties PDF
         $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
@@ -296,6 +295,53 @@ class KuitansiController extends Controller
 
         return $pdf->stream('data_kuitansi.pdf');
     }
+
+    public function cetakRillAll($rows)
+    {
+
+    
+        // dd($data);
+        
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakRillAll', compact('datas'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+
+
+        return $pdf->stream('data_kuitansi.pdf');
+    }
+
+    public function cetakPJmutlakAll($rows)
+    {
+
+    
+        // dd($data);
+        
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakPjMutlakAll', compact('datas'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+
+
+        return $pdf->stream('data_kuitansi.pdf');
+    }
+
+    public function cetakAmplopAll($rows)
+    {
+
+    
+        // dd($data);
+        
+        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakAmplopAll', compact('datas'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+
+
+        return $pdf->stream('data_kuitansi.pdf');
+    }
+
+    
 
     public function cetakRill(string $id)
     {

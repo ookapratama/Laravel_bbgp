@@ -27,7 +27,7 @@ Route::group(
                 return view('pages.landing.index');
             }
         )->name('user.index');
-        // Route::get('/', 'UserController@index')->name('user.index');
+        Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
         Route::get('/eksternal', 'UserController@guru')->name('user.guru');
 
@@ -275,13 +275,16 @@ Route::group(
                 Route::get('/getPeserta', 'KuitansiController@getPeserta')->name('kuitansi.getPeserta');
 
                 Route::get('/cetakAll/{rows}', 'KuitansiController@cetakAll')->name('kuitansi.cetakAll');
+                // Route::get('/cetakRill/{rows}', 'KuitansiController@cetakRillAll')->name('kuitansi.cetakRillAll');
+                // Route::get('/cetakPJmutlak/{rows}', 'KuitansiController@cetakPJmutlakAll')->name('kuitansi.cetakPJmutlakAll');
+                // Route::get('/cetakAmplop/{rows}', 'KuitansiController@cetakAmplopAll')->name('kuitansi.cetakAmplopAll');
 
                 Route::get('/cetak/{id}', 'KuitansiController@cetak')->name('kuitansi.cetak');
                 Route::get('/cetakRill/{id}', 'KuitansiController@cetakRill')->name('kuitansi.cetakRill');
                 Route::get('/cetakPJmutlak/{id}', 'KuitansiController@cetakPJmutlak')->name('kuitansi.cetakPJmutlak');
                 Route::get('/cetakPJmutlak/{id}', 'KuitansiController@cetakPJmutlak')->name('kuitansi.cetakPJmutlak');
                 Route::get('/cetakAmplop/{id}', 'KuitansiController@cetakAmplop')->name('kuitansi.cetakAmplop');
-                Route::get('/cetakPermintaan', 'KuitansiController@cetakPermintaan')->name('kuitansi.cetakPermintaan');
+                Route::get('/cetakPermintaan', 'KuitansiController@cetakPermintaan')->name('kuitansi.cetakPermintaan'); 
                 Route::get('/cetakLampiran', 'KuitansiController@cetakLampiran')->name('kuitansi.cetakLampiran');
                 Route::get('/cetakExcel/{id_kegiatan}', 'KuitansiController@cetakExcel')->name('kuitansi.cetakexcel');
 

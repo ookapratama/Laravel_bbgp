@@ -66,7 +66,7 @@
                                                     <option value="{{ $v->id }}">{{ $v->nama_kegiatan }}
                                                         {{-- ( {{ $tgl_kegiatan }} -
                                                         {{ $tgl_selesai }}
-                                                       ) --}}
+                                                    ) --}}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -76,17 +76,17 @@
                                     <div class="col-md">
                                         <h6>Print semua data dari :</h6>
 
-                                        <a href="#" id="printAllKuitansi" class="btn btn-info"><i
+                                        <a href="{{ route('kuitansi.cetakAll', $datas->row) }}" id="printAllKuitansi" class="btn btn-info"><i
                                                 class="fas fa-print mr-2"></i>
                                             Kuitansi Peserta</a>
 
-                                        <a href="#" id="printAllRill" class="btn btn-info"><i
+                                        <a href="{{ route('kuitansi.cetakRillAll', $datas->row) }}" id="printAllRill" class="btn btn-info"><i
                                                 class="fas fa-print mr-2"></i>Pengeluaran Rill Peserta </a>
 
-                                        <a href="#" id="printAllPJ" class="btn btn-info"><i
+                                        <a href="{{ route('kuitansi.cetakPJmutlakAll', $datas->row) }}" id="printAllPJ" class="btn btn-info"><i
                                                 class="fas fa-print mr-2"></i>PJ Mutlak Peserta</a>
 
-                                        <a href="#" id="printAllAmplop" class="btn btn-info"><i
+                                        <a href="{{ route('kuitansi.cetakAmplopAll', $datas->row) }}" id="printAllAmplop" class="btn btn-info"><i
                                                 class="fas fa-print mr-2"></i>Amplop Peserta</a>
                                     </div>
                                     {{-- <div class="col-md-3">
@@ -494,14 +494,6 @@
                         }
                     });
                 });
-
-
-
-
-
-
-
-
             });
         </script>
     @endpush
