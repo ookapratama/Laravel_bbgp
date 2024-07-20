@@ -36,7 +36,7 @@
                             <h3 class="slide-title" data-animation-in="fadeIn">Dedikasi Kami untuk Guru</h3>
                             <h3 class="slide-sub-title" data-animation-in="slideInLeft">BBGP Provinsi Sulawesi Selatan</h3>
                             <p data-animation-in="slideInRight">
-                                <a href="services.html" class="slider btn btn-primary border">Pelayanan Kami</a>
+                                {{-- <a href="services.html" class="slider btn btn-primary border">Pelayanan Kami</a> --}}
                             </p>
                         </div>
                     </div>
@@ -57,10 +57,11 @@
                                 dalam meraih kesuksesan melalui pendidikan yang berkelanjutan.
                             </p>
                             <div data-animation-in="slideInLeft">
-                                <a href="contact.html" class="slider btn btn-primary" aria-label="contact-with-us">Hubungi
+                                <a href="{{ route('user.kontak') }}" class="slider btn btn-primary"
+                                    aria-label="contact-with-us">Hubungi
                                     Kami</a>
-                                <a href="about.html" class="slider btn btn-primary border"
-                                    aria-label="learn-more-about-us">Learn more</a>
+                                {{-- <a href="about.html" class="slider btn btn-primary border"
+                                    aria-label="learn-more-about-us">Learn more</a> --}}
                             </div>
                         </div>
                     </div>
@@ -69,33 +70,80 @@
         </div>
     </div>
 
-    {{-- <section class="call-to-action-box no-padding">
-        <div class="container">
+    <section class="call-to-action-box no-padding">
+        <div class="container my-container">
             <div class="action-style-box">
-                <div class="row align-items-center">
-                    <div class="col-md-8 text-center text-md-left">
-                        <div class="call-to-action-text">
-                            <h3 class="action-title">We understand your needs on construction</h3>
+                <ul class="info-box">
+                    <li class="single-info">
+
+                        <div class="info-icon">
+                            <i class="fab fa-whatsapp fa-lg" style="color: #fff;"></i>
                         </div>
-                    </div><!-- Col end -->
-                    <div class="col-md-4 text-center text-md-right mt-3 mt-md-0">
-                        <div class="call-to-action-btn">
-                            <a class="btn btn-dark" href="#">Request Quote</a>
+                        <div class="info-my-content">
+                            <a href="">
+                                <p>Unit Layanan Terpadu (ULT)</p>
+
+                            </a>
                         </div>
-                    </div><!-- col end -->
-                </div><!-- row end -->
+                    </li>
+                    <li class="single-info">
+                        <div class="info-icon">
+                            <i class="fas fa-award fa-lg" style="color: #fff;"></i>
+                        </div>
+                        <div class="info-my-content">
+                            <a href="">
+                                <p>Standar Pelayanan</p>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="single-info">
+                        <div class="info-icon">
+                            <i class="fas fa-users fa-lg" style="color: #fff;"></i>
+                        </div>
+                        <div class="info-my-content">
+                            <a href="">
+                                <p>Reformasi Birokrasi</p>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="single-info">
+                        <div class="info-icon">
+                            <i class="fas fa-paste fa-lg" style="color: #fff;"></i>
+                        </div>
+                        <div class="info-my-content">
+                            <a href="">
+                                <p>Akuntabilitas Kinerja Instansi Pemerintah (AKIP)</p>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                {{-- <div class="row align-items-center">
+                    <div class="col-md-3 text-center info-box ">
+                    </div>
+                    <div class="col-md-3 text-center info-box">
+                    </div>
+                    <div class="col-md-3 text-center info-box">
+                    </div>
+                    <div class="col-md-3 text-center info-box">
+                    </div>
+                </div><!-- row end --> --}}
             </div><!-- Action style box -->
         </div><!-- Container end -->
-    </section><!-- Action end --> --}}
+    </section><!-- Action end -->
 
     <section id="ts-features" class="ts-features">
         <div class="container">
             <div class="row">
+
+
                 <div class="col-lg-6">
                     <div class="ts-intro">
                         <h2 class="into-title">Tentang Kami</h2>
                         <h3 class="into-sub-title">BBGP Sulawesi Selatan</h3>
-                        <p>BBGP Provinsi Sulawesi Selatan adalah Unit Pelaksana Teknis Direktorat Jenderal Guru dan Tenaga Kependidikan Kemendikbudristek dalam Bidang Pengembangan dan Pemberdayaan Guru, Pendidik lainnya, Tenaga Kependidikan, Calon Kepala Sekolah, Kepala Sekolah, Calon Pengawas Sekolah, dan Pengawas Sekolah di Provinsi Sulawesi Selatan.</p>
+                        <p>BBGP Provinsi Sulawesi Selatan adalah Unit Pelaksana Teknis Direktorat Jenderal Guru dan Tenaga
+                            Kependidikan Kemendikbudristek dalam Bidang Pengembangan dan Pemberdayaan Guru, Pendidik
+                            lainnya, Tenaga Kependidikan, Calon Kepala Sekolah, Kepala Sekolah, Calon Pengawas Sekolah, dan
+                            Pengawas Sekolah di Provinsi Sulawesi Selatan.</p>
                     </div><!-- Intro box end -->
 
                     <div class="gap-20"></div>
@@ -150,69 +198,25 @@
                 </div><!-- Col end -->
 
                 <div class="col-lg-6 mt-4 mt-lg-0">
-                    <h3 class="into-sub-title">Our Values</h3>
-                    <p>Minim Austin 3 wolf moon scenester aesthetic, umami odio pariatur bitters. Pop-up occaecat
-                        taxidermy street art, tattooed beard literally.</p>
+                    <h3 class="into-sub-title">Galeri </h3>
+                    <div id="page-slider" class="page-slider small-bg">
+                        <div class="item">
+                            <img loading="lazy" class="img-fluid"
+                                src="{{ asset('landing/images/projects/project5.jpg') }}" alt="project-image" />
+                        </div>
 
-                    <div class="accordion accordion-group" id="our-values-accordion">
-                        <div class="card">
-                            <div class="card-header p-0 bg-transparent" id="headingOne">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-block text-left" type="button" data-toggle="collapse"
-                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Safety
-                                    </button>
-                                </h2>
-                            </div>
-
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                                data-parent="#our-values-accordion">
-                                <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                    richardson ad squid. 3 wolf moon officia aute, non cupidata
-                                </div>
-                            </div>
+                        <div class="item">
+                            <img loading="lazy" class="img-fluid"
+                                src="{{ asset('landing/images/projects/project4.jpg') }}" alt="project-image" />
                         </div>
-                        <div class="card">
-                            <div class="card-header p-0 bg-transparent" id="headingTwo">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-block text-left collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                                        aria-controls="collapseTwo">
-                                        Customer Service
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                data-parent="#our-values-accordion">
-                                <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                    richardson ad squid. 3 wolf moon officia aute, non cupidata
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header p-0 bg-transparent" id="headingThree">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-block text-left collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
-                                        aria-controls="collapseThree">
-                                        Integrity
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                                data-parent="#our-values-accordion">
-                                <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                    richardson ad squid. 3 wolf moon officia aute, non cupidata
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div><!-- Page slider end -->
                     <!--/ Accordion end -->
 
                 </div><!-- Col end -->
+
+
+
+
             </div><!-- Row end -->
         </div><!-- Container end -->
     </section><!-- Feature are end -->

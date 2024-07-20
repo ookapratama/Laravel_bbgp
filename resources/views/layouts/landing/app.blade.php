@@ -56,7 +56,11 @@ FACEBOOK: https://www.facebook.com/themefisher
     <link rel="stylesheet" href="{{ asset('landing/plugins/colorbox/colorbox.css') }}">
     <!-- Template styles-->
     <link rel="stylesheet" href="{{ asset('landing/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('landing/css/custome.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.0/css/dataTables.dataTables.css" />
+
+
     @stack('styles')
 
 </head>
@@ -90,7 +94,10 @@ FACEBOOK: https://www.facebook.com/themefisher
 
 
         <!-- Template custom -->
+
         <script src="{{ asset('landing/js/script.js') }}"></script>
+        <script src="https://cdn.datatables.net/2.1.0/js/dataTables.js"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 

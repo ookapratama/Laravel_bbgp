@@ -63,7 +63,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="copyright-info">
-                        <span>Copyright &copy;
+                        <span style="color:#fff">Copyright &copy;
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>, BBGP Provinsi Sulawesi Selatan

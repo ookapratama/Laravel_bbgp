@@ -74,7 +74,8 @@ class UserController extends Controller
             's_jabKategoriKepsek' => ['Sertifikat GP (Guru Penggerak)', 'Diklat Cakep', 'Lainnya'],
             's_jabTugas' => ['GP (Guru Penggerak)', 'PP (Pengajar Praktik)', 'Fasil (Fasilitator)', 'Instruktur'],
         );
-        return view('pages.user.guru', ['menu' => 'guru', 'datas' => $datas, 'status' => $status]);
+        return view('pages.landing.eksternal.index', ['menu' => 'data', 'datas' => $datas, 'status' => $status]);
+        // return view('pages.user.guru', ['menu' => 'guru', 'datas' => $datas, 'status' => $status]);
     }
 
     public function pegawai()
@@ -89,12 +90,14 @@ class UserController extends Controller
         );
         $dataPendamping = Pendamping::get();
         // $merge = $data->merge($dataPendamping);
-        return view('pages.user.pegawai', ['menu' => 'pegawai', 'datas' => $data, 'dataPendamping' => $dataPendamping]);
+        return view('pages.landing.internal.index', ['menu' => 'data', 'datas' => $data, 'dataPendamping' => $dataPendamping]);
+        // return view('pages.user.pegawai', ['menu' => 'pegawai', 'datas' => $data, 'dataPendamping' => $dataPendamping]);
     }
     public function form_pegawai()
     {
         $data = Pegawai::get();
-        return view('pages.user.formPegawai', ['menu' => 'pegawai']);
+        return view('pages.landing.eksternal.form', ['menu' => 'data']);
+        // return view('pages.user.formPegawai', ['menu' => 'pegawai']);
     }
     public function daftar_pegawai(Request $request)
     {
@@ -135,6 +138,7 @@ class UserController extends Controller
                     $sekolahs[] = $sekolah;
                 }
             });
+
         $datas = array(
             's_kepegawaian' => Kepegawaian::get(),
             's_kependidikan' => SatuanPendidikan::get(),
@@ -155,7 +159,8 @@ class UserController extends Controller
 
         );
         $data = Guru::get();
-        return view('pages.user.formGuru', ['menu' => 'guru', 'status' => $datas, 'jenis' => $jenis]);
+        return view('pages.landing.eksternal.form', ['menu' => 'guru', 'status' => $datas, 'jenis' => $jenis]);
+        // return view('pages.user.formGuru', ['menu' => 'guru', 'status' => $datas, 'jenis' => $jenis]);
     }
     public function daftar_guru(Request $request)
     {
@@ -188,7 +193,7 @@ class UserController extends Controller
         Guru::create($r);
 
         // akun login
-        
+
 
 
         return redirect()->route('user.guru')->with('message', 'user daftar');

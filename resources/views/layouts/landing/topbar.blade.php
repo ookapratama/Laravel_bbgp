@@ -64,12 +64,12 @@
                             <ul class="nav navbar-nav mr-auto">
                                 <li class="nav-item {{ $menu == 'profil' ? 'active' : '' }}"><a class="nav-link" href="/">Profil</a></li>
 
-                                <li class="nav-item dropdown">
+                                <li class="nav-item {{ $menu == 'data' ? 'active' : '' }} dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data <i
                                             class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="about.html">Data Internal</a></li>
-                                        <li><a href="team.html">Data Eksternal</a></li>
+                                        <li><a href="{{ route('user.pegawai') }}">Data Internal</a></li>
+                                        <li><a href="{{ route('user.guru') }}">Data Eksternal</a></li>
                                     </ul>
                                 </li>
 

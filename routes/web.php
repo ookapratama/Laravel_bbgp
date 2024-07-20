@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SekolahController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -59,7 +60,7 @@ Route::group(
         Route::get('/print/registrasi-peserta', 'KegiatanController@printRegistrasiPeserta')->name('print.registrasi.peserta');
         Route::get('/print/absensi-panitia', 'KegiatanController@printAbsensiPanitia')->name('print.absensi.panitia');
         Route::get('/print/absensi-narasumber', 'KegiatanController@printAbsensiNarasumber')->name('print.absensi.narasumber');
-        
+
     }
 );
 
@@ -330,6 +331,8 @@ Route::group(
 );
 
 
+// handle route sekolah
+Route::get('/get-sekolahs', [SekolahController::class, 'getSekolahs'])->name('getSekolahs');
 
 
 // Auth
