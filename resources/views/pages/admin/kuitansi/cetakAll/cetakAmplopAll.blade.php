@@ -11,8 +11,6 @@
             font-family: Arial, sans-serif;
             font-size: 20px;
             text-align: left;
-            /* Pusatkan teks dalam tabel */
-
         }
 
         .container {
@@ -21,6 +19,7 @@
             align-items: flex-start;
             height: 100vh;
             /* Mengatur tinggi agar isi berada di tengah */
+            page-break-after: always;
         }
 
         table {
@@ -45,16 +44,6 @@
             /* Menyesuaikan tinggi minimum */
             text-align: center;
             /* Pusatkan teks */
-        }
-
-        /* Atur lebar kolom kedua */
-        .table-container table td:nth-child(2) {
-            /* width: 400px; */
-        }
-
-        /* Hapus border tabel pertama */
-        .no-border table {
-            border: none !important;
         }
 
         ul {
@@ -87,7 +76,7 @@
     $tgl_kegiatan = strftime('%d %B', strtotime($data->peserta->kegiatan->tgl_kegiatan ?? ''));
     $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai ?? ''));
     ?>
-
+@foreach ($datas as $i => $data)
     <div class="container">
         <ul>
             <li>
@@ -115,7 +104,7 @@
                     <td>a.</td>
                     <td style="width: 300px; text-align: left;">Terima</td>
                     <td style="width: 200px">Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }} </td>
-                    <td style="width: 320px; " colspan="2"><b> Keterangan </b></td>
+                    <td style="width: 320px;" colspan="2"><b> Keterangan </b></td>
                 </tr>
 
                 <tr>
@@ -161,7 +150,7 @@
             </table>
         </div>
     </div>
-
+@endforeach
     
 </body>
 
