@@ -21,13 +21,13 @@ Route::group(
     function () {
         Route::redirect('/', '/');
         // Dashboard
-        Route::get(
-            '/',
-            function () {
-                return view('pages.landing.index');
-            }
-        )->name('user.index');
-        // Route::get('/', 'UserController@index')->name('user.index');
+        // Route::get(
+        //     '/',
+        //     function () {
+        //         return view('pages.landing.index');
+        //     }
+        // )->name('user.index');
+        Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/kontak', 'UserController@kontak')->name('user.kontak');
         Route::get('/eksternal', 'UserController@guru')->name('user.guru');
 
@@ -59,6 +59,7 @@ Route::group(
         Route::get('/print/registrasi-peserta', 'KegiatanController@printRegistrasiPeserta')->name('print.registrasi.peserta');
         Route::get('/print/absensi-panitia', 'KegiatanController@printAbsensiPanitia')->name('print.absensi.panitia');
         Route::get('/print/absensi-narasumber', 'KegiatanController@printAbsensiNarasumber')->name('print.absensi.narasumber');
+        
     }
 );
 
@@ -339,6 +340,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers'], functi
     Route::post('/login', 'AuthController@login_action')->name('login_action');
     Route::get('/logout', function () {
         Session::flush();
-        return redirect()->route('user.index')->with('message', 'sukses logout');
+        return redirect()->route(
+            'user.index')->with('message', 'sukses logout');
     })->name('logout');
 });

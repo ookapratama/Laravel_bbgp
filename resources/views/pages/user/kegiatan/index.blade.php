@@ -73,7 +73,7 @@
                                                 <th>NIK</th>
                                                 <th>Status Keikutpesertaan</th>
                                                 <th>Instansi</th>
-                                                <th>Golongan</th>                                                
+                                                <th>Golongan</th>
                                                 <th>Jenis Golongan</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>Kelengkapan Trasnport</th>
@@ -237,7 +237,7 @@
                                         console.log(response);
                                         pesertaAda = response.success;
                                         console.log('pernah ikut : ', pesertaAda);
-                                        
+
                                         // ada 2 alert, yg sdh pernah ikut dan belum pernah
                                         if (response.success) {
                                             swal({
@@ -252,7 +252,7 @@
                                                     window.location.href =
                                                         '{{ route('user.kegiatan_regist') }}' +
                                                         '?kegiatan_id=' +
-                                                        kegiatanId  +
+                                                        kegiatanId +
                                                         '&nik=' +
                                                         nik;
                                                 }

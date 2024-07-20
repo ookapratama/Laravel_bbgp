@@ -26,12 +26,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('pages.user.index', ['menu' => 'profil']);
+        // return view('pages.user.index', ['menu' => 'profil']);
+        return view('pages.landing.index', ['menu' => 'profil']);
     }
 
     public function kontak()
     {
-        return view('pages.user.kontak', ['menu' => 'kontak']);
+        return view('pages.landing.kontak', ['menu' => 'kontak']);
+        // return view('pages.user.kontak', ['menu' => 'kontak']);
     }
 
 
