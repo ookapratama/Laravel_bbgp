@@ -31,12 +31,18 @@ class KegiatanController extends Controller
             $data = PesertaKegiatan::get();
         }
 
-        return view('pages.user.kegiatan.index', [
+        return view('pages.landing.kegiatan.kegiatan', [
             'menu' => 'kegiatan',
             'data' => $data,
             'kegiatan' => $dataKegiatan,
             'pegawai' => $dataPegawai,
         ]);
+        // return view('pages.user.kegiatan.index', [
+        //     'menu' => 'kegiatan',
+        //     'data' => $data,
+        //     'kegiatan' => $dataKegiatan,
+        //     'pegawai' => $dataPegawai,
+        // ]);
     }
 
     public function cari(Request $request)
@@ -96,7 +102,8 @@ class KegiatanController extends Controller
         ];
         // dd($status);
 
-        return view('pages.user.kegiatan.create', compact('kegiatanId', 'status', 'menu', 'pegawai', 'merge'));
+        return view('pages.landing.kegiatan.daftar', compact('kegiatanId', 'status', 'menu', 'pegawai', 'merge'));
+        // return view('pages.user.kegiatan.create', compact('kegiatanId', 'status', 'menu', 'pegawai', 'merge'));
     }
 
     public function store(Request $request)
