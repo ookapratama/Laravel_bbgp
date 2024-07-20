@@ -72,12 +72,12 @@
 
     <section class="call-to-action-box no-padding">
         <div class="container my-container">
-            <div class="action-style-box">
-                <ul class="info-box">
+            <div class="action-style-box ">
+                <ul class="info-box my-box-wrap">
                     <li class="single-info">
 
                         <div class="info-icon">
-                            <i class="fab fa-whatsapp fa-lg" style="color: #fff;"></i>
+                            <i class="fab fa-whatsapp fa-lg"></i>
                         </div>
                         <div class="info-my-content">
                             <a href="">
@@ -88,7 +88,7 @@
                     </li>
                     <li class="single-info">
                         <div class="info-icon">
-                            <i class="fas fa-award fa-lg" style="color: #fff;"></i>
+                            <i class="fas fa-award fa-lg"></i>
                         </div>
                         <div class="info-my-content">
                             <a href="">
@@ -98,7 +98,7 @@
                     </li>
                     <li class="single-info">
                         <div class="info-icon">
-                            <i class="fas fa-users fa-lg" style="color: #fff;"></i>
+                            <i class="fas fa-users fa-lg"></i>
                         </div>
                         <div class="info-my-content">
                             <a href="">
@@ -108,7 +108,7 @@
                     </li>
                     <li class="single-info">
                         <div class="info-icon">
-                            <i class="fas fa-paste fa-lg" style="color: #fff;"></i>
+                            <i class="fas fa-paste fa-lg"></i>
                         </div>
                         <div class="info-my-content">
                             <a href="">
@@ -130,6 +130,67 @@
             </div><!-- Action style box -->
         </div><!-- Container end -->
     </section><!-- Action end -->
+
+    {{-- slider icon img --}}
+    <section id="ts-service-area" class="ts-service-area pb-0">
+        <div class="container">
+
+            <div class="row my-icon-slider">
+
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                                src="{{ asset('landing/images/icon-slider/logo-nogratifikasi.png') }}" alt="service-image">
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                                src="{{ asset('landing/images/icon-slider/logo-berakhlak.png') }}" alt="service-image">
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                                src="{{ asset('landing/images/icon-slider/logo-bangga-melayani.png') }}"
+                                alt="service-image">
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                                src="{{ asset('landing/images/icon-slider/sehat-tanpa-korupsi.png') }}"
+                                alt="service-image">
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                                src="{{ asset('landing/images/icon-slider/kami-siap-zi-wbk.png') }}" alt="service-image">
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+
+
+
+            </div><!-- Main row end -->
+
+
+        </div>
+        <!--/ Container end -->
+    </section><!-- Service end -->
+
+
+
 
     <section id="ts-features" class="ts-features">
         <div class="container">
@@ -221,149 +282,376 @@
         </div><!-- Container end -->
     </section><!-- Feature are end -->
 
-    <section id="facts" class="facts-area dark-bg">
-        <div class="container">
-            <div class="facts-wrapper">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 ts-facts">
-                        <div class="ts-facts-img">
-                            <img loading="lazy" src="images/icon-image/fact1.png" alt="facts-img">
-                        </div>
-                        <div class="ts-facts-content">
-                            <h2 class="ts-facts-num"><span class="counterUp" data-count="1789">0</span></h2>
-                            <h3 class="ts-facts-title">Total Projects</h3>
-                        </div>
-                    </div><!-- Col end -->
-
-                    <div class="col-md-3 col-sm-6 ts-facts mt-5 mt-sm-0">
-                        <div class="ts-facts-img">
-                            <img loading="lazy" src="images/icon-image/fact2.png" alt="facts-img">
-                        </div>
-                        <div class="ts-facts-content">
-                            <h2 class="ts-facts-num"><span class="counterUp" data-count="647">0</span></h2>
-                            <h3 class="ts-facts-title">Staff Members</h3>
-                        </div>
-                    </div><!-- Col end -->
-
-                    <div class="col-md-3 col-sm-6 ts-facts mt-5 mt-md-0">
-                        <div class="ts-facts-img">
-                            <img loading="lazy" src="images/icon-image/fact3.png" alt="facts-img">
-                        </div>
-                        <div class="ts-facts-content">
-                            <h2 class="ts-facts-num"><span class="counterUp" data-count="4000">0</span></h2>
-                            <h3 class="ts-facts-title">Hours of Work</h3>
-                        </div>
-                    </div><!-- Col end -->
-
-                    <div class="col-md-3 col-sm-6 ts-facts mt-5 mt-md-0">
-                        <div class="ts-facts-img">
-                            <img loading="lazy" src="images/icon-image/fact4.png" alt="facts-img">
-                        </div>
-                        <div class="ts-facts-content">
-                            <h2 class="ts-facts-num"><span class="counterUp" data-count="44">0</span></h2>
-                            <h3 class="ts-facts-title">Countries Experience</h3>
-                        </div>
-                    </div><!-- Col end -->
-
-                </div> <!-- Facts end -->
-            </div>
-            <!--/ Content row end -->
-        </div>
-        <!--/ Container end -->
-    </section><!-- Facts end -->
-
     <section id="ts-service-area" class="ts-service-area pb-0">
         <div class="container">
-            <div class="row text-center">
-                <div class="col-12">
-                    <h2 class="section-title">We Are Specialists In</h2>
-                    <h3 class="section-sub-title">What We Do</h3>
-                </div>
-            </div>
-            <!--/ Title row end -->
 
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="ts-service-box d-flex">
-                        <div class="ts-service-box-img">
-                            <img loading="lazy" src="images/icon-image/service-icon1.png" alt="service-icon">
-                        </div>
-                        <div class="ts-service-box-info">
-                            <h3 class="service-box-title"><a href="#">Home Construction</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                        </div>
-                    </div><!-- Service 1 end -->
+            <div class="row my-icon2-slider">
 
-                    <div class="ts-service-box d-flex">
-                        <div class="ts-service-box-img">
-                            <img loading="lazy" src="images/icon-image/service-icon2.png" alt="service-icon">
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100"
+                                src="{{ asset('landing/images/icon-slider/slider2/icon-web-jurnal.png') }}"
+                                alt="service-image">
                         </div>
-                        <div class="ts-service-box-info">
-                            <h3 class="service-box-title"><a href="#">Building Remodels</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                        </div>
-                    </div><!-- Service 2 end -->
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
 
-                    <div class="ts-service-box d-flex">
-                        <div class="ts-service-box-img">
-                            <img loading="lazy" src="images/icon-image/service-icon3.png" alt="service-icon">
+                            </div>
                         </div>
-                        <div class="ts-service-box-info">
-                            <h3 class="service-box-title"><a href="#">Interior Design</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                        </div>
-                    </div><!-- Service 3 end -->
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
 
-                </div><!-- Col end -->
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100"
+                                src="{{ asset('landing/images/icon-slider/slider2/icon-web-pengaduan.png') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
 
-                <div class="col-lg-4 text-center">
-                    <img loading="lazy" class="img-fluid" src="images/services/service-center.jpg"
-                        alt="service-avater-image">
-                </div><!-- Col end -->
+                            </div>
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
 
-                <div class="col-lg-4 mt-5 mt-lg-0 mb-4 mb-lg-0">
-                    <div class="ts-service-box d-flex">
-                        <div class="ts-service-box-img">
-                            <img loading="lazy" src="images/icon-image/service-icon4.png" alt="service-icon">
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100"
+                                src="{{ asset('landing/images/icon-slider/slider2/icon-web-ppid.png') }}"
+                                alt="service-image">
                         </div>
-                        <div class="ts-service-box-info">
-                            <h3 class="service-box-title"><a href="#">Exterior Design</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                        </div>
-                    </div><!-- Service 4 end -->
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
 
-                    <div class="ts-service-box d-flex">
-                        <div class="ts-service-box-img">
-                            <img loading="lazy" src="images/icon-image/service-icon5.png" alt="service-icon">
+                            </div>
                         </div>
-                        <div class="ts-service-box-info">
-                            <h3 class="service-box-title"><a href="#">Renovation</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
-                        </div>
-                    </div><!-- Service 5 end -->
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
 
-                    <div class="ts-service-box d-flex">
-                        <div class="ts-service-box-img">
-                            <img loading="lazy" src="images/icon-image/service-icon6.png" alt="service-icon">
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100"
+                                src="{{ asset('landing/images/icon-slider/slider2/icon-web-sim-penggiat.png') }}"
+                                alt="service-image">
                         </div>
-                        <div class="ts-service-box-info">
-                            <h3 class="service-box-title"><a href="#">Safety Management</a></h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer adipiscing erat</p>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+
+                            </div>
                         </div>
-                    </div><!-- Service 6 end -->
-                </div><!-- Col end -->
-            </div><!-- Content row end -->
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100"
+                                src="{{ asset('landing/images/icon-slider/slider2/icon-web-virtual-tour.png') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+
+                            </div>
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+
+                <div class="col-lg col-md ">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100"
+                                src="{{ asset('landing/images/icon-slider/slider2/icon-web-visualisasi-data.png') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+
+                            </div>
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+
+
+            </div><!-- Main row end -->
+
 
         </div>
         <!--/ Container end -->
     </section><!-- Service end -->
 
-    <section id="project-area" class="project-area solid-bg">
+    <section id="ts-service-area" class="ts-service-area pb-0">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h2 class="section-title">BBGP Sul-Sel</h2>
+                    <h3 class="section-sub-title">Berita Terkini</h3>
+                </div>
+            </div>
+            <!--/ Title row end -->
+
+            <div class="row my-posts-slider">
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service1.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="service-single.html"
+                                    aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service2.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">Virtual Construction</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service2 end -->
+                </div><!-- Col 2 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service3.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">Build To Last</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service3 end -->
+                </div><!-- Col 3 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service4.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">EXTERIOR DESIGN</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 4 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service5.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">RENOVATION</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service2 end -->
+                </div><!-- Col 5 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service6.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">SAFETY MANAGEMENT</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service3 end -->
+                </div><!-- Col 6 end -->
+
+            </div><!-- Main row end -->
+
+
+        </div>
+        <!--/ Container end -->
+    </section><!-- Service end -->
+
+
+    <section id="ts-service-area" class="ts-service-area pb-0">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h2 class="section-title">BBGP Sul-Sel</h2>
+                    <h3 class="section-sub-title">Artikel Terkini</h3>
+                </div>
+            </div>
+            <!--/ Title row end -->
+
+            <div class="row my-artikel-slider">
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service1.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="service-single.html"
+                                    aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 1 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service2.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">Virtual Construction</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service2 end -->
+                </div><!-- Col 2 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service3.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">Build To Last</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service3 end -->
+                </div><!-- Col 3 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service4.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">EXTERIOR DESIGN</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service1 end -->
+                </div><!-- Col 4 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service5.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">RENOVATION</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service2 end -->
+                </div><!-- Col 5 end -->
+
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="ts-service-box">
+                        <div class="ts-service-image-wrapper">
+                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service6.jpg') }}"
+                                alt="service-image">
+                        </div>
+                        <div class="d-flex">
+                            <div class="ts-service-info">
+                                <h3 class="service-box-title"><a href="#">SAFETY MANAGEMENT</a></h3>
+                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
+                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
+                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                        class="fa fa-caret-right"></i> Learn more</a>
+                            </div>
+                        </div>
+                    </div><!-- Service3 end -->
+                </div><!-- Col 6 end -->
+
+            </div><!-- Main row end -->
+
+
+        </div>
+        <!--/ Container end -->
+    </section><!-- Service end -->
+
+    {{-- <section id="project-area" class="project-area solid-bg">
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-12">
-                    <h2 class="section-title">Work of Excellence</h2>
-                    <h3 class="section-sub-title">Recent Projects</h3>
+                    <h2 class="section-title">BBGP Sul-Sel</h2>
+                    <h3 class="section-sub-title">Galeri </h3>
                 </div>
             </div>
             <!--/ Title row end -->
@@ -517,194 +805,27 @@
             </div><!-- Content row end -->
         </div>
         <!--/ Container end -->
-    </section><!-- Project area end -->
+    </section><!-- Project area end --> --}}
 
-    <section class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h3 class="column-title">Testimonials</h3>
-
-                    <div id="testimonial-slide" class="testimonial-slide">
-                        <div class="item">
-                            <div class="quote-item">
-                                <span class="quote-text">
-                                    Question ran over her cheek When she reached the first hills of the Italic
-                                    Mountains, she had a last
-                                    view back on the skyline of her hometown Bookmarksgrove, the headline of
-                                    Alphabet Village and the
-                                    subline of her own road.
-                                </span>
-
-                                <div class="quote-item-footer">
-                                    <img loading="lazy" class="testimonial-thumb" src="images/clients/testimonial1.png"
-                                        alt="testimonial">
-                                    <div class="quote-item-info">
-                                        <h3 class="quote-author">Gabriel Denis</h3>
-                                        <span class="quote-subtext">Chairman, OKT</span>
-                                    </div>
-                                </div>
-                            </div><!-- Quote item end -->
-                        </div>
-                        <!--/ Item 1 end -->
-
-                        <div class="item">
-                            <div class="quote-item">
-                                <span class="quote-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    inci done idunt ut
-                                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitoa
-                                    tion ullamco laboris
-                                    nisi aliquip consequat.
-                                </span>
-
-                                <div class="quote-item-footer">
-                                    <img loading="lazy" class="testimonial-thumb" src="images/clients/testimonial2.png"
-                                        alt="testimonial">
-                                    <div class="quote-item-info">
-                                        <h3 class="quote-author">Weldon Cash</h3>
-                                        <span class="quote-subtext">CFO, First Choice</span>
-                                    </div>
-                                </div>
-                            </div><!-- Quote item end -->
-                        </div>
-                        <!--/ Item 2 end -->
-
-                        <div class="item">
-                            <div class="quote-item">
-                                <span class="quote-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    inci done idunt ut
-                                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitoa
-                                    tion ullamco laboris
-                                    nisi ut commodo consequat.
-                                </span>
-
-                                <div class="quote-item-footer">
-                                    <img loading="lazy" class="testimonial-thumb" src="images/clients/testimonial3.png"
-                                        alt="testimonial">
-                                    <div class="quote-item-info">
-                                        <h3 class="quote-author">Minter Puchan</h3>
-                                        <span class="quote-subtext">Director, AKT</span>
-                                    </div>
-                                </div>
-                            </div><!-- Quote item end -->
-                        </div>
-                        <!--/ Item 3 end -->
-
-                    </div>
-                    <!--/ Testimonial carousel end-->
-                </div><!-- Col end -->
-
-                <div class="col-lg-6 mt-5 mt-lg-0">
-
-                    <h3 class="column-title">Happy Clients</h3>
-
-                    <div class="row all-clients">
-                        <div class="col-sm-4 col-6">
-                            <figure class="clients-logo">
-                                <a href="#!"><img loading="lazy" class="img-fluid" src="images/clients/client1.png"
-                                        alt="clients-logo" /></a>
-                            </figure>
-                        </div><!-- Client 1 end -->
-
-                        <div class="col-sm-4 col-6">
-                            <figure class="clients-logo">
-                                <a href="#!"><img loading="lazy" class="img-fluid" src="images/clients/client2.png"
-                                        alt="clients-logo" /></a>
-                            </figure>
-                        </div><!-- Client 2 end -->
-
-                        <div class="col-sm-4 col-6">
-                            <figure class="clients-logo">
-                                <a href="#!"><img loading="lazy" class="img-fluid" src="images/clients/client3.png"
-                                        alt="clients-logo" /></a>
-                            </figure>
-                        </div><!-- Client 3 end -->
-
-                        <div class="col-sm-4 col-6">
-                            <figure class="clients-logo">
-                                <a href="#!"><img loading="lazy" class="img-fluid" src="images/clients/client4.png"
-                                        alt="clients-logo" /></a>
-                            </figure>
-                        </div><!-- Client 4 end -->
-
-                        <div class="col-sm-4 col-6">
-                            <figure class="clients-logo">
-                                <a href="#!"><img loading="lazy" class="img-fluid" src="images/clients/client5.png"
-                                        alt="clients-logo" /></a>
-                            </figure>
-                        </div><!-- Client 5 end -->
-
-                        <div class="col-sm-4 col-6">
-                            <figure class="clients-logo">
-                                <a href="#!"><img loading="lazy" class="img-fluid" src="images/clients/client6.png"
-                                        alt="clients-logo" /></a>
-                            </figure>
-                        </div><!-- Client 6 end -->
-
-                    </div><!-- Clients row end -->
-
-                </div><!-- Col end -->
-
-            </div>
-            <!--/ Content row end -->
-        </div>
-        <!--/ Container end -->
-    </section><!-- Content end -->
-
-    <section class="subscribe no-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="subscribe-call-to-acton">
-                        <h3>Can We Help?</h3>
-                        <h4>(+9) 847-291-4353</h4>
-                    </div>
-                </div><!-- Col end -->
-
-                <div class="col-lg-8">
-                    <div class="ts-newsletter row align-items-center">
-                        <div class="col-md-5 newsletter-introtext">
-                            <h4 class="text-white mb-0">Newsletter Sign-up</h4>
-                            <p class="text-white">Latest updates and news</p>
-                        </div>
-
-                        <div class="col-md-7 newsletter-form">
-                            <form action="#" method="post">
-                                <div class="form-group">
-                                    <label for="newsletter-email" class="content-hidden">Newsletter Email</label>
-                                    <input type="email" name="email" id="newsletter-email"
-                                        class="form-control form-control-lg" placeholder="Your your email and hit enter"
-                                        autocomplete="off">
-                                </div>
-                            </form>
-                        </div>
-                    </div><!-- Newsletter end -->
-                </div><!-- Col end -->
-
-            </div><!-- Content row end -->
-        </div>
-        <!--/ Container end -->
-    </section>
-    <!--/ subscribe end -->
 
     <section id="news" class="news">
         <div class="container">
             <div class="row text-center">
                 <div class="col-12">
-                    <h2 class="section-title">Work of Excellence</h2>
-                    <h3 class="section-sub-title">Recent Projects</h3>
+                    <h2 class="section-title">BBGP Sul-Sel</h2>
+                    <h3 class="section-sub-title">Agenda Terkini</h3>
                 </div>
             </div>
             <!--/ Title row end -->
 
-            <div class="row">
+            <div class="row my-posts-slider">
+
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="latest-post">
                         <div class="latest-post-media">
                             <a href="news-single.html" class="latest-post-img">
-                                <img loading="lazy" class="img-fluid" src="images/news/news1.jpg" alt="img">
+                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news1.jpg') }}"
+                                    alt="img">
                             </a>
                         </div>
                         <div class="post-body">
@@ -725,7 +846,8 @@
                     <div class="latest-post">
                         <div class="latest-post-media">
                             <a href="news-single.html" class="latest-post-img">
-                                <img loading="lazy" class="img-fluid" src="images/news/news2.jpg" alt="img">
+                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news2.jpg') }}"
+                                    alt="img">
                             </a>
                         </div>
                         <div class="post-body">
@@ -746,7 +868,8 @@
                     <div class="latest-post">
                         <div class="latest-post-media">
                             <a href="news-single.html" class="latest-post-img">
-                                <img loading="lazy" class="img-fluid" src="images/news/news3.jpg" alt="img">
+                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news3.jpg') }}"
+                                    alt="img">
                             </a>
                         </div>
                         <div class="post-body">
@@ -762,6 +885,51 @@
                         </div>
                     </div><!-- Latest post end -->
                 </div><!-- 3rd post col end -->
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="latest-post">
+                        <div class="latest-post-media">
+                            <a href="news-single.html" class="latest-post-img">
+                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news3.jpg') }}"
+                                    alt="img">
+                            </a>
+                        </div>
+                        <div class="post-body">
+                            <h4 class="post-title">
+                                <a href="news-single.html" class="d-inline-block">Silicon Bench and Cornike Begin
+                                    Construction Solar Facilities</a>
+                            </h4>
+                            <div class="latest-post-meta">
+                                <span class="post-item-date">
+                                    <i class="fa fa-clock-o"></i> Aug 13, 2017
+                                </span>
+                            </div>
+                        </div>
+                    </div><!-- Latest post end -->
+                </div><!-- 3rd post col end -->
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="latest-post">
+                        <div class="latest-post-media">
+                            <a href="news-single.html" class="latest-post-img">
+                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news3.jpg') }}"
+                                    alt="img">
+                            </a>
+                        </div>
+                        <div class="post-body">
+                            <h4 class="post-title">
+                                <a href="news-single.html" class="d-inline-block">Silicon Bench and Cornike Begin
+                                    Construction Solar Facilities</a>
+                            </h4>
+                            <div class="latest-post-meta">
+                                <span class="post-item-date">
+                                    <i class="fa fa-clock-o"></i> Aug 13, 2017
+                                </span>
+                            </div>
+                        </div>
+                    </div><!-- Latest post end -->
+                </div><!-- 3rd post col end -->
+
             </div>
             <!--/ Content row end -->
 

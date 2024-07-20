@@ -1,8 +1,7 @@
 /* .info-section {
     padding: 20px 0;
-    background-color: #fff;
+    background-color: #1376bd;
 } */
-
 
 .info-box {
     display: flex;
@@ -10,19 +9,41 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    color: "#fff";
+    color: "#1376bd";
 }
 
 .single-info {
     display: flex;
     padding: 30px;
     position: relative;
-    border-right: 1px solid #fff;
-  }
-  
-  .single-info:nth-child(4) {
-  border-right: 0px solid #fff;
+    border-right: 1px solid #1376bd;
+}
 
+.single-info:nth-child(4) {
+    border-right: 0px solid #1376bd;
+}
+
+.single-info:hover {
+    background-color: #1376bd;
+    transition: 0.3s;
+}
+
+.single-info .info-icon i {
+    color: #1376bd;
+    transition: color 0.3s;
+}
+
+.single-info .info-my-content p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.single-info:hover .info-icon i,
+.single-info:hover .info-my-content p {
+    color: white;
 }
 
 .info-icon {
@@ -34,8 +55,12 @@
 .info-my-content p {
     font-size: 18px !important;
     text-align: center;
-    color: #fff;
+    color: #1376bd;
     font-weight: bold;
+}
+
+.my-btn-up {
+    background-color: #1376bd;
 }
 
 /* .info-item {
