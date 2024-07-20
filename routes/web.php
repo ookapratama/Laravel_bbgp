@@ -274,10 +274,10 @@ Route::group(
                 Route::get('/show/{id}', 'KuitansiController@show')->name('kuitansi.show');
                 Route::get('/getPeserta', 'KuitansiController@getPeserta')->name('kuitansi.getPeserta');
 
-                Route::get('/cetakAll/{rows}', 'KuitansiController@cetakAll')->name('kuitansi.cetakAll');
-                // Route::get('/cetakRill/{rows}', 'KuitansiController@cetakRillAll')->name('kuitansi.cetakRillAll');
-                // Route::get('/cetakPJmutlak/{rows}', 'KuitansiController@cetakPJmutlakAll')->name('kuitansi.cetakPJmutlakAll');
-                // Route::get('/cetakAmplop/{rows}', 'KuitansiController@cetakAmplopAll')->name('kuitansi.cetakAmplopAll');
+                Route::get('/cetakAll', 'KuitansiController@cetakAll')->name('kuitansi.cetakAll');
+                Route::get('/cetakRillAll', 'KuitansiController@cetakRillAll')->name('kuitansi.cetakRillAll');
+                Route::get('/cetakPJmutlakAll', 'KuitansiController@cetakPJmutlakAll')->name('kuitansi.cetakPJmutlakAll');
+                Route::get('/cetakAmplopAll', 'KuitansiController@cetakAmplopAll')->name('kuitansi.cetakAmplopAll');
 
                 Route::get('/cetak/{id}', 'KuitansiController@cetak')->name('kuitansi.cetak');
                 Route::get('/cetakRill/{id}', 'KuitansiController@cetakRill')->name('kuitansi.cetakRill');

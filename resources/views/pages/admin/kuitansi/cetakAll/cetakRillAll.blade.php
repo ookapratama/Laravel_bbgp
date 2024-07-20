@@ -22,6 +22,7 @@
             margin: 0 auto;
             padding: 20px;
             position: relative;
+            page-break-after: always;
         }
 
         .header {
@@ -106,7 +107,7 @@
     $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
     $tgl_sekarang = strftime('%d %B %Y', strtotime(date('d-m-Y')));
     ?>
-        @foreach ($datas as $v)
+@foreach ($datas as $i => $data)
     <div class="container">
         <div class="" style="
               margin-top: -40px

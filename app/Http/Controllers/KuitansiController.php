@@ -281,67 +281,144 @@ class KuitansiController extends Controller
         return $pdf->stream('data_kuitansi.pdf');
     }
 
-    public function cetakAll($rows)
+    public function cetakAll(Request $request)
     {
+        $kegiatanId = $request->query('kegiatan_id');
+        $rowIds = $request->query('rows');
 
-    
-        // dd($data);
-        
-        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakAll', compact('datas'));
+        if (!$rowIds) {
+            return response()->json(['error' => 'No rows specified.'], 400);
+        }
 
-        // Set properties PDF
-        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        $rowIdsArray = array_map('intval', explode(',', $rowIds)); // Convert IDs to integers
 
+        $query = Kuitansi::whereIn('id', $rowIdsArray);
 
-        return $pdf->stream('data_kuitansi.pdf');
+        if ($kegiatanId) {
+            $query->whereHas('peserta.kegiatan', function ($query) use ($kegiatanId) {
+                $query->where('id', $kegiatanId);
+            });
+        }
+
+        $datas = $query->get();
+
+        if ($datas->isEmpty()) {
+            return response()->json(['error' => 'No data found for the given IDs.'], 404);
+        }
+
+        try {
+            $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakAll', compact('datas'));
+            $pdf->setPaper('a4', 'portrait');
+            return $pdf->stream('data_kuitansi.pdf');
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to generate PDF.'], 500);
+        }
     }
 
-    public function cetakRillAll($rows)
+    public function cetakRillAll(Request $request)
     {
+        $kegiatanId = $request->query('kegiatan_id');
+        $rowIds = $request->query('rows');
 
-    
-        // dd($data);
-        
-        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakRillAll', compact('datas'));
+        if (!$rowIds) {
+            return response()->json(['error' => 'No rows specified.'], 400);
+        }
 
-        // Set properties PDF
-        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        $rowIdsArray = array_map('intval', explode(',', $rowIds)); // Convert IDs to integers
 
+        $query = Kuitansi::whereIn('id', $rowIdsArray);
 
-        return $pdf->stream('data_kuitansi.pdf');
+        if ($kegiatanId) {
+            $query->whereHas('peserta.kegiatan', function ($query) use ($kegiatanId) {
+                $query->where('id', $kegiatanId);
+            });
+        }
+
+        $datas = $query->get();
+        // dd($datas); 
+        if ($datas->isEmpty()) {
+            return response()->json(['error' => 'No data found for the given IDs.'], 404);
+        }
+
+        try {
+            $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakRillAll', compact('datas'));
+            $pdf->setPaper('a4', 'portrait');
+            return $pdf->stream('data_pengeluaran_rill.pdf');
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to generate PDF.'], 500);
+        }
     }
 
-    public function cetakPJmutlakAll($rows)
+    public function cetakPJmutlakAll(Request $request)
     {
+        $kegiatanId = $request->query('kegiatan_id');
+        $rowIds = $request->query('rows');
 
-    
-        // dd($data);
-        
-        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakPjMutlakAll', compact('datas'));
+        if (!$rowIds) {
+            return response()->json(['error' => 'No rows specified.'], 400);
+        }
 
-        // Set properties PDF
-        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        $rowIdsArray = array_map('intval', explode(',', $rowIds)); // Convert IDs to integers
 
+        $query = Kuitansi::whereIn('id', $rowIdsArray);
 
-        return $pdf->stream('data_kuitansi.pdf');
+        if ($kegiatanId) {
+            $query->whereHas('peserta.kegiatan', function ($query) use ($kegiatanId) {
+                $query->where('id', $kegiatanId);
+            });
+        }
+
+        $datas = $query->get();
+
+        if ($datas->isEmpty()) {
+            return response()->json(['error' => 'No data found for the given IDs.'], 404);
+        }
+
+        try {
+            $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakPJmutlakAll', compact('datas'));
+            $pdf->setPaper('a4', 'portrait');
+            return $pdf->stream('data_PJ_mutlak.pdf');
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to generate PDF.'], 500);
+        }
     }
 
-    public function cetakAmplopAll($rows)
+    public function cetakAmplopAll(Request $request)
     {
+        $kegiatanId = $request->query('kegiatan_id');
+        $rowIds = $request->query('rows');
 
-    
-        // dd($data);
-        
-        $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakAmplopAll', compact('datas'));
+        if (!$rowIds) {
+            return response()->json(['error' => 'No rows specified.'], 400);
+        }
 
-        // Set properties PDF
-        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        $rowIdsArray = array_map('intval', explode(',', $rowIds)); // Convert IDs to integers
 
+        $query = Kuitansi::whereIn('id', $rowIdsArray);
 
-        return $pdf->stream('data_kuitansi.pdf');
+        if ($kegiatanId) {
+            $query->whereHas('peserta.kegiatan', function ($query) use ($kegiatanId) {
+                $query->where('id', $kegiatanId);
+            });
+        }
+
+        $datas = $query->get();
+
+        if ($datas->isEmpty()) {
+            return response()->json(['error' => 'No data found for the given IDs.'], 404);
+        }
+
+        try {
+            $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakAmplopAll', compact('datas'));
+            $pdf->setPaper(array(0, 0, 825, 465));
+            return $pdf->stream('data_amplop.pdf');
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to generate PDF.'], 500);
+        }
     }
 
-    
+
+
 
     public function cetakRill(string $id)
     {

@@ -22,6 +22,7 @@
             margin: 0 auto;
             padding: 20px;
             position: relative;
+            page-break-after: always;
         }
 
         .header {
@@ -108,7 +109,7 @@
     $tgl_mulai = strftime('%d', strtotime($data->peserta->kegiatan->tgl_kegiatan));
     $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai));
     ?>
-        @foreach ($datas as $v)
+@foreach ($datas as $i => $data)
     <div class="container">
         <div class="" style="
             margin-top: -40px

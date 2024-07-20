@@ -24,7 +24,7 @@
                             <div class="card-body">
 
                                 <div class="row mb-4">
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <a href="{{ route('kuitansi.create') }}" class="btn btn-primary text-white ">
                                             + Buat Kuitansi
                                         </a>
@@ -73,20 +73,18 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md">
+                                    <div class="col-md-9">
                                         <h6>Print semua data dari :</h6>
+                                         <a href="#" id="printAllKuitansi" class="btn btn-info"><i
+                                                class="fas fa-print mr-2"></i>Kuitansi </a>
 
-                                        <a href="{{ route('kuitansi.cetakAll', $datas->row) }}" id="printAllKuitansi" class="btn btn-info"><i
-                                                class="fas fa-print mr-2"></i>
-                                            Kuitansi Peserta</a>
-
-                                        <a href="{{ route('kuitansi.cetakRillAll', $datas->row) }}" id="printAllRill" class="btn btn-info"><i
+                                        <a href="#" id="printAllRill" class="btn btn-info"><i
                                                 class="fas fa-print mr-2"></i>Pengeluaran Rill Peserta </a>
 
-                                        <a href="{{ route('kuitansi.cetakPJmutlakAll', $datas->row) }}" id="printAllPJ" class="btn btn-info"><i
+                                        <a href="#" id="printAllPJ" class="btn btn-info"><i
                                                 class="fas fa-print mr-2"></i>PJ Mutlak Peserta</a>
 
-                                        <a href="{{ route('kuitansi.cetakAmplopAll', $datas->row) }}" id="printAllAmplop" class="btn btn-info"><i
+                                        <a href="#" id="printAllAmplop" class="btn btn-info"><i
                                                 class="fas fa-print mr-2"></i>Amplop Peserta</a>
                                     </div>
                                     {{-- <div class="col-md-3">
@@ -107,7 +105,7 @@
 
                                 <div id="btnGroup">
                                     <div class="row mb-3">
-                                        <div class="col-md-3">
+                                        <div class="col-md-5">
                                             {{-- <h6>Print Permintaan</h6> --}}
 
                                             {{-- <a target="_blank" href="{{ route('kuitansi.cetakPermintaan') }}"
@@ -214,23 +212,19 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas as $i => $data)
-                                                <tr>
-                                                    <td>
-                                                        <h6> {{ ++$i }} </h6>
-                                                    </td>
-                                                    <td>{{ $data->no_bukti ?? '' }}</td>
-                                                    <td>{{ $data->no_MAK ?? '' }}</td>
-                                                    <td>{{ $data->peserta->kegiatan->nama_kegiatan ?? '' }} <p
-                                                            class="text-white">{{ $data->peserta->kegiatan->id }}</p>
-                                                    </td>
-                                                    <td>{{ $data->peserta->nama ?? '' }}</td>
-                                                    <td>{{ $data->peserta->status_keikutpesertaan ?? '' }}</td>
-                                                    <td>{{ $data->peserta->nip ?? '' }}</td>
-                                                    <td>{{ $data->jenis_angkutan ?? '' }}</td>
-                                                    <td>{{ $data->kabupaten->name ?? '' }}</td>
-                                                    <td>{{ $data->lokasi_tujuan ?? '' }}</td>
-                                                    <td>Rp {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}
-                                                    </td>
+                                            <tr data-id="{{ $data->id }}">
+                                                <td><h6>{{ ++$i }}</h6></td>
+                                                <td>{{ $data->no_bukti ?? '' }}</td>
+                                                <td>{{ $data->no_MAK ?? '' }}</td>
+                                                <td>{{ $data->peserta->kegiatan->nama_kegiatan ?? '' }} <p class="text-white">{{ $data->peserta->kegiatan->id }}</p></td>
+                                                <td>{{ $data->peserta->nama ?? '' }}</td>
+                                                <td>{{ $data->peserta->status_keikutpesertaan ?? '' }}</td>
+                                                <td>{{ $data->peserta->nip ?? '' }}</td>
+                                                <td>{{ $data->jenis_angkutan ?? '' }}</td>
+                                                <td>{{ $data->kabupaten->name ?? '' }}</td>
+                                                <td>{{ $data->lokasi_tujuan ?? '' }}</td>
+                                                <td>Rp {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}</td>
+
                                                     {{-- <td>Rp {{ number_format($data->biaya_uang_harian ?? 0, 0, ',', '.') }}
                                                     </td>
                                                     <td>{{ $data->durasi_penginapan ?? '' }} Hari</td>
@@ -449,27 +443,27 @@
                         });
                 });
 
-                $('#printAllKuitansi').on('click', function() {
-                    var selectedKegiatan = $('#kegiatanSelect').val();
-                    if (selectedKegiatan) {
-                        window.open("{{ url('kuitansi/print-all') }}?kegiatan_id=" + selectedKegiatan,
-                            '_blank');
-                    } else {
-                        swal("Silakan pilih kegiatan terlebih dahulu.");
-                    }
-                });
+                // $('#printAllKuitansi').on('click', function() {
+                //     var selectedKegiatan = $('#kegiatanSelect').val();
+                //     if (selectedKegiatan) {
+                //         window.open("{{ url('kuitansi/print-all') }}?kegiatan_id=" + selectedKegiatan,
+                //             '_blank');
+                //     } else {
+                //         swal("Silakan pilih kegiatan terlebih dahulu.");
+                //     }
+                // });
 
-                $('#printAllRill').on('click', function() {
+                // $('#printAllRill').on('click', function() {
 
-                });
+                // });
 
-                $('#printAllPJ').on('click', function() {
+                // $('#printAllPJ').on('click', function() {
 
-                });
+                // });
 
-                $('#printAllAmplop').on('click', function() {
+                // $('#printAllAmplop').on('click', function() {
 
-                });
+                // });
 
 
             });
@@ -496,5 +490,126 @@
                 });
             });
         </script>
+
+        <script>
+    $(document).ready(function () {
+        $('#printAllKuitansi').click(function (e) {
+            e.preventDefault();
+            var kegiatanId = $('#kegiatanSelect').val();
+            var rowIds = [];
+
+            // Collect the IDs of the rows you want to print
+            $('#table_kuitansi tbody tr').each(function () {
+                var rowId = $(this).data('id'); // Assuming the rows have data-id attribute with their ID
+                if (rowId) {
+                    rowIds.push(rowId);
+                }
+            });
+
+            if (rowIds.length === 0) {
+                alert("No rows selected.");
+                return;
+            }
+
+            // Construct the URL with the collected row IDs and kegiatanId
+            var url = kegiatanId ? 
+                "{{ route('kuitansi.cetakAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" + kegiatanId : 
+                "{{ route('kuitansi.cetakAll') }}?rows=" + rowIds.join(',');
+
+            window.open(url, '_blank');
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#printAllRill').click(function (e) {
+            e.preventDefault();
+            var kegiatanId = $('#kegiatanSelect').val();
+            var rowIds = [];
+
+            // Collect the IDs of the rows you want to print
+            $('#table_kuitansi tbody tr').each(function () {
+                var rowId = $(this).data('id'); // Assuming the rows have data-id attribute with their ID
+                if (rowId) {
+                    rowIds.push(rowId);
+                }
+            });
+
+            if (rowIds.length === 0) {
+                alert("No rows selected.");
+                return;
+            }
+
+            // Construct the URL with the collected row IDs and kegiatanId
+            var url = kegiatanId ? 
+                "{{ route('kuitansi.cetakRillAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" + kegiatanId : 
+                "{{ route('kuitansi.cetakRillAll') }}?rows=" + rowIds.join(',');
+
+            window.open(url, '_blank');
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#printAllPJ').click(function (e) {
+            e.preventDefault();
+            var kegiatanId = $('#kegiatanSelect').val();
+            var rowIds = [];
+
+            // Collect the IDs of the rows you want to print
+            $('#table_kuitansi tbody tr').each(function () {
+                var rowId = $(this).data('id'); // Assuming the rows have data-id attribute with their ID
+                if (rowId) {
+                    rowIds.push(rowId);
+                }
+            });
+
+            if (rowIds.length === 0) {
+                alert("No rows selected.");
+                return;
+            }
+
+            // Construct the URL with the collected row IDs and kegiatanId
+            var url = kegiatanId ? 
+                "{{ route('kuitansi.cetakPJmutlakAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" + kegiatanId : 
+                "{{ route('kuitansi.cetakPJmutlakAll') }}?rows=" + rowIds.join(',');
+
+            window.open(url, '_blank');
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#printAllAmplop').click(function (e) {
+            e.preventDefault();
+            var kegiatanId = $('#kegiatanSelect').val();
+            var rowIds = [];
+
+            // Collect the IDs of the rows you want to print
+            $('#table_kuitansi tbody tr').each(function () {
+                var rowId = $(this).data('id'); // Assuming the rows have data-id attribute with their ID
+                if (rowId) {
+                    rowIds.push(rowId);
+                }
+            });
+
+            if (rowIds.length === 0) {
+                alert("No rows selected.");
+                return;
+            }
+
+            // Construct the URL with the collected row IDs and kegiatanId
+            var url = kegiatanId ? 
+                "{{ route('kuitansi.cetakAmplopAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" + kegiatanId : 
+                "{{ route('kuitansi.cetakAmplopAll') }}?rows=" + rowIds.join(',');
+
+            window.open(url, '_blank');
+        });
+    });
+</script>
+
     @endpush
 @endsection
