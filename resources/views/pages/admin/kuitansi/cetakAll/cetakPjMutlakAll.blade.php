@@ -101,7 +101,9 @@
 </head>
 
 <body>
-    <?php
+    
+@foreach ($datas as $i => $data)
+<?php
     setlocale(LC_TIME, 'id_ID.UTF-8');
     
     $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
@@ -109,7 +111,6 @@
     $tgl_mulai = strftime('%d', strtotime($data->peserta->kegiatan->tgl_kegiatan));
     $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai));
     ?>
-@foreach ($datas as $i => $data)
     <div class="container">
         <div class="" style="
             margin-top: -40px
