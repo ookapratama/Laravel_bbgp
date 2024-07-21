@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('artikels', function (Blueprint $table) {
             $table->id();
+            $table->string('judul');
+            $table->string('isi');
+            $table->string('thumbnail');
+            $table->string('author');
+            $table->enum('status', ['publish', 'pending']);
+            $table->date('tgl_publish');
+            $table->string('kategori_id')->nullable();
             $table->timestamps();
         });
     }
