@@ -82,7 +82,7 @@
 
 <body>
     <?php
-    setlocale(LC_TIME, 'id_ID.UTF-8');
+    setlocale(LC_ALL, 'IND');
     
     $tgl_kegiatan = strftime('%d %B', strtotime($data->peserta->kegiatan->tgl_kegiatan ?? ''));
     $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai ?? ''));
