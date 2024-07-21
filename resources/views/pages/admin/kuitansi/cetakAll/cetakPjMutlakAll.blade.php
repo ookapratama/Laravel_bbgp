@@ -101,7 +101,12 @@
 </head>
 
 <body>
+    <?php
+    set_time_limit(300); // 300 seconds or 5 minutes
+    ini_set('memory_limit', '256M');
 
+    
+    ?>
     @foreach ($datas as $i => $data)
     <?php
         setlocale(LC_ALL, 'IND');
@@ -151,10 +156,12 @@
                     <li>
                         <p style="text-align: justify;">
                             Semua dokumen yang saya gunakan dalam melakukan kegiatan Transport Petugas dalam rangka pelaksanaan
+
                             {{ $data->peserta->kegiatan->nama_kegiatan }}
                             pada tanggal {{ $tgl_mulai }} s.d {{ $tgl_selesai }}
                             di {{ $data->peserta->kegiatan->tempat_kegiatan }}.
                             berdasarkan Surat Tugas Nomor {{ $data->no_surat_tugas }} Tanggal {{ $tgl_surat }}
+
                         </p>
                     </li>
                     <li style="padding-top: 25px">
@@ -167,10 +174,12 @@
                     </ol>
                 </ol>
             </table>
+
             <p>Demikian pernyataan ini saya buat dengan sesungguhnya dan apabila dikemudian hari terbukti <br>
                 tidak benar serta terdapat selisih biaya perjalanan dinas dan pengeluaran lainnya, maka saya <br>
                 bersedia mengembalikan ke kas negara.
             </p>
+
         </div>
         <div class="content"><p></p></div>
         <div class="footer-surat">
@@ -188,12 +197,15 @@
                         <td>
                             <p><b><u>Sitti Kahirah Adami, SH</u></b></p>
                             <p style="margin-top: -10px">NIP.196810052005012014</p>
+
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
+
     </div>
+
     @endforeach
 </body>
 

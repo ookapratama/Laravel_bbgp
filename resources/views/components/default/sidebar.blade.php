@@ -11,8 +11,6 @@
 
             <li class="menu-header">Dashboard</li>
 
-
-
             <li class="nav-item  {{ $menu == 'dashboard' ? 'active' : '' }}">
                 <a href="{{ route('dashboard') }}" class="nav-link "><i
                         class="fas fa-fire"></i><span>Dashboard</span></a>
@@ -110,8 +108,6 @@
                 </li>
             @endif
 
-
-
             @if (Session('role') == 'pegawai')
                 <li class="{{ $menu == 'pegawai' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('pegawai.show', session('no_ktp')) }}">
@@ -119,6 +115,7 @@
                     </a>
                 </li>
             @endif
+
             @if (Session('role') == 'tenaga pendidik' ||
                     Session('role') == 'tenaga kependidikan' ||
                     Session('role') == 'stakeholder')
@@ -145,7 +142,22 @@
                         <i class="fas fa-chalkboard-teacher"></i> <span>Data Sekolah</span></a>
                 </li> --}}
             {{-- @endif --}}
-
+            <li class="menu-header">Landing Page</li>
+            <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-thumbtack"></i>
+                    <span>Data Agenda</span>
+                </a>
+            </li>
+            <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-newspaper"></i>
+                    <span>Data Berita</span>
+                </a>
+            </li>
+            <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
+                    <span>Data Artikel</span>
+                </a>
+            </li>
 
         </ul>
 

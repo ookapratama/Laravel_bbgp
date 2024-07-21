@@ -102,6 +102,7 @@
 <body>
     <?php
     setlocale(LC_ALL, 'IND');
+
     
     $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
     $tgl_sekarang = strftime('%d %B %Y', strtotime(date('d-m-Y')));
@@ -174,7 +175,7 @@
                 <ol style="margin-left: -25px; padding-top: 10px">
                     <li>
                         <p style="text-align: justify;">
-                            Semua dokumen yang saya gunakan dalam melakukan kegiatan Transport Petugas dalam rangka 
+                            Semua dokumen yang saya gunakan dalam melakukan kegiatan Transport Petugas dalam rangka
                             pelaksanaan
                             {{ $data->peserta->kegiatan->nama_kegiatan }}
                             pada tanggal {{ $tgl_mulai }} s.d {{ $tgl_selesai }}
@@ -247,7 +248,7 @@
 
                         </td>
                         <td>
-                            <p class=""> <b> <u> Sitti Kahirah Adami, SH </u> </b> 
+                            <p class=""> <b> <u> Sitti Kahirah Adami, SH </u> </b>
                             <p style="margin-top: -10px">NIP.196810052005012014</p>
                             </p>
                         </td>

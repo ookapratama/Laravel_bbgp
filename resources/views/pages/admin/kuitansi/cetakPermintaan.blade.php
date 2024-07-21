@@ -40,7 +40,8 @@
         }
 
         .content {
-            margin-top: 150px; /* Adjust this value if needed */
+            margin-top: 150px;
+            /* Adjust this value if needed */
             margin-bottom: 60px;
             page-break-inside: avoid;
         }

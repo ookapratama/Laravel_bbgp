@@ -71,6 +71,7 @@
 
 <body>
 
+
     @foreach ($datas as $i => $data)
         <?php
         setlocale(LC_ALL, 'IND');
@@ -152,6 +153,7 @@
             </div>
         </div>
     @endforeach
+
 
 </body>
 

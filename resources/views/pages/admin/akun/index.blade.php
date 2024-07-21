@@ -66,7 +66,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label>Role</label>
-                                                                <select name="role" required placeholder="Masukkan Akun"
+                                                                <select class="form-control selectric" name="role" required placeholder="Masukkan Akun"
                                                                     class="form-control">
                                                                     <option value="">-- Pilih Role Akun --</option>
                                                                     <option value="admin">Admin</option>

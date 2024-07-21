@@ -103,6 +103,7 @@
 <body>
 
 
+
     @foreach ($datas as $i => $data)
         <?php
         setlocale(LC_ALL, 'IND');
