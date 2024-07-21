@@ -119,7 +119,7 @@
                     </a>
                 </li>
                 <li class="nav-item  {{ $menu == 'artikel' ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
+                    <a href="{{ route('artikel.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
                         <span>Data Artikel</span>
                     </a>
                 </li>

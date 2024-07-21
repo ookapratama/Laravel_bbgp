@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('artikels', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('isi');
+            $table->text('isi');
             $table->string('thumbnail');
             $table->string('author');
             $table->enum('status', ['publish', 'pending']);

@@ -135,46 +135,46 @@
     <section id="ts-service-area" class="ts-service-area pb-0">
         <div class="container">
 
-            <div class="row my-icon-slider">
+            <div class="my-center-slider my-icon-slider">
 
-                <div class="col-lg col-md ">
+                <div class=" ">
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
-                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                            <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
                                 src="{{ asset('landing/images/icon-slider/logo-nogratifikasi.png') }}" alt="service-image">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
-                <div class="col-lg col-md ">
+                <div class=" ">
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
-                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                            <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
                                 src="{{ asset('landing/images/icon-slider/logo-berakhlak.png') }}" alt="service-image">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
-                <div class="col-lg col-md ">
+                <div class=" ">
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
-                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                            <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
                                 src="{{ asset('landing/images/icon-slider/logo-bangga-melayani.png') }}"
                                 alt="service-image">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
-                <div class="col-lg col-md ">
+                <div class=" ">
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
-                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                            <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
                                 src="{{ asset('landing/images/icon-slider/sehat-tanpa-korupsi.png') }}"
                                 alt="service-image">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
-                <div class="col-lg col-md ">
+                <div class=" ">
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
-                            <img loading="lazy" style="width: 250px" class="img img-fluid"
+                            <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
                                 src="{{ asset('landing/images/icon-slider/kami-siap-zi-wbk.png') }}" alt="service-image">
                         </div>
                     </div><!-- Service1 end -->
@@ -278,7 +278,8 @@
                         </div>
                         <div class="text-center">
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="https://sites.google.com/instruktur.belajar.id/ult-bbgpsulsel">PPID</a></h3>
+                                <h3 class="service-box-title"><a
+                                        href="https://sites.google.com/instruktur.belajar.id/ult-bbgpsulsel">PPID</a></h3>
 
                             </div>
                         </div>
@@ -369,8 +370,8 @@
                                         {{ Str::limit(strip_tags($v->isi), 120, '...') }}
                                         {{-- {!! Str::limit($v->isi, 150, '...') !!} --}}
                                     </p>
-                                    <a class="learn-more d-inline-block" href="#"
-                                        aria-label="service-details"><i class="fa fa-caret-right"></i> Detail...</a>
+                                    <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                            class="fa fa-caret-right"></i> Detail...</a>
                                 </div>
                             </div>
                         </div><!-- Service1 end -->
@@ -398,114 +399,28 @@
             <!--/ Title row end -->
 
             <div class="row my-artikel-slider">
-
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <div class="ts-service-box">
-                        <div class="ts-service-image-wrapper">
-                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service1.jpg') }}"
-                                alt="service-image">
-                        </div>
-                        <div class="d-flex">
-                            <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
-                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
-                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
-                                <a class="learn-more d-inline-block" href="service-single.html"
-                                    aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
+                @foreach ($datas['artikel'] as $v)
+                    <div class="col-lg-4 col-md-6 mb-5">
+                        <div class="ts-service-box">
+                            <div class="ts-service-image-wrapper">
+                                <img loading="lazy" class="w-100"
+                                    src="{{ asset('upload/artikel/' . $v->thumbnail) }}" alt="service-image">
                             </div>
-                        </div>
-                    </div><!-- Service1 end -->
-                </div><!-- Col 1 end -->
-
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <div class="ts-service-box">
-                        <div class="ts-service-image-wrapper">
-                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service2.jpg') }}"
-                                alt="service-image">
-                        </div>
-                        <div class="d-flex">
-                            <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="#">Virtual Construction</a></h3>
-                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
-                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
-                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
-                                        class="fa fa-caret-right"></i> Learn more</a>
+                            <div class="d-flex">
+                                <div class="ts-service-info">
+                                    <h3 class="service-box-title"><a href="#">{{ $v->judul }}</a>
+                                    </h3>
+                                    <p>
+                                        {{ Str::limit(strip_tags($v->isi), 120, '...') }}
+                                    </p>
+                                    <a class="learn-more d-inline-block" href="#"
+                                        aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
+                                </div>
                             </div>
-                        </div>
-                    </div><!-- Service2 end -->
-                </div><!-- Col 2 end -->
+                        </div><!-- Service1 end -->
+                    </div><!-- Col 1 end -->
+                @endforeach
 
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <div class="ts-service-box">
-                        <div class="ts-service-image-wrapper">
-                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service3.jpg') }}"
-                                alt="service-image">
-                        </div>
-                        <div class="d-flex">
-                            <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="#">Build To Last</a></h3>
-                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
-                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
-                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
-                                        class="fa fa-caret-right"></i> Learn more</a>
-                            </div>
-                        </div>
-                    </div><!-- Service3 end -->
-                </div><!-- Col 3 end -->
-
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <div class="ts-service-box">
-                        <div class="ts-service-image-wrapper">
-                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service4.jpg') }}"
-                                alt="service-image">
-                        </div>
-                        <div class="d-flex">
-                            <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="#">EXTERIOR DESIGN</a></h3>
-                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
-                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
-                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
-                                        class="fa fa-caret-right"></i> Learn more</a>
-                            </div>
-                        </div>
-                    </div><!-- Service1 end -->
-                </div><!-- Col 4 end -->
-
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <div class="ts-service-box">
-                        <div class="ts-service-image-wrapper">
-                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service5.jpg') }}"
-                                alt="service-image">
-                        </div>
-                        <div class="d-flex">
-                            <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="#">RENOVATION</a></h3>
-                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
-                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
-                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
-                                        class="fa fa-caret-right"></i> Learn more</a>
-                            </div>
-                        </div>
-                    </div><!-- Service2 end -->
-                </div><!-- Col 5 end -->
-
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <div class="ts-service-box">
-                        <div class="ts-service-image-wrapper">
-                            <img loading="lazy" class="w-100" src="{{ asset('landing/images/services/service6.jpg') }}"
-                                alt="service-image">
-                        </div>
-                        <div class="d-flex">
-                            <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="#">SAFETY MANAGEMENT</a></h3>
-                                <p>You have ideas, goals, and dreams. We have a culturally diverse, forward thinking team
-                                    looking for talent like. Lorem ipsum dolor suscipit.</p>
-                                <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
-                                        class="fa fa-caret-right"></i> Learn more</a>
-                            </div>
-                        </div>
-                    </div><!-- Service3 end -->
-                </div><!-- Col 6 end -->
 
             </div><!-- Main row end -->
 

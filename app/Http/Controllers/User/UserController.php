@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agenda;
+use App\Models\Artikel;
 use App\Models\Berita;
 use App\Models\Guru;
 use App\Models\Internal;
@@ -32,6 +33,7 @@ class UserController extends Controller
         $datas = array(
             'berita' => Berita::orderByDesc('id')->skip(0)->take(10)->get(),
             'agenda' => Agenda::orderByDesc('id')->skip(0)->take(10)->get(),
+            'artikel' => Artikel::orderByDesc('id')->skip(0)->take(10)->get(),
         );
 
         // dd($datas);

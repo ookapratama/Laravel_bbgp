@@ -13,6 +13,7 @@
 }
 
 .single-info {
+    width: 100%;
     display: flex;
     padding: 30px;
     position: relative;
@@ -40,6 +41,16 @@
     color: #333;
     transition: color 0.3s;
 }
+
+/* @media (max-width: 991px) {
+    .single-info  {
+        width: 100%;
+    }
+} */
+
+/* .my-center-slider {
+    t
+} */
 
 .single-info:hover .info-icon i,
 .single-info:hover .info-my-content p {

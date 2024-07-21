@@ -39,7 +39,7 @@
                             </li>
 
                             <li class="header-get-a-quote">
-                                <a class="btn btn-primary" href="contact.html">Kontak</a>
+                                <a class="btn btn-primary" href="{{ route('user.kontak') }}">Kontak</a>
                             </li>
                         </ul><!-- Ul end -->
                     </div><!-- header right end -->

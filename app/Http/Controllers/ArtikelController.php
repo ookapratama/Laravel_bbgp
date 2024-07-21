@@ -98,11 +98,11 @@ class ArtikelController extends Controller
 
 
         // dd($file->getSize() / 1024);
-        if ($foto->getSize() / 1024 >= 512) {
-            return redirect()->route('artikel.edit', $r['id'])->with('message', 'size gambar');
-        }
 
         if ($request->hasFile('thumbnail')) {
+            if ($foto->getSize() / 1024 >= 512) {
+                return redirect()->route('artikel.edit', $r['id'])->with('message', 'size gambar');
+            }
             $ext = $foto->getClientOriginalExtension();
             $nameFoto = date('Y-m-d_H-i-s_') . $r['judul'] . "." . $ext;
             $destinationPath = public_path('upload/artikel');
@@ -124,7 +124,7 @@ class ArtikelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $id)
+    public function destroy(string $id)
     {
         $data = Artikel::find($id);
         $data->delete();
