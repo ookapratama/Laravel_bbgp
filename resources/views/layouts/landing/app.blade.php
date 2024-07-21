@@ -1,23 +1,4 @@
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
 
-<!--
-THEME: Constra - Construction Html5 Template
-VERSION: 1.0.0
-AUTHOR: Themefisher
-
-HOMEPAGE: https://themefisher.com/products/constra-construction-template/
-DEMO: https://demo.themefisher.com/constra/
-GITHUB: https://github.com/themefisher/Constra-Bootstrap-Construction-Template
-
-WEBSITE: https://themefisher.com
-TWITTER: https://twitter.com/themefisher
-FACEBOOK: https://www.facebook.com/themefisher
--->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,10 +13,10 @@ FACEBOOK: https://www.facebook.com/themefisher
     <!-- Mobile Specific Metas
 ================================================== -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Construction Html5 Template">
+    <meta name="description" content="BBGP Provinsi Sulawesi Selatan">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name=author content="Themefisher">
-    <meta name=generator content="Themefisher Constra HTML Template v1.0">
+    <meta name=author content="BBGP Sul-Sel">
+    <meta name=generator content="BBGP Provinsi Sulawesi Selatan">
 
     <!-- Favicon
 ================================================== -->
