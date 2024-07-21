@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Data Agenda'])
+@extends('layouts.app', ['title' => 'Data Berita'])
 
 @section('content')
     @push('styles')
@@ -14,7 +14,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Data Agenda BBGP</h1>
+                <h1>Data Berita BBGP</h1>
             </div>
 
             <div class="section-body">
@@ -24,23 +24,20 @@
                             <div class="card-body">
                                 <!-- Navigation Buttons -->
 
-                                <a href="{{ route('agenda.create') }}" class="btn btn-primary text-white my-3">+ Tambah
-                                    Agenda</a>
+                                <a href="{{ route('berita.create') }}" class="btn btn-primary text-white my-3">+ Tambah
+                                    Berita</a>
 
                                 <!-- Tables Section -->
                                 <!-- PPNPN -->
                                 <div class="table-responsive ">
                                     <!-- Table PPNPN -->
-                                    <table class="table table-striped " id="table-agenda">
+                                    <table class="table table-striped " id="table-berita">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>Thumbnail</th>
-                                                <th>Judul Agenda</th>
-                                                {{-- <th>Isi Agenda</th> --}}
-                                                <th>Lokasi Agenda</th>
-                                                <th>Tanggal Agenda</th>
-                                                <th>Jam Agenda</th>
+                                                <th>Judul Berita</th>
+                                                {{-- <th>Isi Berita</th> --}}
                                                 <th>Author</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
@@ -48,24 +45,13 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas as $i => $data)
-                                                <?php
-                                                setlocale(LC_ALL, 'IND');
-                                                
-                                                $tgl_kegiatan = strftime('%d %B', strtotime($data->tgl_kegiatan));
-                                                $tgl_selesai = strftime('%d %B %Y', strtotime($data->tgl_selesai));
-                                                ?>
                                                 <tr>
                                                     <td>{{ ++$i }}</td>
                                                     <td>
-                                                        <img class="img img-fluid" width="200"
-                                                            src="{{ asset('upload/agenda/' . $data->thumbnail) }}"
-                                                            alt="Thumbnail Agenda">
-                                                    </td>
-                                                    <td>{{ $data->nama_kegiatan ?? '' }}</td>
+                                                        <img class="img img-fluid" width="250" src="{{ asset('upload/berita/'. $data->thumbnail) }}" alt="Thumbnail Berita">  
+                                                         </td>
+                                                    <td>{{ $data->judul ?? '' }}</td>
                                                     {{-- <td>{!! $data->isi ?? '' !!}</td> --}}
-                                                    <td>{{ $data->tempat_kegiatan }} </td>
-                                                    <td>{{ $data->tgl_kegiatan }} - {{ $data->tgl_selesai }} </td>
-                                                    <td>{{ $data->jam_mulai }} - {{ $data->jam_selesai }} WITA </td>
                                                     <td>{{ $data->status }} </td>
                                                     <td>
                                                         @if ($data->status == 'publish')
@@ -76,9 +62,9 @@
 
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('agenda.edit', $data->id) }}"
+                                                        <a href="{{ route('berita.edit', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                        <button onclick="deleteData({{ $data->id }}, 'agenda')"
+                                                        <button onclick="deleteData({{ $data->id }}, 'berita')"
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
@@ -110,7 +96,7 @@
                 var language = {
                     "sSearch": "Pencarian Data Kegiatan BBGP : ",
                 };
-                var tableKegiatan = $('#table-agenda').DataTable({
+                var tableKegiatan = $('#table-berita').DataTable({
                     paging: true,
                     searching: true,
                     language: {
