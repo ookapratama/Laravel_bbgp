@@ -24,7 +24,7 @@
                         <form action="{{ route('akun.update') }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="id" name="{{ $datas->id }}">
+                            <input type="hidden" name="id" value="{{ $datas->id }}">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -45,7 +45,7 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input  value="{{ $datas->name }}"name="username" required placeholder="Masukkan Usernam untuk login"
+                                                <input  value="{{ $datas->username }}"name="username" required placeholder="Masukkan Usernam untuk login"
                                                     type="text" class="form-control">
                                             </div>
                                         </div>

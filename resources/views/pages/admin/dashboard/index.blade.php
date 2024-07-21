@@ -15,10 +15,9 @@
                 <h1>Dashboard</h1>
             </div>
             @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
-
                 <div class="card">
                     <div class="card-header">
-                       <h4>Data Statistik</h4> 
+                        <h4>Data Statistik</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -67,9 +66,9 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                         </div>
-        
+
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                                 <div class="card card-statistic-1">
@@ -132,7 +131,7 @@
                                 </div>
                             </div>
                         </div>
-        
+
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                                 <div class="card card-statistic-1">
@@ -160,7 +159,7 @@
                                         </div>
                                         <div class="card-body">
                                             {{ $datas['pengawasSertifGP'] }}
-        
+
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +175,7 @@
                                         </div>
                                         <div class="card-body">
                                             {{ $datas['pengawasLainGP'] }}
-        
+
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +196,7 @@
                             </div>
                         </div> --}}
                         </div>
-        
+
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                                 <div class="card card-statistic-1">
@@ -210,7 +209,7 @@
                                         </div>
                                         <div class="card-body">
                                             {{ $datas['guruPP'] }}
-        
+
                                         </div>
                                     </div>
                                 </div>
@@ -223,11 +222,11 @@
                                     <div class="card-wrap">
                                         <div class="card-header">
                                             <h4>Guru Penugasan Fasil</h4>
-        
+
                                         </div>
                                         <div class="card-body">
                                             {{ $datas['guruFasil'] }}
-        
+
                                         </div>
                                     </div>
                                 </div>
@@ -240,11 +239,11 @@
                                     <div class="card-wrap">
                                         <div class="card-header">
                                             <h4>Guru Penugasan Instruktur</h4>
-        
+
                                         </div>
                                         <div class="card-body">
                                             {{ $datas['guruInstruktur'] }}
-        
+
                                         </div>
                                     </div>
                                 </div>
@@ -267,7 +266,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-header">
                         <h4>Calendar Penugasan</h4>
@@ -285,9 +284,52 @@
                 </div>
             @endif
 
+            @if (session('role') == 'pegawai')
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Calendar Penugasan</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="fc-overflow">
+                                <div id="jadwal-pegawai"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            @endif
+
 
         </section>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">Detail Kegiatan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Judul:</strong> <span id="eventTitle"></span></p>
+                    <p><strong>Mulai:</strong> <span id="eventStart"></span></p>
+                    <p><strong>Selesai:</strong> <span id="eventEnd"></span></p>
+                    <p><strong>Deskripsi:</strong> <span id="eventDescription"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     @push('scripts')
         <script src="{{ asset('library/simpleweather/jquery.simpleWeather.min.js') }}"></script>
@@ -297,6 +339,7 @@
         <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
         <script src="{{ asset('library/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
         <script src="{{ asset('library/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/id.min.js"></script>
         <script src="{{ asset('js/page/modules-calendar.js') }}"></script>
 
         <!-- Page Specific JS File -->
@@ -407,6 +450,7 @@
 
         <script>
             $(document).ready(function() {
+                moment.locale('id');
                 let token = $("meta[name='csrf-token']").attr("content");
 
                 $.ajax({
@@ -436,6 +480,7 @@
                         });
 
                         $("#jadwal").fullCalendar({
+                            locale: 'id',
                             height: 'auto',
                             header: {
                                 left: 'prev,next today',
@@ -444,6 +489,76 @@
                             },
                             editable: true,
                             events: data,
+                            eventClick: function(event, jsEvent, view) {
+                                // Set the information in the modal
+                                $("#eventTitle").text(event.title);
+                                $("#eventStart").text(event.start.format(
+                                "LLLL")); // Format in Indonesian
+                                $("#eventEnd").text(event.end ? event.end.format("LLLL") :
+                                    "N/A"); // Format in Indonesian
+                                $("#eventDescription").text(event.description ? event
+                                    .description : "Tidak ada deskripsi");
+
+                                // Show the modal
+                                $("#eventModal").modal('show');
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        console.error("AJAX Error:", error);
+                        swal("Error", "Ajax Error.", "error");
+                    },
+                });
+
+                $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": token,
+                    },
+                    type: "GET",
+                    url: `dashboard/jadwalKegiatan/{{ session('no_ktp') }}`,
+                    success: function(response) {
+                        var data = [];
+
+                        response.jadwal.forEach(element => {
+                            var mulai = `${element.tgl_kegiatan} ${element.jam_mulai ?? ''}`;
+                            var selesai =
+                                `${element.tgl_selesai_kegiatan} ${element.jam_selesai ?? ''}`;
+
+                            // Generate random color
+                            var randomColor = getRandomColor();
+
+                            data.push({
+                                title: `Kegiatan: ${element.kegiatan ?? '-'} | Atas Nama: ${element.nama}`,
+                                start: mulai,
+                                end: selesai,
+                                backgroundColor: randomColor,
+                                textColor: '#fff'
+                            });
+                        });
+
+                        $("#jadwal-pegawai").fullCalendar({
+                            locale: 'id',
+                            height: 'auto',
+                            header: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'month,agendaWeek,agendaDay,listWeek'
+                            },
+                            editable: true,
+                            events: data,
+                            eventClick: function(event, jsEvent, view) {
+                                // Set the information in the modal
+                                $("#eventTitle").text(event.title);
+                                $("#eventStart").text(event.start.format(
+                                    "LLLL")); // Format in Indonesian
+                                $("#eventEnd").text(event.end ? event.end.format("LLLL") :
+                                    "N/A"); // Format in Indonesian
+                                $("#eventDescription").text(event.description ? event
+                                    .description : "Tidak ada deskripsi");
+
+                                // Show the modal
+                                $("#eventModal").modal('show');
+                            }
 
                         });
                     },
@@ -452,6 +567,7 @@
                         swal("Error", "Ajax Error.", "error");
                     },
                 });
+
 
                 // Function to generate random color
                 function getRandomColor() {

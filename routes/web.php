@@ -83,6 +83,7 @@ Route::group(
             // Root
             Route::get('/', 'AdminController@index')->name('dashboard');
             Route::get('/jadwalKegiatan', 'AdminController@jadwal')->name('dashboard.jadwal');
+            Route::get('/jadwalKegiatan/{nik}', 'AdminController@getJadwalByPegawai')->name('dashboard.jadwal.getByPegawai');
 
             // Profile User yang Login
             Route::get('/profile/{id}', 'AdminController@profile')->name('profile.index');
