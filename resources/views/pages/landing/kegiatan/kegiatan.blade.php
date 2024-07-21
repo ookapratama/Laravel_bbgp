@@ -335,7 +335,6 @@
                 });
 
             });
-
         </script>
     @endpush
 

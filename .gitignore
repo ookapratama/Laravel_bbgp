@@ -21,3 +21,7 @@ yarn-error.log
 *.sql
 *.zip
 *.rar
+
+/public/upload/berita/*.png
+/public/upload/berita/*.jpg
+/public/upload/berita/*.jpeg

@@ -12,13 +12,15 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
 
 
     <!-- CSS Libraries -->
     @stack('styles')
 
     <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components.css') }}">
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
@@ -76,6 +78,8 @@
     <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
     <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+
 
 
 
@@ -97,7 +101,16 @@
             swal("Berhasil", "Berhasil tambah data", "success");
         </script>
     @endif
-
+    @if (session('message') == 'size gambar')
+        <script>
+            // iziToast.success({
+            //     title: 'Sukses',
+            //     message: 'Berhasil update data',
+            //     position: 'topRight'
+            // });
+            swal("Danger", "Gambar tidak valid, pastikan gambar jpg,png,jpeg (min. 512kb)", "error");
+        </script>
+    @endif
     {{-- success update data --}}
     @if (session('message') == 'update')
         <script>
