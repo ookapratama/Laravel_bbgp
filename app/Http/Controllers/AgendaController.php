@@ -12,7 +12,7 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        //
+    
     }
 
     /**

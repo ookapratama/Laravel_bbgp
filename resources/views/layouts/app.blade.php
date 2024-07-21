@@ -108,7 +108,7 @@
             //     message: 'Berhasil update data',
             //     position: 'topRight'
             // });
-            swal("Danger", "Gambar tidak valid, pastikan gambar jpg,png,jpeg (min. 512kb)", "error");
+            swal("Danger", "Gambar tidak valid, pastikan gambar jpg, png, atau jpeg dengan (size min. 512kb)", "error");
         </script>
     @endif
     {{-- success update data --}}

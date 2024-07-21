@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Berita;
 use App\Models\Guru;
 use App\Models\Internal;
 use App\Models\Jabatan;
@@ -18,6 +19,7 @@ use App\Models\Pendidikan;
 use App\Models\SatuanPendidikan;
 use App\Models\Sekolah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -26,8 +28,13 @@ class UserController extends Controller
      */
     public function index()
     {
+        $datas = array(
+            'berita' => Berita::orderByDesc('id')->skip(0)->take(10)->get(),
+        );
+
+        // dd($datas);
         // return view('pages.user.index', ['menu' => 'profil']);
-        return view('pages.landing.index', ['menu' => 'profil']);
+        return view('pages.landing.index', ['menu' => 'profil'], compact('datas'));
     }
 
     public function kontak()

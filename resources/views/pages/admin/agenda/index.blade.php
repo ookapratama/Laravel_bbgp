@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Data Berita'])
+@extends('layouts.app', ['title' => 'Data Agenda'])
 
 @section('content')
     @push('styles')
@@ -14,7 +14,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Data Berita BBGP</h1>
+                <h1>Data Agenda BBGP</h1>
             </div>
 
             <div class="section-body">
@@ -24,20 +24,20 @@
                             <div class="card-body">
                                 <!-- Navigation Buttons -->
 
-                                <a href="{{ route('berita.create') }}" class="btn btn-primary text-white my-3">+ Tambah
-                                    Berita</a>
+                                <a href="{{ route('agenda.create') }}" class="btn btn-primary text-white my-3">+ Tambah
+                                    Agenda</a>
 
                                 <!-- Tables Section -->
                                 <!-- PPNPN -->
                                 <div class="table-responsive ">
                                     <!-- Table PPNPN -->
-                                    <table class="table table-striped " id="table-berita">
+                                    <table class="table table-striped " id="table-agenda">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>Thumbnail</th>
-                                                <th>Judul Berita</th>
-                                                {{-- <th>Isi Berita</th> --}}
+                                                <th>Judul Agenda</th>
+                                                {{-- <th>Isi Agenda</th> --}}
                                                 <th>Author</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
@@ -48,7 +48,7 @@
                                                 <tr>
                                                     <td>{{ ++$i }}</td>
                                                     <td>
-                                                        <img class="img img-fluid" width="250" src="{{ asset('upload/berita/'. $data->thumbnail) }}" alt="Thumbnail Berita">  
+                                                        <img class="img img-fluid" width="250" src="{{ asset('upload/agenda/'. $data->thumbnail) }}" alt="Thumbnail Agenda">  
                                                          </td>
                                                     <td>{{ $data->judul ?? '' }}</td>
                                                     {{-- <td>{!! $data->isi ?? '' !!}</td> --}}
@@ -62,9 +62,9 @@
 
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('berita.edit', $data->id) }}"
+                                                        <a href="{{ route('agenda.edit', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                        <button onclick="deleteData({{ $data->id }}, 'berita')"
+                                                        <button onclick="deleteData({{ $data->id }}, 'agenda')"
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
@@ -96,7 +96,7 @@
                 var language = {
                     "sSearch": "Pencarian Data Kegiatan BBGP : ",
                 };
-                var tableKegiatan = $('#table-berita').DataTable({
+                var tableKegiatan = $('#table-agenda').DataTable({
                     paging: true,
                     searching: true,
                     language: {

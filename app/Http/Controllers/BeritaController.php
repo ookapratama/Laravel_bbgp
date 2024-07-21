@@ -36,7 +36,7 @@ class BeritaController extends Controller
 
         $file = $request->file('thumbnail');
 
-        // dd($file->getSize() / 1024 );
+        // dd($file->getSize() / 1024);
         if ($file->getSize() / 1024 >= 512) {
             return redirect()->route('berita.create')->with('message', 'size gambar');
         }
@@ -45,13 +45,13 @@ class BeritaController extends Controller
         $ext = $foto->getClientOriginalExtension();
         // $r['pas_foto'] = $request->file('pas_foto');
 
-        $nameFoto = date('Y-m-d_H-i-s_') . str_replace(' ', '-', $r['judul'])  . "." . $ext;
+        $nameFoto = date('Y-m-d_H-i-s_') . str_replace(' ', '-', $r['judul']) . "." . $ext;
         $destinationPath = public_path('upload/berita');
 
         $foto->move($destinationPath, $nameFoto);
 
         $fileUrl = asset('upload/berita/' . $nameFoto);
-
+        // dd($destinationPath);
         $r['thumbnail'] = $nameFoto;
 
         Berita::create($r);
@@ -72,17 +72,49 @@ class BeritaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Berita $berita)
+    public function edit($id)
     {
-        //
+        $data = Berita::find($id);
+        $menu = $this->menu;
+
+        return view('pages.admin.berita.edit', compact('data', 'menu'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Berita $berita)
+    public function update(Request $request)
     {
-        //
+        $r = $request->all();
+        $data = Berita::find($r['id']);
+
+        $foto = $request->file('thumbnail');
+
+
+        // dd($file->getSize() / 1024);
+        if ($foto->getSize() / 1024 >= 512) {
+            return redirect()->route('berita.edit', $r['id'])->with('message', 'size gambar');
+        }
+
+        if ($request->hasFile('thumbnail')) {
+            $ext = $foto->getClientOriginalExtension();
+            $nameFoto = date('Y-m-d_H-i-s_') . $r['judul'] . "." . $ext;
+            $destinationPath = public_path('upload/berita');
+
+            $foto->move($destinationPath, $nameFoto);
+
+            $fileUrl = asset('upload/berita/' . $nameFoto);
+            $r['thumbnail'] = $nameFoto;
+        } else {
+            $r['thumbnail'] = $request->thumbnail_old;
+        }
+
+        // dd($r);
+        $data->update($r);
+        
+        return redirect()->route('berita.index')->with('message', 'update');
+
+
     }
 
     /**
