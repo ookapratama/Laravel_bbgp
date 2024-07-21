@@ -148,6 +148,16 @@
                     <span>Data Agenda</span>
                 </a>
             </li>
+            <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-newspaper"></i>
+                    <span>Data Berita</span>
+                </a>
+            </li>
+            <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
+                    <span>Data Artikel</span>
+                </a>
+            </li>
 
         </ul>
 

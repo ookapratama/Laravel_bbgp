@@ -23,12 +23,12 @@ Route::group(
         Route::redirect('/', '/');
         // Dashboard
 
-//         Route::get(
-//             '/',
-//             function () {
-//                 return view('pages.landing.index');
-//             }
-//         )->name('user.index');
+        //         Route::get(
+        //             '/',
+        //             function () {
+        //                 return view('pages.landing.index');
+        //             }
+        //         )->name('user.index');
 
         Route::get(
             '/',
@@ -69,7 +69,6 @@ Route::group(
         Route::get('/print/registrasi-peserta', 'KegiatanController@printRegistrasiPeserta')->name('print.registrasi.peserta');
         Route::get('/print/absensi-panitia', 'KegiatanController@printAbsensiPanitia')->name('print.absensi.panitia');
         Route::get('/print/absensi-narasumber', 'KegiatanController@printAbsensiNarasumber')->name('print.absensi.narasumber');
-
     }
 );
 
@@ -295,7 +294,7 @@ Route::group(
                 Route::get('/cetakPJmutlak/{id}', 'KuitansiController@cetakPJmutlak')->name('kuitansi.cetakPJmutlak');
                 Route::get('/cetakPJmutlak/{id}', 'KuitansiController@cetakPJmutlak')->name('kuitansi.cetakPJmutlak');
                 Route::get('/cetakAmplop/{id}', 'KuitansiController@cetakAmplop')->name('kuitansi.cetakAmplop');
-                Route::get('/cetakPermintaan', 'KuitansiController@cetakPermintaan')->name('kuitansi.cetakPermintaan'); 
+                Route::get('/cetakPermintaan', 'KuitansiController@cetakPermintaan')->name('kuitansi.cetakPermintaan');
                 Route::get('/cetakLampiran', 'KuitansiController@cetakLampiran')->name('kuitansi.cetakLampiran');
                 Route::get('/cetakExcel/{id_kegiatan}', 'KuitansiController@cetakExcel')->name('kuitansi.cetakexcel');
 
@@ -336,7 +335,35 @@ Route::group(
             //     Route::get('/cetak/{id}', 'KependudukanController@cetak')->name('kependudukan.cetak');
             // });
 
+            // Agenda
+            Route::prefix('agenda')->group(function () {
+                Route::get('/', 'AgendaController@index')->name('agenda.index');
+                Route::get('/create', 'AgendaController@create')->name('agenda.create');
+                Route::post('/store', 'AgendaController@store')->name('agenda.store');
+                Route::get('/edit/{id}', 'AgendaController@edit')->name('agenda.edit');
+                Route::put('/update', 'AgendaController@update')->name('agenda.update');
+                Route::post('/hapus/{id}', 'AgendaController@destroy')->name('agenda.hapus');
+            });
 
+            // Berita
+            Route::prefix('berita')->group(function () {
+                Route::get('/', 'BeritaController@index')->name('berita.index');
+                Route::get('/create', 'BeritaController@create')->name('berita.create');
+                Route::post('/store', 'BeritaController@store')->name('berita.store');
+                Route::get('/edit/{id}', 'BeritaController@edit')->name('berita.edit');
+                Route::put('/update', 'BeritaController@update')->name('berita.update');
+                Route::post('/hapus/{id}', 'BeritaController@destroy')->name('berita.hapus');
+            });
+
+            // Artikel
+            Route::prefix('artikel')->group(function () {
+                Route::get('/', 'ArtikelController@index')->name('artikel.index');
+                Route::get('/create', 'ArtikelController@create')->name('artikel.create');
+                Route::post('/store', 'ArtikelController@store')->name('artikel.store');
+                Route::get('/edit/{id}', 'ArtikelController@edit')->name('artikel.edit');
+                Route::put('/update', 'ArtikelController@update')->name('artikel.update');
+                Route::post('/hapus/{id}', 'ArtikelController@destroy')->name('artikel.hapus');
+            });
 
         });
     }
@@ -356,6 +383,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers'], functi
     Route::get('/logout', function () {
         Session::flush();
         return redirect()->route(
-            'user.index')->with('message', 'sukses logout');
+            'user.index'
+        )->with('message', 'sukses logout');
     })->name('logout');
 });

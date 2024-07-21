@@ -101,6 +101,11 @@
 
 <body>
     <?php
+    set_time_limit(300); // 300 seconds or 5 minutes
+    ini_set('memory_limit', '256M');
+    
+    ?>
+    <?php
     setlocale(LC_TIME, 'id_ID.UTF-8');
     
     $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
@@ -140,14 +145,14 @@
                 <tr style="padding: 10px">
                     <td class="text-title">NIP</td>
                     <td>
-                        <p><span class="highlight">:  {{ $data->peserta->nip  }}</span></p>
+                        <p><span class="highlight">: {{ $data->peserta->nip }}</span></p>
                     </td>
                 </tr>
 
                 <tr>
                     <td valign="top" width="80" class="text-title">Jabatan</td>
                     <td>
-                        <p style="text-align: justify">:  {{ $data->peserta->status_keikutpesertaan ?? '' }}
+                        <p style="text-align: justify">: {{ $data->peserta->status_keikutpesertaan ?? '' }}
 
                         </p>
                     </td>
@@ -203,13 +208,13 @@
                             {{ $data->kabupaten->name }} - {{ $data->lokasi_tujuan }}, PP
                             <br><br>
                             <br>
-                            
+
                         </td>
-                        <td >Rp.  {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
+                        <td>Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
                     </tr>
 
                 </tbody>
-                
+
 
             </table>
 

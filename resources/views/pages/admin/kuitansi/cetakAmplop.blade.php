@@ -82,6 +82,12 @@
 
 <body>
     <?php
+    set_time_limit(300); // 300 seconds or 5 minutes
+    ini_set('memory_limit', '256M');
+
+    
+    ?>
+    <?php
     setlocale(LC_TIME, 'id_ID.UTF-8');
     
     $tgl_kegiatan = strftime('%d %B', strtotime($data->peserta->kegiatan->tgl_kegiatan ?? ''));
@@ -100,7 +106,7 @@
             </li>
             <li>
                 <span><b>Tanggal Kegiatan</b></span>
-                <span>:{{ $tgl_kegiatan ?? '' }} s.d {{ $tgl_selesai ?? ''}}</span>
+                <span>:{{ $tgl_kegiatan ?? '' }} s.d {{ $tgl_selesai ?? '' }}</span>
             </li>
             <!-- Tambahkan baris selanjutnya sesuai kebutuhan -->
         </ul>
@@ -124,7 +130,7 @@
                     <td>{{ $data->kabupaten->name . ' - ' . $data->lokasi_tujuan }}</td>
                     <td>Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
                     <td colspan="2">{{ $data->jenis_angkutan }}</td>
-                
+
                 </tr>
                 <!-- Tambahkan baris selanjutnya sesuai kebutuhan -->
 
@@ -137,23 +143,23 @@
                 <tr>
                     <td>b.</td>
                     <td style="width: 300px; text-align: left;">Potongan</td>
-                    {{ $total_pot = $data->potongan  }}
+                    {{ $total_pot = $data->potongan }}
                     <td style="width: 200px">Rp. {{ number_format($total_pot ?? 0, 0, ',', '.') }}</td>
                     <td style="width: 320px; text-align: left;" colspan="2"></td>
                 </tr>
                 <tr>
                     <td></td>
                     {{-- loop --}}
-                   
+
                     <td></td>
-                    <td>Rp.  {{ number_format($data->potongan ?? 0, 0, ',', '.') }}</td>
+                    <td>Rp. {{ number_format($data->potongan ?? 0, 0, ',', '.') }}</td>
                     <td colspan="2"></td>
                 </tr>
                 <tr>
                     <td></td>
                     {{ $total = $data->total_transport - $data->potongan }}
                     <td><b> Total Terima </b></td>
-                    <td><b> Rp.  {{ number_format($total ?? 0, 0, ',', '.') }} </b></td>
+                    <td><b> Rp. {{ number_format($total ?? 0, 0, ',', '.') }} </b></td>
                     <td colspan="2"></td>
                 </tr>
                 <!-- Tambahkan baris selanjutnya sesuai kebutuhan -->
@@ -162,7 +168,7 @@
         </div>
     </div>
 
-    
+
 </body>
 
 </html>
