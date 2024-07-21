@@ -335,7 +335,7 @@ class KuitansiController extends Controller
         }
 
         $datas = $query->get();
-        // dd($datas); 
+        // dd($datas);
         if ($datas->isEmpty()) {
             return response()->json(['error' => 'No data found for the given IDs.'], 404);
         }
@@ -344,10 +344,13 @@ class KuitansiController extends Controller
             $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakRillAll', compact('datas'));
             $pdf->setPaper('a4', 'portrait');
             return $pdf->stream('data_pengeluaran_rill.pdf');
+        } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
+            return response()->json(['error' => 'View file not found.'], 500);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to generate PDF.'], 500);
+            return response()->json(['error' => 'Failed to generate PDF. ' . $e->getMessage()], 500);
         }
     }
+
 
     public function cetakPJmutlakAll(Request $request)
     {
