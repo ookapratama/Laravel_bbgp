@@ -99,28 +99,21 @@
         }
     </style>
 </head>
-<?php
-set_time_limit(300); // 300 seconds or 5 minutes
-ini_set('memory_limit', '256M');
-
-
-?>
 
 <body>
     @foreach ($datas as $i => $data)
         <?php
-        setlocale(LC_TIME, 'id_ID.UTF-8');
+        setlocale(LC_ALL, 'IND');
         
         $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
         $tgl_sekarang = strftime('%d %B %Y', strtotime(date('d-m-Y')));
         ?>
-
         <div class="container">
             <div class="" style="
         margin-top: -40px
         ">
                 <img style="position: absolute; left: 0; top:25px; width: 110px"
-                    src="{{ asset('img_template/iconbbgp.png') }}" alt="Logo Kiri">
+                    src="{{ public_path('img_template/iconbbgp.png') }}" alt="Logo Kiri">
                 <div class="header">
                     <h2 style="margin-bottom: -20px">KEMENTRIAN PENDIDKAN DAN KEBUDAYAAN</h2>
                     <h2 style="margin-bottom: -20px">RISET, DAN TEKNOLOGI</h2>

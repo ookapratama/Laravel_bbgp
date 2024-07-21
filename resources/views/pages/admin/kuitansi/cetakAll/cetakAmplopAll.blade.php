@@ -70,19 +70,15 @@
 </head>
 
 <body>
-    <?php
-    set_time_limit(300); // 300 seconds or 5 minutes
-    ini_set('memory_limit', '256M');
 
-    
-    ?>
-    <?php
-    setlocale(LC_TIME, 'id_ID.UTF-8');
-    
-    $tgl_kegiatan = strftime('%d %B', strtotime($data->peserta->kegiatan->tgl_kegiatan ?? ''));
-    $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai ?? ''));
-    ?>
+
     @foreach ($datas as $i => $data)
+        <?php
+        setlocale(LC_ALL, 'IND');
+        
+        $tgl_kegiatan = strftime('%d %B', strtotime($data->peserta->kegiatan->tgl_kegiatan ?? ''));
+        $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai ?? ''));
+        ?>
         <div class="container">
             <ul>
                 <li>
@@ -157,6 +153,7 @@
             </div>
         </div>
     @endforeach
+
 
 </body>
 

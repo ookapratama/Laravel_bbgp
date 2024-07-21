@@ -97,7 +97,7 @@
 
 <body>
     <?php
-    setlocale(LC_TIME, 'id_ID.UTF-8');
+    setlocale(LC_ALL, 'IND');
     
     $tgl_surat = strftime('%d %B', strtotime(date('d-m-Y')));
     $tgl_sekarang = strftime('%d %B', strtotime(date('d-m-Y')));

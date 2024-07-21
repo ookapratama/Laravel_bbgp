@@ -101,19 +101,18 @@
 </head>
 
 <body>
-    <?php
-    set_time_limit(300); // 300 seconds or 5 minutes
-    ini_set('memory_limit', '256M');
 
-    ?>
+
 
     @foreach ($datas as $i => $data)
-    <?php
-    setlocale(LC_TIME, 'id_ID.UTF-8');
-    
-    $tgl_surat = strftime('%d %B', strtotime(date('d-m-Y')));
-    $tgl_sekarang = strftime('%d %B', strtotime(date('d-m-Y')));
-    ?>
+        <?php
+        setlocale(LC_ALL, 'IND');
+        
+        $tgl_surat = strftime('%d %B', strtotime(date('d-m-Y')));
+        $tgl_sekarang = strftime('%d %B', strtotime(date('d-m-Y')));
+        
+        ?>
+        {{-- {{ dd($tgl_sekarang) }} --}}
         <div class="container">
             <!-- Apply page-break class -->
             @if ($i > 0)
