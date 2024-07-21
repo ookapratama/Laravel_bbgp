@@ -45,7 +45,7 @@ class BeritaController extends Controller
         $ext = $foto->getClientOriginalExtension();
         // $r['pas_foto'] = $request->file('pas_foto');
 
-        $nameFoto = date('Y-m-d_H-i-s_') . str_replace(' ', '-', $r['judul']) . "." . $ext;
+        $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
         $destinationPath = public_path('upload/berita');
 
         $foto->move($destinationPath, $nameFoto);
@@ -92,13 +92,13 @@ class BeritaController extends Controller
 
 
         // dd($file->getSize() / 1024);
-        if ($foto->getSize() / 1024 >= 512) {
-            return redirect()->route('berita.edit', $r['id'])->with('message', 'size gambar');
-        }
 
         if ($request->hasFile('thumbnail')) {
+            if ($foto->getSize() / 1024 >= 512) {
+                return redirect()->route('berita.edit', $r['id'])->with('message', 'size gambar');
+            }
             $ext = $foto->getClientOriginalExtension();
-            $nameFoto = date('Y-m-d_H-i-s_') . $r['judul'] . "." . $ext;
+            $nameFoto = date('Y-m-d_H-i-s_') . "." . $ext;
             $destinationPath = public_path('upload/berita');
 
             $foto->move($destinationPath, $nameFoto);
@@ -111,7 +111,7 @@ class BeritaController extends Controller
 
         // dd($r);
         $data->update($r);
-        
+
         return redirect()->route('berita.index')->with('message', 'update');
 
 

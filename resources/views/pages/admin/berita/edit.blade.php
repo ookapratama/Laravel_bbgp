@@ -11,7 +11,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Berita {{ session('message') }}</h1>
+                <h1>Edit Berita </h1>
             </div>
 
             <div class="section-body">

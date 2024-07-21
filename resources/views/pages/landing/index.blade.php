@@ -209,7 +209,7 @@
                         </p>
                     </div><!-- Intro box end -->
 
-                   
+
 
                 </div><!-- Col end -->
 
@@ -244,9 +244,9 @@
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-jurnal.png') }}"
                                 alt="service-image">
                         </div>
-                        <div class="d-flex">
+                        <div class="text-center">
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+                                <h3 class="service-box-title"><a href="service-single.html">Jurnal Edutrans</a></h3>
 
                             </div>
                         </div>
@@ -260,9 +260,9 @@
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-pengaduan.png') }}"
                                 alt="service-image">
                         </div>
-                        <div class="d-flex">
+                        <div class="text-center">
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+                                <h3 class="service-box-title"><a href="#">Pengaduan</a></h3>
 
                             </div>
                         </div>
@@ -276,9 +276,9 @@
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-ppid.png') }}"
                                 alt="service-image">
                         </div>
-                        <div class="d-flex">
+                        <div class="text-center">
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+                                <h3 class="service-box-title"><a href="https://sites.google.com/instruktur.belajar.id/ult-bbgpsulsel">PPID</a></h3>
 
                             </div>
                         </div>
@@ -292,9 +292,9 @@
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-sim-penggiat.png') }}"
                                 alt="service-image">
                         </div>
-                        <div class="d-flex">
+                        <div class="text-center">
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+                                <h3 class="service-box-title"><a href="#">SIM BBGP Sul-Sel</a></h3>
 
                             </div>
                         </div>
@@ -308,9 +308,9 @@
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-virtual-tour.png') }}"
                                 alt="service-image">
                         </div>
-                        <div class="d-flex">
+                        <div class="text-center">
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+                                <h3 class="service-box-title"><a href="#">Tur Virtual</a></h3>
 
                             </div>
                         </div>
@@ -324,9 +324,9 @@
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-visualisasi-data.png') }}"
                                 alt="service-image">
                         </div>
-                        <div class="d-flex">
+                        <div class="text-center">
                             <div class="ts-service-info">
-                                <h3 class="service-box-title"><a href="service-single.html">Zero Harm Everyday</a></h3>
+                                <h3 class="service-box-title"><a href="#">Visualisasi Data</a></h3>
 
                             </div>
                         </div>
@@ -363,13 +363,13 @@
                             </div>
                             <div class="d-flex">
                                 <div class="ts-service-info">
-                                    <h3 class="service-box-title"><a href="service-single.html">{{ $v->judul }}</a>
+                                    <h3 class="service-box-title"><a href="#">{{ $v->judul }}</a>
                                     </h3>
                                     <p>
                                         {{ Str::limit(strip_tags($v->isi), 120, '...') }}
                                         {{-- {!! Str::limit($v->isi, 150, '...') !!} --}}
                                     </p>
-                                    <a class="learn-more d-inline-block" href="service-single.html"
+                                    <a class="learn-more d-inline-block" href="#"
                                         aria-label="service-details"><i class="fa fa-caret-right"></i> Detail...</a>
                                 </div>
                             </div>
@@ -527,123 +527,41 @@
             <!--/ Title row end -->
 
             <div class="row my-posts-slider">
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="latest-post">
-                        <div class="latest-post-media">
-                            <a href="news-single.html" class="latest-post-img">
-                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news1.jpg') }}"
-                                    alt="img">
-                            </a>
-                        </div>
-                        <div class="post-body">
-                            <h4 class="post-title">
-                                <a href="news-single.html" class="d-inline-block">We Just Completes $17.6 million
-                                    Medical Clinic in Mid-Missouri</a>
-                            </h4>
-                            <div class="latest-post-meta">
-                                <span class="post-item-date">
-                                    <i class="fa fa-clock-o"></i> July 20, 2017
-                                </span>
+                @foreach ($datas['agenda'] as $v)
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="latest-post">
+                            <div class="latest-post-media">
+                                <a href="#" class="latest-post-img">
+                                    <img loading="lazy" class="img-fluid"
+                                        src="{{ asset('upload/agenda/' . $v->thumbnail) }}" alt="img">
+                                </a>
                             </div>
-                        </div>
-                    </div><!-- Latest post end -->
-                </div><!-- 1st post col end -->
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="latest-post">
-                        <div class="latest-post-media">
-                            <a href="news-single.html" class="latest-post-img">
-                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news2.jpg') }}"
-                                    alt="img">
-                            </a>
-                        </div>
-                        <div class="post-body">
-                            <h4 class="post-title">
-                                <a href="news-single.html" class="d-inline-block">Thandler Airport Water
-                                    Reclamation Facility Expansion Project Named</a>
-                            </h4>
-                            <div class="latest-post-meta">
-                                <span class="post-item-date">
-                                    <i class="fa fa-clock-o"></i> June 17, 2017
-                                </span>
+                            <div class="post-body">
+                                <h4 class="post-title">
+                                    <a href="#" class="d-inline-block">{{ $v->nama_kegiatan }}</a>
+                                </h4>
+                                <div class="latest-post-meta">
+                                    <span class="post-item-date">
+                                        <?php
+                                        setlocale(LC_ALL, 'IND');
+                                        
+                                        $tgl_kegiatan = strftime('%d %B %Y', strtotime($v->tgl_kegiatan));
+                                        ?>
+                                        <i class="fa fa-clock-o"></i> {{ $tgl_kegiatan }}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </div><!-- Latest post end -->
-                </div><!-- 2nd post col end -->
+                        </div><!-- Latest post end -->
+                    </div><!-- 1st post col end -->
+                @endforeach
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="latest-post">
-                        <div class="latest-post-media">
-                            <a href="news-single.html" class="latest-post-img">
-                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news3.jpg') }}"
-                                    alt="img">
-                            </a>
-                        </div>
-                        <div class="post-body">
-                            <h4 class="post-title">
-                                <a href="news-single.html" class="d-inline-block">Silicon Bench and Cornike Begin
-                                    Construction Solar Facilities</a>
-                            </h4>
-                            <div class="latest-post-meta">
-                                <span class="post-item-date">
-                                    <i class="fa fa-clock-o"></i> Aug 13, 2017
-                                </span>
-                            </div>
-                        </div>
-                    </div><!-- Latest post end -->
-                </div><!-- 3rd post col end -->
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="latest-post">
-                        <div class="latest-post-media">
-                            <a href="news-single.html" class="latest-post-img">
-                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news3.jpg') }}"
-                                    alt="img">
-                            </a>
-                        </div>
-                        <div class="post-body">
-                            <h4 class="post-title">
-                                <a href="news-single.html" class="d-inline-block">Silicon Bench and Cornike Begin
-                                    Construction Solar Facilities</a>
-                            </h4>
-                            <div class="latest-post-meta">
-                                <span class="post-item-date">
-                                    <i class="fa fa-clock-o"></i> Aug 13, 2017
-                                </span>
-                            </div>
-                        </div>
-                    </div><!-- Latest post end -->
-                </div><!-- 3rd post col end -->
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="latest-post">
-                        <div class="latest-post-media">
-                            <a href="news-single.html" class="latest-post-img">
-                                <img loading="lazy" class="img-fluid" src="{{ asset('landing/images/news/news3.jpg') }}"
-                                    alt="img">
-                            </a>
-                        </div>
-                        <div class="post-body">
-                            <h4 class="post-title">
-                                <a href="news-single.html" class="d-inline-block">Silicon Bench and Cornike Begin
-                                    Construction Solar Facilities</a>
-                            </h4>
-                            <div class="latest-post-meta">
-                                <span class="post-item-date">
-                                    <i class="fa fa-clock-o"></i> Aug 13, 2017
-                                </span>
-                            </div>
-                        </div>
-                    </div><!-- Latest post end -->
-                </div><!-- 3rd post col end -->
 
             </div>
             <!--/ Content row end -->
 
-            <div class="general-btn text-center mt-4">
+            {{-- <div class="general-btn text-center mt-4">
                 <a class="btn btn-primary" href="news-left-sidebar.html">See All Posts</a>
-            </div>
+            </div> --}}
 
         </div>
         <!--/ Container end -->

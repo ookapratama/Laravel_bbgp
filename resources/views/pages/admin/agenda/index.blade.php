@@ -38,6 +38,9 @@
                                                 <th>Thumbnail</th>
                                                 <th>Judul Agenda</th>
                                                 {{-- <th>Isi Agenda</th> --}}
+                                                <th>Lokasi Agenda</th>
+                                                <th>Tanggal Agenda</th>
+                                                <th>Jam Agenda</th>
                                                 <th>Author</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
@@ -45,13 +48,24 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas as $i => $data)
+                                                <?php
+                                                setlocale(LC_ALL, 'IND');
+                                                
+                                                $tgl_kegiatan = strftime('%d %B', strtotime($data->tgl_kegiatan));
+                                                $tgl_selesai = strftime('%d %B %Y', strtotime($data->tgl_selesai));
+                                                ?>
                                                 <tr>
                                                     <td>{{ ++$i }}</td>
                                                     <td>
-                                                        <img class="img img-fluid" width="250" src="{{ asset('upload/agenda/'. $data->thumbnail) }}" alt="Thumbnail Agenda">  
-                                                         </td>
-                                                    <td>{{ $data->judul ?? '' }}</td>
+                                                        <img class="img img-fluid" width="200"
+                                                            src="{{ asset('upload/agenda/' . $data->thumbnail) }}"
+                                                            alt="Thumbnail Agenda">
+                                                    </td>
+                                                    <td>{{ $data->nama_kegiatan ?? '' }}</td>
                                                     {{-- <td>{!! $data->isi ?? '' !!}</td> --}}
+                                                    <td>{{ $data->tempat_kegiatan }} </td>
+                                                    <td>{{ $data->tgl_kegiatan }} - {{ $data->tgl_selesai }} </td>
+                                                    <td>{{ $data->jam_mulai }} - {{ $data->jam_selesai }} WITA </td>
                                                     <td>{{ $data->status }} </td>
                                                     <td>
                                                         @if ($data->status == 'publish')

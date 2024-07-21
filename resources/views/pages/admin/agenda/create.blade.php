@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Data Berita'])
+@extends('layouts.app', ['title' => 'Data Agenda'])
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.css') }}">
@@ -11,7 +11,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Berita</h1>
+                <h1>Tambah Agenda</h1>
             </div>
 
             <div class="section-body">
@@ -19,7 +19,7 @@
                 <div class="row">
 
                     <div class="col-md-12 col-lg-12">
-                        <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('agenda.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="card">
@@ -31,6 +31,14 @@
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
                                         <div class="col-sm-12 col-md-7">
                                             <input required type="text" name="judul" class="form-control">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Lokasi Agenda</label>
+                                        <div class="col-sm-6 col-md-4">
+                                            <input required type="text" value=""
+                                                class="form-control" name="lokasi_kegiatan">
                                         </div>
                                     </div>
                                     {{-- <div class="form-group row mb-4">
@@ -46,9 +54,9 @@
                                     </div> --}}
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Isi
-                                            Berita</label>
+                                            Agenda</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <textarea required name="isi" class="summernote"></textarea>
+                                            <textarea required name="deskripsi_kegiatan" class="summernote"></textarea>
                                         </div>
                                     </div>
 
@@ -61,6 +69,32 @@
                                                 <label for="image-upload" id="image-label">Choose File</label>
                                                 <input required type="file" name="thumbnail" id="image-upload" />
                                             </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tanggal Agenda</label>
+                                        <div class="col-sm-6 col-md-4 mb-4">
+                                            <input required  type="date" value=""
+                                                class="form-control" name="tgl_kegiatan">
+                                        </div>
+                                        <div class="col-sm-6 col-md-4 ">
+                                            <input required  type="date" value=""
+                                                class="form-control" name="tgl_selesai">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jam Agenda</label>
+                                        <div class="col-sm-6 col-md-4 mb-4">
+                                            <input required  type="time" value=""
+                                                class="form-control" name="jam_mulai">
+                                        </div>
+                                        <div class="col-sm-6 col-md-4 ">
+                                            <input required  type="time" value=""
+                                                class="form-control" name="jam_selesai">
                                         </div>
                                     </div>
 
@@ -95,11 +129,12 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                         <div class="col-sm-12 col-md-7">
-                                            <button class="btn btn-primary">Buat Berita</button>
-                                            <a href="{{ route('berita.index') }}" class="btn btn-warning">Kembali</a>
+                                            <button class="btn btn-primary">Buat Agenda</button>
+                                            <a href="{{ route('agenda.index') }}" class="btn btn-warning">Kembali</a>
                                         </div>
                                     </div>
                                 </div>
