@@ -141,7 +141,7 @@
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
-                                src="{{ asset('landing/images/icon-slider/logo-nogratifikasi.png') }}" alt="service-image">
+                                src="{{ asset('landing/images/icon-slider/logo-nogratifikasi.png') }}" alt="logo nogratifikasi">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
@@ -149,7 +149,7 @@
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
-                                src="{{ asset('landing/images/icon-slider/logo-berakhlak.png') }}" alt="service-image">
+                                src="{{ asset('landing/images/icon-slider/logo-berakhlak.png') }}" alt="logo berakhlak">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
@@ -158,7 +158,7 @@
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
                                 src="{{ asset('landing/images/icon-slider/logo-bangga-melayani.png') }}"
-                                alt="service-image">
+                                alt="logo bangga melayani">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
@@ -167,7 +167,7 @@
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
                                 src="{{ asset('landing/images/icon-slider/sehat-tanpa-korupsi.png') }}"
-                                alt="service-image">
+                                alt="logo sehat tanpa korupsi">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
@@ -175,7 +175,7 @@
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
-                                src="{{ asset('landing/images/icon-slider/kami-siap-zi-wbk.png') }}" alt="service-image">
+                                src="{{ asset('landing/images/icon-slider/kami-siap-zi-wbk.png') }}" alt="logo kami siap zi wbk">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
@@ -217,7 +217,7 @@
                     <h3 class="into-sub-title"> </h3>
                     <div class="box-video">
 
-                        <iframe width="420" height="315" src="https://www.youtube.com/embed/gJ3g7xX9O-s"
+                        <iframe width="420" height="315" title="Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan" src="https://www.youtube.com/embed/gJ3g7xX9O-s"
                             allowfullscreen>
                         </iframe>
                         <div class="video-title">Balai Besar Guru Penggerak</div>
@@ -242,7 +242,7 @@
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" class="w-100"
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-jurnal.png') }}"
-                                alt="service-image">
+                                alt="icon web jurnal">
                         </div>
                         <div class="text-center">
                             <div class="ts-service-info">
@@ -258,7 +258,7 @@
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" class="w-100"
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-pengaduan.png') }}"
-                                alt="service-image">
+                                alt="icon web pengaduan">
                         </div>
                         <div class="text-center">
                             <div class="ts-service-info">
@@ -274,7 +274,7 @@
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" class="w-100"
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-ppid.png') }}"
-                                alt="service-image">
+                                alt="icon web ppid">
                         </div>
                         <div class="text-center">
                             <div class="ts-service-info">
@@ -291,7 +291,7 @@
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" class="w-100"
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-sim-penggiat.png') }}"
-                                alt="service-image">
+                                alt="icon web sim penggiat">
                         </div>
                         <div class="text-center">
                             <div class="ts-service-info">
@@ -307,7 +307,7 @@
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" class="w-100"
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-virtual-tour.png') }}"
-                                alt="service-image">
+                                alt="icon web virtual tour">
                         </div>
                         <div class="text-center">
                             <div class="ts-service-info">
@@ -323,7 +323,7 @@
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" class="w-100"
                                 src="{{ asset('landing/images/icon-slider/slider2/icon-web-visualisasi-data.png') }}"
-                                alt="service-image">
+                                alt="icon web visualisasi data">
                         </div>
                         <div class="text-center">
                             <div class="ts-service-info">
@@ -360,17 +360,17 @@
                         <div class="ts-service-box">
                             <div class="ts-service-image-wrapper">
                                 <img loading="lazy" class="w-100" src="{{ asset('upload/berita/' . $v->thumbnail) }}"
-                                    alt="service-image">
+                                    alt="thumbnail berita" title="{{ $v->thumbnail }}">
                             </div>
                             <div class="d-flex">
                                 <div class="ts-service-info">
-                                    <h3 class="service-box-title"><a href="#">{{ $v->judul }}</a>
+                                    <h3 class="service-box-title"><a href="{{ route('user.detail.post', ['jenis' => 'berita', 'id' => $v->id] ) }}">{{ $v->judul }}</a>
                                     </h3>
                                     <p>
                                         {{ Str::limit(strip_tags($v->isi), 120, '...') }}
                                         {{-- {!! Str::limit($v->isi, 150, '...') !!} --}}
                                     </p>
-                                    <a class="learn-more d-inline-block" href="#" aria-label="service-details"><i
+                                    <a class="learn-more d-inline-block" href="{{ route('user.detail.post', ['jenis' => 'berita', 'id' => $v->id] ) }}" aria-label="service-details"><i
                                             class="fa fa-caret-right"></i> Detail...</a>
                                 </div>
                             </div>
@@ -404,16 +404,16 @@
                         <div class="ts-service-box">
                             <div class="ts-service-image-wrapper">
                                 <img loading="lazy" class="w-100"
-                                    src="{{ asset('upload/artikel/' . $v->thumbnail) }}" alt="service-image">
+                                    src="{{ asset('upload/artikel/' . $v->thumbnail) }}" alt="thumbnail artikel" title="{{ $v->thumbnail }}">
                             </div>
                             <div class="d-flex">
                                 <div class="ts-service-info">
-                                    <h3 class="service-box-title"><a href="#">{{ $v->judul }}</a>
+                                    <h3 class="service-box-title"><a href="{{ route('user.detail.post', ['jenis' => 'artikel', 'id' => $v->id] ) }}">{{ $v->judul }}</a>
                                     </h3>
                                     <p>
                                         {{ Str::limit(strip_tags($v->isi), 120, '...') }}
                                     </p>
-                                    <a class="learn-more d-inline-block" href="#"
+                                    <a class="learn-more d-inline-block" href="{{ route('user.detail.post', ['jenis' => 'artikel', 'id' => $v->id] ) }}"
                                         aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
                                 </div>
                             </div>
@@ -446,14 +446,14 @@
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="latest-post">
                             <div class="latest-post-media">
-                                <a href="#" class="latest-post-img">
+                                <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id] ) }}" class="latest-post-img">
                                     <img loading="lazy" class="img-fluid"
-                                        src="{{ asset('upload/agenda/' . $v->thumbnail) }}" alt="img">
+                                        src="{{ asset('upload/agenda/' . $v->thumbnail) }}" alt="thumbnail agenda" title="{{ $v->thumbnail }}">
                                 </a>
                             </div>
                             <div class="post-body">
                                 <h4 class="post-title">
-                                    <a href="#" class="d-inline-block">{{ $v->nama_kegiatan }}</a>
+                                    <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id] ) }}" class="d-inline-block">{{ $v->nama_kegiatan }}</a>
                                 </h4>
                                 <div class="latest-post-meta">
                                     <span class="post-item-date">

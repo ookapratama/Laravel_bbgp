@@ -42,15 +42,6 @@
     transition: color 0.3s;
 }
 
-/* @media (max-width: 991px) {
-    .single-info  {
-        width: 100%;
-    }
-} */
-
-/* .my-center-slider {
-    t
-} */
 
 .single-info:hover .info-icon i,
 .single-info:hover .info-my-content p {
@@ -109,23 +100,3 @@
     color: #666;
     text-align: justify;
 }
-
-/* .info-item {
-    padding: 20px;
-    background-color: #ffbf60;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.info-item img {
-    max-width: 50px;
-    margin-bottom: 10px;
-}
-
-.info-item p {
-    margin: 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-} */

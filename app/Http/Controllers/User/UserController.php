@@ -48,6 +48,38 @@ class UserController extends Controller
     }
 
 
+    public function detail($jenis, $id)
+    {
+        // dd($jenis);
+        if ($jenis == 'berita') {
+            $data = Berita::find($id);
+            $latest_post = Berita::orderByDesc('id')->skip(0)->take(5)->get();
+        } else if ($jenis == 'artikel') {
+            $data = Artikel::find($id);
+            $latest_post = Artikel::orderByDesc('id')->skip(0)->take(5)->get();
+
+        } else if ($jenis == 'agenda') {
+            $data = Agenda::find($id);
+            $latest_post = Agenda::orderByDesc('id')->skip(0)->take(5)->get();
+            return view('pages.landing.detail-agenda', [
+                'menu' => 'detail post',
+                'data' => $data,
+                'jenis' => $jenis,
+                'latest_post' => $latest_post
+            ]);
+
+        }
+
+        return view('pages.landing.detail-post', [
+            'menu' => 'detail post',
+            'data' => $data,
+            'jenis' => $jenis,
+            'latest_post' => $latest_post
+        ]);
+        // return view('pages.user.kontak', ['menu' => 'kontak']);
+    }
+
+
     public function guru()
     {
         $datas = Guru::where('is_verif', 'sudah')->orderBy('id', 'DESC')->get();
