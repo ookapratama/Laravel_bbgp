@@ -217,10 +217,13 @@
                     <h3 class="into-sub-title"> </h3>
                     <div class="box-video">
 
-                        <iframe width="420" height="315" title="Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan" src="https://www.youtube.com/embed/gJ3g7xX9O-s"
-                            allowfullscreen>
-                        </iframe>
-                        <div class="video-title">Balai Besar Guru Penggerak</div>
+                        <!--<iframe width="420" height="315" title="Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan" src="https://www.youtube.com/embed/gJ3g7xX9O-s"-->
+                        <!--    allowfullscreen>-->
+                        <!--</iframe>-->
+                         <div class="video-placeholder" data-src="https://www.youtube.com/embed/gJ3g7xX9O-s" onclick="loadVideo(this)">
+                            <div class="video-title">Balai Besar Guru Penggerak</div>
+                        </div>
+                        <!--<div class="video-title">Balai Besar Guru Penggerak</div>-->
                     </div>
                     <!--/ Accordion end -->
                 </div><!-- Col end -->
@@ -482,4 +485,42 @@
         <!--/ Container end -->
     </section>
     <!--/ News end -->
+    @push('scripts')
+         <script>
+            function loadVideo(element) {
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('width', '420');
+                iframe.setAttribute('height', '315');
+                iframe.setAttribute('title', 'Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan');
+                iframe.setAttribute('src', element.getAttribute('data-src'));
+                iframe.setAttribute('allowfullscreen', '');
+                element.parentNode.replaceChild(iframe, element);
+            }
+    
+            // Optionally, you can use Intersection Observer to load video only when in viewport
+            document.addEventListener('DOMContentLoaded', function() {
+                var lazyVideos = [].slice.call(document.querySelectorAll('.video-placeholder'));
+                
+                if ('IntersectionObserver' in window) {
+                    var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+                        entries.forEach(function(video) {
+                            if (video.isIntersecting) {
+                                loadVideo(video.target);
+                                lazyVideoObserver.unobserve(video.target);
+                            }
+                        });
+                    });
+    
+                    lazyVideos.forEach(function(video) {
+                        lazyVideoObserver.observe(video);
+                    });
+                } else {
+                    // Fallback for older browsers
+                    lazyVideos.forEach(function(video) {
+                        loadVideo(video);
+                    });
+                }
+            });
+        </script>
+    @endpush
 @endsection

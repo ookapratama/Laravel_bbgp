@@ -300,7 +300,7 @@
 
                                         <div class="col-md-4 mb-4">
                                             <label>Kategori Jabatan (Pilih Eksternal dulu) </label>
-                                            <select name="jabKategori" class="form-control " id="jabKategori"  data-selected-value="{{ old('jabTugas', $datas->kategori_jabatan) }}">
+                                            <select name="jabJenis" class="form-control " id="jabJenis">
                                                 <option value="">-- Pilih Jenis Jabatan --</option>
                                                 {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
                                             </select>
@@ -403,7 +403,220 @@
             }
             document.getElementById('data_sekolah').addEventListener('change', updateLocation);
         </script>
-        
+        {{-- <script>
+            $(document).ready(function() {
+
+                // const jenisEksternal = ;
+                // console.log(jenisEksternal);
+
+                // jabatan ketenagaan
+                function fillterJabatan() {
+                    var jabEksternal = $('#jabEksternal').val();
+                    var jabJenis = $('#jabJenis');
+                    var option = '';
+                    const dataJab = {!! json_encode($status) !!};
+
+                    jabJenis.empty();
+
+                    jabJenis.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Jabatan --',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    if (jabEksternal == 'Tenaga Pendidik') {
+
+                        let dataJabValue = dataJab['s_jabPendidik'].map(item => {
+                            option = $("<option>")
+                                .text(item.name)
+                                .attr('value', item.name)
+                                .removeAttr('disabled');
+                            jabJenis.append(option);
+                        });
+                    }
+                    if (jabEksternal == 'Tenaga Kependidikan') {
+                        let dataJabValue = dataJab['s_jabKependidikan'].map(item => {
+                            option = $("<option>")
+                                .text(item.name)
+                                .attr('value', item.name)
+                                .removeAttr('disabled');
+                            jabJenis.append(option);
+                        });
+                    }
+                    if (jabEksternal == 'Stakeholder') {
+                        let dataJabValue = dataJab['s_jabStakeholder'].map(item => {
+                            option = $("<option>")
+                                .text(item.name)
+                                .attr('value', item.id)
+                                .removeAttr('disabled');
+                            jabJenis.append(option);
+                        });
+                    }
+                }
+
+                // kategori jabatan
+                function fillterKategori() {
+                    var jabKategori = $('#jabKategori').val();
+                    var jabTugas = $('#jabTugas');
+                    var option = '';
+                    const dataJab = {!! json_encode($status) !!};
+
+                    jabTugas.empty();
+
+                    jabTugas.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Tugas --',
+                        disabled: true,
+                        selected: true
+                    }));
+                    if (jabKategori == 'GP (Guru Penggerak)') {
+
+                        let dataJabValue = dataJab['s_jabTugas'].map(item => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabTugas.append(option);
+                        });
+                    }
+                    if (jabKategori == 'NoN GP (Guru Penggerak)') {
+
+                        let dataJabValue = dataJab['s_jabTugas'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabTugas.append(option);
+                        });
+                    }
+
+                }
+
+                $('#jabEksternal').on('change', function() {
+                    fillterJabatan();
+                    fillterKategori();
+                });
+
+                // fix
+                $('#jabKategori').on('change', function() {
+                    // fillterKategori();
+                    var jabTugas = $('#jabTugas');
+                    // var jabJenis = $(this);
+                    var option = '';
+                    const dataJab = {!! json_encode($status) !!};
+
+                    // jabJenis.empty();
+
+                    // jabJenis.append($('<option>', {
+                    //     value: '',
+                    //     text: '-- Pilih Jabatan --',
+                    //     disabled: true,
+                    //     selected: true
+                    // }));
+
+                    var selectedOption = $(this).find('option:selected');
+
+                    if (selectedOption.text() == 'GP (Guru Penggerak)' ||
+                        selectedOption.text() == 'Diklat Cakep' ||
+                        selectedOption.text() == 'Diklat Cawas' ||
+                        selectedOption.text() == 'Lainnya' ||
+                        selectedOption.text() == 'Sertifikat GP (Guru Penggerak)') {
+                        let dataJabValue = dataJab['s_jabTugas'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabTugas.append(option);
+                        });
+                    } else {
+                        jabTugas.empty();
+                        jabTugas.append($('<option>', {
+                            value: '',
+                            text: '-- Pilih Tugas --',
+                            disabled: true,
+                            selected: true
+                        }));
+                    }
+
+                    console.log('Selected Value (jabTugas):', selectedOption.val());
+                    console.log('Selected Text (jabTugas):', selectedOption.text());
+                });
+
+                $('#jabJenis').on('change', function() {
+                    // fillterKategori();
+                    // var jabEksternal = $('#jabEksternal').val();
+                    var jabKategori = $('#jabKategori');
+                    var jabTugas = $('#jabTugas');
+                    var jabJenis = $(this);
+                    var option = '';
+                    const dataJab = {!! json_encode($status) !!};
+
+                    jabKategori.empty();
+                    jabKategori.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Kategori --',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    jabTugas.empty();
+                    jabTugas.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Tugas --',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    var selectedOption = $(this).find('option:selected');
+
+                    if (selectedOption.text() == 'Guru' || selectedOption.text() == 'Konselor') {
+                        let dataJabValue = dataJab['s_jabKategori'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabKategori.append(option);
+                        });
+                    } else if (selectedOption.text() == 'Pengawas') {
+                        let dataJabValue = dataJab['s_jabKategoriPengawas'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabKategori.append(option);
+                        });
+                    } else if (selectedOption.text() == 'Kepala Sekolah') {
+                        let dataJabValue = dataJab['s_jabKategoriKepsek'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabKategori.append(option);
+                        });
+                    } else {
+                        jabKategori.empty();
+                        jabKategori.append($('<option>', {
+                            value: '',
+                            text: '-- Pilih Kategori --',
+                            disabled: true,
+                            selected: true
+                        }));
+
+                        jabTugas.empty();
+                        jabTugas.append($('<option>', {
+                            value: '',
+                            text: '-- Pilih Tugas --',
+                            disabled: true,
+                            selected: true
+                        }));
+                    }
+
+                    console.log('Selected Value (jabKategori):', selectedOption.val());
+                    console.log('Selected Text (jabKategori):', selectedOption.text());
+                });
+            });
+        </script> --}}
 
         <script>
             $(document).ready(function() {

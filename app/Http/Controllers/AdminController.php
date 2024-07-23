@@ -24,7 +24,7 @@ class AdminController extends Controller
             'kepsekGP' => Guru::where('tugas_jabatan', 'GP (Guru Penggerak)')
                 ->where('jenis_jabatan', 'Kepala Sekolah')->get()->count(),
 
-            'kepsekSertifGP' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')->
+            'kepsekSertifGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak))')->
                 where('jenis_jabatan', 'Kepala Sekolah')->
                 where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
 
@@ -40,23 +40,23 @@ class AdminController extends Controller
                 ->where('jenis_jabatan', 'Pengawas')
                 ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
 
-            'pengawasSertifGP' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            'pengawasSertifGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
                 ->where('jenis_jabatan', 'Pengawas')
                 ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
 
-            'pengawasLainGP' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            'pengawasLainGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
                 ->where('jenis_jabatan', 'Pengawas')
                 ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
 
-            'guruPP' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            'guruPP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
                 ->where('jenis_jabatan', 'Guru')
                 ->where('tugas_jabatan', 'PP (Pengajar Praktik)')->get()->count(),
 
-            'guruFasil' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            'guruFasil' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
                 ->where('jenis_jabatan', 'Guru')
                 ->where('tugas_jabatan', 'Fasil (Fasilitator)')->get()->count(),
 
-            'guruInstruktur' => Guru::where('kategori_jabatan', 'Sertifikat GP (Guru Penggerak)')
+            'guruInstruktur' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
                 ->where('jenis_jabatan', 'Guru')
                 ->where('tugas_jabatan', 'Instruktur')->get()->count(),
 

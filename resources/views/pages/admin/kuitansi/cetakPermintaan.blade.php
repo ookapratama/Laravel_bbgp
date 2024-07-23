@@ -40,8 +40,7 @@
         }
 
         .content {
-            margin-top: 150px;
-            /* Adjust this value if needed */
+            margin-top: 150px; /* Adjust this value if needed */
             margin-bottom: 60px;
             page-break-inside: avoid;
         }
@@ -77,7 +76,7 @@
 
 <body>
     <?php
-    setlocale(LC_ALL, 'IND');
+    setlocale(LC_TIME, 'id_ID.UTF-8');
     // $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
     // $tgl_sekarang = strftime('%d %B %Y', strtotime(date('d-m-Y')));
     

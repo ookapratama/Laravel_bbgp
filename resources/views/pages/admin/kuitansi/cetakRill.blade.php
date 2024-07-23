@@ -101,8 +101,7 @@
 
 <body>
     <?php
-    setlocale(LC_ALL, 'IND');
-
+    setlocale(LC_TIME, 'id_ID.UTF-8');
     
     $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
     $tgl_sekarang = strftime('%d %B %Y', strtotime(date('d-m-Y')));
@@ -112,7 +111,7 @@
               margin-top: -40px
             ">
             <img style="position: absolute; left: 0; top:25px; width: 110px"
-                src="{{ public_path('img_template/iconbbgp.png') }}" alt="Logo Kiri">
+                src="{{ asset('img_template/iconbbgp.png') }}" alt="Logo Kiri">
             <div class="header">
                 <h2 style="margin-bottom: -20px">KEMENTRIAN PENDIDKAN DAN KEBUDAYAAN</h2>
                 <h2 style="margin-bottom: -20px">RISET, DAN TEKNOLOGI</h2>
@@ -141,14 +140,14 @@
                 <tr style="padding: 10px">
                     <td class="text-title">NIP</td>
                     <td>
-                        <p><span class="highlight">: {{ $data->peserta->nip }}</span></p>
+                        <p><span class="highlight">:  {{ $data->peserta->nip  }}</span></p>
                     </td>
                 </tr>
 
                 <tr>
                     <td valign="top" width="80" class="text-title">Jabatan</td>
                     <td>
-                        <p style="text-align: justify">: {{ $data->peserta->status_keikutpesertaan ?? '' }}
+                        <p style="text-align: justify">:  {{ $data->peserta->status_keikutpesertaan ?? '' }}
 
                         </p>
                     </td>
@@ -204,13 +203,13 @@
                             {{ $data->kabupaten->name }} - {{ $data->lokasi_tujuan }}, PP
                             <br><br>
                             <br>
-
+                            
                         </td>
-                        <td>Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
+                        <td >Rp.  {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
                     </tr>
 
                 </tbody>
-
+                
 
             </table>
 
