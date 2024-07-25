@@ -319,6 +319,7 @@
                 </div>
                 <div class="modal-body">
                     <p><strong>Penugasan:</strong> <span id="eventTitle"></span></p>
+                    <p><strong>Tipe Penugasan:</strong> <span id="eventType"></span></p>
                     <p><strong>Atas nama:</strong> <span id="eventNama"></span></p>
                     <p><strong>Tanggal Kegiatan:</strong> <span id="eventStart"></span></p>
                     <p><strong>Jam Kegiatan:</strong> <span id="eventTime"></span></p>
@@ -480,6 +481,7 @@
                                 backgroundColor: randomColor,
                                 textColor: '#fff',
                                 nama: element.nama,
+                                jenis: element.jenis ?? '',
                                 description: element.deskripsi,
                                 tgl: `${moment(element.tgl_kegiatan).format('dddd, D MMMM')} s/d ${moment(element.tgl_selesai_kegiatan).format('dddd, D MMMM YYYY')}`,
                                 jam: `${element.jam_mulai ?? ''} - ${element.jam_selesai ?? ''} WITA`,
@@ -500,6 +502,7 @@
                             eventClick: function(event, jsEvent, view) {
                                 // Set the information in the modal
                                 $("#eventTitle").text(event.title);
+                                $("#eventType").text(event.jenis);
                                 $("#eventNama").text(event.nama);
                                 $("#eventStart").text(event.tgl); // Format in Indonesian
                                 $("#eventTime").text(event.jam ? event.jam :
@@ -547,6 +550,8 @@
                                 description: element.deskripsi,
                                 tgl: `${moment(element.tgl_kegiatan).format('dddd, D MMMM')} s/d ${moment(element.tgl_selesai_kegiatan).format('dddd, D MMMM YYYY')}`,
                                 jam: `${element.jam_mulai ?? ''} - ${element.jam_selesai ?? ''} WITA`,
+                                jenis: element.jenis ?? '-',
+
                             });
                         });
 
@@ -563,6 +568,7 @@
                             eventClick: function(event, jsEvent, view) {
                                 // Set the information in the modal
                                 $("#eventTitle").text(event.title);
+                                $("#eventType").text(event.jenis);
                                 $("#eventNama").text(event.nama);
                                 $("#eventStart").text(event.tgl); // Format in Indonesian
                                 $("#eventTime").text(event.jam ? event.jam :

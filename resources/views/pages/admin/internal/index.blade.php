@@ -139,7 +139,7 @@
                                                 <th>NIK</th>
                                                 <th>NIP</th>
                                                 <th>Penugasan</th>
-                                                <th>Action</th>
+                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -174,9 +174,9 @@
                                                         {{-- <a href="{{ route('internal.create.lokakarya', $data->id) }}"
                                                             class="btn btn-info mb-2">Pendamping Lokakarya</a> --}}
                                                     </td>
-                                                    <td>
-                                                        {{-- <a href="#"
-                                                            class="btn btn-info my-2"><i class="fas fa-info"></i></a> --}}
+                                                    {{-- <td>
+                                                        <a href="#"
+                                                            class="btn btn-info my-2"><i class="fas fa-info"></i></a>
 
                                                         <a href="{{ route('pegawai.edit', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
@@ -185,7 +185,7 @@
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>

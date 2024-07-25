@@ -114,6 +114,7 @@ Route::group(
                 Route::get('/export/{id}', 'GuruController@exportByUser')->name('guru.export.user');
 
                 // untuk login ekternal by user
+                Route::get('/detail', 'GuruController@getDetail')->name('admin.eksternal.detail');
                 Route::get('/show/{id}', 'GuruController@show')->name('guru.show');
                 Route::get('/editByUser/{id}', 'GuruController@editByUser')->name('guru.edit.user');
                 Route::put('/updateByUser', 'GuruController@updateByUser')->name('guru.update.user');
@@ -125,12 +126,14 @@ Route::group(
                 Route::get('/create', 'PegawaiController@create')->name('pegawai.create');
                 Route::post('/store', 'PegawaiController@store')->name('pegawai.store');
                 Route::post('/verifikasi/{id}', 'PegawaiController@verifikasi')->name('pegawai.verifikasi');
+                Route::get('/show', 'PegawaiController@showPegawai')->name('admin.pegawai.detail');
                 Route::get('/edit/{id}', 'PegawaiController@edit')->name('pegawai.edit');
                 Route::put('/update', 'PegawaiController@update')->name('pegawai.update');
                 Route::post('/hapus/{id}', 'PegawaiController@destroy')->name('pegawai.hapus');
 
                 // untuk login pegawai by user
                 Route::get('/{id}', 'PegawaiController@show')->name('pegawai.show');
+                Route::get('/lokakarya/show', 'PegawaiController@showDetailLokakarya')->name('pegawai.show.lokakarya');
                 Route::post('/lokakarya', 'InternalController@storeLokakaryaPegawai')->name('pegawai.lokakarya');
 
                 Route::get('/editUser/{id}', 'PegawaiController@editUser')->name('pegawai.edit.user');

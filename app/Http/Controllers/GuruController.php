@@ -178,6 +178,18 @@ class GuruController extends Controller
         return view('pages.admin.guru.edit', ['menu' => 'guru', 'datas' => $data, 'status' => $datas]);
     }
 
+    public function getDetail(Request $request) {
+        $pesertaId = $request->input('id');
+        $peserta = Guru::find($pesertaId);
+
+        return response()->json([
+            'data' => $peserta,
+            'nama_sekolah' => $peserta->sekolah->nama_sekolah,
+            'kecamatan_sekolah' => $peserta->sekolah->kecamatan,
+            'kabupaten_sekolah' => $peserta->sekolah->kabupaten,
+        ]);
+    }
+
     /**
      * Update the specified resource in storage.
      */

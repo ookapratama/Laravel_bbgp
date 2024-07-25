@@ -71,7 +71,7 @@ class AdminController extends Controller
     public function jadwal()
     {
         // Ambil jadwal dari Internal
-        $jadwalLokakarya = Internal::select('deskripsi','kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
+        $jadwalLokakarya = Internal::select('jenis','deskripsi','kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
             ->where('jenis', 'Pendamping Lokakarya')
             ->get();
 
@@ -89,7 +89,7 @@ class AdminController extends Controller
             });
 
         // Ambil jadwal dari Lokakarya (misalkan ini adalah tabel lain)
-        $jadwalInternal = Internal::select('deskripsi','kegiatan as kegiatan', 'tgl_kegiatan', 'jam_mulai', 'jam_selesai', 'tgl_selesai_kegiatan', 'nama')
+        $jadwalInternal = Internal::select('jenis','deskripsi','kegiatan as kegiatan', 'tgl_kegiatan', 'jam_mulai', 'jam_selesai', 'tgl_selesai_kegiatan', 'nama')
             ->get();
 
         // Gabungkan jadwal menggunakan collect() untuk mengonversi ke koleksi
@@ -139,7 +139,7 @@ class AdminController extends Controller
     public function getJadwalByPegawai($nik)
     {
         // Ambil jadwal dari Internal hanya untuk pegawai dengan NIK tertentu
-        $jadwalLokakarya = Internal::select('deskripsi','kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
+        $jadwalLokakarya = Internal::select('jenis','deskripsi','kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
             ->where('jenis', 'Pendamping Lokakarya')
             ->where('nik', $nik)
             ->get();
@@ -167,7 +167,7 @@ class AdminController extends Controller
             });
 
         // Ambil jadwal dari Lokakarya (misalkan ini adalah tabel lain) hanya untuk pegawai dengan NIK tertentu
-        $jadwalInternal = Internal::select('deskripsi','kegiatan as kegiatan', 'tgl_kegiatan', 'jam_mulai', 'jam_selesai', 'tgl_selesai_kegiatan', 'nama')
+        $jadwalInternal = Internal::select('jenis','deskripsi','kegiatan as kegiatan', 'tgl_kegiatan', 'jam_mulai', 'jam_selesai', 'tgl_selesai_kegiatan', 'nama')
             ->where('nik', $nik)
             ->get();
 

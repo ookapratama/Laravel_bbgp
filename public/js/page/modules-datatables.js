@@ -53,9 +53,7 @@ $(document).ready(function () {
 // const no_ktp = document.querySelector('#no_ktp');
 // const noDataMessage = document.querySelector('.data-not-found');
 const table = $('#table-temp').DataTable({
-  "columnDefs": [
-    { "sortable": false, "targets": [2, 3], "width": "30%" }
-  ],
+  
 });
 
 

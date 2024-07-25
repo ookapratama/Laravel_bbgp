@@ -87,11 +87,11 @@
                                                 type="text" class="form-control">
                                         </div> --}}
                                     </div>
-                                    <div class="col-md-4 mb-4">
+                                    {{-- <div class="col-md-4 mb-4">
                                         <label>Pencarian Pendamping Lokakarya</label>
                                         <input placeholder="ketikkan pencarian nama pendamping" id="pendampingFilter"
                                             type="text" class="form-control">
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <!-- Tables Section -->
@@ -103,7 +103,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>NIP</th>
+                                                <th style="width: 25%">NIP</th>
                                                 <th style="width: 25%">Nama Lengkap</th>
                                                 <th>Golongan</th>
                                                 <th>Jabatan</th>
@@ -122,7 +122,8 @@
                                                 {{-- <td>{{ $datas['dataPegawai']->no_ktp }}</td> --}}
                                                 <td>
                                                     <a href="{{ route('internal.create.lokakarya', $datas['dataPegawai']->id) }}"
-                                                        class="btn btn-primary mb-2" onclick="">Tambah Peserta</a>
+                                                        class="btn btn-primary mb-2" onclick=""> Pendamping Loka
+                                                        Karya</a>
                                                 </td>
                                                 <td>
 
@@ -154,7 +155,7 @@
                                             <tr style="width: 2000px; font-size: 14px;">
                                                 <th class="text-center">#</th>
                                                 {{-- <th>NIP</th> --}}
-                                                <th style="width:20%">NIP - Nama</th>
+                                                <th style="width:20%">Nama Petugas </th>
                                                 {{-- <th>Jenis Penugasan</th> --}}
                                                 <th>Kegiatan</th>
                                                 <th>Kota</th>
@@ -174,15 +175,18 @@
                                                     <td>{{ ++$i }}</td>
                                                     {{-- <td>{{ $data->nip ?? ' - ' }}</td> --}}
                                                     <td>
-                                                        {{ $data->nip ?? ' - ' }}
-                                                        <br>
                                                         {{ $data->nama ?? '' }}
                                                     </td>
                                                     {{-- <td>{{ $data->jenis ?? '' }}</td> --}}
                                                     <td>{{ $data->kegiatan ?? '' }}</td>
                                                     <td>{{ $data->kota ?? '' }}</td>
                                                     <td>{{ $data->hotel ?? '' }}</td>
-                                                    <td>{{ $data->tgl_kegiatan ?? '' }}</td>
+                                                    <?php
+                                                    setlocale(LC_TIME, 'IND');
+                                                    
+                                                    $tgl = strftime('%d %B %Y', strtotime($data->tgl_kegiatan));
+                                                    ?>
+                                                    <td>{{ $tgl ?? '' }}</td>
                                                     {{-- <td>Pergi : Rp. {{ $data->transport_pergi ?? '' }} <br> Pulang : Rp.
                                                         {{ $data->transport_pulang ?? '' }}</td>
                                                     <td>Rp. {{ $data->hari_1 ?? '' }}</td>
@@ -204,8 +208,7 @@
                                                         @endif --}}
 
 
-                                                        <button
-                                                            onclick="showDetail({{ $data->id }})"
+                                                        <button onclick="showDetail({{ $data->id }})"
                                                             class="btn btn-info mt-1"><i class="fas fa-info"></i>
                                                         </button>
 
@@ -348,7 +351,7 @@
 
             function showDetail(id) {
                 $.ajax({
-                    url: '{{ route('pegawai.detail.user') }}',
+                    url: '{{ route('pegawai.show.lokakarya') }}',
                     type: 'GET',
                     data: {
                         id: id
@@ -369,7 +372,7 @@
                         </p>` : '';
 
                         let formattedDate = '';
-                        const date = new Date(response.tgl_surat_tugas);
+                        const date = new Date(response.tgl_kegiatan);
                         const day = String(date.getDate()).padStart(2, '0');
                         const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() returns 0-11
                         const year = date.getFullYear();
@@ -379,29 +382,27 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <p><strong>Nama:</strong> ${response.nama ?? ''}</p>
-                                <p><strong>NIK:</strong> ${response.no_ktp ?? ''}</p>
+                                <p><strong>NIK:</strong> ${response.nik ?? ''}</p>
+                                <p><strong>NIP:</strong> ${response.nip ?? ''}</p>
                                 <p>
-                                    <strong>Status Keikutpesertaan:</strong> ${response.status_keikutpesertaan ?? ''}
+                                    <strong>Kegiatan:</strong> ${response.kegiatan ?? ''}
                                 </p>
                                 <p>
-                                    <strong>Nomor Surat:</strong> ${response.no_surat_tugas ?? ''} 
+                                    <strong>Hotel:</strong> ${response.hotel ?? ''} 
                                 </p>
                                 <p>
-                                    <strong>Tanggal Surat:</strong> ${formattedDate}
+                                    <strong>Kabupaten/Kota:</strong> ${response.kota ?? ''} 
                                 </p>
-                                <p><strong>Kabupaten:</strong> ${response.kabupaten ?? ''}</p>
-        
-                                
+                                <p>
+                                    <strong>Tanggal Kegiatan:</strong> ${formattedDate ?? ''}
+                                </p>
                             </div>    
                             <div class="col-md-6">
-                                <p><strong>Jenis Kelamin:</strong> ${response.jkl ?? ''}</p>
-                                ${kelengkapanPesertaBiodata}
-                                ${kelengkapanPesertaTransport}
-                                <p><strong>Nomor Handphone:</strong> ${response.no_hp ?? ''}</p>
-                                <p><strong>Nomor WhatsApp:</strong> ${response.no_wa ?? ''}</p>
-                                <p><strong>Instansi:</strong> ${response.instansi ?? ''}</p>
-                                <p><strong>Jenis Golongan:</strong> ${response.jenis_gol ?? ''}</p>
-                                <p><strong>Golongan:</strong> ${response.golongan ?? ''}</p>
+                                <p><strong>Transport Pergi:</strong>Rp. ${ formatRupiah( response.transport_pergi) ?? ''}</p>
+                                <p><strong>Transport Pulang:</strong>Rp. ${formatRupiah( response.transport_pulang) ?? ''}</p>
+                                <p><strong>Hari 1:</strong>Rp. ${formatRupiah( response.hari_1) ?? ''}</p>
+                                <p><strong>Hari 2:</strong>Rp. ${formatRupiah( response.hari_2) ?? ''}</p>
+                                <p><strong>Hari 3:</strong>Rp. ${formatRupiah( response.hari_3) ?? ''}</p>
                             </div>    
                         </div>
                     `);
@@ -412,6 +413,12 @@
                         alert('Error fetching detail.');
                     }
                 });
+
+                function formatRupiah(number) {
+                var reverse = number.toString().split('').reverse().join('');
+                var ribuan = reverse.match(/\d{1,3}/g);
+                return ribuan.join(',').split('').reverse().join('');
+            }
             }
         </script>
     @endpush

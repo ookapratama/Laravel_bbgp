@@ -300,7 +300,7 @@
 
                                         <div class="col-md-4 mb-4">
                                             <label>Kategori Jabatan (Pilih Eksternal dulu) </label>
-                                            <select name="jabJenis" class="form-control " id="jabJenis">
+                                            <select name="jabKategori" class="form-control " id="jabKategori">
                                                 <option value="">-- Pilih Jenis Jabatan --</option>
                                                 {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
                                             </select>

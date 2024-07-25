@@ -16,7 +16,7 @@
                 <div class="row">
 
                     <div class="col-md-12 col-lg-12">
-                        <form
+                        <form id="lokakaryaForm"
                             action="{{ route('internal.store.lokakarya') }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
@@ -28,15 +28,6 @@
                                                 <label>Nama Pendamping</label>
                                                 <input  value="{{ $pegawai->nama_lengkap ??  $pegawai->nama }}" required name="nama"
                                                     type="text" class="form-control">
-                                                {{-- <select name="nama" class="form-control select2" id="selectNama">
-                                                    <option value="">-- Pilih Pegawai --</option>
-
-                                                    @foreach ($datas['dataPegawai'] as $v)
-                                                        <option data-nip="{{ $v->nip }}"
-                                                            value="{{ $v->nama_lengkap }}">{{ $v->nama_lengkap }}
-                                                        </option>
-                                                    @endforeach
-                                                </select> --}}
                                             </div>
                                         </div>
                                         <div class="col-md">
@@ -55,31 +46,7 @@
                                             </div>
 
                                         </div>
-                                        {{-- <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Tempat</label>
-                                                <input required name="tempat" type="text" class="form-control">
-                                            </div>
-
-                                        </div> --}}
-
                                     </div>
-
-                                    {{-- <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Kegiatan</label>
-                                                <input required name="kegiatan" type="text" class="form-control">
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Tanggal Kegiatan</label>
-                                                <input required name="tgl_kegiatan" type="date" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div> --}}
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -104,8 +71,6 @@
                                                 <label>Mulai Kegiatan</label>
                                                 <input type="text" name="mulai_kegiatan"
                                                     class="form-control datetimepicker">
-
-                                                {{-- <input required name="tgl_kegiatan" type="date" class="form-control"> --}}
                                             </div>
                                         </div>
                                         <div class="col-md">
@@ -113,8 +78,6 @@
                                                 <label>Selesai Kegiatan</label>
                                                 <input type="text" name="selesai_kegiatan"
                                                     class="form-control datetimepicker">
-                                                {{-- <input required name="tgl_selesai_kegiatan" type="date"
-                                                    class="form-control"> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -123,14 +86,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Transport Pulang</label>
-                                                <input required name="transport_pulang" type="number" class="form-control">
+                                                <input required name="transport_pulang" type="text" class="form-control currency">
                                             </div>
 
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Transport Pergi</label>
-                                                <input required name="transport_pergi" type="number" class="form-control">
+                                                <input required name="transport_pergi" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                     </div>
@@ -146,25 +109,22 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 1</label>
-                                                <input required name="hari_1" type="number" class="form-control">
+                                                <input required name="hari_1" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 2</label>
-                                                <input required name="hari_2" type="number" class="form-control">
+                                                <input required name="hari_2" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 3</label>
-                                                <input required name="hari_3" type="number" class="form-control">
+                                                <input required name="hari_3" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                     </div>
-
-
-
 
                                 </div>
 
@@ -178,8 +138,6 @@
                     </div>
 
                 </div>
-
-
 
             </div>
     </div>
@@ -203,6 +161,36 @@
 
                     // Set NIP value to input field
                     $('input[name="nip"]').val(nip);
+                });
+
+                // Format currency
+                $('.currency').on('input', function() {
+                    var value = $(this).val();
+                    $(this).val(formatRupiah(value, 'Rp '));
+                });
+
+                function formatRupiah(angka, prefix) {
+                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                        split = number_string.split(','),
+                        sisa = split[0].length % 3,
+                        rupiah = split[0].substr(0, sisa),
+                        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                    if (ribuan) {
+                        separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+
+                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                    return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
+                }
+
+                // Remove currency format before form submit
+                $('#lokakaryaForm').on('submit', function() {
+                    $('.currency').each(function() {
+                        var value = $(this).val();
+                        $(this).val(value.replace(/[^,\d]/g, ''));
+                    });
                 });
             });
         </script>

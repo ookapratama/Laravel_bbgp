@@ -231,8 +231,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Jabatan</label>
-                                                <input value="{{ $pegawai->jabatan }}" type="text" name="jabatan"
-                                                    class="form-control">
+                                                <select required name="jabatan" class="form-control select2">
+                                                    <option value="">-- Pilih Jabatan --</option>
+                                                    @foreach ($datas['jabatan'] as $v)
+                                                        <option {{ $pegawai->jabatan == $v->name ? 'selected' : '' }} value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

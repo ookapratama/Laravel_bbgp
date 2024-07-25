@@ -52,13 +52,12 @@
                                                 </a>
                                             </div>
                                             <div class="">
-                                                <button id="resetBtn"
-                                                    class="btn btn-success btn-lg  mx-2">
+                                                <button id="resetBtn" class="btn btn-success btn-lg  mx-2">
                                                     <i class="fas fa-redo-alt"></i>
                                                 </button>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                     {{-- <div class="col-md-4 mb-3">
                                         <h5>Filter Data Eksternal</h5>
@@ -117,99 +116,108 @@
 
                                 </div>
 
-                                    
 
-                                    <div class="table-responsive">
-                                        <table class="table table-striped" id="table-guru" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">#</th>
-                                                    {{-- <th>Pas Foto</th> --}}
-                                                    <th>NPSN Sekolah</th>
-                                                    <th>Nama Lengkap</th>
-                                                    <th>NPWP</th>
-                                                    <th>NUPTK</th>
-                                                    <th>Email</th>
-                                                    <th>Nomor KTP</th>
-                                                    <th>Tempat, Tanggal Lahir</th>
-                                                    <th>Alamat Rumah</th>
-                                                    <th>Jenis Kelamin</th>
-                                                    <th>Status Kepegawaian</th>
-                                                    <th>Agama</th>
-                                                    <th>Pendidikan Terakhir</th>
-                                                    <th>Ketenagaan</th>
-                                                    <th>Jabatan </th>
-                                                    <th>Kategori Jabatan </th>
-                                                    <th>Tugas Jabatan </th>
-                                                    <th>Asal Kabupaten/Kota</th>
-                                                    <th>Satuan Pendidikan</th>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="table-guru" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                {{-- <th>Pas Foto</th> --}}
+                                                <th style="width: 200px">Nama Lengkap</th>
+                                                {{-- <th>NPWP</th> --}}
+                                                {{-- <th>NUPTK</th> --}}
+                                                {{-- <th>Email</th> --}}
+                                                {{-- <th>Nomor KTP</th> --}}
+                                                {{-- <th>Tempat, Tanggal Lahir</th> --}}
+                                                {{-- <th>Alamat Rumah</th> --}}
+                                                {{-- <th>Jenis Kelamin</th> --}}
+                                                <th>Status Kepegawaian</th>
+                                                {{-- <th>Agama</th> --}}
+                                                {{-- <th>Pendidikan Terakhir</th> --}}
+                                                <th>Ketenagaan</th>
+                                                <th>Jabatan </th>
+                                                <th>Kategori Jabatan </th>
+                                                <th>Tugas Jabatan </th>
+                                                {{-- <th style="width: 200px">NPSN Sekolah</th> --}}
+                                                {{-- <th>Asal Kabupaten/Kota</th> --}}
+                                                {{-- <th>Satuan Pendidikan</th>
                                                     <th>Kecamatan Sekolah</th>
-                                                    <th>Kabupaten Sekolah</th>
-                                                    <th>Nomor Aktif</th>
-                                                    <th>No Rekening</th>
-                                                    <th>Status Verifikasi</th>
-                                                    <th>Action</th>
+                                                    <th>Kabupaten Sekolah</th> --}}
+                                                {{-- <th>Nomor Aktif</th>
+                                                    <th>No Rekening</th> --}}
+                                                <th>Status Verifikasi</th>
+                                                <th style="width: 5%">Action</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($datas as $i => $data)
+                                                <tr>
+                                                    <td>{{ ++$i }}</td>
+                                                    {{-- <td><img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
+                                                                    alt="" class="img-fluid"></td> --}}
+                                                    <td>{{ $data->nama_lengkap }}</td>
+                                                    {{-- <td>{{ $data->npwp }}</td> --}}
+                                                    {{-- <td>{{ $data->nuptk }}</td> --}}
+                                                    {{-- <td>{{ $data->email }}</td> --}}
+                                                    {{-- <td>{{ $data->no_ktp }}</td> --}}
+                                                    {{-- <td>{{ $data->tempat_lahir . ', ' . $data->tgl_lahir }}</td> --}}
+                                                    {{-- <td>{{ $data->alamat_rumah }}</td> --}}
+                                                    {{-- <td>{{ $data->gender }}</td> --}}
+                                                    <td>{{ $data->status_kepegawaian }} </td>
+                                                    {{-- <td>{{ $data->agama }}</td> --}}
+                                                    {{-- <td>{{ $data->pendidikan }}</td> --}}
+                                                    <td>{{ $data->eksternal_jabatan }}</td>
+                                                    <td>{{ $data->jenis_jabatan }}</td>
+                                                    <td>{{ $data->kategori_jabatan }}</td>
+                                                    <td>{{ $data->tugas_jabatan ?? '-' }}</td>
+                                                    {{-- <td>{{ $data->npsn_sekolah }} <br>
+                                                        {{ $data->sekolah->nama_sekolah ?? '' }}</td> --}}
+                                                    {{-- <td>{{ $data->kabupaten }}</td> --}}
+                                                    {{-- <td>{{ $data->satuan_pendidikan }}</td> --}}
+                                                    {{-- <td>{{ $data->sekolah->kecamatan ?? '' }}</td> --}}
+                                                    {{-- <td>{{ $data->sekolah->kabupaten ?? '' }}</td> --}}
+                                                    {{-- <td>No. Hp : {{ $data->no_hp }} <br>
+                                                            No. Whatsapp : {{ $data->no_wa }}</td> --}}
+                                                    {{-- <td>{{ $data->no_rek }} - {{ $data->jenis_bank }}</td> --}}
+
+                                                    <td>
+                                                        @if ($data->is_verif == 'sudah')
+                                                            <span class="badge badge-sm  badge-success">Sudah
+                                                                Verifikasi</span>
+                                                        @else
+                                                            <span class="badge badge-sm  badge-danger">Belum
+                                                                Verifikasi</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if (in_array(session('role'), ['admin', 'superadmin']) && $data->is_verif !== 'sudah')
+                                                            <a href="#" class="btn btn-primary "
+                                                                onclick="verifikasi({{ $data->id }}, 'eksternal', '{{ $data->is_verif }}')">Verifikasi</a>
+                                                        @endif
+
+                                                        <a href="{{ route('guru.edit', $data->id) }}"
+                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+
+                                                        <button onclick="showDetail( {{ $data->id }} )"
+                                                            class="btn btn-info">
+                                                            <i class="fas fa-info"></i>
+                                                        </button>
+
+                                                        <button onclick="deleteData({{ $data->id }}, 'eksternal')"
+                                                            class="btn btn-danger">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
 
 
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($datas as $i => $data)
-                                                    <tr>
-                                                        <td>{{ ++$i }}</td>
-                                                        {{-- <td><img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
-                                                                    alt="" class="img-fluid"></td> --}}
-                                                        <td>{{ $data->npsn_sekolah }} -
-                                                            {{ $data->sekolah->nama_sekolah ?? '' }}</td>
-                                                        <td>{{ $data->nama_lengkap }}</td>
-                                                        <td>{{ $data->npwp }}</td>
-                                                        <td>{{ $data->nuptk }}</td>
-                                                        <td>{{ $data->email }}</td>
-                                                        <td>{{ $data->no_ktp }}</td>
-                                                        <td>{{ $data->tempat_lahir . ', ' . $data->tgl_lahir }}</td>
-                                                        <td>{{ $data->alamat_rumah }}</td>
-                                                        <td>{{ $data->gender }}</td>
-                                                        <td>{{ $data->status_kepegawaian }}</td>
-                                                        <td>{{ $data->agama }}</td>
-                                                        <td>{{ $data->pendidikan }}</td>
-                                                        <td>{{ $data->eksternal_jabatan }}</td>
-                                                        <td>{{ $data->jenis_jabatan }}</td>
-                                                        <td>{{ $data->kategori_jabatan }}</td>
-                                                        <td>{{ $data->tugas_jabatan ?? '-' }}</td>
-                                                        <td>{{ $data->kabupaten }}</td>
-                                                        <td>{{ $data->satuan_pendidikan }}</td>
-                                                        <td>{{ $data->sekolah->kecamatan ?? '' }}</td>
-                                                        <td>{{ $data->sekolah->kabupaten ?? '' }}</td>
-                                                        <td>No. Hp : {{ $data->no_hp }} <br>
-                                                            No. Whatsapp : {{ $data->no_wa }}</td>
-                                                        <td>{{ $data->no_rek }} - {{ $data->jenis_bank }}</td>
-
-                                                        <td>
-                                                            @if ($data->is_verif == 'sudah')
-                                                                <span class="badge badge-success">Sudah Verifikasi</span>
-                                                            @else
-                                                                <span class="badge badge-danger">Belum Verifikasi</span>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if (in_array(session('role'), ['admin', 'superadmin']) && $data->is_verif !== 'sudah')
-                                                                <a href="#" class="btn btn-primary mb-2"
-                                                                    onclick="verifikasi({{ $data->id }}, 'eksternal', '{{ $data->is_verif }}')">Verifikasi</a>
-                                                            @endif
-                                                        
-                                                            <a href="{{ route('guru.edit', $data->id) }}" class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                        
-                                                            <button onclick="deleteData({{ $data->id }}, 'eksternal')" class="btn btn-danger">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </button>
-                                                        </td>
-
-
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -217,6 +225,28 @@
             </div>
         </section>
     </div>
+
+    <!-- Modal for Pegawai Detail -->
+    <div style="z-index: 999999;" class="modal fade" id="pegawaiDetail" tabindex="-1" role="dialog"
+        aria-labelledby="pegawaiDetailLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pegawaiDetailLabel">Detail Data Eksternal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="pegawaiDetailContent">
+                    <!-- Detail content will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     @push('scripts')
         <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
@@ -226,7 +256,13 @@
         <script>
             $(document).ready(function() {
                 // Initialize DataTable
-                var tableGuru = $('#table-guru').DataTable();
+                var tableGuru = $('#table-guru').DataTable({
+                    autoWidth: false,
+                    columnDefs: [{
+                        width: '500px',
+                        targets: 8
+                    }]
+                });
                 const resetBtn = document.querySelector('#resetBtn');
 
                 // Select input elements
@@ -253,11 +289,11 @@
                     console.log('Select Value 14:', jabTugasValue);
 
                     // Update search and redraw tableGuru
-                    tableGuru.column(2).search(searchText).draw();
-                    tableGuru.column(13).search(jabEksternalValue).draw();
-                    tableGuru.column(14).search(jabJenisValue).draw();
-                    tableGuru.column(15).search(jabKategoriValue).draw();
-                    tableGuru.column(16).search(jabTugasValue).draw();
+                    tableGuru.column(1).search(searchText).draw();
+                    tableGuru.column(4).search(jabEksternalValue).draw();
+                    tableGuru.column(5).search(jabJenisValue).draw();
+                    tableGuru.column(6).search(jabKategoriValue).draw();
+                    tableGuru.column(7).search(jabTugasValue).draw();
 
                     // Check search result count
                     const info = tableGuru.page.info();
@@ -515,6 +551,54 @@
                     console.log('Selected Text (jabKategori):', selectedOption.text());
                 });
             });
+
+            function showDetail(pegawaiId) {
+                console.log('get detail');
+                $.ajax({
+                    url: '{{ route('admin.eksternal.detail') }}',
+                    type: 'GET',
+                    data: {
+                        id: pegawaiId
+                    },
+                    success: function(response) {
+                        console.log(response);
+
+                        $('#pegawaiDetailContent').html(`
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Nama Lengkap:</strong> ${response.data.nama_lengkap ?? ''}</p>
+                        <p><strong>NIK:</strong> ${response.data.nik ?? ''}</p>
+                        <p><strong>NIP:</strong> ${response.data.nip ?? ''}</p>
+                        <p><strong>NPWP:</strong> ${response.data.npwn ?? ''}</p>
+                        <p><strong>NUPTK:</strong> ${response.data.nuptk ?? ''}</p>
+                        <p><strong>Tempat, Tanggal lahir:</strong> ${response.data.tempat_lahir ?? ''}, ${response.data.tgl_lahir}</p>
+                        <p><strong>Agama:</strong> ${response.data.agama}</p>
+                        <p><strong>Asal Kabupaten:</strong> ${response.data.kabupaten}</p>
+                        <p><strong>Pendidikan Terakhir:</strong> ${response.data.pendidikan}</p>
+                      
+                    </div>    
+                    <div class="col-md-6">
+                          <p><strong>Satuan Pendidikan:</strong> ${response.data.satuan_pendidikan}</p>
+                            <p><strong>Status Kepegawaian:</strong> ${response.data.status_kepegawaian ?? ''}</p>
+                            <p><strong>Eksternal Jabatan:</strong> ${response.data.eksternal_jabatan ?? ''}</p>
+                            <p><strong>Jenis Jabatan:</strong> ${response.data.jenis_jabatan ?? ''}</p>
+                            <p><strong>Kategori Jabatan:</strong> ${response.data.kategori_jabatan ?? ''}</p>
+                            <p><strong>Tugas Jabatan:</strong> ${response.data.tugas_jabatan ?? '-'}</p>
+                            <p><strong>NPSN Sekolah:</strong> ${response.data.npsn_sekolah ?? ''} - ${response.nama_sekolah}</p>
+                            <p><strong>Kecamatan Sekolah:</strong> ${response.kecamatan_sekolah}</p>
+                            <p><strong>Kabupaten Sekolah:</strong> ${response.kabupaten_sekolah}</p>
+                        <p><strong>Verifikasi:</strong> ${response.data.is_verif === 'sudah' ? '<span class="badge badge-sm badge-success">Sudah Verifikasi</span>' : '<span class="badge badge-sm badge-danger">Belum Verifikasi</span>'}</p>
+                    </div>    
+                </div>
+            `);
+                        $('#pegawaiDetail').modal('show');
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        alert('Error fetching detail.');
+                    }
+                });
+            }
         </script>
     @endpush
 @endsection
