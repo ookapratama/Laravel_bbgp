@@ -122,7 +122,7 @@
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $data->npsn_sekolah }} <br> {{ $data->sekolah->nama_sekolah ?? '' }}</td>
-                            <td>{{ $data->nama_lengkap }} asaadasdas  sdsdsd asda </td>
+                            <td>{{ $data->nama_lengkap }} </td>
                             {{-- <td>{{ $data->no_ktp }}</td> --}}
                             <td>{{ $data->status_kepegawaian }}</td>
                             <td>{{ $data->eksternal_jabatan }}</td>
@@ -189,6 +189,8 @@
                                     <p><strong>NIP:</strong> ${response.data.nip ?? ''}</p>
                                     <p><strong>NPWP:</strong> ${response.data.npwp ?? ''}</p>
                                     <p><strong>NUPTK:</strong> ${response.data.nuptk ?? ''}</p>
+                                    <p><strong>Email:</strong> ${response.data.email ?? ''}</p>
+                                    <p><strong>Asal Kabupaten:</strong> ${response.data.kabupaten ?? ''}</p>
                                     <p><strong>Tempat, Tanggal Lahir:</strong> ${response.data.tempat_lahir ?? ''},  ${tgl_Lahir}</p>
                                     <p><strong>Jenis Kelamin:</strong> ${response.data.gender ?? ''}</p>
                                     <p><strong>Alamat Rumah:</strong> ${response.data.alamat_rumah ?? ''}</p>
