@@ -13,11 +13,17 @@
 }
 
 .single-info {
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     padding: 30px;
     position: relative;
     border-right: 1px solid #1376bd;
+}
+
+@media (max-width: 991px) {
+    .single-info {
+        width: 100%;
+    }
 }
 
 .single-info:nth-child(4) {
@@ -41,7 +47,6 @@
     color: #333;
     transition: color 0.3s;
 }
-
 
 .single-info:hover .info-icon i,
 .single-info:hover .info-my-content p {

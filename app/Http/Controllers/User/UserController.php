@@ -57,7 +57,6 @@ class UserController extends Controller
         } else if ($jenis == 'artikel') {
             $data = Artikel::find($id);
             $latest_post = Artikel::orderByDesc('id')->skip(0)->take(5)->get();
-
         } else if ($jenis == 'agenda') {
             $data = Agenda::find($id);
             $latest_post = Agenda::orderByDesc('id')->skip(0)->take(5)->get();
@@ -67,7 +66,6 @@ class UserController extends Controller
                 'jenis' => $jenis,
                 'latest_post' => $latest_post
             ]);
-
         }
 
         return view('pages.landing.detail-post', [
@@ -240,5 +238,45 @@ class UserController extends Controller
 
 
         return redirect()->route('user.guru')->with('message', 'user daftar');
+    }
+
+    public function getPenugasanDetail(Request $request)
+    {
+        $pesertaId = $request->input('id');
+        $peserta = Internal::find($pesertaId);
+
+        return response()->json($peserta);
+    }
+
+    public function getPenugasanAll()
+    {
+        $data = array(
+
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
+        );
+
+        return response()->json([
+            'status' => true,
+            'data' => $data
+        ]);
+    }
+
+    public function getPenugasanDetailLoka(Request $request)
+    {
+        $pesertaId = $request->input('id');
+        $peserta = Pendamping::find($pesertaId);
+
+        return response()->json($peserta);
+    }
+
+    public function getPenugasanDetailEksternal(Request $request) {
+        $pesertaId = $request->input('id');
+        $peserta = Guru::find($pesertaId);
+
+        return response()->json([
+           'data' => $peserta,
+           'sekolah' => $peserta->sekolah
+        ]);
     }
 }

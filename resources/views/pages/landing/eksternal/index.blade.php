@@ -1,5 +1,6 @@
 @extends('layouts.landing.app')
 @section('content')
+    <!-- Banner Area -->
     <div id="banner-area" class="banner-area"
         style="background-image:url({{ asset('landing/images/banner/bannerEksternal.png') }})">
         <div class="banner-text">
@@ -22,196 +23,210 @@
     </div><!-- Banner area end -->
 
     <div class="container my-4">
-      <div class="row">
-        <div class="col">
+        <div class="row">
+            <div class="col">
+                <h4>Registrasi Data Eksternal</h4>
+                <div class="d-flex mt-3 mb-5">
+                    <div class="">
+                        <a href="{{ route('user.form_guru', 'Tenaga Pendidik') }}" class="btn btn-primary btn-lg p-2">
+                            <i class="fas fa-chalkboard-teacher mr-1"></i>Tenaga Pendidik
+                        </a>
+                    </div>
+                    <div class="mx-3">
+                        <a href="{{ route('user.form_guru', 'Tenaga Kependidikan') }}" class="btn btn-info btn-lg p-2">
+                            <i class="fas fa-school mr-1"></i>Tenaga Kependidikan
+                        </a>
+                    </div>
+                    <div class="">
+                        <a href="{{ route('user.form_guru', 'Stakeholder') }}" class="btn btn-warning btn-lg p-2">
+                            <i class="fas fa-layer-group mr-1"></i>Stakeholder
+                        </a>
+                    </div>
+                    <div class="">
+                        <button id="resetBtn" class="btn btn-success btn-lg  mx-4">
+                            <i class="fas fa-redo-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <h4>Registrasi Data Eksternal</h4>
-            <div class="d-flex mt-3 mb-5">
+        <div class="row mb-2">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <h5>Pencarian Data Eksternal BBGP </h5>
+                    <input name="nama" id="namaFilter" type="text" value="" placeholder="Masukkan nama anda"
+                        class="form-control">
+                </div>
+            </div>
+        </div>
+        <h5>Filter Data Eksternal</h5>
 
-                <div class="">
-                    <a href="{{ route('user.form_guru', 'Tenaga Pendidik') }}"
-                        class="btn btn-primary btn-lg p-2">
-                        <i class="fas fa-chalkboard-teacher mr-1"></i>Tenaga Pendidik
-                    </a>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <label>Jabatan Ketenagaan</label>
+                <select required name="jenisJabatan" class="form-control " id="jabEksternal">
+                    <option value="">-- Filter By Jabatan Ketenagaan --</option>
+                    <option value="Tenaga Pendidik">Tenaga Pendidik</option>
+                    <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
+                    <option value="Stakeholder">Stakeholder</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Jabatan</label>
+                    <select name="jabJenis" class="form-control" id="jabJenis">
+                        <option value="">-- Pilih Jenis Jabatan --</option>
+                    </select>
                 </div>
-                <div class="mx-3">
-                    <a href="{{ route('user.form_guru', 'Tenaga Kependidikan') }}"
-                        class="btn btn-info btn-lg p-2">
-                        <i class="fas fa-school mr-1"></i>Tenaga Kependidikan
-                    </a>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <label>Kategori Jabatan </label>
+                <select name="jabKategori" class="form-control" id="jabKategori">
+                    <option value="">-- Pilih Kategori --</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Jenis Tugas</label>
+                    <select name="jabTugas" class="form-control" id="jabTugas">
+                        <option value="">-- Pilih Tugas Jabatan --</option>
+                    </select>
                 </div>
-                <div class="">
-                    <a href="{{ route('user.form_guru', 'Stakeholder') }}"
-                        class="btn btn-warning btn-lg p-2">
-                        <i class="fas fa-layer-group mr-1"></i>Stakeholder
-                    </a>
-                </div>
-                <div class="">
-                    <button id="resetBtn" class="btn btn-success btn-lg  mx-4">
-                        <i class="fas fa-redo-alt"></i>
+            </div>
+        </div>
+
+        <div class="data-not-found alert alert-info">Silahkan cari data eksternal anda, jika tidak ada.
+            Silahkan hubungi admin / registrasi pada button diatas</div>
+        <div class="table-responsive">
+            <table class="table table-striped" id="table-guru" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width: 1%" class="text-center">#</th>
+                        <th style="width: 20%">NPSN Sekolah</th>
+                        <th style="width: 30%">Nama Lengkap</th>
+                        {{-- <th>NIK</th> --}}
+                        <th>Status Kepegawaian</th>
+                        <th>Ketenagaan</th>
+                        <th>Kategori Jabatan</th>
+                        <th>Jenis Jabatan</th>
+                        <th>Tugas Jabatan</th>
+                        <th>Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($datas as $i => $data)
+                        <tr>
+                            <td>{{ ++$i }}</td>
+                            <td>{{ $data->npsn_sekolah }} <br> {{ $data->sekolah->nama_sekolah ?? '' }}</td>
+                            <td>{{ $data->nama_lengkap }} asaadasdas  sdsdsd asda </td>
+                            {{-- <td>{{ $data->no_ktp }}</td> --}}
+                            <td>{{ $data->status_kepegawaian }}</td>
+                            <td>{{ $data->eksternal_jabatan }}</td>
+                            <td>{{ $data->kategori_jabatan }}</td>
+                            <td>{{ $data->jenis_jabatan }}</td>
+                            <td>{{ $data->tugas_jabatan }}</td>
+                            <td>
+                                <button class="btn btn-info" onclick="showDetail({{ $data->id }})">
+                                    Detail
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal HTML -->
+    <div style="z-index: 999999;" class="modal fade" id="detailModal" tabindex="-1" role="dialog"
+        aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Detail Data Eksternal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="modal-body" id="detailContent">
+                    <!-- Detail content will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
-    </div>
-
-    {{-- <form action="{{ route('user.cek_pegawai') }}" method="POST">
-        @csrf --}}
-    {{-- Filter Data --}}
-    <div class="row mb-2">
-        <div class="col-md-8">
-            <div class="form-group">
-                <h5>Pencarian Data Eksternal BBGP </h5>
-                <input name="nama" id="namaFilter" type="text" value=""
-                    placeholder="Masukkan nama anda" class="form-control">
-            </div>
-        </div>
-        {{-- <div class="col-md-4 mb-3">
-            <h5>Filter Data Eksternal</h5>
-           
-            <select class="form-control selectric">
-                <option value="">-- Filter By Jabatan Ketenagaan --</option>
-                <option value="Tenaga Pendidik">Tenaga Pendidik</option>
-                <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
-                <option value="Stakeholder">Stakeholder</option>
-            </select>
-        </div> --}}
-    </div>
-    <h5>Filter Data Eksternal</h5>
-
-    <div class="row">
-        <div class="col-md-3 mb-4">
-            <label>Jabatan Ketenagaan</label>
-            <select required name="jenisJabatan" class="form-control " id="jabEksternal">
-                <option value="">-- Filter By Jabatan Ketenagaan --</option>
-                <option value="Tenaga Pendidik">Tenaga Pendidik</option>
-                <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
-                <option value="Stakeholder">Stakeholder</option>
-            </select>
-        </div>
-
-        <div class="col-md-3">
-            <div class="form-group">
-                <label>Jabatan</label>
-                <select name="jabJenis" class="form-control" id="jabJenis">
-                    <option value="">-- Pilih Jenis Jabatan --</option>
-                    {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
-                </select>
-            </div>
-        </div>
-
-        <div class="col-md-3 mb-4">
-            <label>Kategori Jabatan </label>
-            <select name="jabKategori" class="form-control" id="jabKategori">
-                <option value="">-- Pilih Kategori --</option>
-                {{-- <option value="GP (Guru Penggerak)">GP (Guru Penggerak)</option>
-                <option value="NoN GP (Guru Penggerak)">NoN GP (Guru Penggerak)</option> --}}
-
-            </select>
-        </div>
-
-        <div class="col-md-3">
-            <div class="form-group">
-                <label>Jenis Tugas</label>
-                <select name="jabTugas" class="form-control" id="jabTugas">
-                    <option value="">-- Pilih Tugas Jabatan --</option>
-
-                </select>
-            </div>
-        </div>
-
-
-    </div>
-    {{-- </form> --}}
-
-    <div class="data-not-found alert alert-info">Silahkan cari data eksternal anda, jika tidak ada.
-        Silahkan hubungi admin / registrasi pada button diatas</div>
-    <div class="table-responsive">
-        <table class="table table-striped" id="table-guru" style="width:100%">
-            <thead>
-                <tr>
-                    <th class="text-center">#</th>
-                    {{-- <th>Pas Foto</th> --}}
-                    <th>NPSN Sekolah</th>
-                    <th>Nama Lengkap</th>
-                    <th>NPWP</th>
-                    <th>NUPTK</th>
-                    <th>Email</th>
-                    <th>Nomor KTP</th>
-                    <th>Tempat, Tanggal Lahir</th>
-                    <th>Alamat Rumah</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Status Kepegawaian</th>
-                    <th>Agama</th>
-                    <th>Pendidikan Terakhir</th>
-                    <th>Ketenagaan</th>
-                    <th>Jabatan </th>
-                    <th>Kategori Jabatan </th>
-                    <th>Tugas Jabatan </th>
-                    <th>Asal Kabupaten/Kota</th>
-                    <th>Satuan Pendidikan</th>
-                    <th>Kecamatan Sekolah</th>
-                    <th>Kabupaten Sekolah</th>
-                    <th>Nomor Aktif</th>
-                    <th>No Rekening</th>
-
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($datas as $i => $data)
-                    <tr>
-                        <td>{{ ++$i }}</td>
-                        {{-- <td><img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
-                                    alt="" class="img-fluid"></td> --}}
-                        <td>{{ $data->npsn_sekolah }} -
-                            {{ $data->sekolah->nama_sekolah ?? '' }}</td>
-                        <td>{{ $data->nama_lengkap }}</td>
-                        <td>{{ $data->npwp }}</td>
-                        <td>{{ $data->nuptk }}</td>
-                        <td>{{ $data->email }}</td>
-                        <td>{{ $data->no_ktp }}</td>
-                        <td>{{ $data->tempat_lahir . ', ' . $data->tgl_lahir }}</td>
-                        <td>{{ $data->alamat_rumah }}</td>
-                        <td>{{ $data->gender }}</td>
-                        <td>{{ $data->status_kepegawaian }}</td>
-                        <td>{{ $data->agama }}</td>
-                        <td>{{ $data->pendidikan }}</td>
-                        <td>{{ $data->eksternal_jabatan }}</td>
-                        <td>{{ $data->jenis_jabatan }}</td>
-                        <td>{{ $data->kategori_jabatan ? $data->kategori_jabatan : 'Tidak ada' }}
-                        </td>
-                        <td>{{ $data->tugas_jabatan ? $data->tugas_jabatan : 'Tidak ada' }}</td>
-                        <td>{{ $data->kabupaten }}</td>
-                        <td>{{ $data->satuan_pendidikan }}</td>
-                        {{-- <td>{{ $data->jabatan }}</td> --}}
-                        <td>{{ $data->sekolah->kecamatan ?? '' }}</td>
-                        <td>{{ $data->sekolah->kabupaten ?? '' }}</td>
-                        <td>No. Hp : {{ $data->no_hp }} <br>
-                            No. Whatsapp : {{ $data->no_wa }}</td>
-                        <td>{{ $data->no_rek }} - {{ $data->jenis_bank }}</td>
-
-
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
     </div>
 
     @push('scripts')
         <script>
+            function showDetail(pegawaiId) {
+                $.ajax({
+                    url: '{{ route('user.pegawai.detail.eksternal') }}', // Sesuaikan dengan route yang benar
+                    type: 'GET',
+                    data: {
+                        id: pegawaiId
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        const dateLahir = new Date(response.data.tgl_lahir);
+                        const dayLahir = String(dateLahir.getDate()).padStart(2, '0');
+                        const monthLahir = String(dateLahir.getMonth() + 1).padStart(2,
+                            '0'); // getMonth() returns 0-11
+                        const yearLahir = dateLahir.getFullYear();
+                        tgl_Lahir = `${dayLahir}-${monthLahir}-${yearLahir}`;
+
+                        $('#detailContent').html(`
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>NPSN Sekolah:</strong>${response.sekolah.nama_sekolah} ( ${response.sekolah.npsn_sekolah ?? ''} ) </p>
+                                    <p><strong>Nama Lengkap:</strong> ${response.data.nama_lengkap ?? ''}</p>
+                                    <p><strong>NIK:</strong> ${response.data.no_ktp ?? ''}</p>
+                                    <p><strong>NIP:</strong> ${response.data.nip ?? ''}</p>
+                                    <p><strong>NPWP:</strong> ${response.data.npwp ?? ''}</p>
+                                    <p><strong>NUPTK:</strong> ${response.data.nuptk ?? ''}</p>
+                                    <p><strong>Tempat, Tanggal Lahir:</strong> ${response.data.tempat_lahir ?? ''},  ${tgl_Lahir}</p>
+                                    <p><strong>Jenis Kelamin:</strong> ${response.data.gender ?? ''}</p>
+                                    <p><strong>Alamat Rumah:</strong> ${response.data.alamat_rumah ?? ''}</p>
+                                    
+                                    </div>
+                                <div class="col-md-6">    
+                                    <p><strong>Satuan Pendidikan:</strong> ${response.data.satuan_pendidikan ?? ''}</p>
+                                    <p><strong>Ketenagaan:</strong> ${response.data.eksternal_jabatan ?? ''}</p>
+                                    <p><strong>Kategori Jabatan:</strong> ${response.data.kategori_jabatan ?? ''}</p>
+                                    <p><strong>Jenis Jabatan:</strong> ${response.data.jenis_jabatan ?? ''}</p>
+                                    <p><strong>Tugas Jabatan:</strong> ${response.data.tugas_jabatan ?? ''}</p>
+                                    <p><strong>Bank:</strong> ( ${response.data.jenis_bank ?? ''} ) - ${response.data.no_rek}</p>
+                                    <p><strong>No HP:</strong> ${response.data.no_hp ?? ''}</p>
+                                    <p><strong>No WA:</strong> ${response.data.no_wa ?? ''}</p>
+                                    <p><strong>Pendidikan Terakhir:</strong> ${response.data.pendidikan ?? ''}</p>
+                                    <p><strong>Status Kepegawaian:</strong> ${response.data.status_kepegawaian ?? ''}</p>
+                                </div>
+                            </div>
+                        `);
+                        $('#detailModal').modal('show');
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        alert('Error fetching detail.');
+                    }
+                });
+            }
+
             $(document).ready(function() {
                 // Initialize DataTable
                 var tableGuru = $('#table-guru').DataTable({
-                  language: {
+                    language: {
                         url: 'https://cdn.datatables.net/plug-ins/2.1.0/i18n/id.json',
                     },
-                    
+                    bAutoWidth: false,
                 });
-                const resetBtn = document.querySelector('#resetBtn');
 
-                // Select input elements
+                const resetBtn = document.querySelector('#resetBtn');
                 const namaInput = document.querySelector('#namaFilter');
                 const jabEksternal = document.querySelector('#jabEksternal');
                 const jabJenis = document.querySelector('#jabJenis');
@@ -221,10 +236,7 @@
 
                 // Function to apply search filters
                 function applySearch() {
-                    // Get trimmed input value
                     const searchText = namaInput.value.trim();
-
-                    // Get select values
                     const jabEksternalValue = jabEksternal.value;
                     const jabJenisValue = jabJenis.value;
                     const jabKategoriValue = jabKategori.value;
@@ -234,14 +246,12 @@
                     console.log('Select Value 13:', jabEksternalValue);
                     console.log('Select Value 14:', jabTugasValue);
 
-                    // Update search and redraw tableGuru
                     tableGuru.column(2).search(searchText).draw();
-                    tableGuru.column(13).search(jabEksternalValue).draw();
-                    tableGuru.column(14).search(jabJenisValue).draw();
-                    tableGuru.column(15).search(jabKategoriValue).draw();
-                    tableGuru.column(16).search(jabTugasValue).draw();
+                    tableGuru.column(4).search(jabEksternalValue).draw();
+                    tableGuru.column(6).search(jabJenisValue).draw();
+                    tableGuru.column(5).search(jabKategoriValue).draw();
+                    tableGuru.column(7).search(jabTugasValue).draw();
 
-                    // Check search result count
                     const info = tableGuru.page.info();
                     if (info.recordsDisplay === 0) {
                         noDataMessage.style.display = 'block';
@@ -250,15 +260,11 @@
                     }
                 }
 
-                // Event listener for name input keyup
                 namaInput.addEventListener('keyup', applySearch);
-
-                // Event listeners for select change
                 jabEksternal.addEventListener('change', applySearch);
                 jabJenis.addEventListener('change', applySearch);
                 jabKategori.addEventListener('change', applySearch);
                 jabTugas.addEventListener('change', applySearch);
-
                 resetBtn.addEventListener('click', function() {
                     location.reload();
                 })
@@ -267,11 +273,6 @@
 
         <script>
             $(document).ready(function() {
-
-                // const jenisEksternal = ;
-                // console.log(jenisEksternal);
-
-                // jabatan ketenagaan
                 function fillterJabatan() {
                     var jabEksternal = $('#jabEksternal').val();
                     var jabJenis = $('#jabJenis');
@@ -305,9 +306,7 @@
                         selected: true
                     }));
 
-
                     if (jabEksternal == 'Tenaga Pendidik') {
-
                         let dataJabValue = dataJab['s_jabPendidik'].map(item => {
                             option = $("<option>")
                                 .text(item.name)
@@ -336,7 +335,6 @@
                     }
                 }
 
-                // kategori jabatan
                 function fillterKategori() {
                     var jabKategori = $('#jabKategori').val();
                     var jabTugas = $('#jabTugas');
@@ -352,7 +350,6 @@
                         selected: true
                     }));
                     if (jabKategori == 'GP (Guru Penggerak)') {
-
                         let dataJabValue = dataJab['s_jabTugas'].map(item => {
                             option = $("<option>")
                                 .text(item)
@@ -362,7 +359,6 @@
                         });
                     }
                     if (jabKategori == 'NoN GP (Guru Penggerak)') {
-
                         let dataJabValue = dataJab['s_jabTugas'].map((item, i) => {
                             option = $("<option>")
                                 .text(item)
@@ -371,7 +367,6 @@
                             jabTugas.append(option);
                         });
                     }
-
                 }
 
                 $('#jabEksternal').on('change', function() {
@@ -379,22 +374,10 @@
                     fillterKategori();
                 });
 
-                // fix
                 $('#jabKategori').on('change', function() {
-                    // fillterKategori();
                     var jabTugas = $('#jabTugas');
-                    // var jabJenis = $(this);
                     var option = '';
                     const dataJab = {!! json_encode($status) !!};
-
-                    // jabJenis.empty();
-
-                    // jabJenis.append($('<option>', {
-                    //     value: '',
-                    //     text: '-- Pilih Jabatan --',
-                    //     disabled: true,
-                    //     selected: true
-                    // }));
 
                     var selectedOption = $(this).find('option:selected');
 
@@ -425,8 +408,6 @@
                 });
 
                 $('#jabJenis').on('change', function() {
-                    // fillterKategori();
-                    // var jabEksternal = $('#jabEksternal').val();
                     var jabKategori = $('#jabKategori');
                     var jabTugas = $('#jabTugas');
                     var jabJenis = $(this);

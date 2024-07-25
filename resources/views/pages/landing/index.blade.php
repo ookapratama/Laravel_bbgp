@@ -72,17 +72,15 @@
 
     <section class="call-to-action-box no-padding">
         <div class="container my-container">
-            <div class="action-style-box ">
+            <div class="action-style-box">
                 <ul class="info-box my-box-wrap">
                     <li class="single-info">
-
                         <div class="info-icon">
                             <i class="fab fa-whatsapp fa-lg"></i>
                         </div>
                         <div class="info-my-content">
                             <a href="">
                                 <p>Unit Layanan Terpadu (ULT)</p>
-
                             </a>
                         </div>
                     </li>
@@ -112,24 +110,15 @@
                         </div>
                         <div class="info-my-content">
                             <a href="">
-                                <p>Akuntabilitas Kinerja Instansi Pemerintah (AKIP)</p>
+                                <p class="multi-line">Akuntabilitas Kinerja Instansi Pemerintah (AKIP)</p>
                             </a>
                         </div>
                     </li>
                 </ul>
-                {{-- <div class="row align-items-center">
-                    <div class="col-md-3 text-center info-box ">
-                    </div>
-                    <div class="col-md-3 text-center info-box">
-                    </div>
-                    <div class="col-md-3 text-center info-box">
-                    </div>
-                    <div class="col-md-3 text-center info-box">
-                    </div>
-                </div><!-- row end --> --}}
-            </div><!-- Action style box -->
-        </div><!-- Container end -->
-    </section><!-- Action end -->
+            </div>
+        </div>
+    </section>
+
 
     {{-- slider icon img --}}
     <section id="ts-service-area" class="ts-service-area pb-0">
@@ -141,7 +130,8 @@
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
-                                src="{{ asset('landing/images/icon-slider/logo-nogratifikasi.png') }}" alt="logo nogratifikasi">
+                                src="{{ asset('landing/images/icon-slider/logo-nogratifikasi.png') }}"
+                                alt="logo nogratifikasi">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
@@ -175,7 +165,8 @@
                     <div class="ts-service-box">
                         <div class="ts-service-image-wrapper">
                             <img loading="lazy" style="width: 250px" class="img img-fluid text-center mx-auto"
-                                src="{{ asset('landing/images/icon-slider/kami-siap-zi-wbk.png') }}" alt="logo kami siap zi wbk">
+                                src="{{ asset('landing/images/icon-slider/kami-siap-zi-wbk.png') }}"
+                                alt="logo kami siap zi wbk">
                         </div>
                     </div><!-- Service1 end -->
                 </div><!-- Col 1 end -->
@@ -220,7 +211,8 @@
                         <!--<iframe width="420" height="315" title="Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan" src="https://www.youtube.com/embed/gJ3g7xX9O-s"-->
                         <!--    allowfullscreen>-->
                         <!--</iframe>-->
-                         <div class="video-placeholder" data-src="https://www.youtube.com/embed/gJ3g7xX9O-s" onclick="loadVideo(this)">
+                        <div class="video-placeholder" data-src="https://www.youtube.com/embed/gJ3g7xX9O-s"
+                            onclick="loadVideo(this)">
                             <div class="video-title">Balai Besar Guru Penggerak</div>
                         </div>
                         <!--<div class="video-title">Balai Besar Guru Penggerak</div>-->
@@ -367,14 +359,16 @@
                             </div>
                             <div class="d-flex">
                                 <div class="ts-service-info">
-                                    <h3 class="service-box-title"><a href="{{ route('user.detail.post', ['jenis' => 'berita', 'id' => $v->id] ) }}">{{ $v->judul }}</a>
+                                    <h3 class="service-box-title"><a
+                                            href="{{ route('user.detail.post', ['jenis' => 'berita', 'id' => $v->id]) }}">{{ $v->judul }}</a>
                                     </h3>
                                     <p>
                                         {{ Str::limit(strip_tags($v->isi), 120, '...') }}
                                         {{-- {!! Str::limit($v->isi, 150, '...') !!} --}}
                                     </p>
-                                    <a class="learn-more d-inline-block" href="{{ route('user.detail.post', ['jenis' => 'berita', 'id' => $v->id] ) }}" aria-label="service-details"><i
-                                            class="fa fa-caret-right"></i> Detail...</a>
+                                    <a class="learn-more d-inline-block"
+                                        href="{{ route('user.detail.post', ['jenis' => 'berita', 'id' => $v->id]) }}"
+                                        aria-label="service-details"><i class="fa fa-caret-right"></i> Detail...</a>
                                 </div>
                             </div>
                         </div><!-- Service1 end -->
@@ -406,17 +400,19 @@
                     <div class="col-lg-4 col-md-6 mb-5">
                         <div class="ts-service-box">
                             <div class="ts-service-image-wrapper">
-                                <img loading="lazy" class="w-100"
-                                    src="{{ asset('upload/artikel/' . $v->thumbnail) }}" alt="thumbnail artikel" title="{{ $v->thumbnail }}">
+                                <img loading="lazy" class="w-100" src="{{ asset('upload/artikel/' . $v->thumbnail) }}"
+                                    alt="thumbnail artikel" title="{{ $v->thumbnail }}">
                             </div>
                             <div class="d-flex">
                                 <div class="ts-service-info">
-                                    <h3 class="service-box-title"><a href="{{ route('user.detail.post', ['jenis' => 'artikel', 'id' => $v->id] ) }}">{{ $v->judul }}</a>
+                                    <h3 class="service-box-title"><a
+                                            href="{{ route('user.detail.post', ['jenis' => 'artikel', 'id' => $v->id]) }}">{{ $v->judul }}</a>
                                     </h3>
                                     <p>
                                         {{ Str::limit(strip_tags($v->isi), 120, '...') }}
                                     </p>
-                                    <a class="learn-more d-inline-block" href="{{ route('user.detail.post', ['jenis' => 'artikel', 'id' => $v->id] ) }}"
+                                    <a class="learn-more d-inline-block"
+                                        href="{{ route('user.detail.post', ['jenis' => 'artikel', 'id' => $v->id]) }}"
                                         aria-label="service-details"><i class="fa fa-caret-right"></i> Learn more</a>
                                 </div>
                             </div>
@@ -449,14 +445,17 @@
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="latest-post">
                             <div class="latest-post-media">
-                                <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id] ) }}" class="latest-post-img">
+                                <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id]) }}"
+                                    class="latest-post-img">
                                     <img loading="lazy" class="img-fluid"
-                                        src="{{ asset('upload/agenda/' . $v->thumbnail) }}" alt="thumbnail agenda" title="{{ $v->thumbnail }}">
+                                        src="{{ asset('upload/agenda/' . $v->thumbnail) }}" alt="thumbnail agenda"
+                                        title="{{ $v->thumbnail }}">
                                 </a>
                             </div>
                             <div class="post-body">
                                 <h4 class="post-title">
-                                    <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id] ) }}" class="d-inline-block">{{ $v->nama_kegiatan }}</a>
+                                    <a href="{{ route('user.detail.post', ['jenis' => 'agenda', 'id' => $v->id]) }}"
+                                        class="d-inline-block">{{ $v->nama_kegiatan }}</a>
                                 </h4>
                                 <div class="latest-post-meta">
                                     <span class="post-item-date">
@@ -486,21 +485,22 @@
     </section>
     <!--/ News end -->
     @push('scripts')
-         <script>
+        <script>
             function loadVideo(element) {
                 var iframe = document.createElement('iframe');
                 iframe.setAttribute('width', '420');
                 iframe.setAttribute('height', '315');
-                iframe.setAttribute('title', 'Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan');
+                iframe.setAttribute('title',
+                    'Program Pengembangan keprofesian Guru. Pendidikan Jasmani, olahraga dan kesehatan');
                 iframe.setAttribute('src', element.getAttribute('data-src'));
                 iframe.setAttribute('allowfullscreen', '');
                 element.parentNode.replaceChild(iframe, element);
             }
-    
+
             // Optionally, you can use Intersection Observer to load video only when in viewport
             document.addEventListener('DOMContentLoaded', function() {
                 var lazyVideos = [].slice.call(document.querySelectorAll('.video-placeholder'));
-                
+
                 if ('IntersectionObserver' in window) {
                     var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
                         entries.forEach(function(video) {
@@ -510,7 +510,7 @@
                             }
                         });
                     });
-    
+
                     lazyVideos.forEach(function(video) {
                         lazyVideoObserver.observe(video);
                     });

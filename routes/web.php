@@ -47,6 +47,11 @@ Route::group(
         Route::get('/pegawai', 'UserController@pegawai')->name('user.pegawai');
         Route::get('/pegawai/form', 'UserController@form_pegawai')->name('user.form_pegawai');
         Route::post('/pegawai/daftar', 'UserController@daftar_pegawai')->name('user.daftar_pegawai');
+        Route::get('/pegawai/all', 'UserController@getPenugasanAll')->name('user.pegawai.all');
+        Route::get('/pegawai/detail', 'UserController@getPenugasanDetail')->name('user.pegawai.detail');
+        Route::get('/pegawai/detailLoka', 'UserController@getPenugasanDetailLoka')->name('user.pegawai.detail.loka');
+        Route::get('/pegawai/detailEksternal', 'UserController@getPenugasanDetailEksternal')->name('user.pegawai.detail.eksternal');
+        
 
         Route::get('/eksternal', 'UserController@guru')->name('user.guru');
         Route::get('/eksternal/form/{jenis}', 'UserController@form_guru')->name('user.form_guru');

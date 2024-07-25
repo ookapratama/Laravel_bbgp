@@ -90,15 +90,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>NIK</th>
+                                <th style="width: 200px">Nama</th>
                                 <th>Status Keikutpesertaan</th>
-                                <th>Instansi</th>
-                                <th>Jenis Golongan</th>
-                                <th>Golongan</th>
                                 <th>Jenis Kelamin</th>
-                                <th>Kelengkapan Trasnport</th>
-                                <th>Kelengkapan Biodata</th>
-                                <th>Nomor Handphone</th>
-                                <th>Nomor WhatsApp</th>
+                                <th style="width: 200px">Nomor WhatsApp</th>
                                 <th>Kabupaten</th>
                                 <th>Aksi</th>
                             </tr>
@@ -116,9 +111,9 @@
 
 
     <!-- Modal for Peserta Detail -->
-    <div class="modal fade" id="pesertaDetailModal" tabindex="-1" role="dialog" aria-labelledby="pesertaDetailModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div style="z-index: 999999;" class="modal fade" id="pesertaDetailModal" tabindex="-1" role="dialog"
+        aria-labelledby="pesertaDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="pesertaDetailModalLabel">Detail Peserta</h5>
@@ -220,26 +215,21 @@
                                             '<td>Hanya untuk peserta</td>';
 
                                         $('#kegiatanPeserta').append(`
-                            <tr>
-                                <td>${index + 1}</td>
-                                <td>${peserta.no_ktp}</td>
-                                <td>${peserta.status_keikutpesertaan}</td>
-                                <td>${peserta.instansi}</td>
-                                <td>${peserta.jenis_gol ?? ''}</td>
-                                <td>${peserta.golongan ?? ''}</td>
-                                <td>${peserta.jkl ?? ''}</td>
-                                ${kelengkapanTransport}
-                                ${kelengkapanBiodata}
-                                <td>${peserta.no_hp ?? ''}</td>
-                                <td>${peserta.no_wa ?? ''}</td>
-                                <td>${peserta.kabupaten ?? ''}</td>
-                                <td>
-                                    <button class="btn btn-info" onclick="showDetail(${peserta.id})">
-                                        Detail
-                                    </button>
-                                </td>
-                            </tr>
-                        `);
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${peserta.no_ktp}</td>
+                                            <td>${peserta.nama}</td>
+                                            <td>${peserta.status_keikutpesertaan}</td>
+                                            <td>${peserta.jkl ?? ''}</td>
+                                            <td>${peserta.no_wa ?? ''}</td>
+                                            <td>${peserta.kabupaten ?? ''}</td>
+                                            <td>
+                                                <button class="btn btn-info" onclick="showDetail(${peserta.id})">
+                                                    Detail
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        `);
                                     });
                                     $('#showKegiatan').show();
 
@@ -385,99 +375,7 @@
                     });
                 });
 
-                // $('#searchForm').on('submit', function(e) {
-                //     e.preventDefault();
-                //     let kegiatanId = $('#daftarKegiatan').val();
-                //     let nik = $('#nikSearch').val();
 
-                //     if (kegiatanId && nik) {
-                //         $.ajax({
-                //             url: '{{ route('user.kegiatan.cariPeserta') }}',
-                //             type: 'GET',
-                //             data: {
-                //                 kegiatan_id: kegiatanId,
-                //                 nik: nik
-                //             },
-                //             success: function(response) {
-                //                 $('#kegiatanPeserta').empty();
-                //                 // console.log(response);
-                //                 if (response.data.length > 0) {
-                //                     response.data.forEach((peserta, index) => {
-                //                         $('#kegiatanPeserta').append(`
-        //                         <tr>
-        //                             <td>${index + 1}</td>
-        //                             <td>${peserta.no_ktp}</td>
-        //                             <td>${peserta.status_keikutpesertaan}</td>
-        //                             <td>${peserta.instansi}</td>
-        //                             <td>${peserta.golongan ?? 'Tidak '}</td>
-        //                             <td>${peserta.jenis_gol ?? 'Tidak '}</td>
-        //                             <td>${peserta.jkl ?? ''}</td>
-        //                             <td>${peserta.kelengkapan_peserta_transport ?? ''}</td>
-        //                             <td>${peserta.kelengkapan_peserta_biodata ?? ''}</td>
-        //                             <td>${peserta.no_hp ?? ''}</td>
-        //                             <td>${peserta.no_wa ?? ''}</td>
-        //                             <td>${peserta.kabupaten ?? ''}</td>
-        //                             <td>
-        //                                 <button class="btn btn-info" onclick="showDetail(${peserta.id})">
-        //                                     Detail
-        //                                 </button>
-        //                             </td>
-        //                         </tr>
-        //                     `);
-                //                     });
-                //                     $('#showKegiatan').show();
-
-                //                     // Deteksi status keikutsertaan
-                //                     let statusKeikutpesertaan = response.data[0]
-                //                         .status_keikutpesertaan;
-
-                //                     // Menyesuaikan tombol berdasarkan status
-                //                     $('#btnPrintPeserta').toggle(statusKeikutpesertaan ===
-                //                         'peserta' || statusKeikutpesertaan === 'registrasi');
-                //                     $('#btnPrintRegisPeserta').toggle(
-                //                         statusKeikutpesertaan ===
-                //                         'peserta' ||
-                //                         statusKeikutpesertaan ===
-                //                         'registrasi');
-                //                     $('#btnPrintPanitia').toggle(statusKeikutpesertaan ===
-                //                         'panitia');
-                //                     $('#btnPrintNarsum').toggle(statusKeikutpesertaan ===
-                //                         'narasumber');
-                //                     return
-
-                //                 } else {
-                //                     $('#showKegiatan').hide();
-
-                //                     Swal.fire({
-                //                         title: "Warning",
-                //                         text: "Data anda tidak ditemukan. Silahkan registrasi untuk mengikuti kegiatan",
-                //                         icon: "warning",
-                //                         showCancelButton: true,
-                //                         confirmButtonColor: "#4040f5",
-                //                         cancelButtonColor: "#ff3034",
-                //                         confirmButtonText: "Registrasi"
-                //                     }).then((res) => {
-                //                         if (res.isConfirmed) {
-                //                             // Redirect to registrasi page with kegiatan_id
-                //                             window.location.href =
-                //                                 '{{ route('user.kegiatan_regist') }}' +
-                //                                 '?kegiatan_id=' + kegiatanId;
-                //                         }
-                //                     });
-                //                     return
-                //                 }
-                //             },
-                //             error: function(error) {
-                //                 console.error(error);
-                //                 alert('Error fetching peserta data.');
-                //             }
-                //         });
-                //         return
-                //     } else {
-                //         Swal.fire('warning', 'Pilih kegiatan dan masukkan NIK terlebih dahulu.', 'warning');
-                //         return
-                //     }
-                // });
             });
 
             function showDetail(pesertaId) {
@@ -488,27 +386,56 @@
                         id: pesertaId
                     },
                     success: function(response) {
-                        $('#pesertaDetailContent').html(`
-                        <p><strong>NIK:</strong> ${response.no_ktp ?? ''}</p>
-                        <p><strong>Nama:</strong> ${response.nama ?? ''}</p>
-                        <p><strong>Status:</strong> ${response.status_keikutpesertaan ?? ''}</p>
-                        <p>
-                            <strong>Nomor Surat:</strong> ${response.no_surat_tugas ?? ''} 
-                        </p>
-                        <p>
-                            <strong>Tanggal Surat:</strong> ${response.tgl_surat_tugas}
-                        </p>
 
-                        <p><strong>Instansi:</strong> ${response.instansi ?? ''}</p>
-                        <p><strong>Jenis Golongan:</strong> ${response.jenis_gol ?? ''}</p>
-                        <p><strong>Golongan:</strong> ${response.golongan ?? ''}</p>
-                        <p><strong>Jenis Kelamin:</strong> ${response.jkl ?? ''}</p>
-                        <p><strong>Kelengkapan Peserta Transport:</strong> ${response.kelengkapan_peserta_transport ?? 'Hanya untuk peserta'}</p>
-                        <p><strong>Kelengkapan Peserta Biodata:</strong> ${response.kelengkapan_peserta_biodata ?? 'Hanya untuk peserta'}</p>
-                        <p><strong>Nomor Handphone:</strong> ${response.no_hp ?? ''}</p>
-                        <p><strong>Nomor WhatsApp:</strong> ${response.no_wa ?? ''}</p>
-                        <p><strong>Kabupaten:</strong> ${response.kabupaten ?? ''}</p>
-                        ${response.signature ? `<p><img src="{{ asset('${response.signature}') }}" alt="Signature" style="width: 300px; height: auto;"></p>` : 'N/A'}
+                        let kelengkapanPesertaTransport = '';
+                        let kelengkapanPesertaBiodata = ''
+
+                        kelengkapanPesertaTransport = response.statusKeikutpesertaan == 'peserta' ? `
+                        <p>
+                            <strong>Kelengkapan Peserta Transport:</strong> ${response.kelengkapan_peserta_transport ?? ''}
+                        </p>` : '';
+
+                        kelengkapanPesertaBiodata = response.statusKeikutpesertaan == 'peserta' ? `
+                        <p>
+                            <strong>Kelengkapan Peserta Biodata:</strong> ${response.kelengkapan_peserta_biodata ?? ''}
+                        </p>` : '';
+
+                        let formattedDate = '';
+                        const date = new Date(response.tgl_surat_tugas);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() returns 0-11
+                        const year = date.getFullYear();
+                        formattedDate = `${day}-${month}-${year}`;
+
+                        $('#pesertaDetailContent').html(`
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Nama:</strong> ${response.nama ?? ''}</p>
+                                <p><strong>NIK:</strong> ${response.no_ktp ?? ''}</p>
+                                <p>
+                                    <strong>Status Keikutpesertaan:</strong> ${response.status_keikutpesertaan ?? ''}
+                                </p>
+                                <p>
+                                    <strong>Nomor Surat:</strong> ${response.no_surat_tugas ?? ''} 
+                                </p>
+                                <p>
+                                    <strong>Tanggal Surat:</strong> ${formattedDate}
+                                </p>
+                                <p><strong>Kabupaten:</strong> ${response.kabupaten ?? ''}</p>
+        
+                                
+                            </div>    
+                            <div class="col-md-6">
+                                <p><strong>Jenis Kelamin:</strong> ${response.jkl ?? ''}</p>
+                                ${kelengkapanPesertaBiodata}
+                                ${kelengkapanPesertaTransport}
+                                <p><strong>Nomor Handphone:</strong> ${response.no_hp ?? ''}</p>
+                                <p><strong>Nomor WhatsApp:</strong> ${response.no_wa ?? ''}</p>
+                                <p><strong>Instansi:</strong> ${response.instansi ?? ''}</p>
+                                <p><strong>Jenis Golongan:</strong> ${response.jenis_gol ?? ''}</p>
+                                <p><strong>Golongan:</strong> ${response.golongan ?? ''}</p>
+                            </div>    
+                        </div>
                     `);
                         $('#pesertaDetailModal').modal('show');
                     },
