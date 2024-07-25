@@ -135,6 +135,7 @@ Route::group(
 
                 Route::get('/editUser/{id}', 'PegawaiController@editUser')->name('pegawai.edit.user');
                 Route::put('/updateUser', 'PegawaiController@updateUser')->name('pegawai.update.user');
+                Route::get('/detailUser', 'PegawaiController@detailUser')->name('pegawai.detail.user');
 
                 Route::get('/penugasan/{id}', 'PegawaiController@editPenugasan')->name('pegawai.editPenugasan');
                 Route::get('/pendamping/{id}', 'PegawaiController@editPendamping')->name('pegawai.editPendamping');

@@ -309,18 +309,19 @@
     <!-- Modal -->
     <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">Detail Kegiatan</h5>
+                    <h5 class="modal-title" id="eventModalLabel">Detail Penugasan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Judul:</strong> <span id="eventTitle"></span></p>
-                    <p><strong>Mulai:</strong> <span id="eventStart"></span></p>
-                    <p><strong>Selesai:</strong> <span id="eventEnd"></span></p>
+                    <p><strong>Penugasan:</strong> <span id="eventTitle"></span></p>
+                    <p><strong>Atas nama:</strong> <span id="eventNama"></span></p>
+                    <p><strong>Tanggal Kegiatan:</strong> <span id="eventStart"></span></p>
+                    <p><strong>Jam Kegiatan:</strong> <span id="eventTime"></span></p>
                     <p><strong>Deskripsi:</strong> <span id="eventDescription"></span></p>
                 </div>
                 <div class="modal-footer">
@@ -463,21 +464,28 @@
                         var data = [];
 
                         response.jadwal.forEach(element => {
-                            var mulai = `${element.tgl_kegiatan} ${element.jam_mulai ?? ''}`;
-                            var selesai =
-                                `${element.tgl_selesai_kegiatan} ${element.jam_selesai ?? ''}`;
+                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ??
+                                '00:00:00');
+                            var selesai = element.tgl_selesai_kegiatan + ' ' + (element
+                                .jam_selesai ?? '23:59:59');
 
                             // Generate random color
                             var randomColor = getRandomColor();
-
                             data.push({
-                                title: `Kegiatan: ${element.kegiatan ?? '-'} | Atas Nama: ${element.nama}`,
-                                start: mulai,
-                                end: selesai,
+                                title: `${element.kegiatan ?? '-'}`,
+                                start: moment(mulai).format(
+                                    'YYYY-MM-DDTHH:mm:ss'), // Format in ISO 8601
+                                end: moment(selesai).format(
+                                    'YYYY-MM-DDTHH:mm:ss'), // Format in ISO 8601
                                 backgroundColor: randomColor,
-                                textColor: '#fff'
+                                textColor: '#fff',
+                                nama: element.nama,
+                                description: element.deskripsi,
+                                tgl: `${moment(element.tgl_kegiatan).format('dddd, D MMMM')} s/d ${moment(element.tgl_selesai_kegiatan).format('dddd, D MMMM YYYY')}`,
+                                jam: `${element.jam_mulai ?? ''} - ${element.jam_selesai ?? ''} WITA`,
                             });
                         });
+
 
                         $("#jadwal").fullCalendar({
                             locale: 'id',
@@ -492,9 +500,9 @@
                             eventClick: function(event, jsEvent, view) {
                                 // Set the information in the modal
                                 $("#eventTitle").text(event.title);
-                                $("#eventStart").text(event.start.format(
-                                "LLLL")); // Format in Indonesian
-                                $("#eventEnd").text(event.end ? event.end.format("LLLL") :
+                                $("#eventNama").text(event.nama);
+                                $("#eventStart").text(event.tgl); // Format in Indonesian
+                                $("#eventTime").text(event.jam ? event.jam :
                                     "N/A"); // Format in Indonesian
                                 $("#eventDescription").text(event.description ? event
                                     .description : "Tidak ada deskripsi");
@@ -520,19 +528,25 @@
                         var data = [];
 
                         response.jadwal.forEach(element => {
-                            var mulai = `${element.tgl_kegiatan} ${element.jam_mulai ?? ''}`;
-                            var selesai =
-                                `${element.tgl_selesai_kegiatan} ${element.jam_selesai ?? ''}`;
-
+                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ??
+                                '00:00:00');
+                            var selesai = element.tgl_selesai_kegiatan + ' ' + (element
+                                .jam_selesai ?? '23:59:59');
                             // Generate random color
                             var randomColor = getRandomColor();
 
                             data.push({
-                                title: `Kegiatan: ${element.kegiatan ?? '-'} | Atas Nama: ${element.nama}`,
-                                start: mulai,
-                                end: selesai,
+                                title: `${element.kegiatan ?? '-'}`,
+                                start: moment(mulai).format(
+                                    'YYYY-MM-DDTHH:mm:ss'), // Format in ISO 8601
+                                end: moment(selesai).format(
+                                    'YYYY-MM-DDTHH:mm:ss'), // Format in ISO 8601
                                 backgroundColor: randomColor,
-                                textColor: '#fff'
+                                textColor: '#fff',
+                                nama: element.nama,
+                                description: element.deskripsi,
+                                tgl: `${moment(element.tgl_kegiatan).format('dddd, D MMMM')} s/d ${moment(element.tgl_selesai_kegiatan).format('dddd, D MMMM YYYY')}`,
+                                jam: `${element.jam_mulai ?? ''} - ${element.jam_selesai ?? ''} WITA`,
                             });
                         });
 
@@ -549,12 +563,13 @@
                             eventClick: function(event, jsEvent, view) {
                                 // Set the information in the modal
                                 $("#eventTitle").text(event.title);
-                                $("#eventStart").text(event.start.format(
-                                    "LLLL")); // Format in Indonesian
-                                $("#eventEnd").text(event.end ? event.end.format("LLLL") :
+                                $("#eventNama").text(event.nama);
+                                $("#eventStart").text(event.tgl); // Format in Indonesian
+                                $("#eventTime").text(event.jam ? event.jam :
                                     "N/A"); // Format in Indonesian
                                 $("#eventDescription").text(event.description ? event
                                     .description : "Tidak ada deskripsi");
+
 
                                 // Show the modal
                                 $("#eventModal").modal('show');

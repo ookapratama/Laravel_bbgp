@@ -168,6 +168,10 @@ class PegawaiController extends Controller
         return response()->json($data);
     }
 
+    public function detailUser(Request $request) {
+        
+    }
+
     public function show(string $id)
     {
 

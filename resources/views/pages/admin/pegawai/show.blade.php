@@ -103,11 +103,11 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Nama Lengkap</th>
+                                                <th>NIP</th>
+                                                <th style="width: 25%">Nama Lengkap</th>
                                                 <th>Golongan</th>
                                                 <th>Jabatan</th>
-                                                <th>Nomor KTP</th>
-                                                <th>NIP</th>
+                                                {{-- <th>Nomor KTP</th> --}}
                                                 <th>Penugasan</th>
                                                 <th>Action</th>
                                             </tr>
@@ -115,14 +115,14 @@
                                         <tbody>
                                             <tr data-type="bbgp">
                                                 <td>{{ 1 }}</td>
+                                                <td>{{ $datas['dataPegawai']->nip }}</td>
                                                 <td>{{ $datas['dataPegawai']->nama_lengkap }}</td>
                                                 <td>{{ $datas['dataPegawai']->golongan }}</td>
                                                 <td>{{ $datas['dataPegawai']->jabatan }}</td>
-                                                <td>{{ $datas['dataPegawai']->no_ktp }}</td>
-                                                <td>{{ $datas['dataPegawai']->nip }}</td>
+                                                {{-- <td>{{ $datas['dataPegawai']->no_ktp }}</td> --}}
                                                 <td>
                                                     <a href="{{ route('internal.create.lokakarya', $datas['dataPegawai']->id) }}"
-                                                        class="btn btn-primary mb-2" onclick="">Pendamping Lokakarya</a>
+                                                        class="btn btn-primary mb-2" onclick="">Tambah Peserta</a>
                                                 </td>
                                                 <td>
 
@@ -140,7 +140,7 @@
                                     </table>
 
 
-                                  
+
 
 
 
@@ -151,39 +151,44 @@
                                     <table class="table table-striped table-internal " id="table-lokakarya">
                                         <h5 class="mt-5">Data Pendamping Lokakarya</h5>
                                         <thead>
-                                            <tr style="width: 2000px;">
+                                            <tr style="width: 2000px; font-size: 14px;">
                                                 <th class="text-center">#</th>
-                                                <th>NIP</th>
-                                                <th>Nama</th>
-                                                <th>Jenis Penugasan</th>
+                                                {{-- <th>NIP</th> --}}
+                                                <th style="width:20%">NIP - Nama</th>
+                                                {{-- <th>Jenis Penugasan</th> --}}
                                                 <th>Kegiatan</th>
                                                 <th>Kota</th>
                                                 <th>Hotel</th>
                                                 <th>Tanggal Kegiatan</th>
-                                                <th>Transport Pergi dan Pulang</th>
+                                                {{-- <th>Transport Pergi dan Pulang</th>
                                                 <th>Hari 1</th>
                                                 <th>Hari 2</th>
-                                                <th>Hari 3</th>
+                                                <th>Hari 3</th> --}}
                                                 {{-- <th>Verifkasi</th> --}}
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($datas['dataPendamping'] as $i => $data)
-                                                <tr data-type="penugasan-pegawai">
+                                                <tr style="font-size: 14px;" data-type="penugasan-pegawai">
                                                     <td>{{ ++$i }}</td>
-                                                    <td>{{ $data->nip ?? ' - ' }}</td>
-                                                    <td>{{ $data->nama ?? '' }}</td>
-                                                    <td>{{ $data->jenis ?? '' }}</td>
+                                                    {{-- <td>{{ $data->nip ?? ' - ' }}</td> --}}
+                                                    <td>
+                                                        {{ $data->nip ?? ' - ' }}
+                                                        <br>
+                                                        {{ $data->nama ?? '' }}
+                                                    </td>
+                                                    {{-- <td>{{ $data->jenis ?? '' }}</td> --}}
                                                     <td>{{ $data->kegiatan ?? '' }}</td>
                                                     <td>{{ $data->kota ?? '' }}</td>
                                                     <td>{{ $data->hotel ?? '' }}</td>
                                                     <td>{{ $data->tgl_kegiatan ?? '' }}</td>
-                                                    <td>Pergi : Rp. {{ $data->transport_pergi ?? '' }} <br> Pulang : Rp.
+                                                    {{-- <td>Pergi : Rp. {{ $data->transport_pergi ?? '' }} <br> Pulang : Rp.
                                                         {{ $data->transport_pulang ?? '' }}</td>
                                                     <td>Rp. {{ $data->hari_1 ?? '' }}</td>
                                                     <td>Rp. {{ $data->hari_2 ?? '' }}</td>
-                                                    <td>Rp. {{ $data->hari_3 ?? '' }}</td>
+                                                    <td>Rp. {{ $data->hari_3 ?? '' }}</td> --}}
+
                                                     {{-- <td>
                                                         @if ($data->is_verif == 'sudah')
                                                             <span class="badge badge-success">Sudah Verifikasi</span>
@@ -199,8 +204,14 @@
                                                         @endif --}}
 
 
+                                                        <button
+                                                            onclick="showDetail({{ $data->id }})"
+                                                            class="btn btn-info mt-1"><i class="fas fa-info"></i>
+                                                        </button>
+
                                                         <a href="{{ route('internal.edit.lokakarya', $data->id) }} "
-                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+                                                            class="btn btn-warning my-1"><i class="fas fa-edit"></i>
+                                                        </a>
 
 
                                                         {{-- <button onclick="deleteData({{ $data->id }}, 'editPenugasan')"
@@ -221,6 +232,28 @@
             </div>
         </section>
     </div>
+
+    <!-- Modal for Peserta Detail -->
+    <div style="z-index: 999999;" class="modal fade" id="pesertaDetailModal" tabindex="-1" role="dialog"
+        aria-labelledby="pesertaDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pesertaDetailModalLabel">Detail Loka Karya</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="pesertaDetailContent">
+                    <!-- Detail content will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     @push('scripts')
         <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
@@ -254,7 +287,7 @@
 
                 var tableLokakarya = $('#table-lokakarya').DataTable();
 
-                 // Filter by Lokakarya
+                // Filter by Lokakarya
                 //  $('#pendampingFilter').on('keyup', function() {
                 //     tableLokakarya.column(2).search(this.value).draw();
                 //     tableLokakarya.column(4).search(this.value).draw();
@@ -268,7 +301,7 @@
                 //     } else {
                 //         noDataMessage.style.display = 'none';
                 //     }
-                    
+
                 // });
 
                 // Initially hide both tables
@@ -308,10 +341,78 @@
                     table3.search('').columns().search('').draw();
                 });
 
-               
+
 
 
             });
+
+            function showDetail(id) {
+                $.ajax({
+                    url: '{{ route('pegawai.detail.user') }}',
+                    type: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+
+                        let kelengkapanPesertaTransport = '';
+                        let kelengkapanPesertaBiodata = ''
+
+                        kelengkapanPesertaTransport = response.statusKeikutpesertaan == 'peserta' ? `
+                        <p>
+                            <strong>Kelengkapan Peserta Transport:</strong> ${response.kelengkapan_peserta_transport ?? ''}
+                        </p>` : '';
+
+                        kelengkapanPesertaBiodata = response.statusKeikutpesertaan == 'peserta' ? `
+                        <p>
+                            <strong>Kelengkapan Peserta Biodata:</strong> ${response.kelengkapan_peserta_biodata ?? ''}
+                        </p>` : '';
+
+                        let formattedDate = '';
+                        const date = new Date(response.tgl_surat_tugas);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() returns 0-11
+                        const year = date.getFullYear();
+                        formattedDate = `${day}-${month}-${year}`;
+
+                        $('#pesertaDetailContent').html(`
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Nama:</strong> ${response.nama ?? ''}</p>
+                                <p><strong>NIK:</strong> ${response.no_ktp ?? ''}</p>
+                                <p>
+                                    <strong>Status Keikutpesertaan:</strong> ${response.status_keikutpesertaan ?? ''}
+                                </p>
+                                <p>
+                                    <strong>Nomor Surat:</strong> ${response.no_surat_tugas ?? ''} 
+                                </p>
+                                <p>
+                                    <strong>Tanggal Surat:</strong> ${formattedDate}
+                                </p>
+                                <p><strong>Kabupaten:</strong> ${response.kabupaten ?? ''}</p>
+        
+                                
+                            </div>    
+                            <div class="col-md-6">
+                                <p><strong>Jenis Kelamin:</strong> ${response.jkl ?? ''}</p>
+                                ${kelengkapanPesertaBiodata}
+                                ${kelengkapanPesertaTransport}
+                                <p><strong>Nomor Handphone:</strong> ${response.no_hp ?? ''}</p>
+                                <p><strong>Nomor WhatsApp:</strong> ${response.no_wa ?? ''}</p>
+                                <p><strong>Instansi:</strong> ${response.instansi ?? ''}</p>
+                                <p><strong>Jenis Golongan:</strong> ${response.jenis_gol ?? ''}</p>
+                                <p><strong>Golongan:</strong> ${response.golongan ?? ''}</p>
+                            </div>    
+                        </div>
+                    `);
+                        $('#pesertaDetailModal').modal('show');
+                    },
+                    error: function(error) {
+                        console.error(error);
+                        alert('Error fetching detail.');
+                    }
+                });
+            }
         </script>
     @endpush
 @endsection
