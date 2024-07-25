@@ -564,7 +564,9 @@
                         console.log(response);
 
                         $('#pegawaiDetailContent').html(`
-                <div class="row">
+                    <h6 ><strong>NPSN Sekolah:</strong> ${response.data.npsn_sekolah ?? ''} - ${response.nama_sekolah}</h6>
+                    <hr>
+                    <div class="row">    
                     <div class="col-md-6">
                         <p><strong>Nama Lengkap:</strong> ${response.data.nama_lengkap ?? ''}</p>
                         <p><strong>NIK:</strong> ${response.data.nik ?? ''}</p>
@@ -584,7 +586,6 @@
                             <p><strong>Jenis Jabatan:</strong> ${response.data.jenis_jabatan ?? ''}</p>
                             <p><strong>Kategori Jabatan:</strong> ${response.data.kategori_jabatan ?? ''}</p>
                             <p><strong>Tugas Jabatan:</strong> ${response.data.tugas_jabatan ?? '-'}</p>
-                            <p><strong>NPSN Sekolah:</strong> ${response.data.npsn_sekolah ?? ''} - ${response.nama_sekolah}</p>
                             <p><strong>Kecamatan Sekolah:</strong> ${response.kecamatan_sekolah}</p>
                             <p><strong>Kabupaten Sekolah:</strong> ${response.kabupaten_sekolah}</p>
                         <p><strong>Verifikasi:</strong> ${response.data.is_verif === 'sudah' ? '<span class="badge badge-sm badge-success">Sudah Verifikasi</span>' : '<span class="badge badge-sm badge-danger">Belum Verifikasi</span>'}</p>

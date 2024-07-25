@@ -116,7 +116,7 @@
                                                     <td>{{ $data->nama_kegiatan ?? '' }}</td>
                                                     <td>{{ $data->tempat_kegiatan ?? '' }}</td>
                                                     <td>{{ $data->tgl_kegiatan . ' - ' . $data->tgl_selesai ?? '' }}</td>
-                                                    <td>{{ $data->jam_mulai }} WITA - {{ $data->jam_selesai }} WITA</td>
+                                                    <td>{{ $data->jam_mulai }} - {{ $data->jam_selesai }} WITA</td>
                                                     <td>{!! $data->deskripsi_kegiatan ?? '' !!}</td>
                                                     <td>
                                                         @if ($data->status == 'true')
