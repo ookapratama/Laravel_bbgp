@@ -25,8 +25,8 @@ class InternalController extends Controller
         $kota = Kabupaten::get();
         $data = array(
 
-            'dataPenugasanPegawai' => Pegawai::where('jenis_pegawai', 'BBGP')->get(),
-            'dataPenugasanPpnpn' => Pegawai::where('jenis_pegawai', 'PPNPN')->get(),
+            'dataPenugasanPegawai' => Pegawai::orderByDesc('id')->where('jenis_pegawai', 'BBGP')->where('is_verif', 'sudah')->get(),
+            'dataPenugasanPpnpn' => Pegawai::orderByDesc('id')->where('jenis_pegawai', 'PPNPN')->where('is_verif', 'sudah')->get(),
             'dataPegawai' => Pegawai::get(),
         );
         $dataPendamping = Pendamping::get();

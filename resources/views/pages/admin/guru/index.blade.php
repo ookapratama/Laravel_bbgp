@@ -102,13 +102,12 @@
 
                                         </select>
                                     </div>
-
                                     <div class="col-md-3">
-                                        <div class="form-group">
+                                        <div class="form-group" id="latarJabatanContainer">
                                             <label>Latar Jabatan</label>
                                             <select name="jabLatar" class="form-control" id="jabLatar">
                                                 <option value="">-- Pilih Latar Jabatan --</option>
-
+                                                <!-- Options will be populated dynamically -->
                                             </select>
                                         </div>
                                     </div>
@@ -283,6 +282,7 @@
                 const jabJenis = document.querySelector('#jabJenis');
                 const jabKategori = document.querySelector('#jabKategori');
                 const jabTugas = document.querySelector('#jabTugas');
+                const jabLatar = document.querySelector('#jabLatar');
                 const noDataMessage = document.querySelector('.data-not-found');
 
                 // Function to apply search filters
@@ -295,6 +295,7 @@
                     const jabJenisValue = jabJenis.value;
                     const jabKategoriValue = jabKategori.value;
                     const jabTugasValue = jabTugas.value;
+                    const jabLatarValue = jabLatar.value;
 
                     console.log('Search Text:', searchText);
                     console.log('Select Value 13:', jabEksternalValue);
@@ -302,18 +303,19 @@
 
                     // Update search and redraw tableGuru
                     tableGuru.column(1).search(searchText).draw();
-                    tableGuru.column(4).search(jabEksternalValue).draw();
-                    tableGuru.column(5).search(jabJenisValue).draw();
-                    tableGuru.column(6).search(jabKategoriValue).draw();
-                    tableGuru.column(7).search(jabTugasValue).draw();
+                    tableGuru.column(3).search(jabEksternalValue).draw();
+                    tableGuru.column(4).search(jabJenisValue).draw();
+                    tableGuru.column(5).search(jabKategoriValue).draw();
+                    tableGuru.column(6).search(jabTugasValue).draw();
+                    tableGuru.column(7).search(jabLatarValue).draw();
 
                     // Check search result count
                     const info = tableGuru.page.info();
-                    if (info.recordsDisplay === 0) {
-                        noDataMessage.style.display = 'block';
-                    } else {
-                        noDataMessage.style.display = 'none';
-                    }
+                    // if (info.recordsDisplay === 0) {
+                    //     noDataMessage.style.display = 'block';
+                    // } else {
+                    //     noDataMessage.style.display = 'none';
+                    // }
                 }
 
                 // Event listener for name input keyup
@@ -333,11 +335,29 @@
 
         <script>
             $(document).ready(function() {
+                // Hide latar jabatan container by default
+                $('#latarJabatanContainer').hide();
 
-                // const jenisEksternal = ;
-                // console.log(jenisEksternal);
+                // Function to filter and show/hide latar jabatan
+                function filterLatarJabatan() {
+                    var jabEksternal = $('#jabEksternal').val();
+                    if (jabEksternal === 'Tenaga Kependidikan') {
+                        $('#latarJabatanContainer').show();
+                    } else {
+                        $('#latarJabatanContainer').hide();
+                    }
+                }
 
-                // jabatan ketenagaan
+                // Event listener for changes in jenis jabatan eksternal
+                $('#jabEksternal').on('change', function() {
+                    filterLatarJabatan();
+                    fillterJabatan();
+                    fillterKategori();
+                });
+
+                // Call the function once on document ready in case the value is already set
+                filterLatarJabatan();
+
                 function fillterJabatan() {
                     var jabEksternal = $('#jabEksternal').val();
                     var jabJenis = $('#jabJenis');
@@ -371,9 +391,7 @@
                         selected: true
                     }));
 
-
                     if (jabEksternal == 'Tenaga Pendidik') {
-
                         let dataJabValue = dataJab['s_jabPendidik'].map(item => {
                             option = $("<option>")
                                 .text(item.name)
@@ -402,7 +420,6 @@
                     }
                 }
 
-                // kategori jabatan
                 function fillterKategori() {
                     var jabKategori = $('#jabKategori').val();
                     var jabTugas = $('#jabTugas');
@@ -417,8 +434,8 @@
                         disabled: true,
                         selected: true
                     }));
-                    if (jabKategori == 'GP (Guru Penggerak)') {
 
+                    if (jabKategori == 'GP (Guru Penggerak)') {
                         let dataJabValue = dataJab['s_jabTugas'].map(item => {
                             option = $("<option>")
                                 .text(item)
@@ -428,7 +445,6 @@
                         });
                     }
                     if (jabKategori == 'NoN GP (Guru Penggerak)') {
-
                         let dataJabValue = dataJab['s_jabTugas'].map((item, i) => {
                             option = $("<option>")
                                 .text(item)
@@ -437,38 +453,42 @@
                             jabTugas.append(option);
                         });
                     }
-
                 }
 
-                $('#jabEksternal').on('change', function() {
-                    fillterJabatan();
-                    fillterKategori();
-                });
-
-                // fix
                 $('#jabKategori').on('change', function() {
-                    // fillterKategori();
+                    var jabLatar = $('#jabLatar');
+                    var jabJenis = $('#jabJenis');
                     var jabTugas = $('#jabTugas');
-                    // var jabJenis = $(this);
+
                     var option = '';
                     const dataJab = {!! json_encode($status) !!};
 
-                    // jabJenis.empty();
-
-                    // jabJenis.append($('<option>', {
-                    //     value: '',
-                    //     text: '-- Pilih Jabatan --',
-                    //     disabled: true,
-                    //     selected: true
-                    // }));
-
                     var selectedOption = $(this).find('option:selected');
+                    var seletJenis = jabJenis.find('option:selected');
+                    console.log(selectedOption);
+                    console.log(seletJenis);
+                    if (selectedOption.text() == 'GP (Guru Penggerak)' && seletJenis.text() ==
+                        'Kepala Sekolah') {
+                        let dataJabValue = dataJab['s_jabKategoriKepsek'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabLatar.append(option);
+                        });
 
-                    if (selectedOption.text() == 'GP (Guru Penggerak)' ||
-                        selectedOption.text() == 'Diklat Cakep' ||
-                        selectedOption.text() == 'Diklat Cawas' ||
-                        selectedOption.text() == 'Lainnya' ||
-                        selectedOption.text() == 'Sertifikat GP (Guru Penggerak)') {
+                    } else if (selectedOption.text() == 'GP (Guru Penggerak)' && seletJenis.text() ==
+                        'Pengawas') {
+                        let dataJabValue = dataJab['s_jabKategoriPengawas'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabLatar.append(option);
+                        });
+
+                    } else if (selectedOption.text() == 'GP (Guru Penggerak)' && (seletJenis.text() == 'Guru' ||
+                            seletJenis.text() == 'Konselor')) {
                         let dataJabValue = dataJab['s_jabTugas'].map((item, i) => {
                             option = $("<option>")
                                 .text(item)
@@ -476,11 +496,20 @@
                                 .removeAttr('disabled');
                             jabTugas.append(option);
                         });
+
                     } else {
+                        jabLatar.empty();
+                        jabLatar.append($('<option>', {
+                            value: '',
+                            text: '-- Pilih Latar Jabatan --',
+                            disabled: true,
+                            selected: true
+                        }));
+
                         jabTugas.empty();
                         jabTugas.append($('<option>', {
                             value: '',
-                            text: '-- Pilih Tugas --',
+                            text: '-- Pilih Tugas Jabatan --',
                             disabled: true,
                             selected: true
                         }));
@@ -491,10 +520,9 @@
                 });
 
                 $('#jabJenis').on('change', function() {
-                    // fillterKategori();
-                    // var jabEksternal = $('#jabEksternal').val();
                     var jabKategori = $('#jabKategori');
                     var jabTugas = $('#jabTugas');
+                    var jabLatar = $('#jabLatar');
                     var jabJenis = $(this);
                     var option = '';
                     const dataJab = {!! json_encode($status) !!};
@@ -515,6 +543,14 @@
                         selected: true
                     }));
 
+                    jabLatar.empty();
+                    jabLatar.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Latar Jabatan --',
+                        disabled: true,
+                        selected: true
+                    }));
+
                     var selectedOption = $(this).find('option:selected');
 
                     if (selectedOption.text() == 'Guru' || selectedOption.text() == 'Konselor') {
@@ -526,21 +562,23 @@
                             jabKategori.append(option);
                         });
                     } else if (selectedOption.text() == 'Pengawas') {
-                        let dataJabValue = dataJab['s_jabKategoriPengawas'].map((item, i) => {
+                        let dataJabValue = dataJab['s_jabKategori'].map((item, i) => {
                             option = $("<option>")
                                 .text(item)
                                 .attr('value', item)
                                 .removeAttr('disabled');
                             jabKategori.append(option);
                         });
+
                     } else if (selectedOption.text() == 'Kepala Sekolah') {
-                        let dataJabValue = dataJab['s_jabKategoriKepsek'].map((item, i) => {
+                        let dataJabValue = dataJab['s_jabKategori'].map((item, i) => {
                             option = $("<option>")
                                 .text(item)
                                 .attr('value', item)
                                 .removeAttr('disabled');
                             jabKategori.append(option);
                         });
+
                     } else {
                         jabKategori.empty();
                         jabKategori.append($('<option>', {
@@ -557,61 +595,63 @@
                             disabled: true,
                             selected: true
                         }));
+
+                        jabLatar.empty();
+                        jabLatar.append($('<option>', {
+                            value: '',
+                            text: '-- Pilih Latar Jabatan --',
+                            disabled: true,
+                            selected: true
+                        }));
                     }
 
                     console.log('Selected Value (jabKategori):', selectedOption.val());
                     console.log('Selected Text (jabKategori):', selectedOption.text());
                 });
-            });
 
-            function showDetail(pegawaiId) {
-                console.log('get detail');
-                $.ajax({
-                    url: '{{ route('admin.eksternal.detail') }}',
-                    type: 'GET',
-                    data: {
-                        id: pegawaiId
-                    },
-                    success: function(response) {
-                        console.log(response);
+                $('#jabLatar').on('change', function() {
+                    var jabLatar = $(this);
+                    var jabTugas = $('#jabTugas');
 
-                        $('#pegawaiDetailContent').html(`
-                    <h6 ><strong>NPSN Sekolah:</strong> ${response.data.npsn_sekolah ?? ''} - ${response.nama_sekolah}</h6>
-                    <hr>
-                    <div class="row">    
-                    <div class="col-md-6">
-                        <p><strong>Nama Lengkap:</strong> ${response.data.nama_lengkap ?? ''}</p>
-                        <p><strong>NIK:</strong> ${response.data.no_ktp ?? ''}</p>
-                        <p><strong>NIP:</strong> ${response.data.nip ?? ''}</p>
-                        <p><strong>NPWP:</strong> ${response.data.npwp ?? ''}</p>
-                        <p><strong>NUPTK:</strong> ${response.data.nuptk ?? ''}</p>
-                        <p><strong>Tempat, Tanggal lahir:</strong> ${response.data.tempat_lahir ?? ''}, ${response.data.tgl_lahir}</p>
-                        <p><strong>Agama:</strong> ${response.data.agama}</p>
-                        <p><strong>Asal Kabupaten:</strong> ${response.data.kabupaten}</p>
-                        <p><strong>Pendidikan Terakhir:</strong> ${response.data.pendidikan}</p>
-                      
-                    </div>    
-                    <div class="col-md-6">
-                          <p><strong>Satuan Pendidikan:</strong> ${response.data.satuan_pendidikan}</p>
-                            <p><strong>Status Kepegawaian:</strong> ${response.data.status_kepegawaian ?? ''}</p>
-                            <p><strong>Eksternal Jabatan:</strong> ${response.data.eksternal_jabatan ?? ''}</p>
-                            <p><strong>Jenis Jabatan:</strong> ${response.data.jenis_jabatan ?? ''}</p>
-                            <p><strong>Kategori Jabatan:</strong> ${response.data.kategori_jabatan ?? ''}</p>
-                            <p><strong>Tugas Jabatan:</strong> ${response.data.tugas_jabatan ?? '-'}</p>
-                            <p><strong>Kecamatan Sekolah:</strong> ${response.kecamatan_sekolah}</p>
-                            <p><strong>Kabupaten Sekolah:</strong> ${response.kabupaten_sekolah}</p>
-                        <p><strong>Verifikasi:</strong> ${response.data.is_verif === 'sudah' ? '<span class="badge badge-sm badge-success">Sudah Verifikasi</span>' : '<span class="badge badge-sm badge-danger">Belum Verifikasi</span>'}</p>
-                    </div>    
-                </div>
-            `);
-                        $('#pegawaiDetail').modal('show');
-                    },
-                    error: function(error) {
-                        console.error(error);
-                        alert('Error fetching detail.');
+                    var option = '';
+                    const dataJab = {!! json_encode($status) !!};
+
+                    var selectedOption = $(this).find('option:selected');
+                    var seletTugas = jabTugas.find('option:selected');
+                    console.log(selectedOption);
+                    console.log(seletTugas);
+
+                    jabTugas.empty();
+                    jabTugas.append($('<option>', {
+                        value: '',
+                        text: '-- Pilih Tugas Jabatan --',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    if (selectedOption.text() != '') {
+                        let dataJabValue = dataJab['s_jabTugas'].map((item, i) => {
+                            option = $("<option>")
+                                .text(item)
+                                .attr('value', item)
+                                .removeAttr('disabled');
+                            jabTugas.append(option);
+                        });
+
+                    } else {
+                        jabTugas.empty();
+                        jabTugas.append($('<option>', {
+                            value: '',
+                            text: '-- Pilih Tugas Jabatan --',
+                            disabled: true,
+                            selected: true
+                        }));
                     }
                 });
-            }
+
+                // Initial call to fill the dropdowns
+                fillterJabatan();
+            });
         </script>
     @endpush
 @endsection

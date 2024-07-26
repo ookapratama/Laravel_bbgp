@@ -33,13 +33,13 @@
                                             </div> --}}
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input readonly name="nip" value="{{ $pegawai->nip }}" type="number" class="form-control">
+                                                <input  name="nip" value="{{ $pegawai->nip }}" type="number" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nomor KTP</label>
-                                                <input readonly name="no_ktp" value="{{ $pegawai->no_ktp }}" type="number" class="form-control">
+                                                <input  name="no_ktp" value="{{ $pegawai->no_ktp }}" type="number" class="form-control">
                                             </div>
 
                                             <div class="col-md">
