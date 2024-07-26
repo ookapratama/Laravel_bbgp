@@ -121,8 +121,9 @@
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary " type="submit">Update</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ route('internal.index') }}" class="btn btn-warning">Kembali</a>
+                                    <a href="{{ session('role') == 'pegawai' ? route('pegawai.show', session('no_ktp')) : route('internal.index') }}" class="btn btn-warning">Kembali</a>
                                 </div>
+                                
                         </form>
                     </div>
                 </div>

@@ -185,6 +185,8 @@ Route::group(
                 Route::post('/updateLokakarya', 'InternalController@updateLokakarya')->name('internal.update.lokakarya');
                 Route::get('/jadwalLokakarya/{id}', 'InternalController@jadwalLokakarya')->name('internal.jadwal.lokakarya');
                 Route::post('/cariLokakarya', 'InternalController@cariLokakarya')->name('internal.cari.lokakarya');
+                
+                Route::post('/hapusLoka/{id}', 'InternalController@hapusLoka')->name('internal.hapus.loka');
 
                 // Penugasan PEgawai BBGP
                 Route::get('/indexPegawai/{nik}', 'InternalController@indexPegawai')->name('internal.index.pegawai');
@@ -194,12 +196,16 @@ Route::group(
                 Route::post('/updatePegawai', 'InternalController@updatePegawai')->name('internal.update.pegawai');
 
 
+                Route::post('/hapusPegawai/{id}', 'InternalController@hapusPenugasan')->name('internal.hapus.penugasan');
+
+
                 // Penugasan PPNPN
                 Route::get('/indexPpnpn/{id}', 'InternalController@indexPpnpn')->name('internal.index.ppnpn');
                 Route::get('/createPpnp/{id}', 'InternalController@createPpnpn')->name('internal.create.ppnpn');
                 Route::post('/storePpnp', 'InternalController@storePpnpn')->name('internal.store.ppnpn');
                 Route::get('/editPpnp/{id}', 'InternalController@editPpnpn')->name('internal.edit.ppnpn');
                 Route::post('/updatePpnp', 'InternalController@updatePpnpn')->name('internal.update.ppnpn');
+
                 Route::post('/hapusPpnpn/{id}', 'InternalController@hapusPpnpn')->name('internal.hapus.ppnpn');
 
 

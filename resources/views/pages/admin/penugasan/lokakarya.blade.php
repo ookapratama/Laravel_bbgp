@@ -26,14 +26,14 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Nama Pendamping</label>
-                                                <input  value="{{ $pegawai->nama_lengkap ??  $pegawai->nama }}" required name="nama"
+                                                <input readonly  value="{{ $pegawai->nama_lengkap ??  $pegawai->nama }}" required name="nama"
                                                     type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input value="{{ $pegawai->no_ktp ??  $pegawai->nik }}" required name="nik" type="text"
+                                                <input readonly value="{{ $pegawai->no_ktp ??  $pegawai->nik }}" required name="nik" type="text"
                                                     class="form-control">
                                             </div>
 
@@ -41,7 +41,7 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input value="{{ $pegawai->nip  }}" required name="nip" type="text"
+                                                <input readonly value="{{ $pegawai->nip  }}" required name="nip" type="text"
                                                     class="form-control">
                                             </div>
 

@@ -60,18 +60,19 @@ class InternalController extends Controller
     // Lokakarya
     public function indexLokakarya($nik)
     {
-        $pegawai = PegawaiPpnpn::where('nik', $nik)->first() ?? Pegawai::where('no_ktp', $nik)->first();
-    // dd($pegawai);
+        // dump($nik);
+        $pegawai = Pegawai::where('no_ktp', $nik)->first();
+        // dump($pegawai->no_ktp);
         $datas = array(
-            'penugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $nik)->get() ,
+            'penugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $pegawai->no_ktp)->get(),
             'penugasanPpnpn' => Internal::where('nik', $nik)->get(),
             'getJenisLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $nik)->first(),
-            'getNama' => Internal::where('nik', $nik)->first(),
+            'getNama' => Internal::where('nik', $pegawai->no_ktp)->first(),
 
-            // 'penugasanLokakaryaPpnpn' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $pegawai->nik)->get() ,
-            // 'penugasanPpnpn' => Internal::where('nik', $pegawai->nik)->get(),
-            'getJenisLokakaryaPpnpn' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $pegawai->nik)->first(),
-            'getNamaPpnpn' => PegawaiPpnpn::where('nik', $pegawai->nik)->first(),
+            // 'penugasanLokakaryaPpnpn' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $pegawai->no_ktp)->get() ,
+            // 'penugasanPpnpn' => Internal::where('nik', $pegawai->no_ktp)->get(),
+            'getJenisLokakaryaPpnpn' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $pegawai->no_ktp)->first(),
+            'getNamaPpnpn' => Pegawai::where('no_ktp', $pegawai->no_ktp)->first(),
 
             // 'penugasanLokakaryaPpnpn' => InternalPpnpn::where('id', $pegawai->id)->get() ,
             // // 'penugasanPpnpn' => InternalPpnpn::where('id', $pegawai->id)->get(),
@@ -80,13 +81,13 @@ class InternalController extends Controller
             // 'getJenisPpnpn' => InternalPpnpn::where('jenis', 'Pendamping PPNPN')->where('nik', $nik)->first(),
 
         );
-        // dd(session('no_ktp'));
+        // dd($datas);
         if (session('role') == 'pegawai') {
             // return view('pages.admin.pegawai.show', ['menu' => ''], compact('datas'));            
-            return redirect()->route('pegawai.show', ['id' => session('no_ktp')])->with('message', 'update');            
+            return redirect()->route('pegawai.show', ['id' => session('no_ktp')])->with('message', 'update');
         }
 
-        return view('pages.admin.internal.indexLokakarya', ['menu' => ''], compact('datas'));
+        return view('pages.admin.internal.indexLokakarya', ['menu' => 'internal'], compact('datas'));
     }
 
     public function createLokakarya($id)
@@ -130,10 +131,9 @@ class InternalController extends Controller
         $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
-            // dd($r);
         Internal::create($r);
 
-        
+
         return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'store');
     }
 
@@ -151,6 +151,12 @@ class InternalController extends Controller
         $r['jam_selesai'] = $selesai_kegiatan[1];
         // dd($r);
         Internal::create($r);
+
+        if (session('role') == 'pegawai') {
+            return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'store');
+
+        }
+
         return redirect()->route('internal.index')->with('message', 'store');
     }
 
@@ -203,8 +209,15 @@ class InternalController extends Controller
         $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
+        // dd($loka);
 
         $loka->update($r);
+        // dd( route('pegawai.session('no_ktp')));
+        if (session('role') == 'pegawai') {
+            return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
+
+        }
+
         return redirect()->route('internal.index.lokakarya', $loka->nik)->with('message', 'update');
     }
 
@@ -212,10 +225,13 @@ class InternalController extends Controller
     public function indexPegawai($nik)
     {
         // dd($nik);
+        $pegawai = Pegawai::where('no_ktp', $nik)->first() ?? Pegawai::find($nik);
+        // dd($pegawai);
+
         $datas = array(
-            'penugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $nik)->get(),
-            'penugasanPpnpn' => Internal::where('nik', $nik)->get(),
-            'getJenisPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $nik)->first(),
+            'penugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $pegawai->no_ktp)->get(),
+            'penugasanPpnpn' => Internal::where('nik', $pegawai->no_ktp)->get(),
+            'getJenisPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $pegawai->no_ktp)->first(),
             // 'getJenisPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $nik)->first(),
 
         );
@@ -290,7 +306,8 @@ class InternalController extends Controller
         // $r = $r->all();
         // dd($r['mulai_kegiatan']);
         $find = Internal::find($r->id);
-
+        $r = $r->all();
+        // dd($r);
         $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
         $r['tgl_kegiatan'] = $mulai_kegiatan[0];
         $r['jam_mulai'] = $mulai_kegiatan[1];
@@ -300,9 +317,16 @@ class InternalController extends Controller
         $r['jam_selesai'] = $selesai_kegiatan[1];
 
         // dd($r->all());
-        // dd($r->all());
-        $find->update($r->all());
+        // dump($find);
+        // dd($pegawai);
+        $pegawai = Pegawai::where('no_ktp', $find->nik)->first();
+
+        $find->update($r);
         // Internal::udpate($r->all());
+        if (session('role') == 'pegawai') {
+            return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
+
+        }
         return redirect()->route('internal.index.pegawai', $find->nik)->with('message', 'update');
     }
 
@@ -397,19 +421,32 @@ class InternalController extends Controller
         $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
         $r['tgl_kegiatan'] = $mulai_kegiatan[0];
         $r['jam_mulai'] = $mulai_kegiatan[1];
-        
+
         $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
-        
+
         // dd($r);
         // Update data
         $pegawai->update($r);
+
+        if (session('role') == 'pegawai') {
+            return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
+
+        }
 
         return redirect()->route('internal.index')->with('message', 'update');
     }
 
 
+
+    public function hapusLoka($id)
+    {
+        // dd($id);
+        $data = Internal::find($id);
+        $data->delete();
+        return response()->json($data);
+    }
 
     public function hapusPpnpn($id)
     {
@@ -577,7 +614,15 @@ class InternalController extends Controller
      */
     public function destroy(string $id)
     {
-        dd($id);
+        // dd($id);
+        $data = Internal::find($id);
+        $data->delete();
+        return response()->json($data);
+    }
+
+    public function hapusPenugasan($id)
+    {
+        // dd($id);
         $data = Internal::find($id);
         $data->delete();
         return response()->json($data);
@@ -629,7 +674,7 @@ class InternalController extends Controller
                 $query->orWhere('hotel', 'like', '%' . $input['hotel'] . '%');
             }
         })->get();
-        dd($data);
+        // dd($data);
         // Mengembalikan hasil pencarian
         return $data;
     }

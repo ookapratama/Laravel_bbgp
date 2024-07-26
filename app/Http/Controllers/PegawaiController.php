@@ -203,7 +203,7 @@ class PegawaiController extends Controller
             'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nip', $findPegawai['nip'])->get() ?? [],
             'dataPendamping' => Internal::where('nip', $findPegawai['nip'])->get() ?? [],
             'dataPegawai' => $findPegawai,
-            'jadwalLokakarya' => Internal::where('jenis', 'Penugasan Lokakarya')->get(),
+            'jadwalLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nip', $findPegawai['nip'])->get(),
 
         );
         // dd($data);

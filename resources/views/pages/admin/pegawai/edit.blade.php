@@ -33,13 +33,13 @@
                                             </div> --}}
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input name="nip" value="{{ $pegawai->nip }}" type="number" class="form-control">
+                                                <input readonly name="nip" value="{{ $pegawai->nip }}" type="number" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nomor KTP</label>
-                                                <input name="no_ktp" value="{{ $pegawai->no_ktp }}" type="number" class="form-control">
+                                                <input readonly name="no_ktp" value="{{ $pegawai->no_ktp }}" type="number" class="form-control">
                                             </div>
 
                                             <div class="col-md">
@@ -190,7 +190,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Golongan (kosongkan jika tidak ada)</label>
-                                                <select required name="golongan" class="form-control select2">
+                                                <select  name="golongan" class="form-control select2">
                                                     <option value="">-- Pilih Golongan --</option>
                                                     @foreach ($datas['golongan'] as $v)
                                                         <option {{ $pegawai->golongan == $v->name ? 'selected' : '' }} value="{{ $v->name }}">{{ $v->name }}</option>
@@ -257,7 +257,7 @@
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary " type="submit">Submit</button>
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
-                                    <a href="{{ route('pegawai.index') }}" class="btn btn-warning">Kembali</a>
+                                    <a href="{{ session('role') == 'pegawai' ? route('pegawai.show', session('no_ktp')) : route('pegawai.index') }}" class="btn btn-warning">Kembali</a>
                                 </div>
                             </div>
                         </form>

@@ -69,9 +69,14 @@
                                 <!-- Filter Data Internal -->
                                 <h5>Data Internal {{ $datas['dataPegawai']->nama_lengkap }}</h5>
                                 <div class="row mt-3">
-                                    <div class="col-md-4 mb-4">
+                                    <div class="col-m ml-4 mb-4">
                                         <label>Rekapan Data</label>
-                                        <button id="rekapan" class="btn btn-info">Data Pendamping Lokakarya</button>
+                                        <div class="d-flex">
+
+                                            <button id="rekapan" class="btn btn-info mr-4">Data Pendamping
+                                                Lokakarya</button>
+                                            <button id="rekapanPenugasan" class="btn btn-info">Data Penugasan</button>
+                                        </div>
                                         {{-- <select required name="rekapan" class="form-control select2" id="rekapan">
                                             <option value="">-- Filter By Rekapan Data --</option>
                                             <option value="Penugasan Pegawai">Penugasan Lokakarya</option>
@@ -80,7 +85,8 @@
                                             <option value="Pegawai">Pegawai</option>
                                         </select> --}}
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
+
                                         {{-- <div class="form-group">
                                             <label>Pencarian Penugasan</label>
                                             <input placeholder="ketikkan pencarian penugasan" id="penugasanFilter"
@@ -103,9 +109,11 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th style="width: 25%">NIP</th>
-                                                <th style="width: 25%">Nama Lengkap</th>
-                                                <th>Golongan</th>
+                                                <th style="width: 20%">NIP</th>
+                                                <th style="width: 20%">Nama Lengkap</th>
+                                                @if ($datas['dataPegawai']->jenis_pegawai == 'BBGP')
+                                                    <th>Golongan</th>
+                                                @endif
                                                 <th>Jabatan</th>
                                                 {{-- <th>Nomor KTP</th> --}}
                                                 <th>Penugasan</th>
@@ -117,7 +125,9 @@
                                                 <td>{{ 1 }}</td>
                                                 <td>{{ $datas['dataPegawai']->nip }}</td>
                                                 <td>{{ $datas['dataPegawai']->nama_lengkap }}</td>
-                                                <td>{{ $datas['dataPegawai']->golongan }}</td>
+                                                @if ($datas['dataPegawai']->jenis_pegawai == 'BBGP')
+                                                    <td>{{ $datas['dataPegawai']->golongan }}</td>
+                                                @endif
                                                 <td>{{ $datas['dataPegawai']->jabatan }}</td>
                                                 {{-- <td>{{ $datas['dataPegawai']->no_ktp }}</td> --}}
                                                 <td>
@@ -140,92 +150,261 @@
                                         </tbody>
                                     </table>
 
+                                </div>
+
+                                <div id="loka-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-internal-loka" id="table-lokakarya">
+                                            <h5 class="mt-5">Data Pendamping Lokakarya</h5>
+                                            <thead>
+                                                <tr style="width: 2000px; font-size: 14px;">
+                                                    <th class="text-center">#</th>
+                                                    {{-- <th>NIP</th> --}}
+                                                    <th style="width:20%">Nama Petugas </th>
+                                                    {{-- <th>Jenis Penugasan</th> --}}
+                                                    <th>Kota</th>
+                                                    <th>Hotel</th>
+                                                    <th>Tanggal Kegiatan</th>
+                                                    {{-- <th>Transport Pergi dan Pulang</th>
+                                                    <th>Hari 1</th>
+                                                    <th>Hari 2</th>
+                                                    <th>Hari 3</th> --}}
+                                                    {{-- <th>Verifkasi</th> --}}
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($datas['jadwalLokakarya'] as $i => $data)
+                                                    <tr style="font-size: 14px;" data-type="penugasan-pegawai">
+                                                        <td>{{ ++$i }}</td>
+                                                        {{-- <td>{{ $data->nip ?? ' - ' }}</td> --}}
+                                                        <td>
+                                                            {{ $data->nama ?? '' }}
+                                                        </td>
+                                                        {{-- <td>{{ $data->jenis ?? '' }}</td> --}}
+                                                        <td>{{ $data->kota ?? '' }}</td>
+                                                        <td>{{ $data->hotel ?? '' }}</td>
+                                                        <?php
+                                                        setlocale(LC_TIME, 'IND');
+                                                        
+                                                        $tgl = strftime('%d %B %Y', strtotime($data->tgl_kegiatan));
+                                                        ?>
+                                                        <td>{{ $tgl ?? '' }}</td>
+                                                        {{-- <td>Pergi : Rp. {{ $data->transport_pergi ?? '' }} <br> Pulang : Rp.
+                                                            {{ $data->transport_pulang ?? '' }}</td>
+                                                        <td>Rp. {{ $data->hari_1 ?? '' }}</td>
+                                                        <td>Rp. {{ $data->hari_2 ?? '' }}</td>
+                                                        <td>Rp. {{ $data->hari_3 ?? '' }}</td> --}}
+
+                                                        {{-- <td>
+                                                            @if ($data->is_verif == 'sudah')
+                                                                <span class="badge badge-success">Sudah Verifikasi</span>
+                                                            @else
+                                                                <span class="badge badge-danger">Belum Verifikasi</span>
+                                                            @endif
+                                                        </td> --}}
+                                                        <td>
+                                                            {{-- @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
+                                                                <a href="#"
+                                                                    onclick="verifikasi({{ $data->id }}, 'internal', '{{ $data->is_verif }}')"
+                                                                    class="btn btn-primary mb-2">Verifikasi</a>
+                                                            @endif --}}
 
 
+                                                            <button onclick="showDetail({{ $data->id }})"
+                                                                class="btn btn-info mt-1"><i class="fas fa-info"></i>
+                                                            </button>
+
+                                                            <a href="{{ route('internal.edit.lokakarya', $data->id) }} "
+                                                                class="btn btn-warning my-1"><i class="fas fa-edit"></i>
+                                                            </a>
 
 
-
+                                                            {{-- <button onclick="deleteData({{ $data->id }}, 'editPenugasan')"
+                                                                class="btn btn-danger">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button> --}}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
 
                                 </div>
 
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-internal " id="table-lokakarya">
-                                        <h5 class="mt-5">Data Pendamping Lokakarya</h5>
-                                        <thead>
-                                            <tr style="width: 2000px; font-size: 14px;">
-                                                <th class="text-center">#</th>
-                                                {{-- <th>NIP</th> --}}
-                                                <th style="width:20%">Nama Petugas </th>
-                                                {{-- <th>Jenis Penugasan</th> --}}
-                                                <th>Kegiatan</th>
-                                                <th>Kota</th>
-                                                <th>Hotel</th>
-                                                <th>Tanggal Kegiatan</th>
-                                                {{-- <th>Transport Pergi dan Pulang</th>
+                                <div id="penugasan-table">
+                                    @if ($pegawai->jenis_pegawai == 'PPNPN')
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-internal " id="table-penugasan">
+                                                <h5 class="mt-5">Data Penugasan PPNPN</h5>
+                                                <thead>
+                                                    <tr style="width: 2000px; font-size: 14px;">
+                                                        <th class="text-center">#</th>
+                                                        {{-- <th>NIP</th> --}}
+                                                        <th style="width:20%">Nama</th>
+                                                        {{-- <th>Jenis Penugasan</th> --}}
+                                                        <th>Jabatan</th>
+                                                        <th>Kegiatan</th>
+                                                        <th>Tempat Kegiatan</th>
+                                                        <th>Tanggal Kegiatan</th>
+                                                        <th>Jam Kegiatan</th>
+                                                        <th>Deskripsi Kegiatan</th>
+                                                        {{-- <th>Transport Pergi dan Pulang</th>
                                                 <th>Hari 1</th>
                                                 <th>Hari 2</th>
                                                 <th>Hari 3</th> --}}
-                                                {{-- <th>Verifkasi</th> --}}
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($datas['dataPendamping'] as $i => $data)
-                                                <tr style="font-size: 14px;" data-type="penugasan-pegawai">
-                                                    <td>{{ ++$i }}</td>
-                                                    {{-- <td>{{ $data->nip ?? ' - ' }}</td> --}}
-                                                    <td>
-                                                        {{ $data->nama ?? '' }}
-                                                    </td>
-                                                    {{-- <td>{{ $data->jenis ?? '' }}</td> --}}
-                                                    <td>{{ $data->kegiatan ?? '' }}</td>
-                                                    <td>{{ $data->kota ?? '' }}</td>
-                                                    <td>{{ $data->hotel ?? '' }}</td>
-                                                    <?php
-                                                    setlocale(LC_TIME, 'IND');
-                                                    
-                                                    $tgl = strftime('%d %B %Y', strtotime($data->tgl_kegiatan));
-                                                    ?>
-                                                    <td>{{ $tgl ?? '' }}</td>
-                                                    {{-- <td>Pergi : Rp. {{ $data->transport_pergi ?? '' }} <br> Pulang : Rp.
+                                                        {{-- <th>Verifkasi</th> --}}
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($datas['dataPenugasanPpnpn'] as $i => $data)
+                                                        <tr style="font-size: 14px;">
+                                                            <td>{{ ++$i }}</td>
+                                                            {{-- <td>{{ $data->nip ?? ' - ' }}</td> --}}
+                                                            <td>
+                                                                {{ $data->nama ?? '' }}
+                                                            </td>
+                                                            <td>{{ $data->jabatan ?? '' }}</td>
+                                                            <td>{{ $data->kegiatan ?? '' }}</td>
+                                                            <td>{{ $data->tempat ?? '' }}</td>
+                                                            <?php
+                                                            setlocale(LC_TIME, 'IND');
+                                                            
+                                                            $tgl = strftime('%d %B', strtotime($data->tgl_kegiatan));
+                                                            $tgl_selesai = strftime('%d %B %Y', strtotime($data->tgl_selesai_kegiatan));
+                                                            ?>
+                                                            <td>{{ $tgl ?? '' }} - {{ $tgl_selesai }}</td>
+                                                            <td>{{ $data->jam_mulai }} - {{ $data->jam_selesai }} WITA
+                                                            </td>
+                                                            <td>{{ $data->deskripsi }}
+                                                            </td>
+
+                                                            {{-- <td>Pergi : Rp. {{ $data->transport_pergi ?? '' }} <br> Pulang : Rp.
                                                         {{ $data->transport_pulang ?? '' }}</td>
                                                     <td>Rp. {{ $data->hari_1 ?? '' }}</td>
                                                     <td>Rp. {{ $data->hari_2 ?? '' }}</td>
                                                     <td>Rp. {{ $data->hari_3 ?? '' }}</td> --}}
 
-                                                    {{-- <td>
+                                                            {{-- <td>
                                                         @if ($data->is_verif == 'sudah')
                                                             <span class="badge badge-success">Sudah Verifikasi</span>
                                                         @else
                                                             <span class="badge badge-danger">Belum Verifikasi</span>
                                                         @endif
                                                     </td> --}}
-                                                    <td>
-                                                        {{-- @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
+                                                            <td>
+                                                                {{-- @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
                                                             <a href="#"
                                                                 onclick="verifikasi({{ $data->id }}, 'internal', '{{ $data->is_verif }}')"
                                                                 class="btn btn-primary mb-2">Verifikasi</a>
                                                         @endif --}}
 
 
-                                                        <button onclick="showDetail({{ $data->id }})"
-                                                            class="btn btn-info mt-1"><i class="fas fa-info"></i>
-                                                        </button>
+                                                                {{-- <button onclick="showDetail({{ $data->id }})"
+                                                                    class="btn btn-info mt-1"><i class="fas fa-info"></i>
+                                                                </button> --}}
 
-                                                        <a href="{{ route('internal.edit.lokakarya', $data->id) }} "
-                                                            class="btn btn-warning my-1"><i class="fas fa-edit"></i>
-                                                        </a>
+                                                                <a href="{{ route('internal.edit.ppnpn', $data->id) }}"
+                                                                    class="btn btn-warning my-2"><i
+                                                                        class="fas fa-edit"></i></a>
 
 
-                                                        {{-- <button onclick="deleteData({{ $data->id }}, 'editPenugasan')"
+                                                                {{-- <button onclick="deleteData({{ $data->id }}, 'editPenugasan')"
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button> --}}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    @else
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-internal " id="table-penugasan">
+                                                <h5 class="mt-5">Data Penugasan Pegawai</h5>
+                                                <thead>
+                                                    <tr style="width: 2000px; font-size: 14px;">
+                                                        <th class="text-center">#</th>
+                                                        {{-- <th>NIP</th> --}}
+                                                        <th style="width:20%">Nama Lengkap </th>
+                                                        {{-- <th>Jenis Penugasan</th> --}}
+                                                        <th>Kegiatan</th>
+                                                        <th>Tempat Kegiatan</th>
+                                                        <th>Tanggal Kegiatan</th>
+                                                        <th>Jam Kegiatan</th>
+                                                        <th>Keterangan Kegiatan</th>
+                                                        {{-- <th>Transport Pergi dan Pulang</th>
+                                            <th>Hari 1</th>
+                                            <th>Hari 2</th>
+                                            <th>Hari 3</th> --}}
+                                                        {{-- <th>Verifkasi</th> --}}
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($datas['dataPenugasanPegawai'] as $i => $data)
+                                                        <tr style="font-size: 14px;" data-type="penugasan-pegawai">
+                                                            <td>{{ ++$i }}</td>
+                                                            {{-- <td>{{ $data->nip ?? ' - ' }}</td> --}}
+                                                            <td>
+                                                                {{ $data->nama ?? '' }}
+                                                            </td>
+                                                            {{-- <td>{{ $data->jenis ?? '' }}</td> --}}
+                                                            <td>{{ $data->kegiatan ?? '' }}</td>
+                                                            <td>{{ $data->tempat ?? '' }}</td>
+                                                            <?php
+                                                            setlocale(LC_TIME, 'IND');
+                                                            
+                                                            $tgl = strftime('%d %B', strtotime($data->tgl_kegiatan));
+                                                            $tgl_selesai = strftime('%d %B %Y', strtotime($data->tgl_selesai_kegiatan));
+                                                            ?>
+                                                            <td>{{ $data->tgl_kegiatan }} -
+                                                                {{ $data->tgl_selesai_kegiatan }}</td>
+                                                            <td>{{ $data->jam_mulai }} - {{ $data->jam_selesai }} WITA
+                                                            </td>
+                                                            <td>{{ $data->deskripsi }}</td>
+                                                            {{-- <td>Pergi : Rp. {{ $data->transport_pergi ?? '' }} <br> Pulang : Rp.
+                                                    {{ $data->transport_pulang ?? '' }}</td>
+                                                <td>Rp. {{ $data->hari_1 ?? '' }}</td>
+                                                <td>Rp. {{ $data->hari_2 ?? '' }}</td>
+                                                <td>Rp. {{ $data->hari_3 ?? '' }}</td> --}}
+
+                                                            {{-- <td>
+                                                    @if ($data->is_verif == 'sudah')
+                                                        <span class="badge badge-success">Sudah Verifikasi</span>
+                                                    @else
+                                                        <span class="badge badge-danger">Belum Verifikasi</span>
+                                                    @endif
+                                                </td> --}}
+                                                            <td>
+                                                                {{-- @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
+                                                        <a href="#"
+                                                            onclick="verifikasi({{ $data->id }}, 'internal', '{{ $data->is_verif }}')"
+                                                            class="btn btn-primary mb-2">Verifikasi</a>
+                                                    @endif --}}
+
+
+                                                                <a href="{{ route('internal.edit.pegawai', $data->id) }}"
+                                                                    class="btn btn-warning my-2"><i
+                                                                        class="fas fa-edit"></i></a>
+
+
+
+                                                                {{-- <button onclick="deleteData({{ $data->id }}, 'editPenugasan')"
+                                                        class="btn btn-danger">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button> --}}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    @endif
+
                                 </div>
 
                             </div>
@@ -289,6 +468,7 @@
                 // });
 
                 var tableLokakarya = $('#table-lokakarya').DataTable();
+                var tablePenugasan = $('#table-penugasan').DataTable();
 
                 // Filter by Lokakarya
                 //  $('#pendampingFilter').on('keyup', function() {
@@ -308,13 +488,22 @@
                 // });
 
                 // Initially hide both tables
-                $('.table-internal').hide();
+                $('#loka-table').hide();
+                $('#penugasan-table').hide();
 
                 // Filter tables based on dropdown selection
                 $('#rekapan').on('click', function(event) {
                     event.preventDefault();
                     // $('.table-internal').hide();
-                    $('#table-lokakarya').show();
+                    $('#loka-table').show();
+                    $('#penugasan-table').hide();
+                });
+
+                $('#rekapanPenugasan').on('click', function(event) {
+                    event.preventDefault();
+                    $('#loka-table').hide();
+                    // $('.table-internal').hide();
+                    $('#penugasan-table').show();
                 });
 
                 // Filter by Nama
@@ -385,9 +574,6 @@
                                 <p><strong>NIK:</strong> ${response.nik ?? ''}</p>
                                 <p><strong>NIP:</strong> ${response.nip ?? ''}</p>
                                 <p>
-                                    <strong>Kegiatan:</strong> ${response.kegiatan ?? ''}
-                                </p>
-                                <p>
                                     <strong>Hotel:</strong> ${response.hotel ?? ''} 
                                 </p>
                                 <p>
@@ -415,10 +601,10 @@
                 });
 
                 function formatRupiah(number) {
-                var reverse = number.toString().split('').reverse().join('');
-                var ribuan = reverse.match(/\d{1,3}/g);
-                return ribuan.join(',').split('').reverse().join('');
-            }
+                    var reverse = number.toString().split('').reverse().join('');
+                    var ribuan = reverse.match(/\d{1,3}/g);
+                    return ribuan.join(',').split('').reverse().join('');
+                }
             }
         </script>
     @endpush

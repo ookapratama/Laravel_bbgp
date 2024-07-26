@@ -63,8 +63,10 @@
                                                     <td>Rp. {{ number_format($data->hari_2, 0, ',', '.') }}</td>
                                                     <td>Rp. {{ number_format($data->hari_3, 0, ',', '.') }}</td>
                                                     <td>
-                                                        <a href="{{ route('internal.edit.lokakarya', $data->id) }}" class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
-                                                        <button onclick="deleteData({{ $data->id }}, 'internal')" class="btn btn-danger">
+                                                        <a href="{{ route('internal.edit.lokakarya', $data->id) }}"
+                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+                                                        <button onclick="deleteDataLoka({{ $data->id }}, 'internal')"
+                                                            class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
                                                     </td>
@@ -97,12 +99,10 @@
                     paging: true,
                     searching: true,
                     language: language,
-                    columnDefs: [
-                        {
-                            targets: [4, 5, 6, 7, 8],
-                            render: $.fn.dataTable.render.number('.', ',', 0, 'Rp ')
-                        }
-                    ]
+                    columnDefs: [{
+                        targets: [4, 5, 6, 7, 8],
+                        render: $.fn.dataTable.render.number('.', ',', 0, 'Rp ')
+                    }]
                 });
 
                 // Initially hide both tables
@@ -132,6 +132,49 @@
                     tableBbgp.search('').columns().search('').draw();
                 });
             });
+        </script>
+
+        <script>
+            // swal btn hps data
+            const deleteDataLoka = (id, tabel) => {
+                console.log(id, tabel);
+                let token = $("meta[name='csrf-token']").attr("content");
+
+                swal({
+                    title: "Apakah anda yakin?",
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    console.log(willDelete);
+
+                    if (willDelete) {
+                        $.ajax({
+                            headers: {
+                                "X-CSRF-TOKEN": token,
+                            },
+                            type: "POST",
+                            url: `{{ route('internal.hapus.loka', ['id' => 'PLACEHOLDER_ID']) }}`
+                                .replace('PLACEHOLDER_ID', id),
+                            success: function(response) {
+                                console.log(response);
+                                if (response) {
+                                    swal("Terhapus", "Data telah dihapus", "success").then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    swal("Error", "Gagal menghapus data.", "error");
+                                }
+                            },
+                            error: function(error) {
+                                console.error("AJAX Error:", error);
+                                swal("Error", "Terjadi kesalahan saat menghapus data.", "error");
+                            },
+                        });
+                    }
+                });
+            };
         </script>
     @endpush
 @endsection

@@ -87,7 +87,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas['dataPenugasanPpnpn'] as $i => $data)
-                                            {{-- {{ dd($data) }} --}}
+                                                {{-- {{ dd($data) }} --}}
 
                                                 <tr data-type="ppnpn">
                                                     <td>{{ ++$i }}</td>
@@ -96,15 +96,14 @@
                                                     <td>{{ $data->nip ?? '' }}</td>
                                                     <td>{{ $data->jabatan ?? '' }}</td>
                                                     <td>
-                                                        <button class="btn btn-success my-2" data-nama="{{ $data->nama }}"
-                                                            data-id="{{ $data->id }}" data-nik="{{ $data->nik }}"
+                                                        <button class="btn btn-success my-2" data-nama="{{ $data->nama_lengkap }}"
+                                                            data-id="{{ $data->id }}" data-nik="{{ $data->no_ktp }}"
                                                             data-toggle="modal" data-target="#modalPpnpn">
                                                             Menu Penugasan PPNPN
                                                         </button>
 
-                                                        <button class="btn btn-info my-2"
-                                                            data-nama="{{ $data->nama }}"
-                                                            data-id="{{ $data->id }}" data-nik="{{ $data->nik }}"
+                                                        <button class="btn btn-info my-2" data-nama="{{ $data->nama_lengkap }}"
+                                                            data-id="{{ $data->id }}" data-nik="{{ $data->no_ktp }}"
                                                             data-toggle="modal" data-target="#modalLokakarya">
                                                             Menu Lokakarya
                                                         </button>
@@ -149,6 +148,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas['dataPenugasanPegawai'] as $i => $data)
+                                                {{-- {{ dd($data) }} --}}
                                                 <tr data-type="bbgp">
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data->nama_lengkap }}</td>
@@ -291,9 +291,10 @@
                 var button = $(event.relatedTarget); // Button yang membuka modal
                 var nik = button.data('nik'); // Ambil data-nik dari tombol
                 var nama = button.data('nama'); // Ambil data-nama dari tombol
+
                 var lihatLink = "{{ route('internal.index.lokakarya', ':nik') }}".replace(':nik', nik);
                 var tambahLink = "{{ route('internal.create.lokakarya', ':id') }}".replace(':id', button.data('id'));
-
+                console.log(nik);
                 // Update href dari link di dalam modal
                 $('.modal-title-lokakarya').text(`Pegawai ${nama}`);
                 $('#lihatLokakaryaLink').attr('href', lihatLink);
