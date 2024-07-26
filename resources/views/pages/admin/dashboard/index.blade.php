@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="{{ asset('library/weathericons/css/weather-icons-wind.min.css') }}">
         <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.css') }}">
         <link rel="stylesheet" href="{{ asset('library/fullcalendar/dist/fullcalendar.min.css') }}">
+
+        
     @endpush
 
     <div class="main-content">
@@ -45,7 +47,7 @@
                                             <h4>Data Guru</h4>
                                         </div>
                                         <div class="card-body">
-                                            <canvas id="guruChart"></canvas>
+                                            <canvas width="500" height="500" id="guruChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +57,7 @@
                                             <h4>Data Konselor</h4>
                                         </div>
                                         <div class="card-body">
-                                            <canvas id="konselorChart"></canvas>
+                                            <canvas width="500" height="500" id="konselorChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +69,7 @@
                                             <h4>Data Lainnya</h4>
                                         </div>
                                         <div class="card-body">
-                                            <canvas id="lainChart"></canvas>
+                                            <canvas width="500" height="500" id="lainChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +88,7 @@
                                             <h4>Data Pengawas</h4>
                                         </div>
                                         <div class="card-body">
-                                            <canvas id="pengawasChart"></canvas>
+                                            <canvas width="500" height="500" id="pengawasChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +98,7 @@
                                             <h4>Data Kepala Sekolah</h4>
                                         </div>
                                         <div class="card-body">
-                                            <canvas id="kepalaSekolahChart"></canvas>
+                                            <canvas width="500" height="500" id="kepalaSekolahChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +108,7 @@
                                             <h4>Data Lainnya (Tenaga Kependidikan)</h4>
                                         </div>
                                         <div class="card-body">
-                                            <canvas id="lainTenagaKependidikanChart"></canvas>
+                                            <canvas width="500" height="500" id="lainTenagaKependidikanChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +126,7 @@
                                             <h4>Data Stakeholder</h4>
                                         </div>
                                         <div class="card-body">
-                                            <canvas id="stakeholderChart"></canvas>
+                                            <canvas width="500" height="500" id="stakeholderChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -139,7 +141,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4>Calendar Penugasan</h4>
+                        <h4>Calendar Penugasan Dan Pendamping Lokakarya</h4>
                     </div>
                     <div class="card-body">
 
@@ -157,7 +159,7 @@
             @if (session('role') == 'pegawai')
                 <div class="card">
                     <div class="card-header">
-                        <h4>Calendar Penugasan</h4>
+                        <h4>Calendar Penugasan Dan Pendamping Lokakarya</h4>
                     </div>
                     <div class="card-body">
 
@@ -192,7 +194,7 @@
                     <p><strong>Tipe Penugasan:</strong> <span id="eventType"></span></p>
                     <p><strong>Atas nama:</strong> <span id="eventNama"></span></p>
                     <p><strong>Tanggal Kegiatan:</strong> <span id="eventStart"></span></p>
-                    <p><strong>Jam Kegiatan:</strong> <span id="eventTime"></span></p>
+                    {{-- <p><strong>Jam Kegiatan:</strong> <span id="eventTime"></span></p> --}}
                     <p><strong>Deskripsi:</strong> <span id="eventDescription"></span></p>
                 </div>
                 <div class="modal-footer">
@@ -210,7 +212,8 @@
         <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
         <script src="{{ asset('library/fullcalendar/dist/fullcalendar.min.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/id.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+        <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
 
 
         <script>
@@ -233,15 +236,14 @@
                         var data = [];
 
                         response.jadwal.forEach(element => {
-                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ??
-                                '00:00:00');
+                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai );
                             var selesai = element.tgl_selesai_kegiatan + ' ' + (element
-                                .jam_selesai ?? '23:59:59');
+                                .jam_selesai);
 
                             // Generate random color
                             var randomColor = getRandomColor();
                             data.push({
-                                title: `${event.title == '' ? event.jenis : event.title}`,
+                                title: `${element.kegiatan == '' || element.kegiatan == undefined ? element.jenis : element.kegiatan}`,
                                 start: moment(mulai).format(
                                     'YYYY-MM-DDTHH:mm:ss'), // Format in ISO 8601
                                 end: moment(selesai).format(
@@ -270,12 +272,12 @@
                                 console.log(event.title == '' ? event.jenis : event.title);
 
                                 // Set the information in the modal
-                                $("#eventTitle").text(event.title == '' ? event.jenis : event.title);
+                                $("#eventTitle").text(event.title);
                                 $("#eventType").text(event.jenis);
                                 $("#eventNama").text(event.nama);
                                 $("#eventStart").text(event.tgl); // Format in Indonesian
-                                $("#eventTime").text(event.jam ? event.jam :
-                                    "N/A"); // Format in Indonesian
+                                // $("#eventTime").text(event.jam ? event.jam :
+                                //     "N/A"); // Format in Indonesian
                                 $("#eventDescription").text(event.description ? event
                                     .description : "Tidak ada deskripsi");
 
@@ -298,17 +300,17 @@
                     url: `dashboard/jadwalKegiatan/{{ session('no_ktp') }}`,
                     success: function(response) {
                         var data = [];
+                        console.log(response);
 
                         response.jadwal.forEach(element => {
-                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ??
-                                '00:00:00');
+                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai);
                             var selesai = element.tgl_selesai_kegiatan + ' ' + (element
-                                .jam_selesai ?? '23:59:59');
+                                .jam_selesai);
                             // Generate random color
                             var randomColor = getRandomColor();
 
                             data.push({
-                                title: `${element.kegiatan ?? '-'}`,
+                                title: `${element.kegiatan == '' || element.kegiatan == undefined ? element.jenis : element.kegiatan}`,
                                 start: moment(mulai).format(
                                     'YYYY-MM-DDTHH:mm:ss'), // Format in ISO 8601
                                 end: moment(selesai).format(
@@ -316,10 +318,10 @@
                                 backgroundColor: randomColor,
                                 textColor: '#fff',
                                 nama: element.nama,
+                                jenis: element.jenis ?? '',
                                 description: element.deskripsi,
-                                tgl: `${moment(element.tgl_kegiatan).format('dddd, D MMMM')} s/d ${moment(element.tgl_selesai_kegiatan).format('dddd, D MMMM YYYY')}`,
+                                tgl: `${moment(element.tgl_kegiatan).format('dddd, D MMMM')} s/d ${moment(element.tgl_selesai_kegiatan).format(' D MMMM YYYY')}`,
                                 jam: `${element.jam_mulai ?? ''} - ${element.jam_selesai ?? ''} WITA`,
-                                jenis: element.jenis ?? '-',
 
                             });
                         });
@@ -335,8 +337,12 @@
                             editable: true,
                             events: data,
                             eventClick: function(event, jsEvent, view) {
+                                console.log(event);
+
                                 // Set the information in the modal
-                                $("#eventTitle").text(event.title);
+                                $("#eventTitle").text(event.title == '' || event.title ==
+                                    undefined ? event.jenis : event
+                                    .title);
                                 $("#eventType").text(event.jenis);
                                 $("#eventNama").text(event.nama);
                                 $("#eventStart").text(event.tgl); // Format in Indonesian
@@ -344,7 +350,6 @@
                                     "N/A"); // Format in Indonesian
                                 $("#eventDescription").text(event.description ? event
                                     .description : "Tidak ada deskripsi");
-
 
                                 // Show the modal
                                 $("#eventModal").modal('show');
@@ -411,8 +416,6 @@
 
         <script>
             const tenagaPendidikData = <?= json_encode($datas['tenaga_pendidik']) ?>;
-
-
 
             // Filter data for 'guru' and 'konselor'
             const guruLabels = Object.keys(tenagaPendidikData).filter(key => key.includes('guru'));
@@ -484,8 +487,6 @@
                         return label;
                 }
             });
-
-
 
             // Donut Chart untuk Data Guru
             const guruCtx = document.getElementById('guruChart').getContext('2d');
@@ -682,10 +683,6 @@
                 }
             });
 
-
-
-
-
             // Tenaga Kependidikan
             const tenagaKependidikData = <?= json_encode($datas['tenaga_kependidik']) ?>;
 
@@ -712,7 +709,6 @@
                         return 'Laboran';
                     case 'pustakawan':
                         return 'Pustakawan';
-
                     default:
                         return label;
                 }
@@ -770,8 +766,6 @@
                 }
             });
 
-
-
             // Create charts for Tenaga Kependidikan
             new Chart(document.getElementById('pengawasChart').getContext('2d'), {
                 type: 'pie',
@@ -809,6 +803,7 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             position: 'top',
@@ -861,7 +856,6 @@
                             'rgba(255, 99, 132, 0.6)',
                             'rgba(54, 162, 235, 0.6)',
                             'rgba(255, 206, 86, 0.6)'
-
                         ],
                         borderColor: [
                             'rgba(255, 99, 132, 1)',
@@ -879,6 +873,7 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             position: 'top',
@@ -942,6 +937,7 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             position: 'top',
@@ -1001,7 +997,6 @@
                         return 'Pers';
                     case 'staff':
                         return 'Staff';
-
                     default:
                         return label;
                 }
@@ -1036,6 +1031,7 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             position: 'top',

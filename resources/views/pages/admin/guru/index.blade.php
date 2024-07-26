@@ -158,7 +158,7 @@
                                                 {{-- <th>Nomor Aktif</th>
                                                     <th>No Rekening</th> --}}
                                                 <th>Status Verifikasi</th>
-                                                <th style="width: 5%">Action</th>
+                                                <th style="width: 20%">Action</th>
 
 
                                             </tr>
@@ -581,9 +581,9 @@
                     <div class="row">    
                     <div class="col-md-6">
                         <p><strong>Nama Lengkap:</strong> ${response.data.nama_lengkap ?? ''}</p>
-                        <p><strong>NIK:</strong> ${response.data.nik ?? ''}</p>
+                        <p><strong>NIK:</strong> ${response.data.no_ktp ?? ''}</p>
                         <p><strong>NIP:</strong> ${response.data.nip ?? ''}</p>
-                        <p><strong>NPWP:</strong> ${response.data.npwn ?? ''}</p>
+                        <p><strong>NPWP:</strong> ${response.data.npwp ?? ''}</p>
                         <p><strong>NUPTK:</strong> ${response.data.nuptk ?? ''}</p>
                         <p><strong>Tempat, Tanggal lahir:</strong> ${response.data.tempat_lahir ?? ''}, ${response.data.tgl_lahir}</p>
                         <p><strong>Agama:</strong> ${response.data.agama}</p>

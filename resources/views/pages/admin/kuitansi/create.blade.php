@@ -330,8 +330,8 @@
 
                                                         <div class="form-group mt-3">
                                                             <label>Jumlah Malam Menginap (otomatis)</label>
-                                                            <input readonly name="jumlah_nginap" id="jumlah_nginap" type="text"
-                                                                class="form-control ">
+                                                            <input readonly name="jumlah_nginap" id="jumlah_nginap"
+                                                                type="text" class="form-control ">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -658,6 +658,12 @@
                     } else {
                         bill_penginapan.val(0); // Set nilai 0 jika tidak aktif
                     }
+                    // Initialize calculations
+                    calculateTiket();
+                    calculateTransport();
+                    calculatePenginapan();
+                    calculateHarian();
+                    calculateTotalBiaya();
                 });
 
                 // Calculation functions

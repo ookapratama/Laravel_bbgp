@@ -114,8 +114,8 @@ class AdminController extends Controller
     public function jadwal()
     {
         // Ambil jadwal dari Internal dengan tiga jenis yang disebutkan
-        $jadwalInternal = Internal::select('kota','jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
-            ->whereIn('jenis', ['Pendamping Lokakarya', 'Penugasan BBGP', 'Penugasan PPNPN'])
+        $jadwalInternal = Internal::select('kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
+            ->whereIn('jenis', ['Pendamping Lokakarya', 'Penugasan Pegawai', 'Penugasan PPNPN'])
             ->get();
 
         // Mengembalikan response dalam bentuk JSON
@@ -161,45 +161,14 @@ class AdminController extends Controller
     public function getJadwalByPegawai($nik)
     {
         // Ambil jadwal dari Internal hanya untuk pegawai dengan NIK tertentu
-        $jadwalLokakarya = Internal::select('jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
-            ->where('jenis', 'Pendamping Lokakarya')
-            ->where('nik', $nik)
+        // Ambil jadwal dari Internal dengan tiga jenis yang disebutkan
+        $jadwalInternal = Internal::select('kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
+            ->whereIn('jenis', ['Pendamping Lokakarya', 'Penugasan Pegawai', 'Penugasan PPNPN'])->where('nik', $nik)
             ->get();
 
-        // Ambil jadwal dari InternalPpnpn dengan relasi ke PegawaiPpnpn hanya untuk pegawai dengan NIK tertentu
-        $jadwalPpnpn = InternalPpnpn::with([
-            'pegawai' => function ($query) use ($nik) {
-                $query->where('nik', $nik);
-            }
-        ])
-            ->select('deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'id_pegawai')
-            ->get()
-            ->filter(function ($item) {
-                return $item->pegawai !== null; // Pastikan pegawai terkait ada
-            })
-            ->map(function ($item) {
-                return [
-                    'kegiatan' => $item->kegiatan,
-                    'tgl_kegiatan' => $item->tgl_kegiatan,
-                    'tgl_selesai_kegiatan' => $item->tgl_selesai_kegiatan,
-                    'jam_mulai' => $item->jam_mulai,
-                    'jam_selesai' => $item->jam_selesai,
-                    'nama' => $item->pegawai->nama,
-                ];
-            });
-
-        // Ambil jadwal dari Lokakarya (misalkan ini adalah tabel lain) hanya untuk pegawai dengan NIK tertentu
-        $jadwalInternal = Internal::select('jenis', 'deskripsi', 'kegiatan as kegiatan', 'tgl_kegiatan', 'jam_mulai', 'jam_selesai', 'tgl_selesai_kegiatan', 'nama')
-            ->where('nik', $nik)
-            ->get();
-
-        // Gabungkan jadwal menggunakan collect() untuk mengonversi ke koleksi
-        $combinedJadwal = collect($jadwalLokakarya)
-            ->merge($jadwalPpnpn)
-            ->merge($jadwalInternal);
-
+        // Mengembalikan response dalam bentuk JSON
         return response()->json([
-            'jadwal' => $combinedJadwal
+            'jadwal' => $jadwalInternal
         ]);
     }
 

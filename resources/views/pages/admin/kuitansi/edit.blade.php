@@ -20,8 +20,8 @@
                         <form action="{{ route('kuitansi.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <input required name="id" type="hidden" class="form-control" id="id"
-                                readonly value="{{ $kuitansi->id }}">
+                            <input required name="id" type="hidden" class="form-control" id="id" readonly
+                                value="{{ $kuitansi->id }}">
                             <input required name="id_pegawai_old" type="hidden" class="form-control" id="id_pegawai"
                                 readonly value="{{ $kuitansi->pegawai_id }}">
                             <input required name="tahun_anggaran" type="hidden" class="form-control" id="tahun_anggaran"
@@ -50,8 +50,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nama dan NIK</label>
-                                                <select  name="id_pegawai" id="idPeserta"
-                                                    class="form-control select2">
+                                                <select name="id_pegawai" id="idPeserta" class="form-control select2">
                                                     <option value="">-- Pilih peserta --</option>
                                                     {{-- @foreach ($datas['peserta'] as $i => $v)
                                                         <option data-no_ktp="{{ $v->no_ktp }}"
@@ -84,15 +83,15 @@
                                                 <label>Nama </label>
                                                 {{-- <input readonly required name="nip" id="nip" type="hidden"
                                                     class="form-control"> --}}
-                                                <input value="{{ $kuitansi->peserta->nama ?? '' }}" readonly required name="nama" id="nama" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $kuitansi->peserta->nama ?? '' }}" readonly required
+                                                    name="nama" id="nama" type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input value="{{ $kuitansi->peserta->nip ?? '' }}" readonly required name="nip" id="nip" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $kuitansi->peserta->nip ?? '' }}" readonly required
+                                                    name="nip" id="nip" type="text" class="form-control">
                                             </div>
                                         </div>
 
@@ -106,7 +105,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Jabatan dalam kegiatan</label>
-                                                <input value="{{ $kuitansi->peserta->status_keikutpesertaan ?? '' }}" readonly required name="status_keikutpesertaan"
+                                                <input value="{{ $kuitansi->peserta->status_keikutpesertaan ?? '' }}"
+                                                    readonly required name="status_keikutpesertaan"
                                                     id="status_keikutpesertaan" type="text" class="form-control">
                                             </div>
                                         </div>
@@ -115,16 +115,16 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Jenis Golongan</label>
-                                                <input value="{{ $kuitansi->peserta->jenis_gol ?? '' }}" readonly required name="jenis_gol" id="jenis_gol" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $kuitansi->peserta->jenis_gol ?? '' }}" readonly required
+                                                    name="jenis_gol" id="jenis_gol" type="text" class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Golongan</label>
-                                                <input value="{{ $kuitansi->peserta->golongan ?? '' }}" readonly required name="golongan" id="golongan" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $kuitansi->peserta->golongan ?? '' }}" readonly required
+                                                    name="golongan" id="golongan" type="text" class="form-control">
                                             </div>
                                         </div>
 
@@ -135,31 +135,33 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Instansi </label>
-                                                <input value="{{ $kuitansi->peserta->instansi ?? '' }}" readonly required name="instansi" id="instansi" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $kuitansi->peserta->instansi ?? '' }}" readonly required
+                                                    name="instansi" id="instansi" type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nomor Surat Tugas</label>
-                                                <input value="{{ $kuitansi->peserta->no_surat_tugas ?? '' }}" readonly required name="no_surat_tugas" id="no_surat_tugas"
-                                                    type="text" class="form-control">
+                                                <input value="{{ $kuitansi->peserta->no_surat_tugas ?? '' }}" readonly
+                                                    required name="no_surat_tugas" id="no_surat_tugas" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Tanggal Surat Tugas</label>
-                                                <input value="{{ $kuitansi->peserta->tgl_surat_tugas ?? '' }}" readonly required name="tgl_surat_tugas" id="tgl_surat_tugas"
-                                                    type="date" class="form-control">
+                                                <input value="{{ $kuitansi->peserta->tgl_surat_tugas ?? '' }}" readonly
+                                                    required name="tgl_surat_tugas" id="tgl_surat_tugas" type="date"
+                                                    class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Kabupaten / Kota</label>
-                                                <input value="{{ $kuitansi->kabupaten->name ?? '' }}" readonly required name="kabupaten" id="kabupaten" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $kuitansi->kabupaten->name ?? '' }}" readonly required
+                                                    name="kabupaten" id="kabupaten" type="text" class="form-control">
                                             </div>
                                         </div>
 
@@ -179,7 +181,8 @@
                                                     <option value="">-- Pilih kabupaten / kota --</option>
                                                     @foreach ($datas['kabupaten'] as $i => $v)
                                                         {{-- {{ dd($v->pegawai->nip) }} --}}
-                                                        <option {{ $kuitansi->lokasi_asal == $v->id  ? 'selected' : '' }} value="{{ $v->id }}">
+                                                        <option {{ $kuitansi->lokasi_asal == $v->id ? 'selected' : '' }}
+                                                            value="{{ $v->id }}">
                                                             {{ $v->name ?? '' }}
                                                         </option>
                                                     @endforeach
@@ -190,15 +193,16 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Lokasi Tujuan</label>
-                                                <input value="{{ $kuitansi->lokasi_tujuan }}" required name="lokasi_tujuan" type="text" class="form-control">
+                                                <input value="{{ $kuitansi->lokasi_tujuan }}" required
+                                                    name="lokasi_tujuan" type="text" class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Jenis Angkutan</label>
-                                                <input value="{{ $kuitansi->jenis_angkutan }}" required name="jenis_angkutan" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $kuitansi->jenis_angkutan }}" required
+                                                    name="jenis_angkutan" type="text" class="form-control">
                                             </div>
                                         </div>
 
@@ -208,13 +212,15 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nomor Bukti</label>
-                                                <input value="{{ $kuitansi->no_bukti }}" required name="no_bukti" type="text" class="form-control">
+                                                <input value="{{ $kuitansi->no_bukti }}" required name="no_bukti"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nomor MAK</label>
-                                                <input value="{{ $kuitansi->no_MAK }}" required name="no_MAK" type="text" class="form-control">
+                                                <input value="{{ $kuitansi->no_MAK }}" required name="no_MAK"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -230,32 +236,33 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya Pergi (Rp. )</label>
-                                                    <input value="{{ $kuitansi->biaya_pergi }}" name="biaya_pergi" id="biaya_pergi" type="text"
-                                                        class="form-control currency">
+                                                    <input value="{{ $kuitansi->biaya_pergi }}" name="biaya_pergi"
+                                                        id="biaya_pergi" type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya Pulang (Rp. )</label>
-                                                    <input value="{{ $kuitansi->biaya_pulang }}" name="biaya_pulang" id="biaya_pulang" type="text"
-                                                        class="form-control currency">
+                                                    <input value="{{ $kuitansi->biaya_pulang }}" name="biaya_pulang"
+                                                        id="biaya_pulang" type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Jumlah Biaya (Rp. )</label>
-                                                    <input value="{{ $kuitansi->total_pp }}" readonly required name="jumlah_biaya" id="jumlah_biaya_tiket"
-                                                        type="text" class="form-control currency">
+                                                    <input value="{{ $kuitansi->total_pp }}" readonly required
+                                                        name="jumlah_biaya" id="jumlah_biaya_tiket" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Tax / Pajak Bandara (Rp. ) (Opsional)</label>
-                                                    <input value="{{ $kuitansi->pajak_bandara }}" name="pajak_bandara" id="pajak_bandara"
-                                                        placeholder="diisi jika ada" type="text"
+                                                    <input value="{{ $kuitansi->pajak_bandara }}" name="pajak_bandara"
+                                                        id="pajak_bandara" placeholder="diisi jika ada" type="text"
                                                         class="form-control currency">
                                                 </div>
                                             </div>
@@ -275,23 +282,24 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya (Rp. )</label>
-                                                    <input value="{{ $kuitansi->biaya_asal }}" name="biaya_asal" id="biaya_asal" type="text"
-                                                        class="form-control currency">
+                                                    <input value="{{ $kuitansi->biaya_asal }}" name="biaya_asal"
+                                                        id="biaya_asal" type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Biaya Bea Jarak (Rp. )</label>
-                                                    <input value="{{ $kuitansi->bea_jarak }}" name="bea_jarak" id="bea_jarak" type="text"
-                                                        class="form-control currency">
+                                                    <input value="{{ $kuitansi->bea_jarak }}" name="bea_jarak"
+                                                        id="bea_jarak" type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Tujuan (Rp. )</label>
-                                                    <input value="{{ $kuitansi->biaya_tujuan }}" name="tujuan" id="tujuan" placeholder="" type="text"
+                                                    <input value="{{ $kuitansi->biaya_tujuan }}" name="tujuan"
+                                                        id="tujuan" placeholder="" type="text"
                                                         class="form-control currency">
                                                 </div>
                                             </div>
@@ -299,8 +307,9 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Jumlah Biaya Transport</label>
-                                                    <input value="{{ $kuitansi->total_transport }}" readonly required name="total_transport" id="total_transport"
-                                                        placeholder="" type="text" class="form-control currency">
+                                                    <input value="{{ $kuitansi->total_transport }}" readonly required
+                                                        name="total_transport" id="total_transport" placeholder=""
+                                                        type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -315,7 +324,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Penginapan (Rp. )</label>
-                                                    <input value="{{ $kuitansi->biaya_penginapan }}" name="biaya_penginapan" id="biaya_penginapan" type="text"
+                                                    <input value="{{ $kuitansi->biaya_penginapan }}"
+                                                        name="biaya_penginapan" id="biaya_penginapan" type="text"
                                                         class="form-control currency">
                                                     <div class="form-group mt-2">
                                                         <div class="custom-switches-stacked mt-2">
@@ -329,13 +339,15 @@
                                                         </div>
 
                                                         <label>Jumlah Bill</label>
-                                                        <input value="{{ $kuitansi->bill_malam }}" required name="bill_penginapan" id="bill_penginapan"
-                                                            type="text" value="0" class="form-control currency">
+                                                        <input value="{{ $kuitansi->bill_malam }}" required
+                                                            name="bill_penginapan" id="bill_penginapan" type="text"
+                                                            value="0" class="form-control currency">
 
 
                                                         <div class="form-group mt-3">
                                                             <label>Jumlah Malam Menginap (otomatis)</label>
-                                                            <input value="{{ $kuitansi->jumlah_malam }}" readonly name="jumlah_nginap" id="jumlah_nginap" type="text"
+                                                            <input value="{{ $kuitansi->jumlah_malam }}" readonly
+                                                                name="jumlah_nginap" id="jumlah_nginap" type="text"
                                                                 class="form-control ">
                                                         </div>
                                                     </div>
@@ -345,8 +357,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Uang Harian (Rp. )</label>
-                                                    <input value="{{ $kuitansi->uang_harian }}" name="uang_harian" id="uang_harian" type="text"
-                                                        class="form-control currency">
+                                                    <input value="{{ $kuitansi->uang_harian }}" name="uang_harian"
+                                                        id="uang_harian" type="text" class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -355,8 +367,9 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Potongan</label>
-                                                    <input value="{{ $kuitansi->potongan }}" name="potongan" id="potongan" placeholder="diisi jika ada"
-                                                        type="text" class="form-control currency">
+                                                    <input value="{{ $kuitansi->potongan }}" name="potongan"
+                                                        id="potongan" placeholder="diisi jika ada" type="text"
+                                                        class="form-control currency">
                                                 </div>
                                             </div>
 
@@ -368,8 +381,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Biaya Penginapan (Rp. )</label>
-                                                <input value="{{ $kuitansi->total_penginapan }}" readonly required name="total_penginapan" id="total_penginapan"
-                                                    type="text" class="form-control currency">
+                                                <input value="{{ $kuitansi->total_penginapan }}" readonly required
+                                                    name="total_penginapan" id="total_penginapan" type="text"
+                                                    class="form-control currency">
 
 
                                             </div>
@@ -378,16 +392,17 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Biaya Harian (Rp. )</label>
-                                                <input value="{{ $kuitansi->total_harian }}" readonly required name="biaya_harian" id="biaya_harian"
-                                                    type="text" class="form-control currency">
+                                                <input value="{{ $kuitansi->total_harian }}" readonly required
+                                                    name="biaya_harian" id="biaya_harian" type="text"
+                                                    class="form-control currency">
                                             </div>
                                         </div>
 
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jumlah Hari</label>
-                                                <input value="{{ $kuitansi->jumlah_hari }}" name="jumlah_hari" id="jumlah_hari" type="text"
-                                                    class="form-control ">
+                                                <input value="{{ $kuitansi->jumlah_hari }}" name="jumlah_hari"
+                                                    id="jumlah_hari" type="text" class="form-control ">
                                             </div>
                                         </div>
 
@@ -399,9 +414,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Jumlah Uang Diterima</label>
-                                                <input value="{{ $kuitansi->total_terima }}" readonly required name="jumlah_biaya_diterima"
-                                                    id="jumlah_biaya_diterima" placeholder="" type="text"
-                                                    class="form-control currency">
+                                                <input value="{{ $kuitansi->total_terima }}" readonly required
+                                                    name="jumlah_biaya_diterima" id="jumlah_biaya_diterima"
+                                                    placeholder="" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                     </div>
@@ -663,6 +678,12 @@
                     } else {
                         bill_penginapan.val(0); // Set nilai 0 jika tidak aktif
                     }
+                    // Initialize calculations
+                    calculateTiket();
+                    calculateTransport();
+                    calculatePenginapan();
+                    calculateHarian();
+                    calculateTotalBiaya();
                 });
 
                 // Calculation functions

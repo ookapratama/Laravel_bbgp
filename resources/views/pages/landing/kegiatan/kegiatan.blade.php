@@ -42,26 +42,39 @@
                             $tgl_kegiatan = strftime('%d %B', strtotime($v->tgl_kegiatan));
                             $tgl_selesai = strftime('%d %B %Y', strtotime($v->tgl_selesai));
                             ?>
-                            <option value="{{ $v->id }}">
-                                {{ $v->nama_kegiatan }} (
+                            <option value="{{ $v->id }}" data-nama-kegiatan="{{ $v->nama_kegiatan }}"
+                                data-tgl-kegiatan="{{ $tgl_kegiatan }}" data-tgl-selesai="{{ $tgl_selesai }}"
+                                data-tempat="{{ $v->tempat_kegiatan }}" data-deskripsi="{{ $v->deskripsi_kegiatan }}"
+                                data-mulai="{{ $v->jam_mulai }}" data-selesai="{{ $v->jam_selesai }}">
+
+                                {{ $v->nama_kegiatan }}
+                                {{-- (
                                 {{ $tgl_kegiatan }} -
                                 {{ $tgl_selesai }}
-                                ) di {{ $v->tempat_kegiatan }}
+                                ) di {{ $v->tempat_kegiatan }} --}}
                             </option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-6 mb-4 text-right">
-                    {{-- <div id="btnGroup">
-                                  <button id="btnPrintPeserta" class="btn btn-primary"><i
-                                          class="fas fa-print mr-2"></i>Print Absensi Peserta</button>
-                                  <button id="btnPrintRegisPeserta" class="btn btn-primary"><i
-                                          class="fas fa-print mr-2"></i>Print Absensi Registrasi Peserta</button>
-                                  <button id="btnPrintPanitia" class="btn btn-info"><i
-                                          class="fas fa-print mr-2"></i>Print Absensi Panitia</button>
-                                  <button id="btnPrintNarsum" class="btn btn-warning"><i
-                                          class="fas fa-print mr-2"></i>Print Absensi Narasumber</button>
-                              </div> --}}
+                <div id="allRincian">
+                    <div class="col-md mb-4 ">
+
+                        <h4>Kegiatan <span id="rincianKegiatan"></span></h4>
+                        <p>Tanggal Kegiatan : <span id="rincianTgl"></span></p>
+                        <p>Jam Kegiatan : <span id="rincianJam"></span></p>
+                        <p>Lokasi Kegiatan : <span id="rincianLokasi"></span></p>
+                        <p>Keterangan Kegiatan : <span id="rincianKeterangan"></span></p>
+                        {{-- <div id="btnGroup">
+                                      <button id="btnPrintPeserta" class="btn btn-primary"><i
+                                              class="fas fa-print mr-2"></i>Print Absensi Peserta</button>
+                                      <button id="btnPrintRegisPeserta" class="btn btn-primary"><i
+                                              class="fas fa-print mr-2"></i>Print Absensi Registrasi Peserta</button>
+                                      <button id="btnPrintPanitia" class="btn btn-info"><i
+                                              class="fas fa-print mr-2"></i>Print Absensi Panitia</button>
+                                      <button id="btnPrintNarsum" class="btn btn-warning"><i
+                                              class="fas fa-print mr-2"></i>Print Absensi Narasumber</button>
+                                  </div> --}}
+                    </div>
                 </div>
             </div>
 
@@ -138,8 +151,25 @@
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 
         <script>
+            function formatTanggalIndo(dateStr) {
+                const options = {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                };
+                const date = new Date(dateStr);
+                return date.toLocaleDateString('id-ID', options);
+            }
+
+            function formatJamMenit(timeStr) {
+                const time = new Date('1970-01-01T' + timeStr + 'Z');
+                return time.getUTCHours().toString().padStart(2, '0') + ':' + time.getUTCMinutes()
+                    .toString().padStart(2, '0');
+            }
+
             $(document).ready(function() {
                 $('#btnGroup').hide(); // Menyembunyikan semua tombol saat tidak ada kegiatan dipilih
+                $('#allRincian').hide();
 
                 $('#daftarKegiatan').select2({
                     width: 'resolve' // need to override the changed default
@@ -150,6 +180,8 @@
                     let textKegiatan = $(this).find('option:selected');
                     console.log(kegiatanId);
                     if (kegiatanId === '') {
+                        $('#allRincian').hide();
+
                         $('#searchSection').hide();
                         $('#showKegiatan').hide();
                         $('#title-kegiatan').text('Pilih Kegiatan terlebih dahulu');
@@ -160,6 +192,8 @@
                     // Menampilkan judul kegiatan
                     $('#title-kegiatan').text(`Kegiatan ${textKegiatan.text()}`);
                     $('#searchSection').show();
+                    $('#allRincian').show();
+
                     $('#showKegiatan').hide(); // Sembunyikan tabel saat memilih kegiatan baru
 
                     // Ambil status keikutsertaan dari kegiatan yang dipilih
@@ -186,6 +220,34 @@
                             alert('Error fetching kegiatan status.');
                         }
                     });
+
+
+
+
+                    var selectedOption = $(this).find('option:selected');
+                    var namaKegiatan = selectedOption.data('nama-kegiatan');
+                    var tglKegiatan = selectedOption.data('tgl-kegiatan');
+                    var tglSelesai = selectedOption.data('tgl-selesai');
+                    var tempat = selectedOption.data('tempat');
+                    var deskripsi = selectedOption.data('deskripsi');
+                    var mulai = selectedOption.data('mulai');
+                    var selesai = selectedOption.data('selesai');
+                    console.log(mulai);
+
+                    if (namaKegiatan && tglKegiatan && tglSelesai && tempat) {
+                        console.log(namaKegiatan);
+                        $('#rincianKegiatan').html(`${namaKegiatan}`);
+                         $('#rincianTgl').html(`${tglKegiatan} - ${tglSelesai}`);
+                $('#rincianJam').html(`${formatJamMenit(mulai)} - ${formatJamMenit(selesai)} WITA`);
+                        $('#rincianLokasi').html(`${tempat}`);
+                        $('#rincianKeterangan').html(`${namaKegiatan}`);
+                    } else {
+                        $('#rincianKegiatan').html('');
+                        $('#rincianTgl').html('');
+                        $('#rincianJam').html('');
+                        $('#rincianLokasi').html('');
+                        $('#rincianKeterangan').html('');
+                    }
                 });
 
                 $('#searchForm').on('submit', function(e) {
@@ -373,6 +435,10 @@
                             alert('Error fetching kegiatan status.');
                         }
                     });
+
+
+
+
                 });
 
 
