@@ -77,22 +77,24 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th>Nama</th>
+                                                <th style="width: 200px">Nama</th>
+                                                <th style="width: 150px">NIK</th>
+                                                <th style="width: 150px">NIP</th>
                                                 <th>Jabatan</th>
-                                                <th>NIK</th>
-                                                <th>NIP</th>
                                                 <th>Penugasan</th>
-                                                <th>Action</th>
+                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($dataPpnpn as $i => $data)
+                                            @foreach ($datas['dataPenugasanPpnpn'] as $i => $data)
+                                            {{-- {{ dd($data) }} --}}
+
                                                 <tr data-type="ppnpn">
                                                     <td>{{ ++$i }}</td>
-                                                    <td>{{ $data->nama ?? '' }}</td>
-                                                    <td>{{ $data->jabatan ?? '' }}</td>
-                                                    <td>{{ $data->nik ?? '' }}</td>
+                                                    <td>{{ $data->nama_lengkap ?? '' }}</td>
+                                                    <td>{{ $data->no_ktp ?? '' }}</td>
                                                     <td>{{ $data->nip ?? '' }}</td>
+                                                    <td>{{ $data->jabatan ?? '' }}</td>
                                                     <td>
                                                         <button class="btn btn-success my-2" data-nama="{{ $data->nama }}"
                                                             data-id="{{ $data->id }}" data-nik="{{ $data->nik }}"
@@ -112,14 +114,17 @@
                                                         {{-- <a href="{{ route('internal.create.lokakarya', $data->id) }}"
                                                             class="btn btn-info my-2">Penugasan Lokakarya</a> --}}
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
+
                                                         <a href="{{ route('internal.edit.ppnpn', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
                                                         <button onclick="deleteData({{ $data->id }}, 'ppnpn')"
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
-                                                    </td>
+                                                        
+                                                    </td> --}}
+
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -143,7 +148,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($datas['dataPegawai'] as $i => $data)
+                                            @foreach ($datas['dataPenugasanPegawai'] as $i => $data)
                                                 <tr data-type="bbgp">
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data->nama_lengkap }}</td>
@@ -270,9 +275,9 @@
             // Event yang dijalankan saat modal muncul
             $('#modalPenugasan').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget); // Button yang membuka modal
-                var nik = button.data('nik'); // Ambil data-nik dari tombol
+                var nik = button.data('id'); // Ambil data-nik dari tombol
                 var nama = button.data('nama'); // Ambil data-nama dari tombol
-                var lihatLink = "{{ route('internal.index.pegawai', ':nik') }}".replace(':nik', nik);
+                var lihatLink = "{{ route('internal.index.pegawai', ':id') }}".replace(':id', nik);
                 var tambahLink = "{{ route('internal.create.pegawai', ':id') }}".replace(':id', button.data('id'));
 
                 // Update href dari link di dalam modal
@@ -299,11 +304,11 @@
             // Event yang dijalankan saat modal muncul
             $('#modalPpnpn').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget); // Button yang membuka modal
-                var nik = button.data('nik'); // Ambil data-nik dari tombol
+                var nik = button.data('id'); // Ambil data-nik dari tombol
                 var nama = button.data('nama'); // Ambil data-nama dari tombol
                 var id = button.data('id'); // Ambil data-id dari tombol
 
-                var lihatLink = "{{ route('internal.index.ppnpn', ':nik') }}".replace(':nik', nik);
+                var lihatLink = "{{ route('internal.index.ppnpn', ':id') }}".replace(':id', nik);
                 var tambahLink = "{{ route('internal.create.ppnpn', ':id') }}".replace(':id', id);
 
                 // Update href dari link di dalam modal

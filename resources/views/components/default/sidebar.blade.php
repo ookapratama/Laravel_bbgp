@@ -123,7 +123,6 @@
                         <span>Data Artikel</span>
                     </a>
                 </li>
-
             @endif
 
             @if (Session('role') == 'pegawai')
@@ -161,7 +160,7 @@
                 </li> --}}
             {{-- @endif --}}
 
-            
+
 
 
         </ul>

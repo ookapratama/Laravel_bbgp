@@ -36,6 +36,7 @@ class Guru extends Model
         'jenis_jabatan',
         'kategori_jabatan',
         'tugas_jabatan',
+        'latar_jabatan',
         'jenis_bank',
         'is_verif',
     ];

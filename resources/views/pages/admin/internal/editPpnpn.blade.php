@@ -25,21 +25,21 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nama</label>
-                                                <input readonly required value="{{ $penugasan->pegawai->nama }}" name="nama"
+                                                <input readonly required value="{{ $penugasan->nama }}" name="nama"
                                                     type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input readonly required value="{{ $penugasan->pegawai->nip }}" id="nip"
+                                                <input readonly required value="{{ $penugasan->nip }}" id="nip"
                                                     name="nip" type="number" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input readonly required value="{{ $penugasan->pegawai->nik }}" id="nik"
+                                                <input readonly required value="{{ $penugasan->nik }}" id="nik"
                                                     name="nik" type="number" class="form-control">
                                             </div>
                                         </div>
@@ -48,7 +48,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Jabatan</label>
-                                            <input readonly required value="{{ $penugasan->pegawai->jabatan }}" name="jabatan"
+                                            <input readonly required value="{{ $penugasan->jabatan }}" name="jabatan"
                                                 type="text" class="form-control">
                                         </div>
 
@@ -66,7 +66,7 @@
                                                 <option value="">-- Pilih kabupaten/kota --</option>
                                                 @foreach ($datas['kota'] as $v)
                                                     <option value="{{ $v->name }}"
-                                                        {{ $penugasan->kabupaten == $v->name ? 'selected' : '' }}>
+                                                        {{ $penugasan->kota == $v->name ? 'selected' : '' }}>
                                                         {{ $v->name }}</option>
                                                 @endforeach
                                             </select>

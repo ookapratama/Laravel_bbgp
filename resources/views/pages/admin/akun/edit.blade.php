@@ -64,13 +64,13 @@
                                                 <select name="role" required placeholder="Masukkan Akun"
                                                     class="form-control">
                                                     <option value="">-- Pilih Role Akun --</option>
-                                                    <option value="admin">admin</option>
-                                                    <option value="kepala">kepala</option>
-                                                    <option value="superadmin">superadmin</option>
-                                                    <option value="tenaga pendidik">tenaga pendidik</option>
-                                                    <option value="tenaga kependidikan">tenaga kependidikan</option>
-                                                    <option value="stakeholder">stakeholder</option>
-                                                    <option value="pegawai">pegawai</option>
+                                                    <option {{ $datas->role == 'admin' ? 'selected' : '' }} value="admin">admin</option>
+                                                    <option {{ $datas->role == 'kepala' ? 'selected' : '' }} value="kepala">Kepala Balai</option>
+                                                    <option {{ $datas->role == 'superadmin' ? 'selected' : '' }} value="superadmin">superadmin</option>
+                                                    <option {{ $datas->role == 'tenaga pendidik' ? 'selected' : '' }} value="tenaga pendidik">tenaga pendidik</option>
+                                                    <option {{ $datas->role == 'tenaga kependidikan' ? 'selected' : '' }} value="tenaga kependidikan">tenaga kependidikan</option>
+                                                    <option {{ $datas->role == 'stakeholder' ? 'selected' : '' }} value="stakeholder">stakeholder</option>
+                                                    <option {{ $datas->role == 'pegawai' ? 'selected' : '' }} value="pegawai">Pegawai BBGP</option>
                                                 </select>
                                             </div>
                                         </div>

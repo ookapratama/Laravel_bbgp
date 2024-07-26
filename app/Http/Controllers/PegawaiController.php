@@ -23,7 +23,7 @@ class PegawaiController extends Controller
     public function index()
     {
 
-        $data = Pegawai::orderBy('id', 'DESC')->get();
+        $data = Pegawai::orderBy('id', 'DESC')->orderBy('is_verif', 'desc')->get();
         return view('pages.admin.pegawai.index', ['menu' => 'pegawai', 'datas' => $data]);
     }
 
@@ -50,6 +50,8 @@ class PegawaiController extends Controller
             // 's_jabTugas' => ['GP (Guru Penggerak)', 'PP (Pengajar Praktik)', 'Fasil (Fasilitator)', 'Instruktur'],
 
         );
+
+
         return view('pages.admin.pegawai.create', ['menu' => 'pegawai', 'datas' => $datas]);
     }
 
@@ -69,6 +71,10 @@ class PegawaiController extends Controller
 
         // $foto->move($destinationPath, $nameFoto);
         // $fileUrl = asset('upload/pegawai/' . $nameFoto);
+        // dd($r);
+        if ($r['jenis_pegawai'] == 'PPNPN') {
+            $r['golongan'] = '';
+        }
 
         $r['pas_foto'] = '';
         $username = strtolower(str_replace(' ', '_', $r['nama_lengkap']));
@@ -149,6 +155,11 @@ class PegawaiController extends Controller
         //     $r['pas_foto'] = $nameFoto;
         // } else {
         // }
+
+        if ($r['jenis_pegawai'] == 'PPNPN') {
+            $r['golongan'] = '';
+        }
+
         $r['pas_foto'] = '';
         // $r['is_verif'] = 'belum';
         // dd($r);

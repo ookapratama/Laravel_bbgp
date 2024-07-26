@@ -47,7 +47,7 @@ class GuruController extends Controller
             's_jabTugas' => ['GP (Guru Penggerak)', 'PP (Pengajar Praktik)', 'Fasil (Fasilitator)', 'Instruktur'],
 
         );
-        $data = Guru::orderBy('id', 'DESC')->get();
+        $data = Guru::orderBy('id', 'DESC')->orderBy('is_verif', 'desc')->get();
         // dd($data);
         return view('pages.admin.guru.index', ['menu' => 'guru', 'datas' => $data, 'status' => $datas]);
     }

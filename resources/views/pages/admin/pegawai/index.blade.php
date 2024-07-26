@@ -25,22 +25,23 @@
                                     Tambah Data Pegawai BBGP
                                 </a>
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-temp">
+                                    <table class="table table-striped" id="table-temp1">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">
                                                     #
                                                 </th>
-                                                <th style="width: 200px">Nama Lengkap</th>
+                                                <th style="width: 400px">Nama Lengkap</th>
                                                 {{-- <th>Email</th> --}}
+                                                <th>Golongan</th>
                                                 <th>Nomor KTP</th>
+                                                <th>NIP</th>
                                                 {{-- <th>Tempat, Tanggal Lahir</th> --}}
                                                 {{-- <th>Alamat Rumah</th> --}}
                                                 {{-- <th>Jenis Kelamin</th> --}}
-                                                <th style="width: 200px">Jabatan</th>
+                                                <th>Jabatan</th>
                                                 {{-- <th>Agama</th> --}}
-                                                <th>Pendidikan Terakhir</th>
-                                                <th>Kabupaten/Kota</th>
+                                                <th>Pegawai</th>
                                                 {{-- <th>Satuan Pendidikan</th> --}}
                                                 {{-- <th>Nomor Aktif</th> --}}
                                                 {{-- <th>No Rekening</th> --}}
@@ -57,14 +58,15 @@
 
                                                     <td>{{ $data->nama_lengkap }}</td>
                                                     {{-- <td>{{ $data->email }} </td> --}}
+                                                    <td>{{ $data->golongan == null ? 'Tidak ada' : $data->golongan }}</td>
                                                     <td>{{ $data->no_ktp }}</td>
+                                                    <td>{{ $data->nip }}</td>
                                                     {{-- <td>{{ $data->tempat_lahir . ', ' . $data->tgl_lahir }}</td> --}}
                                                     {{-- <td>{{ $data->alamat_rumah }}</td> --}}
                                                     {{-- <td>{{ $data->gender }}</td> --}}
                                                     <td>{{ $data->jabatan }}</td>
+                                                    <td>{{ $data->jenis_pegawai }}</td>
                                                     {{-- <td>{{ $data->agama }}</td> --}}
-                                                    <td>{{ $data->pendidikan }}</td>
-                                                    <td>{{ $data->kabupaten }}</td>
                                                     {{-- <td>
                                                         {{ $data->satuan_pendidikan }}
                                                     </td> --}}
@@ -88,10 +90,10 @@
                                                                 onclick="verifikasi({{ $data->id }}, 'pegawai', '{{ $data->is_verif }}')">Verifikasi</a>
                                                         @endif
 
-                                                        <button class="btn btn-info"
+                                                        {{-- <button class="btn btn-info"
                                                             onclick="showDetail( {{ $data->id }} )">
                                                             <i class="fas fa-info"></i>
-                                                        </button>
+                                                        </button> --}}
 
                                                         <a href="{{ route('pegawai.edit', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
@@ -144,6 +146,14 @@
         <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
         <!-- Page Specific JS File -->
+
+        <script>
+            $(document).ready(function() {
+                const table = $('#table-temp1').DataTable({
+
+                });
+            })
+        </script>
 
         <script>
             function showDetail(pesertaId) {

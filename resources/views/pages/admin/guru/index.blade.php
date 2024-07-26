@@ -105,6 +105,16 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
+                                            <label>Latar Jabatan</label>
+                                            <select name="jabLatar" class="form-control" id="jabLatar">
+                                                <option value="">-- Pilih Latar Jabatan --</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
                                             <label>Jenis Tugas</label>
                                             <select name="jabTugas" class="form-control" id="jabTugas">
                                                 <option value="">-- Pilih Tugas Jabatan --</option>
@@ -139,6 +149,7 @@
                                                 <th>Jabatan </th>
                                                 <th>Kategori Jabatan </th>
                                                 <th>Tugas Jabatan </th>
+                                                <th>Latar Jabatan </th>
                                                 {{-- <th style="width: 200px">NPSN Sekolah</th> --}}
                                                 {{-- <th>Asal Kabupaten/Kota</th> --}}
                                                 {{-- <th>Satuan Pendidikan</th>
@@ -173,6 +184,7 @@
                                                     <td>{{ $data->jenis_jabatan }}</td>
                                                     <td>{{ $data->kategori_jabatan }}</td>
                                                     <td>{{ $data->tugas_jabatan ?? '-' }}</td>
+                                                    <td>{{ $data->latar_jabatan ?? 'tidak ada' }}</td>
                                                     {{-- <td>{{ $data->npsn_sekolah }} <br>
                                                         {{ $data->sekolah->nama_sekolah ?? '' }}</td> --}}
                                                     {{-- <td>{{ $data->kabupaten }}</td> --}}

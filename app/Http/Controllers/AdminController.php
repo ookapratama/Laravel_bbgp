@@ -16,89 +16,111 @@ class AdminController extends Controller
      */
     public function index()
     {
+
+        // tenaga pendidik
+        $tenaga_pendidik = array(
+            'guruGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Guru')->where('kategori_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+            'guruTGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Guru')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+            'guruPP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Guru')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'PP (Pengajar Praktik)')->get()->count(),
+            'guruFasil' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Guru')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'Fasil (Fasilitator)')->get()->count(),
+            'guruInstruktur' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Guru')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'Instruktur')->get()->count(),
+            'guruNonGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Guru')->where('kategori_jabatan', 'NoN GP (Guru Penggerak)')->get()->count(),
+
+            'konselorGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Konselor')->where('kategori_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+            'konselorTGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Konselor')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+            'konselorPP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Konselor')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'PP (Pengajar Praktik)')->get()->count(),
+            'konselorFasil' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Konselor')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'Fasil (Fasilitator)')->get()->count(),
+            'konselorInstruktur' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Konselor')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'Instruktur')->get()->count(),
+            'konselorNonGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Konselor')->where('kategori_jabatan', 'NoN GP (Guru Penggerak)')->get()->count(),
+
+            'dosen' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Dosen')->get()->count(),
+            'tutor' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Tutor')->get()->count(),
+            'fasilitator' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Fasilitator')->get()->count(),
+            'pamong' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Pamong Belajar')->get()->count(),
+            'widya' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Widya Iswara')->get()->count(),
+            'instruktur' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Pendidik')->where('jenis_jabatan', 'Instruktur')->get()->count(),
+
+
+
+
+        );
+
+        $tenaga_kependidik = array(
+            'pengawasGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+
+            'pengawasLGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Sertifikat GP (Guru Penggerak)')->get()->count(),
+
+            'pengawasLDC' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Diklat Cawas')->get()->count(),
+
+            'pengawasL' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Lainnya')->get()->count(),
+
+
+            'pengawasTGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+            'pengawasPP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'PP (Pengajar Praktik)')->get()->count(),
+            'pengawasFasil' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'Fasil (Fasilitator)')->get()->count(),
+            'pengawasInstruktur' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'Instruktur')->get()->count(),
+
+            'pengawasNonGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'NoN GP (Guru Penggerak)')->get()->count(),
+
+            'kepsekGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pengawas')->where('kategori_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+
+            'kepsekLGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Sertifikat GP (Guru Penggerak)')->get()->count(),
+
+            'kepsekLDC' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Diklat Cawas')->get()->count(),
+
+            'kepsekL' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Lainnya')->get()->count(),
+
+
+            'kepsekTGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+            'kepsekPP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'PP (Pengajar Praktik)')->get()->count(),
+            'kepsekFasil' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'Fasil (Fasilitator)')->get()->count(),
+            'kepsekInstruktur' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('tugas_jabatan', 'Instruktur')->get()->count(),
+
+            'kepsekNonGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'NoN GP (Guru Penggerak)')->get()->count(),
+
+            'tata_usaha' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Tata Usaha')->get()->count(),
+            'pendidik' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pendidik')->get()->count(),
+            'laboran' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Laboran')->get()->count(),
+            'pustakawan' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Pustakawan')->get()->count(),
+
+
+
+        );
+
+        $stakeholder = array(
+            'kpl_dinas' => Guru::select('id')->where('eksternal_jabatan', 'Stakeholder')->where('jenis_jabatan', 'Kepala Dinas')->get()->count(),
+            'kpl_bidang' => Guru::select('id')->where('eksternal_jabatan', 'Stakeholder')->where('jenis_jabatan', 'Kepala Bidang')->get()->count(),
+            'kpl_seksi' => Guru::select('id')->where('eksternal_jabatan', 'Stakeholder')->where('jenis_jabatan', 'Kepala Seksi')->get()->count(),
+            'staff' => Guru::select('id')->where('eksternal_jabatan', 'Stakeholder')->where('jenis_jabatan', 'Staff')->get()->count(),
+            'pemerhati' => Guru::select('id')->where('eksternal_jabatan', 'Stakeholder')->where('jenis_jabatan', 'Pemerhati Pendidikan')->get()->count(),
+            'pers' => Guru::select('id')->where('eksternal_jabatan', 'Stakeholder')->where('jenis_jabatan', 'Pers')->get()->count(),
+        );
+
+        // dd($tenaga_kependidik);
+
         $datas = array(
-            'guruGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')->where('jenis_jabatan', 'Guru')->get()->count(),
-            'konselorGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')->where('jenis_jabatan', 'Konselor')->get()->count(),
-            'pengawasGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')->where('jenis_jabatan', 'Pengawas')->get()->count(),
-
-            'kepsekGP' => Guru::where('tugas_jabatan', 'GP (Guru Penggerak)')
-                ->where('jenis_jabatan', 'Kepala Sekolah')->get()->count(),
-
-            'kepsekSertifGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak))')->
-                where('jenis_jabatan', 'Kepala Sekolah')->
-                where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
-
-            'kepsekCakep' => Guru::where('kategori_jabatan', 'Diklat Cakep')
-                ->where('jenis_jabatan', 'Kepala Sekolah')
-                ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
-
-            'kepsekLainGP' => Guru::where('kategori_jabatan', 'Diklat Cakep')->where('jenis_jabatan', 'Kepala Sekolah')
-                ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
-
-
-            'pengawasCawas' => Guru::where('kategori_jabatan', 'Diklat Cawas')
-                ->where('jenis_jabatan', 'Pengawas')
-                ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
-
-            'pengawasSertifGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
-                ->where('jenis_jabatan', 'Pengawas')
-                ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
-
-            'pengawasLainGP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
-                ->where('jenis_jabatan', 'Pengawas')
-                ->where('tugas_jabatan', 'GP (Guru Penggerak)')->get()->count(),
-
-            'guruPP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
-                ->where('jenis_jabatan', 'Guru')
-                ->where('tugas_jabatan', 'PP (Pengajar Praktik)')->get()->count(),
-
-            'guruFasil' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
-                ->where('jenis_jabatan', 'Guru')
-                ->where('tugas_jabatan', 'Fasil (Fasilitator)')->get()->count(),
-
-            'guruInstruktur' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')
-                ->where('jenis_jabatan', 'Guru')
-                ->where('tugas_jabatan', 'Instruktur')->get()->count(),
+            'tenaga_pendidik' => $tenaga_pendidik,
+            'tenaga_kependidik' => $tenaga_kependidik,
+            'stakeholder' => $stakeholder,
 
             // 'jadwalLokakarya' => Internal::where('jenis', 'Penugasan Lokakarya')->get(),
 
         );
-        // dd($datas['jadwalLokakarya']);
+        // dd($datas);
 
         return view('pages.admin.dashboard.index', ['menu' => 'dashboard', 'datas' => $datas]);
     }
 
     public function jadwal()
     {
-        // Ambil jadwal dari Internal
-        $jadwalLokakarya = Internal::select('jenis','deskripsi','kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
-            ->where('jenis', 'Pendamping Lokakarya')
+        // Ambil jadwal dari Internal dengan tiga jenis yang disebutkan
+        $jadwalInternal = Internal::select('kota','jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
+            ->whereIn('jenis', ['Pendamping Lokakarya', 'Penugasan BBGP', 'Penugasan PPNPN'])
             ->get();
 
-        // Ambil jadwal dari InternalPpnpn dengan relasi ke PegawaiPpnpn
-        $jadwalPpnpn = InternalPpnpn::with('pegawai:id,nama')
-            ->select('deskripsi','kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'id_pegawai')
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'kegiatan' => $item->kegiatan,
-                    'tgl_kegiatan' => $item->tgl_kegiatan,
-                    'tgl_selesai_kegiatan' => $item->tgl_selesai_kegiatan,
-                    'nama' => $item->pegawai->nama,
-                ];
-            });
-
-        // Ambil jadwal dari Lokakarya (misalkan ini adalah tabel lain)
-        $jadwalInternal = Internal::select('jenis','deskripsi','kegiatan as kegiatan', 'tgl_kegiatan', 'jam_mulai', 'jam_selesai', 'tgl_selesai_kegiatan', 'nama')
-            ->get();
-
-        // Gabungkan jadwal menggunakan collect() untuk mengonversi ke koleksi
-        $combinedJadwal = collect($jadwalLokakarya)
-            ->merge($jadwalPpnpn)
-            ->merge($jadwalInternal);
-        // dd($combinedJadwal);
+        // Mengembalikan response dalam bentuk JSON
         return response()->json([
-            'jadwal' => $combinedJadwal
+            'jadwal' => $jadwalInternal
         ]);
     }
 
@@ -139,7 +161,7 @@ class AdminController extends Controller
     public function getJadwalByPegawai($nik)
     {
         // Ambil jadwal dari Internal hanya untuk pegawai dengan NIK tertentu
-        $jadwalLokakarya = Internal::select('jenis','deskripsi','kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
+        $jadwalLokakarya = Internal::select('jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
             ->where('jenis', 'Pendamping Lokakarya')
             ->where('nik', $nik)
             ->get();
@@ -150,7 +172,7 @@ class AdminController extends Controller
                 $query->where('nik', $nik);
             }
         ])
-            ->select('deskripsi','kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'id_pegawai')
+            ->select('deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'id_pegawai')
             ->get()
             ->filter(function ($item) {
                 return $item->pegawai !== null; // Pastikan pegawai terkait ada
@@ -167,7 +189,7 @@ class AdminController extends Controller
             });
 
         // Ambil jadwal dari Lokakarya (misalkan ini adalah tabel lain) hanya untuk pegawai dengan NIK tertentu
-        $jadwalInternal = Internal::select('jenis','deskripsi','kegiatan as kegiatan', 'tgl_kegiatan', 'jam_mulai', 'jam_selesai', 'tgl_selesai_kegiatan', 'nama')
+        $jadwalInternal = Internal::select('jenis', 'deskripsi', 'kegiatan as kegiatan', 'tgl_kegiatan', 'jam_mulai', 'jam_selesai', 'tgl_selesai_kegiatan', 'nama')
             ->where('nik', $nik)
             ->get();
 

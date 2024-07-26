@@ -25,8 +25,8 @@ class InternalController extends Controller
         $kota = Kabupaten::get();
         $data = array(
 
-            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->get(),
-            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
+            'dataPenugasanPegawai' => Pegawai::where('jenis_pegawai', 'BBGP')->get(),
+            'dataPenugasanPpnpn' => Pegawai::where('jenis_pegawai', 'PPNPN')->get(),
             'dataPegawai' => Pegawai::get(),
         );
         $dataPendamping = Pendamping::get();
@@ -312,8 +312,8 @@ class InternalController extends Controller
     {
         // dd($nik);
         $datas = array(
-            'pegawaiPpnpn' => PegawaiPpnpn::where('nik', $nik)->get(),
-            'penugasanPpnpn' => InternalPpnpn::get(),
+            'pegawaiPpnpn' => Pegawai::where('id', $nik)->first(),
+            'penugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
             'getNama' => PegawaiPpnpn::where('nik', $nik)->first(),
             // 'getJenisPpnpn' => InternalPpnpn::where('jenis', 'Penugasan PPNPN')->first(),
             // 'getJenisPpnpn' => InternalPpnpn::where('jenis', 'Penugasan PPNPN')->where('nik', $nik)->first(),
@@ -326,7 +326,7 @@ class InternalController extends Controller
 
     public function createPpnpn($id)
     {
-        $pegawai = PegawaiPpnpn::find($id);
+        $pegawai = Pegawai::find($id);
         $datas = array(
             'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
             'dataPegawai' => Pegawai::get(),
@@ -344,7 +344,7 @@ class InternalController extends Controller
 
         // dd($r->mulai_kegiatan);
         // dd($r->all());
-        // $r = $r->all();
+        $r = $r->all();
 
         // dd($r['mulai_kegiatan']);
         $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
@@ -355,16 +355,17 @@ class InternalController extends Controller
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
 
-        // dd($r->all());
+        // dd($r);
 
-        InternalPpnpn::create($r->all());
+        Internal::create($r);
+        // InternalPpnpn::create($r);
         return redirect()->route('internal.index')->with('message', 'store');
     }
 
     public function editPpnpn($id)
     {
         // $pegawai = PegawaiPpnpn::find($id);
-        $penugasan = InternalPpnpn::where('id', $id)->first();
+        $penugasan = Internal::where('id', $id)->first();
         $datas = array(
             'dataPegawai' => Pegawai::all(),
             'jabatanPegawai' => JabatanPenugasanPegawai::all(),
@@ -385,15 +386,25 @@ class InternalController extends Controller
 
     public function updatePpnpn(Request $r)
     {
-        $pegawai = InternalPpnpn::find($r->id);
+        $pegawai = Internal::find($r->id);
 
         // if (!$pegawai) {
         //     return redirect()->route('internal.index')->with('error', 'Pegawai tidak ditemukan.');
         // }
         // dd($pegawai);
+        $r = $r->all();
 
+        $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
+        $r['tgl_kegiatan'] = $mulai_kegiatan[0];
+        $r['jam_mulai'] = $mulai_kegiatan[1];
+        
+        $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
+        $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
+        $r['jam_selesai'] = $selesai_kegiatan[1];
+        
+        // dd($r);
         // Update data
-        $pegawai->update($r->all());
+        $pegawai->update($r);
 
         return redirect()->route('internal.index')->with('message', 'update');
     }
@@ -402,9 +413,13 @@ class InternalController extends Controller
 
     public function hapusPpnpn($id)
     {
-        $data = InternalPpnpn::find($id);
-        $data->delete();
-        return response()->json($data);
+        $data = Internal::find($id);
+        if ($data) {
+            $data->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
     public function create($jenis)
@@ -562,7 +577,7 @@ class InternalController extends Controller
      */
     public function destroy(string $id)
     {
-
+        dd($id);
         $data = Internal::find($id);
         $data->delete();
         return response()->json($data);

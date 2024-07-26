@@ -13,7 +13,7 @@ class AkunController extends Controller
      */
     public function index()
     {
-        $data = Admin::get();
+        $data = Admin::orderByDesc('id')->get();
         return view('pages.admin.akun.index', ['menu' => 'akun', 'datas' => $data]);
     }
 

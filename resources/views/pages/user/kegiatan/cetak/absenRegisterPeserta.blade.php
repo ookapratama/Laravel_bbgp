@@ -106,8 +106,8 @@
                     <td>{{ $peserta->instansi }} </td>
                     <td>{{ $peserta->golongan }}</td>
                     <td>{{ $peserta->jkl == 'Perempuan' ? 'P' : 'L' }}</td>
-                    <td>{{ $peserta->kelengkapan_peserta_transport }}</td>
-                    <td>{{ $peserta->kelengkapan_peserta_biodata }}</td>
+                    <td></td>
+                    <td></td>
                     <td style="{{ ($key + 1) % 2 == 0 ? 'text-align:right; padding-right: 50%;' : 'text-align:left;' }}" >{{ $key + 1 }}.</td>
                 </tr>
                 @if (($key + 1) % 25 == 0)

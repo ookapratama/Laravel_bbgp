@@ -20,48 +20,54 @@
                         <h4>Data Statistik</h4>
                     </div>
                     <div class="card-body">
+                        <h4>Filter Ketenagaan <span id="title-chart"></span></h4>
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-primary">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                    <div class="card-wrap">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select name="" class="form-control selectric" id="filterKetenagaan">
+                                        <option value="">-- pilih ketenagaan --</option>
+                                        <option value="tenagaPendidik">Tenaga Pendidik</option>
+                                        <option value="tenagaKependidikan">Tenaga Kependidikan</option>
+                                        <option value="stakeholder">Stakeholder</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {{-- tenaga pendidik --}}
+                        <div id="tenagaPendidik">
+
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="card">
                                         <div class="card-header">
-                                            <h4>Guru (GP)</h4>
+                                            <h4>Data Guru</h4>
                                         </div>
                                         <div class="card-body">
-                                            {{ $datas['guruGP'] }}
+                                            <canvas id="guruChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Data Konselor</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="konselorChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-danger">
-                                        <i class="far fa-newspaper"></i>
-                                    </div>
-                                    <div class="card-wrap">
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="card">
                                         <div class="card-header">
-                                            <h4>Konselor GP</h4>
+                                            <h4>Data Lainnya</h4>
                                         </div>
                                         <div class="card-body">
-                                            {{ $datas['konselorGP'] }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-warning">
-                                        <i class="far fa-file"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                            <h4>Pengawas GP</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            {{ $datas['pengawasGP'] }}
+                                            <canvas id="lainChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -69,201 +75,65 @@
 
                         </div>
 
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-primary">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                    <div class="card-wrap">
+
+                        {{-- tenaga kependidik --}}
+                        <div id="tenagaKependidikan">
+
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="card">
                                         <div class="card-header">
-                                            <h4>Kepala Sekolah GP</h4>
+                                            <h4>Data Pengawas</h4>
                                         </div>
                                         <div class="card-body">
-                                            {{ $datas['kepsekGP'] }}
+                                            <canvas id="pengawasChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Data Kepala Sekolah</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="kepalaSekolahChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Data Lainnya (Tenaga Kependidikan)</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="lainTenagaKependidikanChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-danger">
-                                        <i class="far fa-newspaper"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                            <h4>Kepala Sekolah Sertifikat GP</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            {{ $datas['kepsekSertifGP'] }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-warning">
-                                        <i class="far fa-file"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                            <h4>Kepala Sekolah Diklat Cakep</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            {{ $datas['kepsekCakep'] }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-success">
-                                        <i class="fas fa-circle"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                            <h4>Kepala Sekolah Lainnya</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            {{ $datas['kepsekLainGP'] }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
 
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-primary">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                            <h4>Pengawas Diklat Cawas</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            {{ $datas['pengawasCawas'] }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-danger">
-                                        <i class="far fa-newspaper"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                            <h4>Pengawas Sertifikat GP</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            {{ $datas['pengawasSertifGP'] }}
+                        {{-- stakeholder --}}
+                        <div id="stakeholder">
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-warning">
-                                        <i class="far fa-file"></i>
-                                    </div>
-                                    <div class="card-wrap">
+                            <div class="row justify-content-center">
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="card">
                                         <div class="card-header">
-                                            <h4>Pengawas Lainnya</h4>
+                                            <h4>Data Stakeholder</h4>
                                         </div>
                                         <div class="card-body">
-                                            {{ $datas['pengawasLainGP'] }}
-
+                                            <canvas id="stakeholderChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-success">
-                                    <i class="fas fa-circle"></i>
-                                </div>
-                                <div class="card-wrap">
-                                    <div class="card-header">
-                                        <h4>Online Users</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        47
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
+
+
                         </div>
 
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-primary">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                            <h4>Guru Penugasan PP</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            {{ $datas['guruPP'] }}
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-danger">
-                                        <i class="far fa-newspaper"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                            <h4>Guru Penugasan Fasil</h4>
-
-                                        </div>
-                                        <div class="card-body">
-                                            {{ $datas['guruFasil'] }}
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                <div class="card card-statistic-1">
-                                    <div class="card-icon bg-warning">
-                                        <i class="far fa-file"></i>
-                                    </div>
-                                    <div class="card-wrap">
-                                        <div class="card-header">
-                                            <h4>Guru Penugasan Instruktur</h4>
-
-                                        </div>
-                                        <div class="card-body">
-                                            {{ $datas['guruInstruktur'] }}
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-success">
-                                    <i class="fas fa-circle"></i>
-                                </div>
-                                <div class="card-wrap">
-                                    <div class="card-header">
-                                        <h4>Online Users</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        47
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        </div>
                     </div>
                 </div>
 
@@ -334,124 +204,22 @@
 
 
     @push('scripts')
-        <script src="{{ asset('library/simpleweather/jquery.simpleWeather.min.js') }}"></script>
         <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
         <script src="{{ asset('library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
         <script src="{{ asset('library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
         <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
-        <script src="{{ asset('library/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
         <script src="{{ asset('library/fullcalendar/dist/fullcalendar.min.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/id.min.js"></script>
-        <script src="{{ asset('js/page/modules-calendar.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <!-- Page Specific JS File -->
-        <script src="{{ asset('js/page/index-0.js') }}"></script>
-        {{-- <script>
-            $(document).ready(function() {
-
-                let token = $("meta[name='csrf-token']").attr("content");
-                let jadwal = $.ajax({
-                    headers: {
-                        "X-CSRF-TOKEN": token,
-                    },
-                    type: "GET",
-                    url: `/bbgp/public/dashboard/jadwalKegiatan`,
-                    success: function(response) {
-                        // console.log(response);
-                        console.log(response.jadwalLokakarya);
-
-                        var data = [];
-                        response.jadwalLokakarya.forEach(element => {
-                            console.log(element)
-                            data.push({
-                                title: `Kegiatan ${element.kegiatan}`,
-                                start: element.tgl_kegiatan,
-                                end: element.tgl_kegiatan,
-                                backgroundColor: "green",
-                                textColor: '#fff'
-
-                            });
-                        });
-                        // console.log(data)
-                        $("#jadwal").fullCalendar({
-                            height: 'auto',
-                            header: {
-                                left: 'prev,next today',
-                                center: 'title',
-                                right: 'month,agendaWeek,agendaDay,listWeek'
-                            },
-                            editable: true,
-                            // events: [{
-                            //         title: 'Conference',
-                            //         start: '2024-07-9',
-                            //         end: '2024-07-11',
-                            //         // duration: '02:00',
-                            //         // start: '2024-07-06T08:00:00', // Waktu mulai: 9 Juli 2024 pukul 08:00 pagi
-                            //         // end: '2024-07-11T10:00:00'  ,   
-                            //         backgroundColor: "skyblue",
-                            //         borderColor: "#fff",
-                            //         textColor: '#000'
-                            //     },
-
-                            // ]
-                            events: data
-
-                        });
-
-                    },
-                    error: function(error) {
-                        console.error("AJAX Error:", error);
-                        swal("Error", "Ajax Error.", "error");
-                    },
-                });
-
-                console.log(jadwal);
-
-
-                var e = '';
-                console.log(e)
-                var data = [];
-                // e.forEach(element => {
-                //     console.log(element)
-                //     data.push({
-                //         title: `Jam ${element.mulai_212317} \n ${element.selesai_212317}`,
-                //         start: element.periksa_212317,
-                //         end: element.periksa_212317,
-                //         backgroundColor: "green",
-                //         textColor: '#fff'
-
-                //     });
-                // });
-                // console.log(data)
-                // $("#jadwal").fullCalendar({
-                //     height: 'auto',
-                //     header: {
-                //         left: 'prev,next today',
-                //         center: 'title',
-                //         right: 'month,agendaWeek,agendaDay,listWeek'
-                //     },
-                //     editable: true,
-                //     events: [{
-                //             title: 'Conference',
-                //             start: '2024-07-9',
-                //             end: '2024-07-11',
-                //             // duration: '02:00',
-                //             // start: '2024-07-06T08:00:00', // Waktu mulai: 9 Juli 2024 pukul 08:00 pagi
-                //             // end: '2024-07-11T10:00:00'  ,   
-                //             backgroundColor: "skyblue",
-                //             borderColor: "#fff",
-                //             textColor: '#000'
-                //         },
-
-                //     ]
-                //     // events: data
-
-                // });
-            })
-        </script> --}}
 
         <script>
             $(document).ready(function() {
+
+                // $('.has-dropdown').click(function(e) {
+                //     e.preventDefault();
+                //     $(this).next('.dropdown-menu').slideToggle();
+                // });
                 moment.locale('id');
                 let token = $("meta[name='csrf-token']").attr("content");
 
@@ -473,7 +241,7 @@
                             // Generate random color
                             var randomColor = getRandomColor();
                             data.push({
-                                title: `${element.kegiatan ?? '-'}`,
+                                title: `${event.title == '' ? event.jenis : event.title}`,
                                 start: moment(mulai).format(
                                     'YYYY-MM-DDTHH:mm:ss'), // Format in ISO 8601
                                 end: moment(selesai).format(
@@ -488,7 +256,6 @@
                             });
                         });
 
-
                         $("#jadwal").fullCalendar({
                             locale: 'id',
                             height: 'auto',
@@ -500,8 +267,10 @@
                             editable: true,
                             events: data,
                             eventClick: function(event, jsEvent, view) {
+                                console.log(event.title == '' ? event.jenis : event.title);
+
                                 // Set the information in the modal
-                                $("#eventTitle").text(event.title);
+                                $("#eventTitle").text(event.title == '' ? event.jenis : event.title);
                                 $("#eventType").text(event.jenis);
                                 $("#eventNama").text(event.nama);
                                 $("#eventStart").text(event.tgl); // Format in Indonesian
@@ -589,6 +358,44 @@
                     },
                 });
 
+                let tp = $('#tenagaPendidik').hide();
+                let tk = $('#tenagaKependidikan').hide();
+                let stk = $('#stakeholder').hide();
+                let titleChart = $('#title-chart');
+
+                $('#filterKetenagaan').on('change', function() {
+                    let val = $(this).find('option:selected').val();
+
+                    if (val == '') {
+                        titleChart.text('')
+                        tp.hide();
+                        tk.hide();
+                        stk.hide();
+                    } else if (val == 'tenagaPendidik') {
+                        titleChart.text('Tenaga Pendidik')
+
+                        tp.show();
+                        tk.hide();
+                        stk.hide();
+                    } else if (val == 'tenagaKependidikan') {
+                        tp.hide();
+                        titleChart.text('Tenaga Kependidikan')
+
+                        tk.show();
+                        stk.hide();
+                    } else if (val == 'stakeholder') {
+                        titleChart.text('Stakeholder')
+
+                        tp.hide();
+                        tk.hide();
+                        stk.show();
+                    }
+
+
+                });
+
+
+
 
                 // Function to generate random color
                 function getRandomColor() {
@@ -598,6 +405,669 @@
                         color += letters[Math.floor(Math.random() * 16)];
                     }
                     return color;
+                }
+            });
+        </script>
+
+        <script>
+            const tenagaPendidikData = <?= json_encode($datas['tenaga_pendidik']) ?>;
+
+
+
+            // Filter data for 'guru' and 'konselor'
+            const guruLabels = Object.keys(tenagaPendidikData).filter(key => key.includes('guru'));
+            const guruValues = guruLabels.map(key => tenagaPendidikData[key]);
+
+            const konselorLabels = Object.keys(tenagaPendidikData).filter(key => key.includes('konselor'));
+            const konselorValues = konselorLabels.map(key => tenagaPendidikData[key]);
+
+            const otherLabels = Object.keys(tenagaPendidikData).filter(key => !key.includes('guru') && !key.includes(
+                'konselor'));
+            const otherValues = otherLabels.map(key => tenagaPendidikData[key]);
+
+            // Custom label for Data Lainnya
+            const customOtherLabels = otherLabels.map(label => {
+                switch (label) {
+                    case 'dosen':
+                        return 'Dosen';
+                    case 'tutor':
+                        return 'Tutor';
+                    case 'fasilitator':
+                        return 'Fasilitator';
+                    case 'pamong':
+                        return 'Pamong Belajar';
+                    case 'widya':
+                        return 'Widya Iswara';
+                    case 'instruktur':
+                        return 'Instruktur';
+                    default:
+                        return label;
+                }
+            });
+
+            // Custom label for Data Guru
+            const customGuruLabels = guruLabels.map(label => {
+                switch (label) {
+                    case 'guruGP':
+                        return 'Guru Penggerak';
+                    case 'guruTGP':
+                        return 'Guru Penggerak Tugas GP';
+                    case 'guruPP':
+                        return 'Guru Penggerak Tugas Pengajar Praktik';
+                    case 'guruFasil':
+                        return 'Guru Penggerak Tugas Fasilitator';
+                    case 'guruInstruktur':
+                        return 'Guru Penggerak Tugas Instruktur';
+                    case 'guruNonGP':
+                        return 'Guru Non Guru Penggerak';
+                    default:
+                        return label;
+                }
+            });
+
+            // Custom label for Data Konselor
+            const customKonselorLabels = konselorLabels.map(label => {
+                switch (label) {
+                    case 'konselorGP':
+                        return 'Konselor Guru Penggerak';
+                    case 'konselorTGP':
+                        return 'Konselor Guru Penggerak Tugas GP';
+                    case 'konselorPP':
+                        return 'Konselor Guru Penggerak Pengajar Praktik';
+                    case 'konselorFasil':
+                        return 'Konselor Guru Penggerak Fasilitator';
+                    case 'konselorInstruktur':
+                        return 'Konselor Guru Penggerak Instruktur';
+                    case 'konselorNonGP':
+                        return 'Konselor Non Guru Penggerak';
+                    default:
+                        return label;
+                }
+            });
+
+
+
+            // Donut Chart untuk Data Guru
+            const guruCtx = document.getElementById('guruChart').getContext('2d');
+            const guruChart = new Chart(guruCtx, {
+                type: 'pie',
+                data: {
+                    labels: customGuruLabels,
+                    datasets: [{
+                        label: 'Jumlah Guru',
+                        data: guruValues,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                generateLabels: function(chart) {
+                                    return chart.data.labels.map(function(label, i) {
+                                        return {
+                                            text: label,
+                                            fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                            strokeStyle: chart.data.datasets[0].borderColor[i],
+                                            lineWidth: chart.data.datasets[0].borderWidth,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Donut Chart untuk Data Konselor
+            const konselorCtx = document.getElementById('konselorChart').getContext('2d');
+            const konselorChart = new Chart(konselorCtx, {
+                type: 'pie',
+                data: {
+                    labels: customKonselorLabels,
+                    datasets: [{
+                        label: 'Jumlah Konselor',
+                        data: konselorValues,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                generateLabels: function(chart) {
+                                    return chart.data.labels.map(function(label, i) {
+                                        return {
+                                            text: label,
+                                            fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                            strokeStyle: chart.data.datasets[0].borderColor[i],
+                                            lineWidth: chart.data.datasets[0].borderWidth,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Donut Chart untuk Data Lainnya
+            const lainCtx = document.getElementById('lainChart').getContext('2d');
+            const lainChart = new Chart(lainCtx, {
+                type: 'pie',
+                data: {
+                    labels: customOtherLabels,
+                    datasets: [{
+                        label: 'Jumlah Lainnya',
+                        data: otherValues,
+                        backgroundColor: [
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 99, 132, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                generateLabels: function(chart) {
+                                    return chart.data.labels.map(function(label, i) {
+                                        return {
+                                            text: label,
+                                            fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                            strokeStyle: chart.data.datasets[0].borderColor[i],
+                                            lineWidth: chart.data.datasets[0].borderWidth,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
+
+
+
+            // Tenaga Kependidikan
+            const tenagaKependidikData = <?= json_encode($datas['tenaga_kependidik']) ?>;
+
+            console.log(tenagaKependidikData);
+            // Filter data for Pengawas, Kepala Sekolah, and other Tenaga Kependidikan
+            const pengawasLabels = Object.keys(tenagaKependidikData).filter(key => key.includes('pengawas'));
+            const pengawasValues = pengawasLabels.map(key => tenagaKependidikData[key]);
+
+            const kepalaSekolahLabels = Object.keys(tenagaKependidikData).filter(key => key.includes('kepsek'));
+            const kepalaSekolahValues = kepalaSekolahLabels.map(key => tenagaKependidikData[key]);
+
+            const otherKependidikanLabels = Object.keys(tenagaKependidikData).filter(key => !key.includes('pengawas') && !key
+                .includes('kepsek'));
+            const otherKependidikanValues = otherKependidikanLabels.map(key => tenagaKependidikData[key]);
+
+            // Custom label for Data Lainnya
+            const customOtherKependidikLabels = otherKependidikanLabels.map(label => {
+                switch (label) {
+                    case 'tata_usaha':
+                        return 'Tata Usaha';
+                    case 'pendidik':
+                        return 'Pendidik';
+                    case 'laboran':
+                        return 'Laboran';
+                    case 'pustakawan':
+                        return 'Pustakawan';
+
+                    default:
+                        return label;
+                }
+            });
+
+            // Custom label for Data Lainnya
+            const customPengawasLabels = pengawasLabels.map(label => {
+                switch (label) {
+                    case 'pengawasGP':
+                        return 'Pengawas Guru Penggerak';
+                    case 'pengawasLGP':
+                        return 'Pengawas Guru Penggerak Latar Sertifikat GP';
+                    case 'pengawasLDC':
+                        return 'Pengawas Guru Penggerak Latar Diklat Cawas';
+                    case 'pengawasL':
+                        return 'Pengawas Guru Penggerak Latar Lainnya';
+                    case 'pengawasTGP':
+                        return 'Pengawas Guru Penggerak Tugas GP';
+                    case 'pengawasPP':
+                        return 'Pengawas Guru Penggerak Tugas Pengajar Praktik';
+                    case 'pengawasFasil':
+                        return 'Pengawas Guru Penggerak Tugas Fasilitator';
+                    case 'pengawasInstruktur':
+                        return 'Pengawas Guru Penggerak Tugas Instruktur';
+                    case 'pengawasNonGP':
+                        return 'Pengawas Non Guru Penggerak';
+                    default:
+                        return label;
+                }
+            });
+
+            // Custom label for Data Lainnya
+            const customkepalaSekolahLabels = kepalaSekolahLabels.map(label => {
+                switch (label) {
+                    case 'kepsekGP':
+                        return 'Kepala Sekolah Guru Penggerak';
+                    case 'kepsekLGP':
+                        return 'Kepala Sekolah Guru Penggerak Latar Sertifikat GP';
+                    case 'kepsekLDC':
+                        return 'Kepala Sekolah Guru Penggerak Latar Diklat Cakep';
+                    case 'kepsekL':
+                        return 'Kepala Sekolah Guru Penggerak Latar Lainnya';
+                    case 'kepsekTGP':
+                        return 'Kepala Sekolah Guru Penggerak Tugas GP';
+                    case 'kepsekPP':
+                        return 'Kepala Sekolah Guru Penggerak Tugas Pengajar Praktik';
+                    case 'kepsekFasil':
+                        return 'Kepala Sekolah Guru Penggerak Tugas Fasilitator';
+                    case 'kepsekInstruktur':
+                        return 'Kepala Sekolah Guru Penggerak Tugas Instruktur';
+                    case 'kepsekNonGP':
+                        return 'Kepala Sekolah Non Guru Penggerak';
+                    default:
+                        return label;
+                }
+            });
+
+
+
+            // Create charts for Tenaga Kependidikan
+            new Chart(document.getElementById('pengawasChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: customPengawasLabels,
+                    datasets: [{
+                        label: 'Jumlah Pengawas',
+                        data: pengawasValues,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                generateLabels: function(chart) {
+                                    return chart.data.labels.map(function(label, i) {
+                                        return {
+                                            text: label,
+                                            fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                            strokeStyle: chart.data.datasets[0].borderColor[i],
+                                            lineWidth: chart.data.datasets[0].borderWidth,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('kepalaSekolahChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: customkepalaSekolahLabels,
+                    datasets: [{
+                        label: 'Jumlah Kepala Sekolah',
+                        data: kepalaSekolahValues,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)'
+
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                generateLabels: function(chart) {
+                                    return chart.data.labels.map(function(label, i) {
+                                        return {
+                                            text: label,
+                                            fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                            strokeStyle: chart.data.datasets[0].borderColor[i],
+                                            lineWidth: chart.data.datasets[0].borderWidth,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('lainTenagaKependidikanChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: customOtherKependidikLabels,
+                    datasets: [{
+                        label: 'Jumlah Tenaga Kependidikan Lainnya',
+                        data: otherKependidikanValues,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                generateLabels: function(chart) {
+                                    return chart.data.labels.map(function(label, i) {
+                                        return {
+                                            text: label,
+                                            fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                            strokeStyle: chart.data.datasets[0].borderColor[i],
+                                            lineWidth: chart.data.datasets[0].borderWidth,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+
+            // Stakeholder
+            const stakeholderData = <?= json_encode($datas['stakeholder']) ?>;
+            console.log(stakeholderData);
+
+            const otherStakeholderLabels = Object.keys(stakeholderData).filter(key => !key.includes('pengawas') && !key
+                .includes('kepsek'));
+            const otherStakeholderValues = otherStakeholderLabels.map(key => stakeholderData[key]);
+
+            // Custom label for Data Lainnya
+            const customOtherStakeholderLabels = otherStakeholderLabels.map(label => {
+                switch (label) {
+                    case 'kpl_bidang':
+                        return 'Kepala Bidang';
+                    case 'kpl_dinas':
+                        return 'Kepala Dinas';
+                    case 'kpl_seksi':
+                        return 'Kepala Seksi';
+                    case 'pemerhati':
+                        return 'Pemerhati Pendidik';
+                    case 'pers':
+                        return 'Pers';
+                    case 'staff':
+                        return 'Staff';
+
+                    default:
+                        return label;
+                }
+            });
+
+            // Create chart for Stakeholder
+            new Chart(document.getElementById('stakeholderChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: customOtherStakeholderLabels,
+                    datasets: [{
+                        label: 'Jumlah Stakeholder',
+                        data: otherStakeholderValues,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                generateLabels: function(chart) {
+                                    return chart.data.labels.map(function(label, i) {
+                                        return {
+                                            text: label,
+                                            fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                            strokeStyle: chart.data.datasets[0].borderColor[i],
+                                            lineWidth: chart.data.datasets[0].borderWidth,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
                 }
             });
         </script>

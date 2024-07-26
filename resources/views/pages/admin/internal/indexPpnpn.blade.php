@@ -145,8 +145,8 @@
                                                 <tr data-type="bbgp">
                                                     {{-- {{dd($data)}} --}}
                                                     <td>{{ ++$i }}</td>
-                                                    <td>{{ $data->pegawai->nama }} </td>
-                                                    <td>{{ $data->pegawai->jabatan }}</td>
+                                                    <td>{{ $data->nama }} </td>
+                                                    <td>{{ $data->jabatan }}</td>
                                                     <td>{{ $data->kegiatan }}</td>
                                                     <td>{{ $data->tempat }}</td>
                                                     <td>{{ $data->tgl_kegiatan }} - {{ $data->tgl_selesai_kegiatan }}</td>
@@ -279,7 +279,6 @@
             });
         </script>
 
-
         <script>
             // swal btn hps data
             const deleteDataPpnpn = (id, tabel) => {
@@ -288,7 +287,7 @@
 
                 swal({
                     title: "Apakah anda yakin?",
-                    text: "",
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -299,22 +298,22 @@
                                 "X-CSRF-TOKEN": token,
                             },
                             type: "POST",
-                            url: `/bbgp/public/dashboard/${tabel}/hapusPpnpn/${id}`,
+                            url: `{{ route('internal.hapus.ppnpn', ['tabel' => 'PLACEHOLDER_TABEL', 'id' => 'PLACEHOLDER_ID']) }}`
+                                .replace('PLACEHOLDER_TABEL', tabel)
+                                .replace('PLACEHOLDER_ID', id),
                             success: function(response) {
                                 console.log(response);
-                                if (response) {
-                                    swal("Terhapus", "Data telah dihapus", "success").then(
-                                        () => {
-                                            location.reload();
-                                        }
-                                    );
+                                if (response.success) {
+                                    swal("Terhapus", "Data telah dihapus", "success").then(() => {
+                                        location.reload();
+                                    });
                                 } else {
-                                    swal("Error", "Failed to delete data.", "error");
+                                    swal("Error", "Gagal menghapus data.", "error");
                                 }
                             },
                             error: function(error) {
                                 console.error("AJAX Error:", error);
-                                swal("Error", "Ajax Error.", "error");
+                                swal("Error", "Terjadi kesalahan saat menghapus data.", "error");
                             },
                         });
                     }

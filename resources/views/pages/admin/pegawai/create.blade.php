@@ -26,9 +26,13 @@
                                                 <label>Nama Lengkap</label>
                                                 <input name="nama_lengkap" type="text" class="form-control">
                                             </div>
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label>Email</label>
                                                 <input name="email" type="text" class="form-control">
+                                            </div> --}}
+                                            <div class="form-group">
+                                                <label>NIP</label>
+                                                <input name="nip" type="number" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -36,27 +40,28 @@
                                                 <label>Nomor KTP</label>
                                                 <input name="no_ktp" type="number" class="form-control">
                                             </div>
-                                            <div class="form-group">
-                                                <label>NIP</label>
-                                                <input name="nip" type="number" class="form-control">
+
+                                            <div class="col-md">
+                                                <div class="form-group">
+                                                    <label>Status Kepegawaian</label>
+                                                    <select required name="jenis_pegawai" class="form-control selectric">
+                                                        <option value="">-- Pilih status kepegawaian --</option>
+                                                        <option value="BBGP">Pegawai BBGP</option>
+                                                        <option value="PPNPN">Pegawai PPNPN</option>
+                                                        {{-- @foreach ($datas['s_kepegawaian'] as $v)
+                                                            <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                        @endforeach --}}
+
+                                                    </select>
+                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    {{-- <div class="row">
 
-                                        <div class="col-md">
-                                            <div class="form-group">
-                                                <label>Status Kepegawaian</label>
-                                                <select required name="status_kepegawaian" class="form-control select2">
-                                                    <option value="">-- Pilih status kepegawaian --</option>
-                                                    @foreach ($datas['s_kepegawaian'] as $v)
-                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
-                                                    @endforeach
-
-                                                </select>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Tempat Lahir</label>
@@ -69,9 +74,9 @@
                                                 <input name="tgl_lahir" type="date" class="form-control">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="row">
+                                    {{-- <div class="row">
 
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -90,10 +95,10 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> --}}
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        {{-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Agama</label>
                                                 <select required name="agama" class="form-control ">
@@ -117,8 +122,10 @@
 
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
+                                        </div> --}}
+
+
+                                        {{-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Satuan Pendidikan</label>
                                                 <select required name="satuan_pendidikan" class="form-control select2">
@@ -141,7 +148,7 @@
 
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
 
@@ -166,7 +173,7 @@
 
 
 
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nomor Handphone</label>
                                                 <input name="no_hp" type="number" class="form-control">
@@ -177,14 +184,26 @@
                                                 <label>Nomor Whatsapp</label>
                                                 <input name="no_wa" type="number" class="form-control">
                                             </div>
+                                        </div> --}}
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Golongan (kosongkan jika tidak ada)</label>
+                                                <select required name="golongan" class="form-control select2">
+                                                    <option value="">-- Pilih Golongan --</option>
+                                                    @foreach ($datas['golongan'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Golongan</label>
-                                                <select required name="golongan" class="form-control select2">
-                                                    <option value="">-- Pilih Golongan --</option>
-                                                    @foreach ($datas['golongan'] as $v)
+                                                <label>Jabatan</label>
+                                                <select required name="jabatan" class="form-control select2">
+                                                    <option value="">-- Pilih Jabatan --</option>
+                                                    @foreach ($datas['jabatan'] as $v)
                                                         <option value="{{ $v->name }}">{{ $v->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -197,7 +216,7 @@
                                     <div class="row">
 
 
-                                        <div class="col-md-3">
+                                        {{-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Bank</label>
                                                 <select name="jenis_bank" class="form-control" id="">
@@ -217,19 +236,9 @@
                                                 <label>Nomor Rekening</label>
                                                 <input type="number" name="no_rek" class="form-control">
                                             </div>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Jabatan</label>
-                                                <select required name="jabatan" class="form-control select2">
-                                                    <option value="">-- Pilih Jabatan --</option>
-                                                    @foreach ($datas['jabatan'] as $v)
-                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+
 
                                         {{-- <div class="col-md-5">
                                             <div class="form-group">
@@ -249,6 +258,7 @@
                                     <button class="btn btn-secondary mx-1" type="reset">Reset</button>
                                     <a href="{{ route('pegawai.index') }}" class="btn btn-warning">Kembali</a>
                                 </div>
+                            </div>
                         </form>
                     </div>
 

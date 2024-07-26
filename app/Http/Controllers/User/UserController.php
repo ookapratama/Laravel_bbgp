@@ -227,7 +227,9 @@ class UserController extends Controller
         $r['jenis_jabatan'] = $r['jabJenis'] ?? '';
         $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
         $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
+        $r['latar_jabatan'] = $r['jabLatar'] ?? '';
         $r['is_verif'] = 'belum';
+        // dd($r);
 
 
 
@@ -278,5 +280,15 @@ class UserController extends Controller
            'data' => $peserta,
            'sekolah' => $peserta->sekolah
         ]);
+    }
+
+    public function statistik() {
+        $datas = array(
+            'GP' => Guru::select('id')->where('kategori_jabatan', 'GP (Guru Penggerak)')->get()->count(),
+            'nonGP' => Guru::select('id')->where('kategori_jabatan', 'NoN GP (Guru Penggerak)')->get()->count(),
+        );
+        // dd($datas);
+        return view('pages.landing.statistik.index', ['menu' => 'statistik', 'datas' => $datas]);
+
     }
 }

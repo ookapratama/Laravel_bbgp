@@ -18,6 +18,7 @@ class Pegawai extends Model
         'tgl_lahir',
         'gender',
         'jabatan',
+        'jenis_pegawai',
         'status',
         'status_kepegawaian',
         'agama',

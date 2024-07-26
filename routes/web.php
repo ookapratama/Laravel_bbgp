@@ -52,6 +52,7 @@ Route::group(
         Route::get('/pegawai/detailLoka', 'UserController@getPenugasanDetailLoka')->name('user.pegawai.detail.loka');
         Route::get('/pegawai/detailEksternal', 'UserController@getPenugasanDetailEksternal')->name('user.pegawai.detail.eksternal');
         
+        Route::get('/statistik', 'UserController@statistik')->name('user.statistik');
 
         Route::get('/eksternal', 'UserController@guru')->name('user.guru');
         Route::get('/eksternal/form/{jenis}', 'UserController@form_guru')->name('user.form_guru');
@@ -194,7 +195,7 @@ Route::group(
 
 
                 // Penugasan PPNPN
-                Route::get('/indexPpnpn/{nik}', 'InternalController@indexPpnpn')->name('internal.index.ppnpn');
+                Route::get('/indexPpnpn/{id}', 'InternalController@indexPpnpn')->name('internal.index.ppnpn');
                 Route::get('/createPpnp/{id}', 'InternalController@createPpnpn')->name('internal.create.ppnpn');
                 Route::post('/storePpnp', 'InternalController@storePpnpn')->name('internal.store.ppnpn');
                 Route::get('/editPpnp/{id}', 'InternalController@editPpnpn')->name('internal.edit.ppnpn');

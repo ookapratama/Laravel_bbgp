@@ -25,7 +25,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Nama</label>
-                                                <input readonly required value="{{ $pegawai->nama }}" name="nama"
+                                                <input  required value="{{ $pegawai->nama_lengkap }}" name="nama"
                                                     type="text" class="form-control">
                                                 {{-- <select name="nama" class="form-control select2" id="selectNama">
                                                     <option value="">-- Pilih Pegawai --</option>
@@ -41,7 +41,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input readonly required value="{{ $pegawai->nip }}" id="nip"
+                                                <input  required value="{{ $pegawai->nip }}" id="nip"
                                                     name="nip" type="number" class="form-control">
                                             </div>
 
@@ -49,7 +49,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input readonly required value="{{ $pegawai->nik }}" id="nik"
+                                                <input  required value="{{ $pegawai->no_ktp }}" id="nik"
                                                     name="nik" type="number" class="form-control">
                                             </div>
 
@@ -80,7 +80,7 @@
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <label>Kabupaten / Kota</label>
-                                            <select required name="kabupaten" class="form-control select2">
+                                            <select required name="kota" class="form-control select2">
                                                 <option value="">-- Pilih kabupaten/kota --</option>
                                                 @foreach ($datas['kota'] as $v)
                                                     <option value="{{ $v->name }}">{{ $v->name }}</option>
