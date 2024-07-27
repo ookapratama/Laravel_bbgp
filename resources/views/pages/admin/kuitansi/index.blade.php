@@ -73,20 +73,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-9">
-                                        <h6>Print semua data dari :</h6>
-                                         <a href="#" id="printAllKuitansi" class="btn btn-info"><i
-                                                class="fas fa-print mr-2"></i>Kuitansi </a>
-
-                                        <a href="#" id="printAllRill" class="btn btn-info"><i
-                                                class="fas fa-print mr-2"></i>Pengeluaran Rill Peserta </a>
-
-                                        <a href="#" id="printAllPJ" class="btn btn-info"><i
-                                                class="fas fa-print mr-2"></i>PJ Mutlak Peserta</a>
-
-                                        <a href="#" id="printAllAmplop" class="btn btn-info"><i
-                                                class="fas fa-print mr-2"></i>Amplop Peserta</a>
-                                    </div>
+                                   
                                     {{-- <div class="col-md-3">
 
                                         <div class="form-group">
@@ -103,8 +90,26 @@
 
                                 </div>
 
+                                
+
                                 <div id="btnGroup">
-                                    <div class="row mb-3">
+                                <div class="row">
+                                <div class="col-md-9">
+                                        <h6>Print semua data dari :</h6>
+                                         <a href="#" id="printAllKuitansi" class="btn btn-info"><i
+                                                class="fas fa-print mr-2"></i>Kuitansi </a>
+
+                                        <a href="#" id="printAllRill" class="btn btn-info"><i
+                                                class="fas fa-print mr-2"></i>Pengeluaran Rill Peserta </a>
+
+                                        <a href="#" id="printAllPJ" class="btn btn-info"><i
+                                                class="fas fa-print mr-2"></i>PJ Mutlak Peserta</a>
+
+                                        <a href="#" id="printAllAmplop" class="btn btn-info"><i
+                                                class="fas fa-print mr-2"></i>Amplop Peserta</a>
+                                    </div>
+                                </div>
+                                    <div class="row mb-3 mt-2">
                                         <div class="col-md-5">
                                             {{-- <h6>Print Permintaan</h6> --}}
 

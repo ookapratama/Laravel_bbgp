@@ -101,12 +101,13 @@
 </head>
 
 <body>
+    
+    @foreach ($datas as $i => $data)
     <?php
     set_time_limit(300); // 300 seconds or 5 minutes
     ini_set('memory_limit', '256M');
     
     ?>
-    @foreach ($datas as $i => $data)
         <?php
         setlocale(LC_ALL, 'IND');
         
