@@ -378,11 +378,13 @@ class KuitansiController extends Controller
         }
 
         try {
-            $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakPJmutlakAll', compact('datas'));
+            $pdf = Pdf::loadView('pages.admin.kuitansi.cetakAll.cetakPjMutlakAll', compact('datas'));
             $pdf->setPaper('a4', 'portrait');
             return $pdf->stream('data_PJ_mutlak.pdf');
+        } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
+            return response()->json(['error' => 'View file not found.'], 500);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to generate PDF.'], 500);
+            return response()->json(['error' => 'Failed to generate PDF. ' . $e->getMessage()], 500);
         }
     }
 

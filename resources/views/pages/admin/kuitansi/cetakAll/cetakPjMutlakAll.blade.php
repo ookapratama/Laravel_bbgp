@@ -116,6 +116,7 @@
         $tgl_mulai = strftime('%d', strtotime($data->peserta->kegiatan->tgl_kegiatan));
         $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai));
         ?>
+        
         <div class="container">
             <img style="position: absolute; left: 20px; top: 20px; width: 110px;"
                 src="{{ public_path('img_template/iconbbgp.png') }}" alt="Logo Kiri">
