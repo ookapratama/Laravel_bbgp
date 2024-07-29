@@ -334,10 +334,13 @@ class InternalController extends Controller
     //  PEgawai PPNPN
     public function indexPpnpn($nik)
     {
+        $pegawai = Pegawai::where('no_ktp', $nik)->first() ?? Pegawai::find($nik);
+
+        // dd($pegawai);
         // dd($nik);
         $datas = array(
             'pegawaiPpnpn' => Pegawai::where('id', $nik)->first(),
-            'penugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
+            'penugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $pegawai->no_ktp)->get(),
             'getNama' => PegawaiPpnpn::where('nik', $nik)->first(),
             // 'getJenisPpnpn' => InternalPpnpn::where('jenis', 'Penugasan PPNPN')->first(),
             // 'getJenisPpnpn' => InternalPpnpn::where('jenis', 'Penugasan PPNPN')->where('nik', $nik)->first(),
