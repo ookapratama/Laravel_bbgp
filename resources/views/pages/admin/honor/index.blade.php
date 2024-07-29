@@ -47,7 +47,7 @@
                                         <div class="form-group">
                                             <select name="jabatanKegiatan" class="form-control" id="jabatanKegiatan">
                                                 <option value="">-- pilih status keikutsertaan --</option>
-                                                <option value="peserta">Peserta</option>
+                                                {{-- <option value="peserta">Peserta</option> --}}
 
                                                 <option value="panitia">Panitia</option>
                                                 <option value="narasumber">Narasumber</option>
@@ -136,9 +136,9 @@
                                                     <td>{{ $data['golongan'] ?? '' }}</td>
                                                     <td>{{ $data['instansi'] ?? '' }}</td>
                                                     <td>{{ $data['jp_realisasi'] }}.0</td>
-                                                    <td>{{ $data['jumlah'] ?? 0 }} </td>
-                                                    <td>{{ $data['jumlah_honor'] ?? 0 }}</td>
-                                                    <td>{{ $data['total'] ?? 0 }}</td>
+                                                    <td class="text-nowrap">{{ $data['jumlah'] ?? 0 }} </td>
+                                                    <td class="text-nowrap">{{ $data['jumlah_honor'] ?? 0 }}</td>
+                                                    <td class="text-nowrap"> {{ $data['total'] ?? 0 }}</td>
                                                     <td>
                                                         <a href="{{ route('honor.edit', $data['id']) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>

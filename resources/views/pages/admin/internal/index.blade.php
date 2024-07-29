@@ -39,7 +39,13 @@
                                                         <i class="fas fa-layer-group mr-1"></i>Penugasan Pegawai PPNPN
                                                     </a>
                                                 </div>
+                                                <div class="">
+                                                    <a href="#" id="statusPegawai" class="btn btn-info btn-lg  p-2">
+                                                        <i class="fas fa-search mr-1"></i>Lihat Status Pegawai BBGP
+                                                    </a>
+                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -56,18 +62,96 @@
                                 </div> --}}
 
                                 <!-- Filter Data Internal -->
-                                {{-- <h5>Filter Data Internal</h5>
-                                <div class="row">
-                                    <div class="col-md-4 mb-4">
-                                        <label>Rekapan Data</label>
-                                        <select required name="rekapan" class="form-control select2" id="rekapan">
-                                            <option value="">-- Filter By Rekapan Data --</option>
-                                            <option value="Penugasan Pegawai">Penugasan Pegawai</option>
-                                            <option value="Penugasan PPNPN">Penugasan PPNPN</option>
-                                            <option value="Pendamping Lokakarya">Pendamping Lokakarya</option>
-                                        </select>
+                                {{-- Area PEgawai --}}
+                                <div id="filter-pegawai">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-4">
+                                            <label>Penugasan Pegawai</label>
+                                            <select required name="rekapan" class="form-control selectric" id="rekapan">
+                                                <option value="">-- Silahkan Pilih --</option>
+                                                <option value="Status Pegawai">Table Status Pegawai</option>
+                                                <option value="Penugasan Pegawai">Table Penugasan Pegawai</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div> --}}
+
+                                </div>
+
+
+                                <div id="status-pegawai">
+                                    <h4>Lihat status pegawai di Bulan <span id="getBulanTahun"></span></h4>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <h6>Cari Nama</h6>
+                                                <input type="text" class="form-control" placeholder="masukkan nama"
+                                                    name="namaStatus" id="namaStatus">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <h6>Filter Status</h6>
+                                                <select name="filterStatus" class="form-control selectric"
+                                                    id="filterStatus">
+                                                    <option value="">-- Pilih StatusPegawai --</option>
+                                                    <option value="BBGP">Pegawai BBGP</option>
+                                                    <option value="PPNPN">Pegawai PPNPN</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <!-- Status Pegawai -->
+                                                    <!-- Navigation Buttons -->
+                                                    <div class="d-flex justify-content-between mb-3">
+                                                        <button id="prevMonth" class="btn btn-primary">Previous
+                                                            Month</button>
+                                                        <button id="nextMonth" class="btn btn-primary">Next Month</button>
+                                                    </div>
+
+                                                    <div class="table-responsive">
+                                                        <table class="table table-md table-bordered"
+                                                            style="border: 2px solid #000;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th rowspan="2" class="text-center align-middle"
+                                                                        style="border: 2px solid #000;">#</th>
+                                                                    <th rowspan="2" class="text-center align-middle"
+                                                                        style="border: 2px solid #000;">Nama Lengkap</th>
+                                                                    <th rowspan="2" class="text-center align-middle"
+                                                                        style="border: 2px solid #000;">Status Pegawai</th>
+                                                                    <th id="monthHeader" colspan="31" class="text-center"
+                                                                        style="border: 2px solid #000;">
+                                                                        <span id="getBulanTahunCol"></span>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr id="dateHeader">
+                                                                    <!-- Dates will be injected here -->
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="employeeData">
+                                                                <!-- Employee data will be injected here -->
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div id="pagination" class="mt-3">
+                                                        <!-- Pagination links will be injected here -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
 
                                 <!-- Tables Section -->
                                 <!-- PPNPN -->
@@ -87,8 +171,6 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas['dataPenugasanPpnpn'] as $i => $data)
-                                                {{-- {{ dd($data) }} --}}
-
                                                 <tr data-type="ppnpn">
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data->nama_lengkap ?? '' }}</td>
@@ -96,13 +178,15 @@
                                                     <td>{{ $data->nip ?? '' }}</td>
                                                     <td>{{ $data->jabatan ?? '' }}</td>
                                                     <td>
-                                                        <button class="btn btn-success my-2" data-nama="{{ $data->nama_lengkap }}"
+                                                        <button class="btn btn-success my-2"
+                                                            data-nama="{{ $data->nama_lengkap }}"
                                                             data-id="{{ $data->id }}" data-nik="{{ $data->no_ktp }}"
                                                             data-toggle="modal" data-target="#modalPpnpn">
                                                             Menu Penugasan PPNPN
                                                         </button>
 
-                                                        <button class="btn btn-info my-2" data-nama="{{ $data->nama_lengkap }}"
+                                                        <button class="btn btn-info my-2"
+                                                            data-nama="{{ $data->nama_lengkap }}"
                                                             data-id="{{ $data->id }}" data-nik="{{ $data->no_ktp }}"
                                                             data-toggle="modal" data-target="#modalLokakarya">
                                                             Menu Lokakarya
@@ -148,7 +232,6 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas['dataPenugasanPegawai'] as $i => $data)
-                                                {{-- {{ dd($data) }} --}}
                                                 <tr data-type="bbgp">
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data->nama_lengkap }}</td>
@@ -270,6 +353,9 @@
         <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js"></script>
+
 
         <script>
             // Event yang dijalankan saat modal muncul
@@ -320,13 +406,20 @@
         </script>
 
 
-
         <script type="text/javascript">
             $(document).ready(function() {
 
                 var language = {
                     "sSearch": "Pencarian Data Internal BBGP : ",
                 };
+                var tableStatusPegawai = $('#table-status-pegawai').DataTable({
+                    paging: true,
+                    searching: true,
+                    language: language,
+                    // Add more DataTable options as needed
+                });
+
+
                 // Initialize DataTables for both tables
                 var tablePpnpn = $('#table-ppnpn').DataTable({
                     paging: true,
@@ -345,16 +438,37 @@
 
                 // Initially hide both tables
                 $('.table-internal').hide();
+                $('#status-pegawai').hide();
+
+
+                $('#filter-pegawai').hide();
+
+
+
+                // Show appropriate table based on button click
+                $('#statusPegawai').on('click', function(event) {
+                    event.preventDefault();
+                    $('.table-internal').hide();
+                    // $('#filter-pegawai').show();
+                    $('#status-pegawai').show();
+                    $('#title-text').text('Data Status Pegawai')
+
+                });
 
                 // Show appropriate table based on button click
                 $('#pegawaiBBGP').on('click', function(event) {
                     event.preventDefault();
                     $('.table-internal').hide();
+                    // $('#filter-pegawai').show();
                     $('#table-internal-bbgp').show();
-                    tableBbgp.columns.adjust().draw(); // Adjust column widths on table show
                     $('#title-text').text('Data Penugasan Pegawai')
 
+                    $('#status-pegawai').hide();
+
+
                 });
+
+
 
                 $('#pegawaiPpnp').on('click', function(event) {
                     event.preventDefault();
@@ -362,6 +476,14 @@
                     $('#table-internal-ppnpn').show();
                     tablePpnpn.columns.adjust().draw(); // Adjust column widths on table show
                     $('#title-text').text('Data Penugasan PPNPN')
+
+                    // $('#status-pegawai').hide();
+                    $('#table-internal-bbgp').show();
+                    // $('#filter-pegawai').hide();
+
+                    $('#status-pegawai').hide();
+
+
 
                 });
 
@@ -372,14 +494,6 @@
                     // Hide all tables initially
                     $('.table-internal').hide();
 
-                    // Show the appropriate table based on the selection
-                    if (jenis === 'penugasan-pegawai') {
-                        $('#table-internal-bbgp').show();
-                        tableBbgp.columns.adjust().draw(); // Adjust column widths on table show
-                    } else if (jenis === 'penugasan-ppnpn') {
-                        $('#table-internal-ppnpn').show();
-                        tablePpnpn.columns.adjust().draw(); // Adjust column widths on table show
-                    }
                 });
 
                 // Filter by Nama
@@ -399,6 +513,127 @@
                     tablePpnpn.search('').columns().search('').draw();
                     tableBbgp.search('').columns().search('').draw();
                 });
+
+
+                let year = {{ \Carbon\Carbon::now()->year }};
+                let month = {{ \Carbon\Carbon::now()->month }};
+
+                function loadCalendarData(year, month, page = 1, name = '', status = '') {
+                    $.ajax({
+                        url: "{{ route('internal.getCalendarData') }}",
+                        type: 'GET',
+                        data: {
+                            year: year,
+                            month: month,
+                            page: page,
+                            name: name,
+                            status: status
+                        },
+                        success: function(response) {
+                            moment.locale('id'); // Set locale to Indonesian
+                            let monthName = moment().year(response.year).month(response.month - 1).format(
+                                'MMMM YYYY');
+
+                            $('#calendarTitle').text('Calendar for ' + monthName);
+                            $('#getBulanTahun').text(monthName);
+                            $('#getBulanTahunCol').text(monthName);
+                            $('#monthHeader').attr('colspan', response.dates.length);
+                            $('#dateHeader').empty();
+                            $.each(response.dates, function(index, date) {
+                                $('#dateHeader').append(
+                                    '<th class="text-center" style="border: 2px solid #000;">' +
+                                    date.day + '</th>');
+                            });
+
+                            $('#employeeData').empty();
+                            $.each(response.employees, function(index, employee) {
+                                let row = '<tr>';
+                                row += '<td class="text-center" style="border: 2px solid #000;">' +
+                                    (index + 1) + '</td>';
+                                row += '<td class="text-nowrap" style="border: 2px solid #000;">' +
+                                    employee.name +
+                                    '</td>';
+                                row += '<td style="border: 2px solid #000;">' + employee.status +
+                                    '</td>';
+                                $.each(response.dates, function(index, date) {
+                                    let cellColor = 'white';
+                                    let cellText = '';
+
+                                    $.each(employee.assignments, function(aIndex,
+                                        assignment) {
+                                        let startDate = moment(assignment.start);
+                                        let endDate = moment(assignment.end);
+                                        let currentDate = moment(date.date);
+
+                                        if (currentDate.isBetween(startDate,
+                                                endDate, undefined, '[]')) {
+                                            if (cellColor === 'white') {
+                                                cellColor = 'green';
+                                                cellText = '';
+                                            } else if (cellColor === 'green') {
+                                                cellColor = 'red';
+                                                cellText = '';
+                                            }
+                                        }
+                                    });
+
+                                    row +=
+                                        '<td class="text-center" style="border: 2px solid #000; background-color: ' +
+                                        cellColor + ';">' + cellText + '</td>';
+                                });
+                                row += '</tr>';
+                                $('#employeeData').append(row);
+                            });
+
+                            // Update pagination
+                            $('#pagination').html(response.pagination);
+                        }
+                    });
+                }
+
+                $('#prevMonth').click(function() {
+                    if (month == 1) {
+                        month = 12;
+                        year--;
+                    } else {
+                        month--;
+                    }
+                    loadCalendarData(year, month);
+                });
+
+                $('#nextMonth').click(function() {
+                    if (month == 12) {
+                        month = 1;
+                        year++;
+                    } else {
+                        month++;
+                    }
+                    loadCalendarData(year, month);
+                });
+
+                // Handle pagination click
+                $(document).on('click', '#pagination a', function(e) {
+                    e.preventDefault();
+                    let page = $(this).attr('href').split('page=')[1];
+                    loadCalendarData(year, month, page, $('#namaStatus').val(), $('#filterStatus').val());
+                });
+
+                // Handle name search
+                $('#namaStatus').on('keyup', function() {
+                    loadCalendarData(year, month, 1, $(this).val(), $('#filterStatus').val());
+                });
+
+                // Handle status filter
+                $('#filterStatus').on('change', function() {
+                    var selectedOption = $(this).find('option:selected');
+                    console.log(selectedOption.val())
+                    loadCalendarData(year, month, 1, $('#namaStatus').val(), selectedOption.val());
+                });
+
+                // Load the initial calendar data
+                loadCalendarData(year, month);
+
+
             });
         </script>
     @endpush

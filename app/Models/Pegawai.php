@@ -35,4 +35,9 @@ class Pegawai extends Model
         'golongan',
         'is_verif',
     ];
+
+    public function internals()
+    {
+        return $this->hasMany(Internal::class, 'nik', 'no_ktp');
+    }
 }

@@ -169,6 +169,9 @@ Route::group(
             Route::prefix('internal')->group(function () {
                 Route::get('/', 'InternalController@index')->name('internal.index');
 
+                Route::get('/calendar', 'InternalController@calendar')->name('internal.calendar');
+                Route::get('/getCalendar', 'InternalController@getCalendarData')->name('internal.getCalendarData');
+
                 // untuk tampil berdasar dari id pegawai
                 Route::get('/{id_pegawai}', 'InternalController@show')->name('internal.show');
 

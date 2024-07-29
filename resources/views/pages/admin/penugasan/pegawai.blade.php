@@ -3,6 +3,8 @@
     @push('styles')
         <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+        <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.css') }}">
+
     @endpush
 
     <div class="main-content">
@@ -152,7 +154,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Keterangan Kegiatan</label>
-                                                <textarea class="form-control" required placeholder="Deskripsi Kegiatan yang ditugaskan" name="deskripsi" id="" cols="30" rows="100"></textarea>
+                                                <textarea class="form-control summernote-simple" required placeholder="Deskripsi Kegiatan yang ditugaskan" name="deskripsi" id="" cols="30" rows="100"></textarea>
                                                 {{-- <input required name="deskripsi" type="text" class="form-control"> --}}
                                             </div>
 
@@ -183,6 +185,8 @@
 
     @push('scripts')
         <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+        <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
+
         <script>
             $(document).ready(function() {
                 // Initialize Select2

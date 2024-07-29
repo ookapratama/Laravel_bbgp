@@ -31,4 +31,8 @@ class Internal extends Model
         'hari_3',
         'deskripsi',
     ];
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'nik', 'no_ktp');
+    }
 }

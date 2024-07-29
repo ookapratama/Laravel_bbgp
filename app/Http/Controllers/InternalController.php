@@ -11,6 +11,7 @@ use App\Models\Kabupaten;
 use App\Models\Pegawai;
 use App\Models\PegawaiPpnpn;
 use App\Models\Pendamping;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Svg\Tag\Rect;
 
@@ -154,7 +155,6 @@ class InternalController extends Controller
 
         if (session('role') == 'pegawai') {
             return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'store');
-
         }
 
         return redirect()->route('internal.index')->with('message', 'store');
@@ -215,7 +215,6 @@ class InternalController extends Controller
         // dd( route('pegawai.session('no_ktp')));
         if (session('role') == 'pegawai') {
             return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
-
         }
 
         return redirect()->route('internal.index.lokakarya', $loka->nik)->with('message', 'update');
@@ -325,7 +324,6 @@ class InternalController extends Controller
         // Internal::udpate($r->all());
         if (session('role') == 'pegawai') {
             return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
-
         }
         return redirect()->route('internal.index.pegawai', $find->nik)->with('message', 'update');
     }
@@ -435,7 +433,6 @@ class InternalController extends Controller
 
         if (session('role') == 'pegawai') {
             return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'update');
-
         }
 
         return redirect()->route('internal.index')->with('message', 'update');
@@ -680,5 +677,70 @@ class InternalController extends Controller
         // dd($data);
         // Mengembalikan hasil pencarian
         return $data;
+    }
+
+
+    public function calendar(Request $request)
+    {
+        return view('calendar.index');
+    }
+
+    public function getCalendarData(Request $request)
+    {
+        $year = $request->input('year', Carbon::now()->year);
+        $month = $request->input('month', Carbon::now()->month);
+
+        $name = $request->input('name', '');
+        $status = $request->input('status', '');
+        // dd($status, ' ', $name);
+        $daysInMonth = Carbon::createFromDate($year, $month, 1)->daysInMonth;
+
+        $dates = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $dates[] = [
+                'date' => Carbon::createFromDate($year, $month, $day)->format('Y-m-d'),
+                'day' => $day
+            ];
+        }
+
+        $query = Pegawai::with(['internals' => function ($query) use ($year, $month) {
+            $query->where('jenis', 'Penugasan Pegawai')
+                ->whereYear('tgl_kegiatan', $year)
+                ->whereMonth('tgl_kegiatan', $month);
+        }]);
+
+        if ($name) {
+            $query->where('nama_lengkap', 'LIKE', "%$name%");
+        }
+
+        if ($status) {
+            $query->where('jenis_pegawai', $status);
+        }
+
+        $employees = $query->paginate(7);
+
+        $employeeData = $employees->map(function ($employee) {
+            $assignments = $employee->internals->map(function ($internal) {
+                return [
+                    'start' => $internal->tgl_kegiatan,
+                    'end' => $internal->tgl_selesai_kegiatan
+                ];
+            });
+
+            return [
+                'name' => $employee->nama_lengkap,
+                'status' => $employee->jenis_pegawai,
+                'assignments' => $assignments
+            ];
+        });
+
+        return response()->json([
+            'dates' => $dates,
+            'month' => $month,
+            'year' => $year,
+            'employees' => $employeeData,
+            'monthName' => Carbon::createFromDate($year, $month, 1)->format('F Y'),
+            'pagination' => (string) $employees->links()
+        ]);
     }
 }

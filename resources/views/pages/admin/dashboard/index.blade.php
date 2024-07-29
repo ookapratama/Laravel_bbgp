@@ -7,8 +7,6 @@
         <link rel="stylesheet" href="{{ asset('library/weathericons/css/weather-icons-wind.min.css') }}">
         <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.css') }}">
         <link rel="stylesheet" href="{{ asset('library/fullcalendar/dist/fullcalendar.min.css') }}">
-
-        
     @endpush
 
     <div class="main-content">
@@ -236,7 +234,8 @@
                         var data = [];
 
                         response.jadwal.forEach(element => {
-                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ?? '00:00:00');
+                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ??
+                                '00:00:00');
                             var selesai = element.tgl_selesai_kegiatan + ' ' + (element
                                 .jam_selesai ?? '23:59:59');
 
@@ -278,8 +277,8 @@
                                 $("#eventStart").text(event.tgl); // Format in Indonesian
                                 // $("#eventTime").text(event.jam ? event.jam :
                                 //     "N/A"); // Format in Indonesian
-                                $("#eventDescription").text(event.description ? event
-                                    .description : "Tidak ada deskripsi");
+                                $("#eventDescription").text(event.description ? stripHtml(event
+                                    .description) : "Tidak ada deskripsi");
 
                                 // Show the modal
                                 $("#eventModal").modal('show');
@@ -303,7 +302,8 @@
                         console.log(response);
 
                         response.jadwal.forEach(element => {
-                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ?? '00:00:00');
+                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ??
+                                '00:00:00');
                             var selesai = element.tgl_selesai_kegiatan + ' ' + (element
                                 .jam_selesai ?? '23:59:59');
                             // Generate random color
@@ -348,8 +348,8 @@
                                 $("#eventStart").text(event.tgl); // Format in Indonesian
                                 $("#eventTime").text(event.jam ? event.jam :
                                     "N/A"); // Format in Indonesian
-                                $("#eventDescription").text(event.description ? event
-                                    .description : "Tidak ada deskripsi");
+                                $("#eventDescription").text(event.description ? stripHtml(event
+                                    .description) : "Tidak ada deskripsi");
 
                                 // Show the modal
                                 $("#eventModal").modal('show');
@@ -362,6 +362,12 @@
                         swal("Error", "Ajax Error.", "error");
                     },
                 });
+
+                function stripHtml(html) {
+                    var temporalDivElement = document.createElement("div");
+                    temporalDivElement.innerHTML = html;
+                    return temporalDivElement.textContent || temporalDivElement.innerText || "";
+                }
 
                 let tp = $('#tenagaPendidik').hide();
                 let tk = $('#tenagaKependidikan').hide();
