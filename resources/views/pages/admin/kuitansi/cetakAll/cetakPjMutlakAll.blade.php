@@ -101,12 +101,13 @@
 </head>
 
 <body>
+    
+    @foreach ($datas as $i => $data)
     <?php
     set_time_limit(300); // 300 seconds or 5 minutes
     ini_set('memory_limit', '256M');
     
     ?>
-    @foreach ($datas as $i => $data)
         <?php
         setlocale(LC_ALL, 'IND');
         
@@ -115,6 +116,7 @@
         $tgl_mulai = strftime('%d', strtotime($data->peserta->kegiatan->tgl_kegiatan));
         $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai));
         ?>
+        
         <div class="container">
             <img style="position: absolute; left: 20px; top: 20px; width: 110px;"
                 src="{{ public_path('img_template/iconbbgp.png') }}" alt="Logo Kiri">
