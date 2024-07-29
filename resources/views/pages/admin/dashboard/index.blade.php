@@ -236,9 +236,9 @@
                         var data = [];
 
                         response.jadwal.forEach(element => {
-                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai );
+                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ?? '00:00:00');
                             var selesai = element.tgl_selesai_kegiatan + ' ' + (element
-                                .jam_selesai);
+                                .jam_selesai ?? '23:59:59');
 
                             // Generate random color
                             var randomColor = getRandomColor();
@@ -303,9 +303,9 @@
                         console.log(response);
 
                         response.jadwal.forEach(element => {
-                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai);
+                            var mulai = element.tgl_kegiatan + ' ' + (element.jam_mulai ?? '00:00:00');
                             var selesai = element.tgl_selesai_kegiatan + ' ' + (element
-                                .jam_selesai);
+                                .jam_selesai ?? '23:59:59');
                             // Generate random color
                             var randomColor = getRandomColor();
 
