@@ -8,6 +8,49 @@
             .table-internal {
                 display: none;
             }
+
+            .table-responsive {
+                overflow-y: auto;
+                max-height: 600px;
+                /* Adjust based on your requirements */
+            }
+
+            .fixed-header-table thead th,
+            .fixed-header-table thead .sticky-col,
+            .fixed-header-table thead .sticky-header {
+                position: sticky;
+                top: 0;
+                z-index: 10;
+                background-color: white;
+                /* Ensure the header has a background */
+                border: 2px solid #000;
+                /* Ensure consistent border styling */
+            }
+
+            .fixed-header-table .sticky-col {
+                position: sticky;
+                left: 0;
+                z-index: 10;
+                background-color: white;
+                /* Ensure the sticky column has a background */
+                border-right: 2px solid #000;
+                /* Optional: Add border to differentiate sticky columns */
+            }
+
+            .fixed-header-table .sticky-col+.sticky-col {
+                left: 60px;
+                /* Adjust based on the width of the first sticky column */
+            }
+
+            .fixed-header-table .sticky-col.sticky-header {
+                z-index: 20;
+                /* Ensure the sticky header columns stay above the other columns */
+            }
+
+            .fixed-header-table th.sticky-header {
+                z-index: 5;
+                /* Ensure the sticky header columns stay above the other columns */
+            }
         </style>
     @endpush
 
@@ -111,24 +154,31 @@
                                                             Month</button>
                                                         <button id="nextMonth" class="btn btn-primary">Next Month</button>
                                                     </div>
-
                                                     <div class="table-responsive">
-                                                        <table class="table table-md table-bordered"
+                                                        <table class="table table-md table-bordered fixed-header-table"
                                                             style="border: 2px solid #000;">
                                                             <thead>
                                                                 <tr>
-                                                                    <th rowspan="2" class="text-center align-middle"
-                                                                        style="border: 2px solid #000;">#</th>
-                                                                    <th rowspan="2" class="text-center align-middle"
-                                                                        style="border: 2px solid #000;">Nama Lengkap</th>
-                                                                    <th rowspan="2" class="text-center align-middle"
-                                                                        style="border: 2px solid #000;">Status Pegawai</th>
-                                                                    <th id="monthHeader" colspan="31" class="text-center"
-                                                                        style="border: 2px solid #000;">
+                                                                    <th rowspan="2"
+                                                                        class="text-center align-middle sticky-header"
+                                                                        style="border: 2px solid #000; background-color: white;">
+                                                                        #</th>
+                                                                    <th rowspan="2"
+                                                                        class="text-center align-middle sticky-col sticky-header"
+                                                                        style="border: 2px solid #000; background-color: white;">
+                                                                        Nama Lengkap</th>
+                                                                    <th rowspan="2"
+                                                                        class="text-center align-middle sticky-header"
+                                                                        style="border: 2px solid #000; background-color: white;">
+                                                                        Status Pegawai</th>
+                                                                    <th id="monthHeader" colspan="31"
+                                                                        class="text-center sticky-header"
+                                                                        style="border: 2px solid #000; background-color: white;">
                                                                         <span id="getBulanTahunCol"></span>
                                                                     </th>
                                                                 </tr>
-                                                                <tr id="dateHeader">
+                                                                <tr id="dateHeader" class="sticky-header"
+                                                                    style="background-color: white;">
                                                                     <!-- Dates will be injected here -->
                                                                 </tr>
                                                             </thead>
@@ -137,9 +187,13 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <div id="pagination" class="mt-3">
+
+
+
+
+                                                    {{-- <div id="pagination" class="mt-3">
                                                         <!-- Pagination links will be injected here -->
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -345,6 +399,55 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="assignmentModal" tabindex="-1" role="dialog" aria-labelledby="assignmentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="assignmentModalLabel">Detail Penugasan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBodyContent">
+                    <p><strong>Penugasan:</strong> <span id="modalAssignmentTitle"></span></p>
+                    <p><strong>Tipe Penugasan:</strong> <span id="modalAssignmentType"></span></p>
+                    <p><strong>Atas nama:</strong> <span id="modalAssignmentName"></span></p>
+                    <p><strong>Tanggal Kegiatan:</strong> <span id="modalAssignmentDate"></span></p>
+                    <p><strong>Deskripsi:</strong></p>
+                    <p id="modalAssignmentDescription"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="assignmentModal" tabindex="-1" role="dialog" aria-labelledby="assignmentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg"  role="document">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h5 class="modal-title" id="assignmentModalLabel">Detail Penugasan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBodyContent">
+                    <!-- Detail penugasan akan dimuat di sini -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 
@@ -530,6 +633,7 @@
                             status: status
                         },
                         success: function(response) {
+                            console.log(response)
                             moment.locale('id'); // Set locale to Indonesian
                             let monthName = moment().year(response.year).month(response.month - 1).format(
                                 'MMMM YYYY');
@@ -540,50 +644,85 @@
                             $('#monthHeader').attr('colspan', response.dates.length);
                             $('#dateHeader').empty();
                             $.each(response.dates, function(index, date) {
+                                // console.log(index)
                                 $('#dateHeader').append(
                                     '<th class="text-center" style="border: 2px solid #000;">' +
-                                    date.day + '</th>');
+                                    (index + 1) + '</th>');
                             });
 
                             $('#employeeData').empty();
+
                             $.each(response.employees, function(index, employee) {
+                                // console.log(employee)
                                 let row = '<tr>';
-                                row += '<td class="text-center" style="border: 2px solid #000;">' +
+                                row +=
+                                    '<td class="text-center" style="border: 2px solid #000; background-color: white;">' +
                                     (index + 1) + '</td>';
-                                row += '<td class="text-nowrap" style="border: 2px solid #000;">' +
-                                    employee.name +
-                                    '</td>';
-                                row += '<td style="border: 2px solid #000;">' + employee.status +
-                                    '</td>';
+                                row +=
+                                    '<td class="text-nowrap sticky-col" style="border: 2px solid #000; background-color: white;">' +
+                                    employee.name + '</td>';
+                                row +=
+                                    '<td class="text-nowrap" style="border: 2px solid #000; background-color: white;">' +
+                                    employee.status + '</td>';
+
+                                let assignmentDates = [];
+
+                                // Memasukkan semua tanggal penugasan ke dalam array
+                                $.each(employee.assignments, function(aIndex, assignment) {
+                                    let startDate = moment(assignment.start);
+                                    let endDate = moment(assignment.end);
+
+                                    for (let m = moment(startDate); m.isSameOrBefore(
+                                            endDate); m.add(1, 'days')) {
+                                        assignmentDates.push(m.format('YYYY-MM-DD'));
+                                    }
+                                });
+
+                                // Memeriksa setiap tanggal dalam response.dates
                                 $.each(response.dates, function(index, date) {
+                                    let currentDate = moment(date.date).format(
+                                        'YYYY-MM-DD');
                                     let cellColor = 'white';
                                     let cellText = '';
 
-                                    $.each(employee.assignments, function(aIndex,
-                                        assignment) {
-                                        let startDate = moment(assignment.start);
-                                        let endDate = moment(assignment.end);
-                                        let currentDate = moment(date.date);
+                                    // Memeriksa apakah ada dua penugasan yang tumpang tindih pada tanggal yang sama
+                                    let overlappingAssignments = employee.assignments
+                                        .filter(assignment => {
+                                            let startDate = moment(assignment.start)
+                                                .format('YYYY-MM-DD');
+                                            let endDate = moment(assignment.end).format(
+                                                'YYYY-MM-DD');
+                                            return currentDate >= startDate &&
+                                                currentDate <= endDate;
+                                        });
 
-                                        if (currentDate.isBetween(startDate,
-                                                endDate, undefined, '[]')) {
-                                            if (cellColor === 'white') {
-                                                cellColor = 'green';
-                                                cellText = '';
-                                            } else if (cellColor === 'green') {
-                                                cellColor = 'red';
-                                                cellText = '';
-                                            }
-                                        }
-                                    });
+                                    if (overlappingAssignments.length > 1) {
+                                        cellColor = 'red';
+                                    } else if (overlappingAssignments.length === 1) {
+                                        cellColor = 'green';
+                                    }
 
-                                    row +=
-                                        '<td class="text-center" style="border: 2px solid #000; background-color: ' +
-                                        cellColor + ';">' + cellText + '</td>';
+
+                                    if (cellColor !== 'white') {
+                                        row +=
+                                            '<td class="text-center assignment-cell" style="border: 2px solid #000; background-color: ' +
+                                            cellColor + ';" data-assignments="' +
+                                            encodeURIComponent(JSON.stringify(
+                                                overlappingAssignments)) + '" data-name="' +
+                                            employee.name + '" data-cell-color="' +
+                                            cellColor + '">' + cellText + '</td>';
+                                    } else {
+                                        row +=
+                                            '<td class="text-center" style="border: 2px solid #000; background-color: ' +
+                                            cellColor + ';">' + cellText + '</td>';
+                                    }
                                 });
+
                                 row += '</tr>';
                                 $('#employeeData').append(row);
                             });
+
+
 
                             // Update pagination
                             $('#pagination').html(response.pagination);
@@ -612,11 +751,11 @@
                 });
 
                 // Handle pagination click
-                $(document).on('click', '#pagination a', function(e) {
-                    e.preventDefault();
-                    let page = $(this).attr('href').split('page=')[1];
-                    loadCalendarData(year, month, page, $('#namaStatus').val(), $('#filterStatus').val());
-                });
+                // $(document).on('click', '#pagination a', function(e) {
+                //     e.preventDefault();
+                //     let page = $(this).attr('href').split('page=')[1];
+                //     loadCalendarData(year, month, page, $('#namaStatus').val(), $('#filterStatus').val());
+                // });
 
                 // Handle name search
                 $('#namaStatus').on('keyup', function() {
@@ -635,6 +774,56 @@
 
 
             });
+
+            // Event listener untuk klik pada cell penugasan berwarna
+            $(document).on('click', '.assignment-cell', function() {
+                let assignments = JSON.parse(decodeURIComponent($(this).data('assignments')));
+                let nama = $(this).data('name');
+                console.log('tes', nama)
+                let cellColor = $(this).data('cell-color');
+                let modalBodyContent = '';
+
+                if (cellColor === 'red') {
+                    modalBodyContent += '<div class="row">';
+                    assignments.forEach(function(assignment) {
+                        modalBodyContent += `
+                    <div class="col-md-6">
+                        <p><strong>Penugasan:</strong> ${assignment.title}</p>
+                        <p><strong>Tipe Penugasan:</strong> ${assignment.type}</p>
+                        <p><strong>Atas nama:</strong> ${nama}</p>
+                        <p><strong>Tanggal Kegiatan:</strong> ${moment(assignment.start).format('dddd, D MMMM YYYY')} s/d ${moment(assignment.end).format('dddd, D MMMM YYYY')}</p>
+                        <p><strong>Deskripsi:</strong> ${assignment.description}</p>
+                    </div>`;
+                    });
+                    modalBodyContent += '</div>';
+                } else if (assignments.length === 1) {
+                    let assignment = assignments[0];
+                    // console.log(assignment)
+                    modalBodyContent += `
+                <p><strong>Penugasan:</strong> ${assignment.title}</p>
+                <p><strong>Tipe Penugasan:</strong> ${assignment.type}</p>
+                <p><strong>Atas nama:</strong> ${nama}</p>`;
+                    if (assignment.start === assignment.end) {
+                        modalBodyContent +=
+                            `<p><strong>Tanggal Kegiatan:</strong> ${moment(assignment.start).format('dddd, D MMMM YYYY')}</p>`;
+                    } else {
+                        modalBodyContent +=
+                            `<p><strong>Tanggal Kegiatan:</strong> ${moment(assignment.start).format('dddd, D MMMM YYYY')} s/d ${moment(assignment.end).format('dddd, D MMMM YYYY')}</p>`;
+                    }
+                    modalBodyContent += `<p><strong>Deskripsi:</strong> ${assignment.description}</p>`;
+                } else {
+                    modalBodyContent = '<p>Tidak ada penugasan pada tanggal ini.</p>';
+                }
+
+                $('#modalBodyContent').html(modalBodyContent);
+                $('#assignmentModal').modal('show');
+            });
+
+            function stripHtml(html) {
+                var temporalDivElement = document.createElement("div");
+                temporalDivElement.innerHTML = html;
+                return temporalDivElement.textContent || temporalDivElement.innerText || "";
+            }
         </script>
     @endpush
 @endsection

@@ -107,7 +107,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Instansi</label>
                                         <input name="instansi" id="instansi" type="text" class="form-control" required>
@@ -156,7 +156,7 @@
                                         <div class="form-group">
                                             <label>Jenis Golongan</label>
                                             <select required name="jenis_gol" id="jenis_gol" class="form-control ">
-                                                <option value="">-- pilih jenis kelamin --</option>
+                                                <option value="">-- pilih jenis golongan --</option>
                                                 <option value="PNS">PNS</option>
                                                 <option value="P3K">PPPK/P3K</option>
                                                 <option value="Tidak ada golongan">Tidak Ada Golongan</option>
@@ -209,7 +209,7 @@
                                         <div class="form-group">
                                             <label>Jenis Golongan</label>
                                             <select required name="jenis_gol" id="jenis_gol" class="form-control ">
-                                                <option value="">-- pilih jenis kelamin --</option>
+                                                <option value="">-- pilih jenis golongan --</option>
                                                 <option value="PNS">PNS</option>
                                                 <option value="P3K">PPPK/P3K</option>
                                                 <option value="Tidak ada golongan">Tidak Ada Golongan</option>
@@ -347,18 +347,18 @@
                         nik: '{{ session('nik') }}'
                     },
                     success: function(response) {
-                        console.log(response.data.nip);
-                        // console.log(response);
+                        console.log('hai :',response.data);
+                        console.log(response);
                         let kb = $.trim(response.data.kabupaten);
                         let jenis_gol = $.trim(response.data.jenis_gol);
                         console.log(kb.length);
 
                         $('#no_ktp').val(response.data.no_ktp);
                         $('#nip').val(response.data.nip);
-                        $('#nama').val(response.data.nama);
+                        $('#nama').val(response.data.nama ?? response.data.nama_lengkap);
                         $('#jabatan').val(response.data.jabatan);
                         // $('#gender').val(response.data.jkl);
-                        $(`#gender option[value="${response.data.jkl}"]`).prop('selected', true);
+                        $(`#gender option[value="${response.data.jkl ?? response.data.gender}"]`).prop('selected', true);
 
                         // change jenis golongan 
                         let gol_pns = $('#form_golongan_pns');
@@ -409,7 +409,7 @@
 
                         $('#golongan').val(response.data.golongan);
                         $('#jenis_gol').val(response.data.jenis_gol);
-                        $('#instansi').val(response.data.instansi);
+                        $('#instansi').val(response.data.instansi ?? response.instansi);
                         $('#no_hp').val(response.data.no_hp);
                         $('#no_wa').val(response.data.no_wa);
                         // $('#no_surat_tugas').val(response.data.no_surat_tugas);

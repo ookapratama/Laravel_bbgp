@@ -66,7 +66,7 @@ class AdminController extends Controller
 
             'kepsekLGP' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Sertifikat GP (Guru Penggerak)')->get()->count(),
 
-            'kepsekLDC' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Diklat Cawas')->get()->count(),
+            'kepsekLDC' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Diklat Cakep')->get()->count(),
 
             'kepsekL' => Guru::select('id')->where('eksternal_jabatan', 'Tenaga Kependidikan')->where('jenis_jabatan', 'Kepala Sekolah')->where('kategori_jabatan', 'GP (Guru Penggerak)')->where('latar_jabatan', 'Lainnya')->get()->count(),
 

@@ -237,8 +237,8 @@
                     if (namaKegiatan && tglKegiatan && tglSelesai && tempat) {
                         console.log(namaKegiatan);
                         $('#rincianKegiatan').html(`${namaKegiatan}`);
-                         $('#rincianTgl').html(`${tglKegiatan} - ${tglSelesai}`);
-                $('#rincianJam').html(`${formatJamMenit(mulai)} - ${formatJamMenit(selesai)} WITA`);
+                        $('#rincianTgl').html(`${tglKegiatan} - ${tglSelesai}`);
+                        $('#rincianJam').html(`${formatJamMenit(mulai)} - ${formatJamMenit(selesai)} WITA`);
                         $('#rincianLokasi').html(`${tempat}`);
                         $('#rincianKeterangan').html(`${namaKegiatan}`);
                     } else {
@@ -265,7 +265,9 @@
                             success: function(response) {
                                 $('#kegiatanPeserta').empty();
                                 console.log(response);
-                                if (response.data.length > 0) {
+                                let data = response.data;
+                                let tipe = response.tipe;
+                                if (response.success) {
                                     response.data.forEach((peserta, index) => {
                                         let kelengkapanTransport = peserta
                                             .status_keikutpesertaan === 'peserta' ?
@@ -320,33 +322,88 @@
                                             nik: nik
                                         },
                                         success: function(response) {
-                                            console.log(response);
+                                            console.log('halo ', data.length);
                                             pesertaAda = response.success;
                                             console.log('pernah ikut : ', pesertaAda);
 
                                             // ada 2 alert, yg sdh pernah ikut dan belum pernah
-                                            if (response.success) {
-                                                Swal.fire({
-                                                    title: "Warning",
-                                                    text: "Anda tidak terdaftar di kegiatan ini. Tapi anda sudah pernah mengikuti kegiatan BBGP sebelumnya. Lanjut ke Registrasi ? \n Form akan terisi otomatis dari data anda sebelumnya",
-                                                    icon: "warning",
-                                                    showCancelButton: true,
-                                                    confirmButtonColor: "#4040f5",
-                                                    cancelButtonColor: "#ff3034",
-                                                    confirmButtonText: "Registrasi",
-                                                    cancelButtonText: "Tidak, terimakasih",
-                                                }).then((res) => {
-                                                    if (res.isConfirmed) {
-                                                        // Redirect to registrasi page with kegiatan_id
-                                                        window.location.href =
-                                                            '{{ route('user.kegiatan_regist') }}' +
-                                                            '?kegiatan_id=' +
-                                                            kegiatanId +
-                                                            '&nik=' +
-                                                            nik;
-                                                    }
-                                                });
-                                                return;
+                                            if (data.length > 0) {
+
+                                                if (tipe === 'Peserta') {
+                                                    Swal.fire({
+                                                        title: "Warning",
+                                                        text: "Anda tidak terdaftar di kegiatan ini. Tapi anda sudah pernah mengikuti kegiatan BBGP sebelumnya. Lanjut ke Registrasi ? \n Form akan terisi otomatis dari data anda sebelumnya",
+                                                        icon: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: "#4040f5",
+                                                        cancelButtonColor: "#ff3034",
+                                                        confirmButtonText: "Registrasi",
+                                                        cancelButtonText: "Tidak, terimakasih",
+                                                    }).then((res) => {
+                                                        if (res.isConfirmed) {
+                                                            // Redirect to registrasi page with kegiatan_id
+                                                            window.location
+                                                                .href =
+                                                                '{{ route('user.kegiatan_regist') }}' +
+                                                                '?kegiatan_id=' +
+                                                                kegiatanId +
+                                                                '&nik=' +
+                                                                nik;
+                                                        }
+                                                    });
+
+                                                    return;
+
+                                                } else if (tipe === 'Pegawai') {
+                                                    Swal.fire({
+                                                        title: "Warning",
+                                                        text: "Anda tidak terdaftar di kegiatan ini. Tapi anda ter-data sebagai Pegawai BBGP . Lanjut ke Registrasi ? \n Form akan terisi otomatis dari data anda sebelumnya",
+                                                        icon: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: "#4040f5",
+                                                        cancelButtonColor: "#ff3034",
+                                                        confirmButtonText: "Registrasi",
+                                                        cancelButtonText: "Tidak, terimakasih",
+                                                    }).then((res) => {
+                                                        if (res.isConfirmed) {
+                                                            // Redirect to registrasi page with kegiatan_id
+                                                            window.location
+                                                                .href =
+                                                                '{{ route('user.kegiatan_regist') }}' +
+                                                                '?kegiatan_id=' +
+                                                                kegiatanId +
+                                                                '&nik=' +
+                                                                nik;
+                                                        }
+                                                    });
+
+                                                    return;
+                                                } else if (tipe === 'Eksternal') {
+                                                    Swal.fire({
+                                                        title: "Warning",
+                                                        text: "Anda tidak terdaftar di kegiatan ini. Tapi anda ter-data sebagai Eksternal BBGP. Lanjut ke Registrasi ? \n Form akan terisi otomatis dari data anda sebelumnya",
+                                                        icon: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: "#4040f5",
+                                                        cancelButtonColor: "#ff3034",
+                                                        confirmButtonText: "Registrasi",
+                                                        cancelButtonText: "Tidak, terimakasih",
+                                                    }).then((res) => {
+                                                        if (res.isConfirmed) {
+                                                            // Redirect to registrasi page with kegiatan_id
+                                                            window.location
+                                                                .href =
+                                                                '{{ route('user.kegiatan_regist') }}' +
+                                                                '?kegiatan_id=' +
+                                                                kegiatanId +
+                                                                '&nik=' +
+                                                                nik;
+                                                        }
+                                                    });
+
+                                                    return;
+                                                }
+
                                             } else {
                                                 Swal.fire({
                                                     title: "Warning",

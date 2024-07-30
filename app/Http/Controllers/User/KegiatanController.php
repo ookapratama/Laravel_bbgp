@@ -74,11 +74,26 @@ class KegiatanController extends Controller
         $kegiatanId = $request->input('kegiatan_id');
         $nik = $request->input('nik');
 
+        $title = 'Peserta';
+        $status = true;
         $peserta = PesertaKegiatan::where('id_kegiatan', $kegiatanId)
             ->where('no_ktp', $nik)
             ->get();
 
-        return response()->json(['data' => $peserta]);
+        if ($peserta->isEmpty()) {
+            $title = 'Pegawai';
+            $peserta = Pegawai::where('no_ktp', $nik)->get();
+
+            if ($peserta->isEmpty()) {
+                $title = 'Eksternal';
+                $peserta = Guru::where('no_ktp', $nik)->get();
+            }
+            $status = false;
+        }
+
+        // dd($peserta);
+
+        return response()->json(['data' => $peserta, 'tipe' => $title, 'success' => $status]);
     }
 
 
@@ -91,8 +106,25 @@ class KegiatanController extends Controller
         $kabupaten = Kabupaten::orderBy('id', 'ASC')->get();
         $kabupaten = Kabupaten::orderBy('id', 'ASC')->get();
 
-        $merge = $pegawai->merge($guru);
-        // Get data for the view, e.g., list of kabupaten, golongan, etc.
+        // dd($r->all());
+
+        $peserta = PesertaKegiatan::where('id_kegiatan', $kegiatanId)
+            ->where('no_ktp', $r->nik)
+            ->get();
+
+        if ($peserta->isEmpty()) {
+            $title = 'Pegawai';
+            $peserta = Pegawai::where('no_ktp', $r->nik)->get();
+
+            if ($peserta->isEmpty()) {
+                $title = 'Eksternal';
+                $peserta = Guru::where('no_ktp', $r->nik)->get();
+            }
+            $status = false;
+        }
+
+
+                // Get data for the view, e.g., list of kabupaten, golongan, etc.
         $status = [
             'kegiatanById' => Kegiatan::find($kegiatanId),
             'kabupaten' => Kabupaten::all(),
@@ -102,7 +134,7 @@ class KegiatanController extends Controller
         ];
         // dd($status);
 
-        return view('pages.landing.kegiatan.daftar', compact('kegiatanId', 'status', 'menu', 'pegawai', 'merge'));
+        return view('pages.landing.kegiatan.daftar', compact('kegiatanId', 'status', 'menu', 'peserta'));
         // return view('pages.user.kegiatan.create', compact('kegiatanId', 'status', 'menu', 'pegawai', 'merge'));
     }
 
@@ -182,19 +214,37 @@ class KegiatanController extends Controller
     {
         $nik = $request->input('nik');
         // dd($nik);
+        $title = 'Peserta';
         $peserta  = PesertaKegiatan::where('no_ktp', $nik)->first();
         // dd($peserta == null);
         if ($peserta == null) {
+            $peserta = Pegawai::where('no_ktp', $nik)->first();
+            $title = 'Pegawai';
+            $instansi = 'Kantor BBGP SulSel';
+            
+            if( $peserta == null) {
+                
+                $title = 'Eksternal';
+                $peserta = Guru::where('no_ktp', $nik)->first();
+                $instansi = $peserta->sekolah->nama_sekolah;
+            }    
+            
             $status = false;
         } else {
+
             $status = true;
         }
+
+
         Session::put('nik', $nik);
         Session::put('dataAda', $status);
+
+
         // dd($peserta->nama);
         return response()->json([
             'success' => $status,
             'data' => $peserta,
+            'instansi' => $instansi
         ]);
     }
 

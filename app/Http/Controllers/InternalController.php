@@ -13,6 +13,7 @@ use App\Models\PegawaiPpnpn;
 use App\Models\Pendamping;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Svg\Tag\Rect;
 
 class InternalController extends Controller
@@ -693,54 +694,92 @@ class InternalController extends Controller
         $name = $request->input('name', '');
         $status = $request->input('status', '');
         // dd($status, ' ', $name);
-        $daysInMonth = Carbon::createFromDate($year, $month, 1)->daysInMonth;
 
+        // Ambil daftar tanggal dalam bulan yang dimaksud
+        $startDate = Carbon::createFromDate($year, $month, 1);
+        $endDate = $startDate->copy()->endOfMonth();
         $dates = [];
-        for ($day = 1; $day <= $daysInMonth; $day++) {
-            $dates[] = [
-                'date' => Carbon::createFromDate($year, $month, $day)->format('Y-m-d'),
-                'day' => $day
-            ];
+        for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
+            $dates[] = ['date' => $date->format('Y-m-d')];
         }
 
-        $query = Pegawai::with(['internals' => function ($query) use ($year, $month) {
-            $query->where('jenis', 'Penugasan Pegawai')
-                ->whereYear('tgl_kegiatan', $year)
-                ->whereMonth('tgl_kegiatan', $month);
-        }]);
+        // Query dasar dengan LEFT JOIN untuk memastikan semua pegawai ditampilkan
+        // $query = "SELECT pegawais.id, pegawais.nama_lengkap, pegawais.jenis_pegawai,
+        //              GROUP_CONCAT(internals.tgl_kegiatan ORDER BY internals.tgl_kegiatan SEPARATOR ', ') AS tgl_kegiatan,
+        //              GROUP_CONCAT(internals.tgl_selesai_kegiatan ORDER BY internals.tgl_selesai_kegiatan SEPARATOR ', ') AS tgl_selesai_kegiatan
+        //       FROM pegawais
+        //       LEFT JOIN internals ON pegawais.no_ktp = internals.nik
+        //       AND YEAR(internals.tgl_kegiatan) = ? AND MONTH(internals.tgl_kegiatan) = ?";
+        // Query untuk mendapatkan data pegawai
+        // Query untuk mengambil data pegawai
+        // Query untuk mengambil data pegawai
+        $employeeQuery = "SELECT id, nama_lengkap, jenis_pegawai, no_ktp FROM pegawais";
+        $employeeBindings = [];
 
+        // Tambahkan pencarian berdasarkan nama
         if ($name) {
-            $query->where('nama_lengkap', 'LIKE', "%$name%");
+            $employeeQuery .= " WHERE nama_lengkap LIKE ?";
+            $employeeBindings[] = "%$name%";
         }
 
+        // Tambahkan filter berdasarkan status pegawai
         if ($status) {
-            $query->where('jenis_pegawai', $status);
+            $employeeQuery .= $name ? " AND" : " WHERE";
+            $employeeQuery .= " jenis_pegawai = ?";
+            $employeeBindings[] = $status;
         }
 
-        $employees = $query->paginate(7);
+        // Jalankan query untuk mengambil data pegawai
+        $employees = DB::select($employeeQuery, $employeeBindings);
 
-        $employeeData = $employees->map(function ($employee) {
-            $assignments = $employee->internals->map(function ($internal) {
+        // Query untuk mengambil data penugasan dari tabel internals
+        $internalQuery = "SELECT kegiatan, jenis, deskripsi, nama, nik, tgl_kegiatan, tgl_selesai_kegiatan
+                      FROM internals
+                      WHERE YEAR(tgl_kegiatan) = ? AND MONTH(tgl_kegiatan) = ?";
+        $internalBindings = [$year, $month];
+
+        // Jalankan query untuk mengambil data penugasan
+        $internals = DB::select($internalQuery, $internalBindings);
+
+        $employeeData = collect($employees)->map(function ($employee) use ($internals) {
+            $assignments = collect($internals)->filter(function ($internal) use ($employee) {
+                return $internal->nik === $employee->no_ktp && $internal->nama === $employee->nama_lengkap;
+            })->map(function ($internal) {
+                // dd($internal);
                 return [
                     'start' => $internal->tgl_kegiatan,
-                    'end' => $internal->tgl_selesai_kegiatan
+                    'end' => $internal->tgl_selesai_kegiatan,
+                    'title' => $internal->kegiatan,
+                    'type' => $internal->jenis,
+                    'description' => $internal->deskripsi,
                 ];
             });
 
             return [
                 'name' => $employee->nama_lengkap,
                 'status' => $employee->jenis_pegawai,
-                'assignments' => $assignments
+                'assignments' => $assignments->values()->toArray(),
             ];
         });
+        // dd(1);
 
+        // [
+        //     'name' => $employee->nama_lengkap,
+        //     'status' => $employee->jenis_pegawai,
+        //     'assignments' => $assignments,
+        // ];
+        // dd($employeeData);
+        // dd($employees);
+        // Dapatkan nama bulan
+        $monthName = Carbon::createFromDate($year, $month, 1)->format('F Y');
+
+        // Kembalikan hasil dalam format JSON
         return response()->json([
             'dates' => $dates,
             'month' => $month,
             'year' => $year,
             'employees' => $employeeData,
-            'monthName' => Carbon::createFromDate($year, $month, 1)->format('F Y'),
-            'pagination' => (string) $employees->links()
+            'monthName' => $monthName,
         ]);
     }
 }
