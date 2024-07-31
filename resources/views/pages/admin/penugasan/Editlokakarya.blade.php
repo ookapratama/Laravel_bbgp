@@ -16,9 +16,8 @@
                 <div class="row">
 
                     <div class="col-md-12 col-lg-12">
-                        <form id="lokakaryaForm"
-                            action="{{ route('internal.update.lokakarya') }}"
-                            method="POST" enctype="multipart/form-data">
+                        <form id="lokakaryaForm" action="{{ route('internal.update.lokakarya') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="{{ $pendamping->id }}">
                             <div class="card">
@@ -34,17 +33,17 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input readonly value="{{ $pendamping->nik }}" required name="nik" type="text"
-                                                    class="form-control">
+                                                <input readonly value="{{ $pendamping->nik }}" required name="nik"
+                                                    type="text" class="form-control">
                                             </div>
-                                            
+
 
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input readonly value="{{ $pendamping->nip }}" required name="nip" type="text"
-                                                    class="form-control">
+                                                <input readonly value="{{ $pendamping->nip }}" required name="nip"
+                                                    type="text" class="form-control">
                                             </div>
 
                                         </div>
@@ -52,16 +51,45 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>-</label>
-                                            <input required readonly name="jenis" type="text"
+                                            <label>Pilih Kegiatan</label>
+                                            <select required id="selectKegiatan" name="kegiatan"
+                                                class="form-control select2">
+                                                <option value="">-- Pilih kegiatan --</option>
+                                                @if (!$datas['dataPenugasanPpnpn']->isEmpty())
+                                                    @foreach ($datas['dataPenugasanPpnpn'] as $v)
+                                                        <option data-kabupaten="{{ $v->kota }}"
+                                                            data-tgl-kegiatan="{{ $v->tgl_kegiatan }}"
+                                                            data-tgl-selesai-kegiatan="{{ $v->tgl_selesai_kegiatan }}"
+                                                            data-jam-selesai="{{ $v->jam_selesai }}"
+                                                            data-jam-mulai="{{ $v->jam_mulai }}"
+                                                            {{ $pendamping->kegiatan == $v->kegiatan ? 'selected' : '' }}
+                                                            value="{{ $v->kegiatan }}">{{ $v->kegiatan }}
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($datas['dataPenugasanPegawai'] as $v)
+                                                        <option data-kabupaten="{{ $v->kota }}"
+                                                            data-tgl-kegiatan="{{ $v->tgl_kegiatan }}"
+                                                            data-tgl-selesai-kegiatan="{{ $v->tgl_selesai_kegiatan }}"
+                                                            data-jam-selesai="{{ $v->jam_selesai }}"
+                                                            data-jam-mulai="{{ $v->jam_mulai }}"
+                                                            {{ $pendamping->kegiatan == $v->kegiatan ? 'selected' : '' }}
+                                                            value="{{ $v->kegiatan }}">{{ $v->kegiatan }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            <input required readonly name="jenis" type="hidden"
                                                 value="Pendamping Lokakarya" class="form-control">
                                         </div>
                                         <div class="col-md-6">
                                             <label>Kabupaten / Kota</label>
-                                            <select required name="kota" class="form-control select2">
+                                            <select required id="selectKabupaten" name="kota"
+                                                class="form-control select2">
                                                 <option value="">-- Pilih kabupaten/kota --</option>
                                                 @foreach ($datas['kota'] as $v)
-                                                    <option {{ $pendamping->kota == $v->name ? 'selected' : '' }} value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    <option {{ $pendamping->kota == $v->name ? 'selected' : '' }}
+                                                        value="{{ $v->name }}">{{ $v->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -71,7 +99,7 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Mulai Kegiatan</label>
-                                                <input type="text" name="mulai_kegiatan"
+                                                <input type="text" id="inputMulaiKegiatan" name="mulai_kegiatan"
                                                     class="form-control datetimepicker"
                                                     value="{{ $datas['mulai_kegiatan'] }}">
                                             </div>
@@ -79,7 +107,7 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Selesai Kegiatan</label>
-                                                <input type="text" name="selesai_kegiatan"
+                                                <input type="text" id="inputSelesaiKegiatan" name="selesai_kegiatan"
                                                     class="form-control datetimepicker"
                                                     value="{{ $datas['selesai_kegiatan'] }}">
                                             </div>
@@ -90,13 +118,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Transport Pulang</label>
-                                                <input value="{{ $pendamping->transport_pulang }}" required name="transport_pulang" type="text" class="form-control currency">
+                                                <input value="{{ $pendamping->transport_pulang }}" required
+                                                    name="transport_pulang" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Transport Pergi</label>
-                                                <input value="{{ $pendamping->transport_pergi }}" required name="transport_pergi" type="text" class="form-control currency">
+                                                <input value="{{ $pendamping->transport_pergi }}" required
+                                                    name="transport_pergi" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                     </div>
@@ -105,25 +135,29 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hotel</label>
-                                                <input value="{{ $pendamping->hotel }}" required name="hotel" type="text" class="form-control">
+                                                <input value="{{ $pendamping->hotel }}" required name="hotel"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 1</label>
-                                                <input value="{{ $pendamping->hari_1 }}" required name="hari_1" type="text" class="form-control currency">
+                                                <input value="{{ $pendamping->hari_1 }}" name="hari_1" type="text"
+                                                    class="form-control currency">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 2</label>
-                                                <input value="{{ $pendamping->hari_2 }}" required name="hari_2" type="text" class="form-control currency">
+                                                <input value="{{ $pendamping->hari_2 }}" name="hari_2" type="text"
+                                                    class="form-control currency">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 3</label>
-                                                <input value="{{ $pendamping->hari_3 }}" required name="hari_3" type="text" class="form-control currency">
+                                                <input value="{{ $pendamping->hari_3 }}" name="hari_3" type="text"
+                                                    class="form-control currency">
                                             </div>
                                         </div>
                                     </div>
@@ -149,6 +183,24 @@
             $(document).ready(function() {
                 // Initialize Select2
                 $('#selectNama').select2();
+
+                $('#selectKegiatan').change(function() {
+                    var selectedOption = $(this).find('option:selected');
+                    var kabupaten = selectedOption.data('kabupaten');
+                    var tglKegiatan = selectedOption.data('tgl-kegiatan');
+                    var tglSelesaiKegiatan = selectedOption.data('tgl-selesai-kegiatan');
+                    var jamMulai = selectedOption.data('jam-mulai');
+                    var jamSelesai = selectedOption.data('jam-selesai');
+
+                    // Set nilai untuk kabupaten/kota
+                    $('#selectKabupaten').val(kabupaten).trigger('change');
+
+                    // Set nilai untuk tanggal kegiatan dan selesai kegiatan
+                    $('#inputMulaiKegiatan').val(tglKegiatan + ' ' + jamMulai);
+                    $('#inputSelesaiKegiatan').val(tglSelesaiKegiatan + ' ' + jamSelesai);
+                });
+
+
 
                 // Handle change event on select element
                 $('#selectNama').on('change', function() {

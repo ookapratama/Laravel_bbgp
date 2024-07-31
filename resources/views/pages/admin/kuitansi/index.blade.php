@@ -224,7 +224,7 @@
                                                     <td>{{ $data->no_bukti ?? '' }}</td>
                                                     <td>{{ $data->no_MAK ?? '' }}</td>
                                                     <td>{{ $data->peserta->kegiatan->nama_kegiatan ?? '' }} <p
-                                                            class="text-white">{{ $data->peserta->kegiatan->id }}</p>
+                                                            class="text-white">{{ $data->peserta->kegiatan->id ?? '' }}</p>
                                                     </td>
                                                     <td>{{ $data->peserta->nama ?? '' }}</td>
                                                     <td>{{ $data->peserta->status_keikutpesertaan ?? '' }}</td>

@@ -16,9 +16,8 @@
                 <div class="row">
 
                     <div class="col-md-12 col-lg-12">
-                        <form id="lokakaryaForm"
-                            action="{{ route('internal.store.lokakarya') }}"
-                            method="POST" enctype="multipart/form-data">
+                        <form id="lokakaryaForm" action="{{ route('internal.store.lokakarya') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="card">
                                 <div class="card-body">
@@ -26,23 +25,23 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Nama Pendamping</label>
-                                                <input readonly  value="{{ $pegawai->nama_lengkap ??  $pegawai->nama }}" required name="nama"
-                                                    type="text" class="form-control">
+                                                <input readonly value="{{ $pegawai->nama_lengkap ?? $pegawai->nama }}"
+                                                    required name="nama" type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input readonly value="{{ $pegawai->no_ktp ??  $pegawai->nik }}" required name="nik" type="text"
-                                                    class="form-control">
+                                                <input readonly value="{{ $pegawai->no_ktp ?? $pegawai->nik }}" required
+                                                    name="nik" type="text" class="form-control">
                                             </div>
 
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input readonly value="{{ $pegawai->nip  }}" required name="nip" type="text"
-                                                    class="form-control">
+                                                <input readonly value="{{ $pegawai->nip }}" required name="nip"
+                                                    type="text" class="form-control">
                                             </div>
 
                                         </div>
@@ -50,13 +49,40 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>-</label>
-                                            <input required readonly name="jenis" type="text"
+                                            <label>Pilih Kegiatan</label>
+                                            <select required id="selectKegiatan" name="kegiatan"
+                                                class="form-control select2">
+                                                <option value="">-- Pilih kegiatan --</option>
+                                                @if (!$datas['dataPenugasanPpnpn']->isEmpty())
+                                                    @foreach ($datas['dataPenugasanPpnpn'] as $v)
+                                                        <option data-kabupaten="{{ $v->kota }}"
+                                                            data-tgl-kegiatan="{{ $v->tgl_kegiatan }}"
+                                                            data-tgl-selesai-kegiatan="{{ $v->tgl_selesai_kegiatan }}"
+                                                            data-jam-selesai="{{ $v->jam_selesai }}"
+                                                            data-jam-mulai="{{ $v->jam_mulai }}"
+                                                            value="{{ $v->kegiatan }}">{{ $v->kegiatan }}
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($datas['dataPenugasanPegawai'] as $v)
+                                                        <option data-kabupaten="{{ $v->kota }}"
+                                                            data-tgl-kegiatan="{{ $v->tgl_kegiatan }}"
+                                                            data-tgl-selesai-kegiatan="{{ $v->tgl_selesai_kegiatan }}"
+                                                            data-jam-selesai="{{ $v->jam_selesai }}"
+                                                            data-jam-mulai="{{ $v->jam_mulai }}"
+                                                            value="{{ $v->kegiatan }}">{{ $v->kegiatan }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            <input required readonly name="jenis" type="hidden"
                                                 value="Pendamping Lokakarya" class="form-control">
                                         </div>
+
                                         <div class="col-md-6">
                                             <label>Kabupaten / Kota</label>
-                                            <select required name="kota" class="form-control select2">
+                                            <select required id="selectKabupaten" name="kota"
+                                                class="form-control select2">
                                                 <option value="">-- Pilih kabupaten/kota --</option>
                                                 @foreach ($datas['kota'] as $v)
                                                     <option value="{{ $v->name }}">{{ $v->name }}</option>
@@ -69,14 +95,14 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Mulai Kegiatan</label>
-                                                <input type="text" name="mulai_kegiatan"
+                                                <input type="text" id="inputMulaiKegiatan" name="mulai_kegiatan"
                                                     class="form-control datetimepicker">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Selesai Kegiatan</label>
-                                                <input type="text" name="selesai_kegiatan"
+                                                <input type="text" id="inputSelesaiKegiatan" name="selesai_kegiatan"
                                                     class="form-control datetimepicker">
                                             </div>
                                         </div>
@@ -86,14 +112,16 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Transport Pulang</label>
-                                                <input required name="transport_pulang" type="text" class="form-control currency">
+                                                <input required name="transport_pulang" type="text"
+                                                    class="form-control currency">
                                             </div>
 
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Transport Pergi</label>
-                                                <input required name="transport_pergi" type="text" class="form-control currency">
+                                                <input required name="transport_pergi" type="text"
+                                                    class="form-control currency">
                                             </div>
                                         </div>
                                     </div>
@@ -108,20 +136,20 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Hari 1</label>
-                                                <input required name="hari_1" type="text" class="form-control currency">
+                                                <label>Hari 1 (opsional)</label>
+                                                <input name="hari_1" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Hari 2</label>
-                                                <input required name="hari_2" type="text" class="form-control currency">
+                                                <label>Hari 2 (opsional)</label>
+                                                <input name="hari_2" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Hari 3</label>
-                                                <input required name="hari_3" type="text" class="form-control currency">
+                                                <label>Hari 3 (opsional)</label>
+                                                <input name="hari_3" type="text" class="form-control currency">
                                             </div>
                                         </div>
                                     </div>
@@ -161,6 +189,22 @@
 
                     // Set NIP value to input field
                     $('input[name="nip"]').val(nip);
+                });
+
+                $('#selectKegiatan').change(function() {
+                    var selectedOption = $(this).find('option:selected');
+                    var kabupaten = selectedOption.data('kabupaten');
+                    var tglKegiatan = selectedOption.data('tgl-kegiatan');
+                    var tglSelesaiKegiatan = selectedOption.data('tgl-selesai-kegiatan');
+                    var jamMulai = selectedOption.data('jam-mulai');
+                    var jamSelesai = selectedOption.data('jam-selesai');
+
+                    // Set nilai untuk kabupaten/kota
+                    $('#selectKabupaten').val(kabupaten).trigger('change');
+
+                    // Set nilai untuk tanggal kegiatan dan selesai kegiatan
+                    $('#inputMulaiKegiatan').val(tglKegiatan + ' ' + jamMulai);
+                    $('#inputSelesaiKegiatan').val(tglSelesaiKegiatan + ' ' + jamSelesai);
                 });
 
                 // Format currency

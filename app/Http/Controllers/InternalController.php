@@ -104,19 +104,22 @@ class InternalController extends Controller
         //     'jabatanPpnpn' => JabatanPenugasanPpnpn::get(),
         //     'dataPegawai' => Pegawai::get(),
         // );
+        // dd($id);
+
+        $pegawai = Pegawai::find($id) ?? PegawaiPpnpn::find($id);
 
         $datas = array(
             'dataPenugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->get(),
-            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $pegawai['no_ktp'])->get(),
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $pegawai['no_ktp'])->get(),
             'dataPegawai' => Pegawai::get(),
             'jabatanPegawai' => JabatanPenugasanPegawai::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
             'kota' => Kabupaten::get()
         );
 
-        $pegawai = Pegawai::find($id) ?? PegawaiPpnpn::find($id);
 
-        // dd($pegawai);
+        // dd(!$datas['dataPenugasanPpnpn']->isEmpty());
         // dd($id);
         return view('pages.admin.penugasan.lokakarya', ['menu' => ''], compact('pegawai', 'datas'));
     }
@@ -133,6 +136,9 @@ class InternalController extends Controller
         $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
+
+        
+
         Internal::create($r);
 
 
@@ -179,8 +185,9 @@ class InternalController extends Controller
         $penugasan = Internal::find($id);
         // dd($penugasan);
         $datas = array(
-            'dataPenugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->get(),
-            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->get(),
+            'dataPenugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $penugasan->nik)->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $penugasan->nik)->get(),
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $penugasan->nik)->get(),
             'dataPegawai' => Pegawai::get(),
             'jabatanPegawai' => JabatanPenugasanPegawai::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
@@ -248,6 +255,8 @@ class InternalController extends Controller
             'dataPegawai' => Pegawai::get(),
             'jabatanPegawai' => JabatanPenugasanPegawai::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
+            'kota' => Kabupaten::get()
+
         );
 
         $pegawai = Pegawai::find($id);
@@ -290,6 +299,8 @@ class InternalController extends Controller
             'golongan' => JabatanPenugasanGolongan::get(),
             'mulai_kegiatan' => $penugasan->tgl_kegiatan . ' ' . $penugasan->jam_mulai,
             'selesai_kegiatan' => $penugasan->tgl_selesai_kegiatan . ' ' . $penugasan->jam_selesai,
+            'kota' => Kabupaten::get()
+
         );
 
 

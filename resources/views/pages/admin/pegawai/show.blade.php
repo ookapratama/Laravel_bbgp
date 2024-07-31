@@ -164,6 +164,7 @@
                                                     {{-- <th>Jenis Penugasan</th> --}}
                                                     <th>Kota</th>
                                                     <th>Hotel</th>
+                                                    <th>Kegiatan</th>
                                                     <th>Tanggal Kegiatan</th>
                                                     {{-- <th>Transport Pergi dan Pulang</th>
                                                     <th>Hari 1</th>
@@ -184,6 +185,7 @@
                                                         {{-- <td>{{ $data->jenis ?? '' }}</td> --}}
                                                         <td>{{ $data->kota ?? '' }}</td>
                                                         <td>{{ $data->hotel ?? '' }}</td>
+                                                        <td>{{ $data->kegiatan ?? '' }}</td>
                                                         <?php
                                                         setlocale(LC_TIME, 'IND');
                                                         
@@ -255,7 +257,7 @@
                                                 <th>Hari 2</th>
                                                 <th>Hari 3</th> --}}
                                                         {{-- <th>Verifkasi</th> --}}
-                                                        <th>Action</th>
+                                                        {{-- <th>Action</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -278,7 +280,7 @@
                                                             <td>{{ $tgl ?? '' }} - {{ $tgl_selesai }}</td>
                                                             <td>{{ $data->jam_mulai }} - {{ $data->jam_selesai }} WITA
                                                             </td>
-                                                            <td>{{ $data->deskripsi }}
+                                                            <td>{!! $data->deskripsi !!}
                                                             </td>
 
                                                             {{-- <td>Pergi : Rp. {{ $data->transport_pergi ?? '' }} <br> Pulang : Rp.
@@ -294,28 +296,7 @@
                                                             <span class="badge badge-danger">Belum Verifikasi</span>
                                                         @endif
                                                     </td> --}}
-                                                            <td>
-                                                                {{-- @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
-                                                            <a href="#"
-                                                                onclick="verifikasi({{ $data->id }}, 'internal', '{{ $data->is_verif }}')"
-                                                                class="btn btn-primary mb-2">Verifikasi</a>
-                                                        @endif --}}
 
-
-                                                                {{-- <button onclick="showDetail({{ $data->id }})"
-                                                                    class="btn btn-info mt-1"><i class="fas fa-info"></i>
-                                                                </button> --}}
-
-                                                                <a href="{{ route('internal.edit.ppnpn', $data->id) }}"
-                                                                    class="btn btn-warning my-2"><i
-                                                                        class="fas fa-edit"></i></a>
-
-
-                                                                {{-- <button onclick="deleteData({{ $data->id }}, 'editPenugasan')"
-                                                            class="btn btn-danger">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button> --}}
-                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -341,7 +322,6 @@
                                             <th>Hari 2</th>
                                             <th>Hari 3</th> --}}
                                                         {{-- <th>Verifkasi</th> --}}
-                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -365,7 +345,7 @@
                                                                 {{ $data->tgl_selesai_kegiatan }}</td>
                                                             <td>{{ $data->jam_mulai }} - {{ $data->jam_selesai }} WITA
                                                             </td>
-                                                            <td>{{ $data->deskripsi }}</td>
+                                                            <td>{!! $data->deskripsi !!}</td>
                                                             {{-- <td>Pergi : Rp. {{ $data->transport_pergi ?? '' }} <br> Pulang : Rp.
                                                     {{ $data->transport_pulang ?? '' }}</td>
                                                 <td>Rp. {{ $data->hari_1 ?? '' }}</td>
@@ -379,25 +359,7 @@
                                                         <span class="badge badge-danger">Belum Verifikasi</span>
                                                     @endif
                                                 </td> --}}
-                                                            <td>
-                                                                {{-- @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
-                                                        <a href="#"
-                                                            onclick="verifikasi({{ $data->id }}, 'internal', '{{ $data->is_verif }}')"
-                                                            class="btn btn-primary mb-2">Verifikasi</a>
-                                                    @endif --}}
 
-
-                                                                <a href="{{ route('internal.edit.pegawai', $data->id) }}"
-                                                                    class="btn btn-warning my-2"><i
-                                                                        class="fas fa-edit"></i></a>
-
-
-
-                                                                {{-- <button onclick="deleteData({{ $data->id }}, 'editPenugasan')"
-                                                        class="btn btn-danger">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button> --}}
-                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
