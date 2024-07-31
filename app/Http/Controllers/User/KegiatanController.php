@@ -226,7 +226,7 @@ class KegiatanController extends Controller
                 
                 $title = 'Eksternal';
                 $peserta = Guru::where('no_ktp', $nik)->first();
-                $instansi = $peserta->sekolah->nama_sekolah;
+                $instansi = $peserta->sekolah->nama_sekolah ?? '';
             }    
             
             $status = false;

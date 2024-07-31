@@ -177,9 +177,10 @@
     </div>
 
     <!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="eventModalLabel">Detail Penugasan</h5>
@@ -187,13 +188,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="modalBodyContent">
                     <p><strong>Penugasan:</strong> <span id="eventTitle"></span></p>
-                    <p><strong>Tipe Penugasan:</strong> <span id="eventType"></span></p>
-                    <p><strong>Atas nama:</strong> <span id="eventNama"></span></p>
+                    {{-- <p><strong>Tipe Penugasan:</strong> <span id="eventType"></span></p> --}}
+                    <div id="eventNama"></div> <!-- Nama penugasan akan ditampilkan di sini -->
                     <p><strong>Tanggal Kegiatan:</strong> <span id="eventStart"></span></p>
-                    {{-- <p><strong>Jam Kegiatan:</strong> <span id="eventTime"></span></p> --}}
-                    <p><strong>Deskripsi:</strong> <span id="eventDescription"></span></p>
+                    {{-- <p><strong>Deskripsi:</strong></p>
+                    <p id="eventDescription"></p> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -201,6 +202,8 @@
             </div>
         </div>
     </div>
+
+
 
 
     @push('scripts')
@@ -223,7 +226,6 @@
                 // });
                 moment.locale('id');
                 let token = $("meta[name='csrf-token']").attr("content");
-
                 $.ajax({
                     headers: {
                         "X-CSRF-TOKEN": token,
@@ -242,18 +244,18 @@
                             // Generate random color
                             var randomColor = getRandomColor();
                             data.push({
-                                title: `${element.kegiatan == '' || element.kegiatan == undefined ? element.jenis : element.kegiatan}`,
+                                title: element.kegiatan,
                                 start: moment(mulai).format(
                                     'YYYY-MM-DDTHH:mm:ss'), // Format in ISO 8601
                                 end: moment(selesai).format(
                                     'YYYY-MM-DDTHH:mm:ss'), // Format in ISO 8601
                                 backgroundColor: randomColor,
                                 textColor: '#fff',
-                                nama: element.nama,
-                                jenis: element.jenis ?? '',
+                                penugasan_pegawai: element.penugasan_pegawai,
+                                penugasan_ppnpn: element.penugasan_ppnpn,
                                 description: element.deskripsi,
                                 tgl: `${moment(element.tgl_kegiatan).format('dddd, D MMMM')} s/d ${moment(element.tgl_selesai_kegiatan).format('dddd, D MMMM YYYY')}`,
-                                jam: `${element.jam_mulai ?? ''} - ${element.jam_selesai ?? ''} WITA`,
+                                jam: `${element.jam_mulai ?? ''} - ${element.jam_selesai ?? ''} WITA`
                             });
                         });
 
@@ -268,19 +270,59 @@
                             editable: true,
                             events: data,
                             eventClick: function(event, jsEvent, view) {
-                                console.log(event.title == '' ? event.jenis : event.title);
-
-                                // Set the information in the modal
                                 $("#eventTitle").text(event.title);
-                                $("#eventType").text(event.jenis);
-                                $("#eventNama").text(event.nama);
+
+                                // Mengatur isi modal untuk setiap jenis penugasan
+                                let penugasanContent = '';
+                                // console.log(typeof(event.penugasan_pegawai))
+                                // console.log(typeof(event.penugasan_ppnpn))
+
+                                // Validasi dan penanganan penugasan pegawai
+                                if (Array.isArray(event.penugasan_pegawai)) {
+                                    if (event.penugasan_pegawai.length > 0) {
+                                        penugasanContent +=
+                                            `<p><strong>Penugasan Pegawai:</strong></p><ul>`;
+                                        event.penugasan_pegawai.forEach(name => {
+                                            penugasanContent += `<li>${name}</li>`;
+                                        });
+                                        penugasanContent += `</ul>`;
+                                    }
+                                } else if (typeof event.penugasan_pegawai === 'object' && event
+                                    .penugasan_pegawai !== null) {
+                                    penugasanContent +=
+                                        `<p><strong>Penugasan Pegawai:</strong></p><ul>`;
+                                    for (let key in event.penugasan_pegawai) {
+                                        penugasanContent +=
+                                            `<li>${event.penugasan_pegawai[key]}</li>`;
+                                    }
+                                    penugasanContent += `</ul>`;
+                                }
+
+                                // Validasi dan penanganan penugasan PPNPN
+                                if (Array.isArray(event.penugasan_ppnpn)) {
+                                    if (event.penugasan_ppnpn.length > 0) {
+                                        penugasanContent +=
+                                            `<p><strong>Penugasan PPNPN:</strong></p><ul>`;
+                                        event.penugasan_ppnpn.forEach(name => {
+                                            penugasanContent += `<li>${name}</li>`;
+                                        });
+                                        penugasanContent += `</ul>`;
+                                    }
+                                } else if (typeof event.penugasan_ppnpn === 'object' && event
+                                    .penugasan_ppnpn !== null) {
+                                    penugasanContent +=
+                                        `<p><strong>Penugasan PPNPN:</strong></p><ul>`;
+                                    for (let key in event.penugasan_ppnpn) {
+                                        penugasanContent +=
+                                            `<li>${event.penugasan_ppnpn[key]}</li>`;
+                                    }
+                                    penugasanContent += `</ul>`;
+                                }
+                                $("#eventNama").html(penugasanContent);
                                 $("#eventStart").text(event.tgl); // Format in Indonesian
-                                // $("#eventTime").text(event.jam ? event.jam :
-                                //     "N/A"); // Format in Indonesian
                                 $("#eventDescription").text(event.description ? stripHtml(event
                                     .description) : "Tidak ada deskripsi");
 
-                                // Show the modal
                                 $("#eventModal").modal('show');
                             }
                         });
@@ -290,6 +332,10 @@
                         swal("Error", "Ajax Error.", "error");
                     },
                 });
+
+
+
+
 
                 $.ajax({
                     headers: {

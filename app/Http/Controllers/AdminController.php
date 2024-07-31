@@ -113,16 +113,34 @@ class AdminController extends Controller
 
     public function jadwal()
     {
-        // Ambil jadwal dari Internal dengan tiga jenis yang disebutkan
         $jadwalInternal = Internal::select('kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama')
             ->whereIn('jenis', ['Pendamping Lokakarya', 'Penugasan Pegawai', 'Penugasan PPNPN'])
-            ->get();
+            ->get()
+            ->groupBy('kegiatan');
 
-        // Mengembalikan response dalam bentuk JSON
+        $jadwal = $jadwalInternal->map(function ($items, $key) {
+            $groupedByJenis = $items->groupBy('jenis');
+            $penugasanPegawai = $groupedByJenis->get('Penugasan Pegawai', collect());
+            $penugasanPPNPN = $groupedByJenis->get('Penugasan PPNPN', collect());
+
+            return [
+                'kegiatan' => $key,
+                'deskripsi' => $items->first()->deskripsi,
+                'tgl_kegiatan' => $items->first()->tgl_kegiatan,
+                'tgl_selesai_kegiatan' => $items->first()->tgl_selesai_kegiatan,
+                'jam_mulai' => $items->first()->jam_mulai,
+                'jam_selesai' => $items->first()->jam_selesai,
+                'penugasan_pegawai' => $penugasanPegawai->pluck('nama')->unique()->toArray(),
+                'penugasan_ppnpn' => $penugasanPPNPN->pluck('nama')->unique()->toArray(),
+            ];
+        })->values();
+        // dd($jadwal[46]);
         return response()->json([
-            'jadwal' => $jadwalInternal
+            'jadwal' => $jadwal
         ]);
     }
+
+
 
 
     /**
@@ -155,7 +173,6 @@ class AdminController extends Controller
         $user->update($r);
 
         return redirect()->route('dashboard')->with('message', 'update profile');
-
     }
 
     public function getJadwalByPegawai($nik)
@@ -171,6 +188,4 @@ class AdminController extends Controller
             'jadwal' => $jadwalInternal
         ]);
     }
-
-
 }
