@@ -83,8 +83,16 @@
                                                     </a>
                                                 </div>
                                                 <div class="">
-                                                    <a href="#" id="statusPegawai" class="btn btn-info btn-lg  p-2">
+                                                    <a href="#" id="statusPegawai"
+                                                        class="btn btn-info btn-lg mr-3 p-2">
                                                         <i class="fas fa-search mr-1"></i>Lihat Status Pegawai BBGP
+                                                    </a>
+                                                </div>
+                                                <div class="">
+                                                    <a href="#" id="daftarKegiatanLoka"
+                                                        class="btn btn-primary btn-lg  p-2">
+                                                        <i class="fas fa-calendar-alt mr-1"></i></i>Daftar Kegiatan
+                                                        Lokakarya
                                                     </a>
                                                 </div>
                                             </div>
@@ -103,6 +111,8 @@
                                         </div>
                                     </div>
                                 </div> --}}
+
+
 
                                 <!-- Filter Data Internal -->
                                 {{-- Area PEgawai --}}
@@ -202,7 +212,63 @@
                                 </div>
 
 
+                                {{-- Area Kegiatan Lokakarya --}}
+                                <div id="kegiatan-lokakarya">
+                                    <div class="col-md-8">
 
+                                        <div class="form-group">
+                                            <label for="filterKegiatan">Filter Kegiatan</label>
+                                            <select id="filterKegiatan" class="form-control select2">
+                                                <option value="">-- Pilih Kegiatan --</option>
+                                                @foreach ($datas['lokaBBGP'] as $data)
+                                                    <option value="{{ $data['kegiatan'] }}">{{ $data['kegiatan'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tabel BBGP -->
+                                    <div class="table-responsive table-kegiatan" id="table-kegiatan-bbgp"
+                                        style="display: none;">
+                                        <table class="table table-striped" id="table-bbgp-kegiatan">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Kegiatan</th>
+                                                    <th>Lokasi Kegiatan</th>
+                                                    <th>Tanggal Kegiatan</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($datas['lokaBBGP'] as $i => $data)
+                                                    <?php
+                                                    setlocale(LC_ALL, 'IND');
+                                                    
+                                                    $tgl_kegiatan = strftime('%d %B %Y', strtotime($data['tgl_kegiatan']));
+                                                    ?>
+                                                    <tr>
+                                                        <td>{{ ++$i }}</td>
+                                                        <td>{{ $data['kegiatan'] }}</td>
+                                                        <td>{{ $data['kota'] }}</td>
+                                                        <td>{{ $tgl_kegiatan }}</td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-primary my-2"
+                                                                data-toggle="modal" data-target="#pegawaiModal"
+                                                                data-kegiatan="{{ $data['kegiatan'] }}"
+                                                                data-pegawai="{{ json_encode($data['penugasan_pegawai']) }}">
+                                                                Daftar Pegawai
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
 
 
 
@@ -428,8 +494,8 @@
     <!-- Modal -->
     <div class="modal fade" id="assignmentModal" tabindex="-1" role="dialog" aria-labelledby="assignmentModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg"  role="document">
-            <div class="modal-content" >
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="assignmentModalLabel">Detail Penugasan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -445,6 +511,50 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal untuk Daftar Pegawai -->
+    <div class="modal fade" id="pegawaiModal" tabindex="-1" role="dialog" aria-labelledby="pegawaiModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex">
+                        <h5 class="mr-4">Daftar Pegawai </h5>
+                        <button id="printButton" class="btn btn-primary mb-3">Cetak Data</button>
+
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="printableArea">
+                        <h5 class="modal-title mb-3" id="modalHeader"></h5>
+                        <table class="table table-responsive table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Pegawai</th>
+                                    <th>Hotel</th>
+                                    <th>Transport Pergi</th>
+                                    <th>Transport Pulang</th>
+                                    <th>Hari 1</th>
+                                    <th>Hari 2</th>
+                                    <th>Hari 3</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pegawaiTableBody">
+                                <!-- Daftar pegawai akan dimasukkan di sini oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -523,6 +633,14 @@
                 });
 
 
+                var tableKegiatanBBGP = $('#table-bbgp-kegiatan').DataTable({
+                    paging: true,
+                    searching: true,
+                    language: language,
+                    // Add more DataTable options as needed
+                });
+
+
                 // Initialize DataTables for both tables
                 var tablePpnpn = $('#table-ppnpn').DataTable({
                     paging: true,
@@ -542,6 +660,7 @@
                 // Initially hide both tables
                 $('.table-internal').hide();
                 $('#status-pegawai').hide();
+                $('#kegiatan-lokakarya').hide();
 
 
                 $('#filter-pegawai').hide();
@@ -552,9 +671,27 @@
                 $('#statusPegawai').on('click', function(event) {
                     event.preventDefault();
                     $('.table-internal').hide();
+                    $('#kegiatan-lokakarya').hide();
+
                     // $('#filter-pegawai').show();
                     $('#status-pegawai').show();
                     $('#title-text').text('Data Status Pegawai')
+                    $('.table-kegiatan').hide();
+
+
+                });
+
+                $('#daftarKegiatan').on('click', function(event) {
+                    event.preventDefault();
+                    $('.table-internal').hide();
+                    // $('#filter-pegawai').show();
+                    $('#kegiatan-lokakarya').show();
+                    $('#title-text').text('Data Kegiatan Lokakarya')
+
+
+                    $('.table-kegiatan').hide();
+                    $('#status-pegawai').hide();
+
 
                 });
 
@@ -562,10 +699,13 @@
                 $('#pegawaiBBGP').on('click', function(event) {
                     event.preventDefault();
                     $('.table-internal').hide();
+                    $('#kegiatan-lokakarya').hide();
+
                     // $('#filter-pegawai').show();
                     $('#table-internal-bbgp').show();
                     $('#title-text').text('Data Penugasan Pegawai')
 
+                    $('.table-kegiatan').hide();
                     $('#status-pegawai').hide();
 
 
@@ -576,6 +716,8 @@
                 $('#pegawaiPpnp').on('click', function(event) {
                     event.preventDefault();
                     $('.table-internal').hide();
+                    $('#kegiatan-lokakarya').hide();
+
                     $('#table-internal-ppnpn').show();
                     tablePpnpn.columns.adjust().draw(); // Adjust column widths on table show
                     $('#title-text').text('Data Penugasan PPNPN')
@@ -585,6 +727,8 @@
                     // $('#filter-pegawai').hide();
 
                     $('#status-pegawai').hide();
+                    $('.table-kegiatan').hide();
+
 
 
 
@@ -773,6 +917,124 @@
                 loadCalendarData(year, month);
 
 
+                // Initially hide both tables
+
+                // Event listener for showing the kegiatan-lokakarya section
+                $('#daftarKegiatanLoka').on('click', function(event) {
+                    event.preventDefault();
+                    $('#kegiatan-lokakarya').show();
+                    $('#table-kegiatan-bbgp').show();
+
+                    $('#status-pegawai').hide();
+                    $('.table-internal').hide();
+                });
+
+                var kegiatanList = [];
+                $('#filterKegiatan option').each(function() {
+                    var kegiatan = $(this).val();
+                    if (kegiatan && !kegiatanList.includes(kegiatan)) {
+                        kegiatanList.push(kegiatan);
+                    }
+                });
+
+                // Event listener untuk filter kegiatan
+                $('#filterKegiatan').on('change', function() {
+                    var selectedKegiatan = $(this).val().toLowerCase();
+                    tableKegiatanBBGP.column(1).search(this.value).draw();
+                });
+
+
+                $('#pegawaiModal').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget); // Button yang membuka modal
+                    var kegiatan = button.data('kegiatan'); // Ambil data-kegiatan dari tombol
+                    var pegawai = button.data('pegawai'); // Ambil data-pegawai dari tombol (sebagai JSON)
+
+                    var modal = $(this);
+                    modal.find('.modal-title').text('Daftar Pegawai untuk Kegiatan: ' + kegiatan);
+                    modal.find('#modalHeader').text('Daftar Lokakarya: ' + kegiatan);
+
+                    var pegawaiTableBody = modal.find('#pegawaiTableBody');
+                    pegawaiTableBody.empty(); // Kosongkan isi tabel sebelumnya
+
+                    // Variabel untuk menyimpan total keseluruhan
+                    var totalTransportPergi = 0;
+                    var totalTransportPulang = 0;
+                    var totalHari1 = 0;
+                    var totalHari2 = 0;
+                    var totalHari3 = 0;
+                    var totalKeseluruhan = 0;
+
+                    // Tambahkan setiap pegawai ke dalam tabel
+                    $.each(pegawai, function(index, pegawaiItem) {
+                        // Parse nilai ke integer dan hitung total
+                        var transportPergi = parseInt(pegawaiItem.transport_pergi) || 0;
+                        var transportPulang = parseInt(pegawaiItem.transport_pulang) || 0;
+                        var hari1 = parseInt(pegawaiItem.hari_1) || 0;
+                        var hari2 = parseInt(pegawaiItem.hari_2) || 0;
+                        var hari3 = parseInt(pegawaiItem.hari_3) || 0;
+
+                        var totalPerRow = transportPergi + transportPulang + hari1 + hari2 + hari3;
+
+                        // Tambahkan ke total keseluruhan
+                        totalTransportPergi += transportPergi;
+                        totalTransportPulang += transportPulang;
+                        totalHari1 += hari1;
+                        totalHari2 += hari2;
+                        totalHari3 += hari3;
+                        totalKeseluruhan += totalPerRow;
+
+                        pegawaiTableBody.append(`
+                <tr>
+                    <td>${index + 1}</td>
+                    <td class="text-nowrap">${pegawaiItem.nama}</td>
+                    <td>${pegawaiItem.hotel}</td>
+                    <td class="text-nowrap">${formatRupiah(transportPergi, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(transportPulang, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(hari1, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(hari2, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(hari3, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(totalPerRow, 'Rp.')}</td>
+                </tr>
+            `);
+                    });
+
+                    // Tambahkan baris total di akhir tabel dengan kelas total-row
+                    pegawaiTableBody.append(`
+            <tr class="total-row">
+                <td colspan="3" class="text-center"><strong>Total</strong></td>
+                <td class="text-nowrap"><strong>${formatRupiah(totalTransportPergi, 'Rp.')}</strong></td>
+                <td class="text-nowrap"><strong>${formatRupiah(totalTransportPulang, 'Rp.')}</strong></td>
+                <td class="text-nowrap"><strong>${formatRupiah(totalHari1, 'Rp.')}</strong></td>
+                <td class="text-nowrap"><strong>${formatRupiah(totalHari2, 'Rp.')}</strong></td>
+                <td class="text-nowrap"><strong>${formatRupiah(totalHari3, 'Rp.')}</strong></td>
+                <td class="text-nowrap"><strong>${formatRupiah(totalKeseluruhan, 'Rp.')}</strong></td>
+            </tr>
+        `);
+                });
+
+                $('#printButton').on('click', function() {
+                    var printContent = document.getElementById('printableArea');
+                    var WinPrint = window.open('', '', 'width=900,height=650');
+                    WinPrint.document.write('<html><head><title>Print</title>');
+                    WinPrint.document.write('<style>');
+                    WinPrint.document.write('@media print {');
+                    WinPrint.document.write('table {border-collapse: collapse;}');
+                    WinPrint.document.write('table, th, td {border: 1px solid black; padding: 10px;}');
+                    WinPrint.document.write('th, td {text-align: left;}');
+                    WinPrint.document.write(
+                        'th, td {vertical-align: middle;}'); // Tambahkan vertikal align tengah
+                    WinPrint.document.write(
+                        '.total-row td {text-align: center; font-weight: bold;}'); // Gaya untuk baris total
+                    WinPrint.document.write('.modal-title {font-size: 20px; margin-bottom: 20px;}');
+                    WinPrint.document.write('</style></head><body>');
+                    WinPrint.document.write(printContent.innerHTML);
+                    WinPrint.document.write('</body></html>');
+                    WinPrint.document.close();
+                    WinPrint.focus();
+                    WinPrint.print();
+                    WinPrint.close();
+                });
+
             });
 
             // Event listener untuk klik pada cell penugasan berwarna
@@ -823,6 +1085,22 @@
                 var temporalDivElement = document.createElement("div");
                 temporalDivElement.innerHTML = html;
                 return temporalDivElement.textContent || temporalDivElement.innerText || "";
+            }
+
+            function formatRupiah(angka, prefix) {
+                var numberString = angka.toString().replace(/[^,\d]/g, ''),
+                    split = numberString.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
             }
         </script>
     @endpush

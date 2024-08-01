@@ -40,6 +40,7 @@
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th>Nama</th>
+                                                <th>Kegiatan</th>
                                                 <th>Kabupaten/Kota</th>
                                                 <th>Hotel</th>
                                                 <th>Transport Pulang</th>
@@ -55,6 +56,7 @@
                                                 <tr data-type="bbgp">
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data->nama }} </td>
+                                                    <td>{{ $data->kegiatan }} </td>
                                                     <td>{{ $data->kota }}</td>
                                                     <td>{{ $data->hotel }}</td>
                                                     <td>Rp. {{ number_format($data->transport_pulang, 0, ',', '.') }}</td>

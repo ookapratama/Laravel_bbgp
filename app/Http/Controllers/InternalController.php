@@ -25,16 +25,62 @@ class InternalController extends Controller
     public function index()
     {
         $kota = Kabupaten::get();
+
+        $jadwalInternal = Internal::select('kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3')
+            ->whereIn('jenis', ['Pendamping Lokakarya'])
+            ->get()
+            ->groupBy('kegiatan');
+
+
         $data = array(
 
             'dataPenugasanPegawai' => Pegawai::orderByDesc('id')->where('jenis_pegawai', 'BBGP')->where('is_verif', 'sudah')->get(),
             'dataPenugasanPpnpn' => Pegawai::orderByDesc('id')->where('jenis_pegawai', 'PPNPN')->where('is_verif', 'sudah')->get(),
             'dataPegawai' => Pegawai::get(),
+            'lokaBBGP' => $jadwalInternal->map(function ($items, $key) {
+                $groupedByJenis = $items->groupBy('jenis');
+                $penugasanLoka = $groupedByJenis->get('Pendamping Lokakarya', collect());
+
+                // Bangun array multidimensi untuk setiap pegawai
+                $penugasanPegawai = $penugasanLoka->map(function ($item) {
+                    return [
+                        'nama' => $item->nama,
+                        'hotel' => $item->hotel,
+                        'transport_pergi' => $item->transport_pergi,
+                        'transport_pulang' => $item->transport_pulang,
+                        'hari_1' => $item->hari_1,
+                        'hari_2' => $item->hari_2,
+                        'hari_3' => $item->hari_3,
+                    ];
+                });
+                // dump($penugasanPegawai);
+
+
+                return [
+                    'kegiatan' => $key,
+                    'deskripsi' => $items->first()->deskripsi,
+                    'kota' => $items->first()->kota,
+                    'tgl_kegiatan' => $items->first()->tgl_kegiatan,
+                    'tgl_selesai_kegiatan' => $items->first()->tgl_selesai_kegiatan,
+                    'jam_mulai' => $items->first()->jam_mulai,
+                    'jam_selesai' => $items->first()->jam_selesai,
+                    'penugasan_pegawai' => $penugasanPegawai->toArray(),
+
+                ];
+            })->values(),
+
         );
         $dataPendamping = Pendamping::get();
         $dataPpnpn = PegawaiPpnpn::get();
-        // $merge = $data->merge($dataPendamping);
-        // dd($merge);
+
+
+
+        // Proses data menjadi array yang diinginkan
+
+
+        // dump($jadwal);
+        // dd($data['lokaBBGP'][0]);
+        // dd($data['lokaPPNPN']);
 
         return view('pages.admin.internal.index', ['menu' => 'internal', 'datas' => $data, 'kota' => $kota, 'dataPendamping' => $dataPendamping, 'dataPpnpn' => $dataPpnpn]);
     }
@@ -137,7 +183,6 @@ class InternalController extends Controller
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
 
-        
 
         Internal::create($r);
 
@@ -157,7 +202,20 @@ class InternalController extends Controller
         $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
+
+        if ($r['hari_1'] == null) {
+            $r['hari_1'] = 0;
+        }
+        if ($r['hari_2'] == null) {
+            $r['hari_2'] = 0;
+        }
+        if ($r['hari_3'] == null) {
+
+            $r['hari_3'] = 0;
+        }
+
         // dd($r);
+
         Internal::create($r);
 
         if (session('role') == 'pegawai') {
@@ -218,6 +276,17 @@ class InternalController extends Controller
         $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
         $r['jam_selesai'] = $selesai_kegiatan[1];
         // dd($loka);
+
+        if ($r['hari_1'] == null) {
+            $r['hari_1'] = 0;
+        }
+        if ($r['hari_2'] == null) {
+            $r['hari_2'] = 0;
+        }
+        if ($r['hari_3'] == null) {
+
+            $r['hari_3'] = 0;
+        }
 
         $loka->update($r);
         // dd( route('pegawai.session('no_ktp')));
