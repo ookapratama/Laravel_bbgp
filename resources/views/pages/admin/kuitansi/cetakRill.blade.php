@@ -101,7 +101,7 @@
 
 <body>
     <?php
-    setlocale(LC_ALL, 'IND');
+    setlocale(LC_ALL, 'id_ID.UTF-8');
 
     
     $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
@@ -263,8 +263,8 @@
                             </p>
                         </td>
                         <td>
-                            <p class="bold"><u>Sitti Kahirah Adami, SH </u>
-                            <p style="margin-top: -10px">NIP.196810052005012014</p>
+                            <p class="bold"><u> {{ $data->peserta->nama }} </u>
+                            <p style="margin-top: -10px">NIP. {{ $data->peserta->nip }}</p>
                             </p>
                         </td>
                     </tr>

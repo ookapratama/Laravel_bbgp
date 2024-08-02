@@ -89,6 +89,11 @@
                                 <span>Kuitansi Kegiatan</span>
                             </a>
                         </li>
+                        <li class="{{ $title == 'Data Kuitansi Lokakarya' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('kuitansiLoka.index') }}">
+                                <span>Kuitansi Lokakarya</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </li>

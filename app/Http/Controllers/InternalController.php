@@ -26,7 +26,7 @@ class InternalController extends Controller
     {
         $kota = Kabupaten::get();
 
-        $jadwalInternal = Internal::select('kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3')
+        $jadwalInternal = Internal::select('kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan' ,'transport_pulang', 'hari_1', 'hari_2', 'hari_3')
             ->whereIn('jenis', ['Pendamping Lokakarya'])
             ->get()
             ->groupBy('kegiatan');
@@ -48,6 +48,7 @@ class InternalController extends Controller
                         'hotel' => $item->hotel,
                         'transport_pergi' => $item->transport_pergi,
                         'transport_pulang' => $item->transport_pulang,
+                        'bill_penginapan' => $item->bill_penginapan,
                         'hari_1' => $item->hari_1,
                         'hari_2' => $item->hari_2,
                         'hari_3' => $item->hari_3,

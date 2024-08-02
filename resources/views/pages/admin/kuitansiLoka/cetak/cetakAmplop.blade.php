@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Amlop</title>
+    <title>Amplop</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,7 +37,7 @@
         }
 
         .table-container table td {
-            border: 2px solid black;
+            /* border: 2px solid black; */
             padding: 10px;
             min-width: 25px;
             /* Menyesuaikan lebar minimum */
@@ -84,46 +84,52 @@
     <?php
     setlocale(LC_ALL, 'id_ID.UTF-8');
     
-    $tgl_kegiatan = strftime('%d %B', strtotime($data->peserta->kegiatan->tgl_kegiatan ?? ''));
-    $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai ?? ''));
+    // $tgl_kegiatan = strftime('%d %B', strtotime($data->peserta->kegiatan->tgl_kegiatan ?? ''));
+    // $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai ?? ''));
+    
     ?>
 
     <div class="container">
         <ul>
             <li>
-                <span><b>Nama Kegiatan</b></span>
-                <span>: {{ $data->peserta->kegiatan->nama_kegiatan }}</span>
+                {{-- <span><b>Nama Kegiatan</b></span> --}}
+                <span style="margin-left: 55px"> {{ $data->internal->kegiatan }}</span>
             </li>
-            <li>
+            {{-- <li>
                 <span><b>Lokasi Kegiatan</b></span>
                 <span>: {{ $data->peserta->kegiatan->tempat_kegiatan }}</span>
             </li>
             <li>
                 <span><b>Tanggal Kegiatan</b></span>
                 <span>:{{ $tgl_kegiatan ?? '' }} s.d {{ $tgl_selesai ?? '' }}</span>
-            </li>
+            </li> --}}
             <!-- Tambahkan baris selanjutnya sesuai kebutuhan -->
         </ul>
 
         <div class="table-container">
-            <table cellspacing="0" border="2" cellpadding="10">
+            <table cellspacing="0" border="0" cellpadding="0">
                 <tr>
                     <td>1</td>
-                    <td style="text-align: left;" colspan="4"> {{ $data->peserta->nama }} </td>
+                    <td style="text-align: left;" colspan="4">NAMA PETUGAS : {{ $data->internal->nama }} </td>
                 </tr>
                 <tr>
-                    <td>a.</td>
-                    <td style="width: 300px; text-align: left;">Terima</td>
-                    <td style="width: 200px">Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }} </td>
-                    <td style="width: 320px; " colspan="2"><b> Keterangan </b></td>
+                    <?php
+                    
+                    $total = $data->internal->transport_pergi + $data->internal->transport_pulang + $data->internal->bill_penginapan + $data->internal->hari_1 + $data->internal->hari_2 + $data->internal->hari_3 + $data->internal->bill_penginapan;
+                    ?>
+                    <td></td>
+                    <td style="width: 350px; text-align: right;">Rp.
+                        {{ number_format($total ?? 0, 0, ',', '.') }}</td>
+                    {{-- <td style="width: 200px">Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }} </td>
+                    <td style="width: 320px; " colspan="2"><b> Keterangan </b></td> --}}
                 </tr>
 
                 <tr>
-                    <td></td>
+                    {{-- <td></td> --}}
                     {{-- loop --}}
-                    <td>{{ $data->kabupaten->name . ' - ' . $data->lokasi_tujuan }}</td>
+                    {{-- <td>{{ $data->kabupaten->name . ' - ' . $data->lokasi_tujuan }}</td>
                     <td>Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
-                    <td colspan="2">{{ $data->jenis_angkutan }}</td>
+                    <td colspan="2">{{ $data->jenis_angkutan }}</td> --}}
 
                 </tr>
                 <!-- Tambahkan baris selanjutnya sesuai kebutuhan -->
@@ -131,35 +137,7 @@
             </table>
         </div>
 
-        <div class="table-container">
-            <table cellspacing="0" border="2" cellpadding="10">
 
-                <tr>
-                    <td>b.</td>
-                    <td style="width: 300px; text-align: left;">Potongan</td>
-                    {{ $total_pot = $data->potongan }}
-                    <td style="width: 200px">Rp. {{ number_format($total_pot ?? 0, 0, ',', '.') }}</td>
-                    <td style="width: 320px; text-align: left;" colspan="2"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    {{-- loop --}}
-
-                    <td></td>
-                    <td>Rp. {{ number_format($data->potongan ?? 0, 0, ',', '.') }}</td>
-                    <td colspan="2"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    {{ $total = $data->total_transport - $data->potongan }}
-                    <td><b> Total Terima </b></td>
-                    <td><b> Rp. {{ number_format($total ?? 0, 0, ',', '.') }} </b></td>
-                    <td colspan="2"></td>
-                </tr>
-                <!-- Tambahkan baris selanjutnya sesuai kebutuhan -->
-
-            </table>
-        </div>
     </div>
 
 

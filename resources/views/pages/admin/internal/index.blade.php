@@ -539,6 +539,7 @@
                                     <th>Hotel</th>
                                     <th>Transport Pergi</th>
                                     <th>Transport Pulang</th>
+                                    <th>Bill Penginapan</th>
                                     <th>Hari 1</th>
                                     <th>Hari 2</th>
                                     <th>Hari 3</th>
@@ -723,7 +724,7 @@
                     $('#title-text').text('Data Penugasan PPNPN')
 
                     // $('#status-pegawai').hide();
-                    $('#table-internal-bbgp').show();
+                    $('#table-internal-bbgp').hide();
                     // $('#filter-pegawai').hide();
 
                     $('#status-pegawai').hide();
@@ -959,6 +960,7 @@
                     // Variabel untuk menyimpan total keseluruhan
                     var totalTransportPergi = 0;
                     var totalTransportPulang = 0;
+                    var totalBill = 0;
                     var totalHari1 = 0;
                     var totalHari2 = 0;
                     var totalHari3 = 0;
@@ -969,15 +971,17 @@
                         // Parse nilai ke integer dan hitung total
                         var transportPergi = parseInt(pegawaiItem.transport_pergi) || 0;
                         var transportPulang = parseInt(pegawaiItem.transport_pulang) || 0;
+                        var billPenginapan = parseInt(pegawaiItem.bill_penginapan) || 0;
                         var hari1 = parseInt(pegawaiItem.hari_1) || 0;
                         var hari2 = parseInt(pegawaiItem.hari_2) || 0;
                         var hari3 = parseInt(pegawaiItem.hari_3) || 0;
 
-                        var totalPerRow = transportPergi + transportPulang + hari1 + hari2 + hari3;
+                        var totalPerRow = transportPergi + transportPulang + billPenginapan + hari1 + hari2 + hari3;
 
                         // Tambahkan ke total keseluruhan
                         totalTransportPergi += transportPergi;
                         totalTransportPulang += transportPulang;
+                        totalBill += billPenginapan;
                         totalHari1 += hari1;
                         totalHari2 += hari2;
                         totalHari3 += hari3;
@@ -990,6 +994,7 @@
                     <td>${pegawaiItem.hotel}</td>
                     <td class="text-nowrap">${formatRupiah(transportPergi, 'Rp.')}</td>
                     <td class="text-nowrap">${formatRupiah(transportPulang, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(billPenginapan, 'Rp.')}</td>
                     <td class="text-nowrap">${formatRupiah(hari1, 'Rp.')}</td>
                     <td class="text-nowrap">${formatRupiah(hari2, 'Rp.')}</td>
                     <td class="text-nowrap">${formatRupiah(hari3, 'Rp.')}</td>
@@ -1004,6 +1009,7 @@
                 <td colspan="3" class="text-center"><strong>Total</strong></td>
                 <td class="text-nowrap"><strong>${formatRupiah(totalTransportPergi, 'Rp.')}</strong></td>
                 <td class="text-nowrap"><strong>${formatRupiah(totalTransportPulang, 'Rp.')}</strong></td>
+                <td class="text-nowrap"><strong>${formatRupiah(totalBill, 'Rp.')}</strong></td>
                 <td class="text-nowrap"><strong>${formatRupiah(totalHari1, 'Rp.')}</strong></td>
                 <td class="text-nowrap"><strong>${formatRupiah(totalHari2, 'Rp.')}</strong></td>
                 <td class="text-nowrap"><strong>${formatRupiah(totalHari3, 'Rp.')}</strong></td>

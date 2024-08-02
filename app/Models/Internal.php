@@ -29,6 +29,7 @@ class Internal extends Model
         'hari_1',
         'hari_2',
         'hari_3',
+        'bill_penginapan',
         'deskripsi',
     ];
     public function pegawai()

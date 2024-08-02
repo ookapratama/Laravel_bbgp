@@ -99,8 +99,8 @@
             <div class="table-container">
                 <table cellspacing="0" border="2" cellpadding="10">
                     <tr>
-                        <td>1</td>
-                        <td style="text-align: left;" colspan="4"> {{ $data->peserta->nama }} </td>
+                        <td>178</td>
+                        <td style="text-align: left;" colspan="4">Nur Arif MS, S.Pd.,M.Pd.</td>
                     </tr>
                     <tr>
                         <td>a.</td>

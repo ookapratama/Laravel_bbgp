@@ -45,25 +45,32 @@
                                                 <th>Hotel</th>
                                                 <th>Transport Pulang</th>
                                                 <th>Transport Pergi</th>
+                                                <th>Bill Penginapan</th>
                                                 <th>Hari 1</th>
                                                 <th>Hari 2</th>
                                                 <th>Hari 3</th>
+                                                <th>Total</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($datas['penugasanLokakarya'] ?? $datas['penugasanLokakaryaPpnpn'] as $i => $data)
+                                                @php
+                                                    $total = $data->transport_pulang + $data->transport_pergi + $data->bill_penginapan + $data->hari_1 + $data->hari_2 + $data->hari_3;
+                                                 @endphp
                                                 <tr data-type="bbgp">
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data->nama }} </td>
                                                     <td>{{ $data->kegiatan }} </td>
                                                     <td>{{ $data->kota }}</td>
                                                     <td>{{ $data->hotel }}</td>
-                                                    <td>Rp. {{ number_format($data->transport_pulang, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($data->transport_pergi, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($data->hari_1, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($data->hari_2, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($data->hari_3, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->transport_pulang, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->transport_pergi, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->bill_penginapan, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->hari_1, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->hari_2, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->hari_3, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap"><b> Rp. {{ number_format($total, 0, ',', '.') }} </b></td>
                                                     <td>
                                                         <a href="{{ route('internal.edit.lokakarya', $data->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>

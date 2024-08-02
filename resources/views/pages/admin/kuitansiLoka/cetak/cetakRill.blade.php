@@ -3,18 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Kuitansi Rencana Biaya Perjalanan Dinas</title>
+    <title>Surat Pengeluaran Rill</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 11px;
             line-height: 1.6;
             margin: 0;
             padding: 0;
         }
 
         .text-title {
-            /* font-size: 11px; */
+            font-size: 11px;
         }
 
         .container {
@@ -94,7 +94,7 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            /* background-color: white; */
+            background-color: white;
         }
     </style>
 </head>
@@ -102,12 +102,9 @@
 <body>
     <?php
     setlocale(LC_ALL, 'id_ID.UTF-8');
-
     
     $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
     $tgl_sekarang = strftime('%d %B %Y', strtotime(date('d-m-Y')));
-    $tgl_mulai = strftime('%d', strtotime($data->peserta->kegiatan->tgl_kegiatan));
-    $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai));
     ?>
     <div class="container">
         <div class="" style="
@@ -127,31 +124,30 @@
             <hr>
 
         </div>
-        <div class="content" style="margin-top:-30px">
-            <h2 style="text-align: center;"> SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK </h2>
-            <p style="margin-top: 20px" class="text-title">Yang bertanda tangan dibawah ini :</p>
-            <table cellpadding="0" cellspacing="0">
+        <div class="content" style="margin-top:-10px">
+            <h2 style="text-align: center;"> DAFTAR PENGELUARAN RILL </h2>
+            <table style="margin-top: -10px" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td style="width: 180px" class="text-title">Yang bertanda tangan dibawah ini :</td>
 
                 </tr>
                 <tr>
-                    <td style="width: 110px" class="text-title">Nama</td>
+                    <td class="text-title">Nama</td>
                     <td>
-                        <p><span class="highlight ">: {{ $data->peserta->nama }}</span></p>
+                        <p><span class="highlight ">: {{ $data->internal->nama }} </span></p>
                     </td>
                 </tr>
                 <tr style="padding: 10px">
                     <td class="text-title">NIP</td>
                     <td>
-                        <p><span class="highlight">: {{ $data->peserta->pegawai->nip ?? $data->peserta->nip }}</span>
-                        </p>
+                        <p><span class="highlight">: {{ $data->internal->nip }}</span></p>
                     </td>
                 </tr>
 
                 <tr>
                     <td valign="top" width="80" class="text-title">Jabatan</td>
                     <td>
-                        <p style="text-align: justify">: {{ $data->peserta->pegawai->jabatan ?? $data->peserta->nip }}
+                        <p style="text-align: justify">: {{ $data->internal->pegawai->jenis_pegawai == 'BBGP' ? 'Pegawai BBGP' : 'PPNPN' }}
 
                         </p>
                     </td>
@@ -161,10 +157,16 @@
 
         </div>
         <div class="content">
-            <table style="margin-top:-30px">
-
+            <table style="margin-top: -20px">
                 <tr>
-                    <td>Menyatakan dengan sesungguhnya bahwa: :</td>
+                    <td>Berdasarkan Surat Tugas Nomor : {{ $data->no_surat_tugas }} tanggal {{ $tgl_surat }}
+                    </td>
+                    <td>
+                        <p> <span class="highlight"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>dengan ini kami menyatakan dengan sesungguhnya bahwa :</td>
                     <td>
                         <p> <span class="highlight">
 
@@ -172,50 +174,62 @@
                     </td>
                 </tr>
 
-                <ol style="margin-left: -25px; padding-top: 10px">
-                    <li>
-                        <p style="text-align: justify;">
-                            Semua dokumen yang saya gunakan dalam melakukan kegiatan Transport Petugas dalam rangka
-                            pelaksanaan
-                            {{ $data->peserta->kegiatan->nama_kegiatan }}
-                            pada tanggal {{ $tgl_mulai }} s.d {{ $tgl_selesai }}
-                            di {{ $data->peserta->kegiatan->tempat_kegiatan }}.
-                            berdasarkan Surat Tugas Nomor {{ $data->no_surat_tugas }} Tanggal {{ $tgl_surat }}
+                <ol style="margin-left: -25px">
+                    <li>Biaya transport atau biaya penginapan dibawah ini yang tidak dapat diperoleh bukti-bukti </li>
 
-
-                        </p>
-                    </li>
-
-                    <li style="padding-top: 25px">Bertanggung jawab sepenuhnya atas kebenaran seluruh penggunaan biaya
-                        perjalanan dinas
-                        termasuk bukti-bukti pertanggungjawaban perjalanan dinas. Sehubungan dengan hal itu,
-                        maka saya menyatakan tidak melakukan:
-                    </li>
-
-                    <ol type="a">
-                        <li>
-                            Pemalsuan dokumen;
-                        </li>
-                        <li>
-                            Tindakan berupa menaikkan dari harga sebenarnya (mark up);
-                        </li>
-                        <li>
-                            Perjalanan dinas rangkap.
-                        </li>
-                    </ol>
-
-
-                    </p>
+                    <p>pengeluarannya meliputi :</p>
                 </ol>
 
             </table>
 
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 10px"> No.</th>
+                        <th style="width: 180px">Uraian</th>
+                        <th style="width: 150px">Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td valign="top">1</td>
+                        <td>
+                            Transport:
+                            <br>
+                            <br>
 
-            <p>Demikian pernyataan ini saya buat dengan sesungguhnya dan apabila dikemudian hari terbukti <br>
-                tidak benar serta terdapat selisih biaya perjalanan dinas dan pengeluaran lainnya, maka saya <br>
-                bersedia mengembalikan ke kas negara.
-            </p>
+
+                            {{ $data->internal->kota }}, PP
+                            <br><br>
+                            <br>
+
+                        </td>
+                        <?php
+                        $total = $data->internal->transport_pergi + $data->internal->transport_pulang + $data->internal->bill_penginapan + $data->internal->hari_1 + $data->internal->hari_2 + $data->internal->hari_3 + $data->internal->bill_penginapan;
+                        ?>
+                        <td>Rp. {{ number_format($total ?? 0, 0, ',', '.') }}</td>
+                    </tr>
+
+                </tbody>
+
+
+            </table>
+
+            <ol start="2" style="margin-left: -30px">
+                <li>
+                    <p>
+                        Jumlah uang tersebut pada angka 1 diatas benar-benar dikeluarkan untuk pelaksanaan perjalanan
+                        Dinas
+                        <br>
+                        dimaksud dan apabila dikemudian hari terdapat kelebihan atas pembayaran, kami bersedia untuk
+                        <br>
+                        menyetorkan kelebihan tersebut ke Kas Negara.
+                    </p>
+                </li>
+            </ol>
+
+            <p>Demikian pernyataan ini kami buat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.</p>
 
         </div>
 
@@ -226,12 +240,13 @@
         </div>
 
         <div class="footer-surat">
-            <table style="margin-top: -55px; margin-left: -30px">
+            <p>Mengetahui / Menyetujui <br> Pejabat Pembuat Komitmen,
+            <table style="margin-top: -55px;">
                 <tr style="margin-top: -40">
                     <td style=" width: 500px;">
                     </td>
                     <td valign="top"><span class="highlight ">
-                            Makassar, {{ $tgl_sekarang }} <br>
+                            Makassar, {{ $tgl_surat }} <br>
                             Yang melaksanakan <br>
                             Perjalanan Dinas,
                         </span></td>
@@ -241,15 +256,17 @@
             <br>
             <br>
             <br>
-            <div style="margin-top: -50px; margin-left: -30px; padding-top: 0px;" class="signature">
+            <div style="margin-top: -50px; padding-top: 40px;" class="signature">
                 <table>
                     <tr>
                         <td style=" width: 500px;">
-
+                            <p class="bold"><u>Idhil Nur Mansyur, SE</u>
+                            <p style="margin-top: -10px">NIP.198306212009122002</p>
+                            </p>
                         </td>
                         <td>
-                            <p class=""> <b> <u>  {{ $data->peserta->nama }} </u> </b>
-                            <p style="margin-top: -10px">NIP. {{ $data->peserta->nip }}</p>
+                            <p class="bold"><u> {{ $data->internal->nama }} </u>
+                            <p style="margin-top: -10px">NIP. {{ $data->internal->nip }}</p>
                             </p>
                         </td>
                     </tr>

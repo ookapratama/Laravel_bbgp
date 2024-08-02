@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Kuitansi Rencana Biaya Perjalanan Dinas</title>
+    <title>Surat Pernyataan Tanggung Jawab Mutlak</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -106,8 +106,8 @@
     
     $tgl_surat = strftime('%d %B %Y', strtotime($data->tgl_surat_tugas));
     $tgl_sekarang = strftime('%d %B %Y', strtotime(date('d-m-Y')));
-    $tgl_mulai = strftime('%d', strtotime($data->peserta->kegiatan->tgl_kegiatan));
-    $tgl_selesai = strftime('%d %B %Y', strtotime($data->peserta->kegiatan->tgl_selesai));
+    $tgl_mulai = strftime('%d', strtotime($data->internal->tgl_kegiatan));
+    $tgl_selesai = strftime('%d %B %Y', strtotime($data->internal->tgl_selesai_kegiatan));
     ?>
     <div class="container">
         <div class="" style="
@@ -137,13 +137,13 @@
                 <tr>
                     <td style="width: 110px" class="text-title">Nama</td>
                     <td>
-                        <p><span class="highlight ">: {{ $data->peserta->nama }}</span></p>
+                        <p><span class="highlight ">: {{ $data->internal->nama }}</span></p>
                     </td>
                 </tr>
                 <tr style="padding: 10px">
                     <td class="text-title">NIP</td>
                     <td>
-                        <p><span class="highlight">: {{ $data->peserta->pegawai->nip ?? $data->peserta->nip }}</span>
+                        <p><span class="highlight">: {{ $data->internal->pegawai->nip ?? $data->internal->nip }}</span>
                         </p>
                     </td>
                 </tr>
@@ -151,7 +151,7 @@
                 <tr>
                     <td valign="top" width="80" class="text-title">Jabatan</td>
                     <td>
-                        <p style="text-align: justify">: {{ $data->peserta->pegawai->jabatan ?? $data->peserta->nip }}
+                        <p style="text-align: justify">: {{ $data->internal->pegawai->jenis_pegawai == 'BBGP' ? 'Pegawai BBGP' : 'PPNPN' }}
 
                         </p>
                     </td>
@@ -177,9 +177,9 @@
                         <p style="text-align: justify;">
                             Semua dokumen yang saya gunakan dalam melakukan kegiatan Transport Petugas dalam rangka
                             pelaksanaan
-                            {{ $data->peserta->kegiatan->nama_kegiatan }}
+                            {{ $data->internal->kegiatan }}
                             pada tanggal {{ $tgl_mulai }} s.d {{ $tgl_selesai }}
-                            di {{ $data->peserta->kegiatan->tempat_kegiatan }}.
+                            di {{ $data->internal->tempat }}.
                             berdasarkan Surat Tugas Nomor {{ $data->no_surat_tugas }} Tanggal {{ $tgl_surat }}
 
 
@@ -248,8 +248,8 @@
 
                         </td>
                         <td>
-                            <p class=""> <b> <u>  {{ $data->peserta->nama }} </u> </b>
-                            <p style="margin-top: -10px">NIP. {{ $data->peserta->nip }}</p>
+                            <p class=""> <b> <u>  {{ $data->internal->nama }} </u> </b>
+                            <p style="margin-top: -10px">NIP. {{ $data->internal->nip }}</p>
                             </p>
                         </td>
                     </tr>

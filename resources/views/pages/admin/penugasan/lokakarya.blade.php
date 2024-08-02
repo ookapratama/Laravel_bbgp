@@ -112,19 +112,39 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Transport Pulang</label>
-                                                <input required name="transport_pulang" type="text"
-                                                    class="form-control currency">
+                                                <input required name="transport_pulang" id="transport_pulang" type="text"
+                                                    class="form-control">
                                             </div>
-
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Transport Pergi</label>
-                                                <input required name="transport_pergi" type="text"
-                                                    class="form-control currency">
+                                                <input required name="transport_pergi" id="transport_pergi" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
+
+                                        <div class="col-md-4">
+                                            <div class="custom-switches-stacked">
+                                                <label class="custom-switch">
+                                                    <input type="checkbox" name="switch_penginapan" id="switch_penginapan"
+                                                        class="custom-switch-input">
+                                                    <span class="custom-switch-indicator"></span>
+                                                    <span class="custom-switch-description">Bill atau
+                                                        30%</span>
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Jumlah Bill</label>
+                                                <input required name="bill_penginapan" value="0" id="bill_penginapan"
+                                                    type="text" class="form-control">
+                                            </div>
+
+                                        </div>
+
                                     </div>
+
 
                                     <div class="row my-3">
                                         <div class="col-md-3">
@@ -132,24 +152,36 @@
                                                 <label>Hotel</label>
                                                 <input required name="hotel" type="text" class="form-control">
                                             </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Hari 1</label>
+                                                <input name="hari_1" id="hari_1" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Hari 2</label>
+                                                <input name="hari_2" id="hari_2" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Hari 3</label>
+                                                <input name="hari_3" id="hari_3" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                        </div>
-                                        <div class="col-md-3">
+                                    <div class="row">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Hari 1 (opsional)</label>
-                                                <input name="hari_1" type="text" class="form-control currency">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Hari 2 (opsional)</label>
-                                                <input name="hari_2" type="text" class="form-control currency">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Hari 3 (opsional)</label>
-                                                <input name="hari_3" type="text" class="form-control currency">
+                                                <label>Total</label>
+                                                <input readonly value="0" name="total" id="total"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -174,10 +206,97 @@
 
     @push('scripts')
         <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+        <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
+
         <script>
             $(document).ready(function() {
                 // Initialize Select2
                 $('#selectNama').select2();
+
+                const cleaveCurrency = [
+                    new Cleave('#transport_pulang', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    }),
+                    new Cleave('#transport_pergi', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    }),
+                    new Cleave('#bill_penginapan', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    }),
+                    new Cleave('#hari_1', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    }),
+                    new Cleave('#hari_2', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    }),
+                    new Cleave('#hari_3', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    })
+                ];
+
+
+                const bill_penginapan = $('#bill_penginapan');
+
+                $('#switch_penginapan').change(function() {
+
+                    console.log($(this).val())
+                    if ($(this).is(':checked')) {
+
+                        bill_penginapan.val(formatRupiah(210000)); // Set nilai 210000
+                    } else {
+                        bill_penginapan.val(0); // Set nilai 0 jika tidak aktif
+                    }
+                    // Initialize calculations
+                    // calculateTiket();
+                    // calculateTransport();
+                    // calculatePenginapan();
+                    // calculateHarian();
+                    // calculateTotalBiaya();
+                });
+
+                // Calculate total whenever an input changes
+                $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #bill_penginapan').on('input',
+                    function() {
+                        calculateTotal();
+                    });
+
+
+                function calculateTotal() {
+                    let total = 0;
+
+                    // Loop through each input by ID, parse the value, and add to total
+                    total += parseCurrency($('#transport_pulang').val());
+                    total += parseCurrency($('#transport_pergi').val());
+                    total += parseCurrency($('#hari_1').val());
+                    total += parseCurrency($('#hari_2').val());
+                    total += parseCurrency($('#hari_3').val());
+                    total += parseCurrency($('#bill_penginapan').val());
+
+                    $('#total').val(formatRupiah(total));
+                }
+
+                function parseCurrency(value) {
+                    return parseInt(value.replace(/[^0-9]/g, '')) || 0;
+                }
+
 
                 // Handle change event on select element
                 $('#selectNama').on('change', function() {
@@ -213,28 +332,19 @@
                     $(this).val(formatRupiah(value, 'Rp '));
                 });
 
-                function formatRupiah(angka, prefix) {
-                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                        split = number_string.split(','),
-                        sisa = split[0].length % 3,
-                        rupiah = split[0].substr(0, sisa),
-                        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                    if (ribuan) {
-                        separator = sisa ? '.' : '';
-                        rupiah += separator + ribuan.join('.');
-                    }
-
-                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                    return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
+                function formatRupiah(number) {
+                    var reverse = number.toString().split('').reverse().join('');
+                    var ribuan = reverse.match(/\d{1,3}/g);
+                    return 'Rp ' + ribuan.join('.').split('').reverse().join('');
                 }
 
                 // Remove currency format before form submit
                 $('#lokakaryaForm').on('submit', function() {
-                    $('.currency').each(function() {
-                        var value = $(this).val();
-                        $(this).val(value.replace(/[^,\d]/g, ''));
-                    });
+                    $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #bill_penginapan').each(
+                        function() {
+                            var value = $(this).val();
+                            $(this).val(value.replace(/[^0-9]/g, ''));
+                        });
                 });
             });
         </script>

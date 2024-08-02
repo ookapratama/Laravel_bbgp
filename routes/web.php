@@ -324,6 +324,33 @@ Route::group(
                 Route::get('/penomoran', 'KuitansiController@Penomoran')->name('honor.penomoran');
             });
 
+             //kuitansiLoka
+             Route::prefix('kuitansiLoka')->group(function () {
+                Route::get('/', 'KuitansiLokaController@index')->name('kuitansiLoka.index');
+                Route::get('/create', 'KuitansiLokaController@create')->name('kuitansiLoka.create');
+                Route::post('/store', 'KuitansiLokaController@store')->name('kuitansiLoka.store');
+                Route::get('/edit/{id}', 'KuitansiLokaController@edit')->name('kuitansiLoka.edit');
+                Route::put('/update/{id}', 'KuitansiLokaController@update')->name('kuitansiLoka.update');
+                Route::post('/hapus/{id}', 'KuitansiLokaController@destroy')->name('kuitansiLoka.hapus');
+                Route::get('/show/{id}', 'KuitansiLokaController@show')->name('kuitansiLoka.show');
+                Route::get('/getPeserta', 'KuitansiLokaController@getPeserta')->name('kuitansiLoka.getPeserta');
+
+                Route::get('/cetakAll', 'KuitansiLokaController@cetakAll')->name('kuitansiLoka.cetakAll');
+                Route::get('/cetakRillAll', 'KuitansiLokaController@cetakRillAll')->name('kuitansiLoka.cetakRillAll');
+                Route::get('/cetakPJmutlakAll', 'KuitansiLokaController@cetakPJmutlakAll')->name('kuitansiLoka.cetakPJmutlakAll');
+                Route::get('/cetakAmplopAll', 'KuitansiLokaController@cetakAmplopAll')->name('kuitansiLoka.cetakAmplopAll');
+
+                Route::get('/cetak/{id}', 'KuitansiLokaController@cetak')->name('kuitansiLoka.cetak');
+                Route::get('/cetakRill/{id}', 'KuitansiLokaController@cetakRill')->name('kuitansiLoka.cetakRill');
+                Route::get('/cetakPJmutlak/{id}', 'KuitansiLokaController@cetakPJmutlak')->name('kuitansiLoka.cetakPJmutlak');
+                Route::get('/cetakAmplop/{id}', 'KuitansiLokaController@cetakAmplop')->name('kuitansiLoka.cetakAmplop');
+                Route::get('/cetakPermintaan', 'KuitansiLokaController@cetakPermintaan')->name('kuitansiLoka.cetakPermintaan');
+                Route::get('/cetakLampiran', 'KuitansiLokaController@cetakLampiran')->name('kuitansiLoka.cetakLampiran');
+                Route::get('/cetakExcel/{id_kegiatan}', 'KuitansiLokaController@cetakExcel')->name('kuitansiLoka.cetakexcel');
+
+                Route::get('/storeNomor', 'KuitansiLokaController@storeNomor')->name('kuitansiLoka.storeNomor');
+            });
+
 
 
             // Master Jabatan Pegawai BBGP
