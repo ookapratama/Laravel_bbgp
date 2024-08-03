@@ -153,6 +153,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="card">
@@ -522,7 +523,7 @@
                     <div class="d-flex">
                         <h5 class="mr-4">Daftar Pegawai </h5>
                         <button id="printButton" class="btn btn-primary mb-3">Cetak Data</button>
-
+                        <button id="editAllButton" class="btn btn-warning mb-3 ml-2">Edit Semua</button>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -557,7 +558,30 @@
     </div>
 
 
-
+    <!-- Modal for Editing All Employees -->
+    <div class="modal fade" id="editAllModal" tabindex="-1" role="dialog" aria-labelledby="editAllModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editAllModalLabel">Edit Semua Pegawai</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editAllForm">
+                        @csrf
+                        <!-- Forms for each employee will be inserted here by JavaScript -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="saveAllButton">Simpan Semua</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -976,7 +1000,8 @@
                         var hari2 = parseInt(pegawaiItem.hari_2) || 0;
                         var hari3 = parseInt(pegawaiItem.hari_3) || 0;
 
-                        var totalPerRow = transportPergi + transportPulang + billPenginapan + hari1 + hari2 + hari3;
+                        var totalPerRow = transportPergi + transportPulang + billPenginapan + hari1 +
+                            hari2 + hari3;
 
                         // Tambahkan ke total keseluruhan
                         totalTransportPergi += transportPergi;
@@ -988,34 +1013,34 @@
                         totalKeseluruhan += totalPerRow;
 
                         pegawaiTableBody.append(`
-                <tr>
-                    <td>${index + 1}</td>
-                    <td class="text-nowrap">${pegawaiItem.nama}</td>
-                    <td>${pegawaiItem.hotel}</td>
-                    <td class="text-nowrap">${formatRupiah(transportPergi, 'Rp.')}</td>
-                    <td class="text-nowrap">${formatRupiah(transportPulang, 'Rp.')}</td>
-                    <td class="text-nowrap">${formatRupiah(billPenginapan, 'Rp.')}</td>
-                    <td class="text-nowrap">${formatRupiah(hari1, 'Rp.')}</td>
-                    <td class="text-nowrap">${formatRupiah(hari2, 'Rp.')}</td>
-                    <td class="text-nowrap">${formatRupiah(hari3, 'Rp.')}</td>
-                    <td class="text-nowrap">${formatRupiah(totalPerRow, 'Rp.')}</td>
-                </tr>
-            `);
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td class="text-nowrap">${pegawaiItem.nama}</td>
+                                <td>${pegawaiItem.hotel}</td>
+                                <td class="text-nowrap">${formatRupiah(transportPergi, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(transportPulang, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(billPenginapan, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(hari1, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(hari2, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(hari3, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(totalPerRow, 'Rp.')}</td>
+                            </tr>
+                        `);
                     });
 
                     // Tambahkan baris total di akhir tabel dengan kelas total-row
                     pegawaiTableBody.append(`
-            <tr class="total-row">
-                <td colspan="3" class="text-center"><strong>Total</strong></td>
-                <td class="text-nowrap"><strong>${formatRupiah(totalTransportPergi, 'Rp.')}</strong></td>
-                <td class="text-nowrap"><strong>${formatRupiah(totalTransportPulang, 'Rp.')}</strong></td>
-                <td class="text-nowrap"><strong>${formatRupiah(totalBill, 'Rp.')}</strong></td>
-                <td class="text-nowrap"><strong>${formatRupiah(totalHari1, 'Rp.')}</strong></td>
-                <td class="text-nowrap"><strong>${formatRupiah(totalHari2, 'Rp.')}</strong></td>
-                <td class="text-nowrap"><strong>${formatRupiah(totalHari3, 'Rp.')}</strong></td>
-                <td class="text-nowrap"><strong>${formatRupiah(totalKeseluruhan, 'Rp.')}</strong></td>
-            </tr>
-        `);
+                        <tr class="total-row">
+                            <td colspan="3" class="text-center"><strong>Total</strong></td>
+                            <td class="text-nowrap"><strong>${formatRupiah(totalTransportPergi, 'Rp.')}</strong></td>
+                            <td class="text-nowrap"><strong>${formatRupiah(totalTransportPulang, 'Rp.')}</strong></td>
+                            <td class="text-nowrap"><strong>${formatRupiah(totalBill, 'Rp.')}</strong></td>
+                            <td class="text-nowrap"><strong>${formatRupiah(totalHari1, 'Rp.')}</strong></td>
+                            <td class="text-nowrap"><strong>${formatRupiah(totalHari2, 'Rp.')}</strong></td>
+                            <td class="text-nowrap"><strong>${formatRupiah(totalHari3, 'Rp.')}</strong></td>
+                            <td class="text-nowrap"><strong>${formatRupiah(totalKeseluruhan, 'Rp.')}</strong></td>
+                        </tr>
+                    `);
                 });
 
                 $('#printButton').on('click', function() {
@@ -1040,6 +1065,10 @@
                     WinPrint.print();
                     WinPrint.close();
                 });
+
+
+
+
 
             });
 
@@ -1108,6 +1137,108 @@
                 rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
                 return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
             }
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#editAllButton').on('click', function() {
+                    // Clear the form before adding new inputs
+                    $('#editAllForm').empty();
+
+                    // Loop through each row in the table except the last one (Total row)
+                    $('#pegawaiTableBody tr:not(.total-row)').each(function(index, row) {
+                        // Gather data from each cell in the row
+                        var nama = $(row).find('td:nth-child(2)').text().trim();
+                        var hotel = $(row).find('td:nth-child(3)').text().trim();
+                        var transportPergi = $(row).find('td:nth-child(4)').text().trim().replace(
+                            /[^0-9]/g, '');
+                        var transportPulang = $(row).find('td:nth-child(5)').text().trim().replace(
+                            /[^0-9]/g, '');
+                        var billPenginapan = $(row).find('td:nth-child(6)').text().trim().replace(
+                            /[^0-9]/g, '');
+                        var hari1 = $(row).find('td:nth-child(7)').text().trim().replace(/[^0-9]/g, '');
+                        var hari2 = $(row).find('td:nth-child(8)').text().trim().replace(/[^0-9]/g, '');
+                        var hari3 = $(row).find('td:nth-child(9)').text().trim().replace(/[^0-9]/g, '');
+
+                        // Create form inputs for each data using Bootstrap's grid system
+                        var formGroup = `
+                <div class="employee-section mb-4">
+                    <h5 class="mb-3">Pegawai ${index + 1}</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="pegawai_${index}_nama">Nama Pegawai</label>
+                            <input type="text" class="form-control" id="pegawai_${index}_nama" name="pegawai[${index}][nama]" value="${nama}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="pegawai_${index}_hotel">Hotel</label>
+                            <input type="text" class="form-control" id="pegawai_${index}_hotel" name="pegawai[${index}][hotel]" value="${hotel}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="pegawai_${index}_transportPergi">Transport Pergi</label>
+                            <input type="number" class="form-control" id="pegawai_${index}_transportPergi" name="pegawai[${index}][transportPergi]" value="${transportPergi}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="pegawai_${index}_transportPulang">Transport Pulang</label>
+                            <input type="number" class="form-control" id="pegawai_${index}_transportPulang" name="pegawai[${index}][transportPulang]" value="${transportPulang}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="pegawai_${index}_billPenginapan">Bill Penginapan</label>
+                            <input type="number" class="form-control" id="pegawai_${index}_billPenginapan" name="pegawai[${index}][billPenginapan]" value="${billPenginapan}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="pegawai_${index}_hari1">Hari 1</label>
+                            <input type="number" class="form-control" id="pegawai_${index}_hari1" name="pegawai[${index}][hari1]" value="${hari1}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="pegawai_${index}_hari2">Hari 2</label>
+                            <input type="number" class="form-control" id="pegawai_${index}_hari2" name="pegawai[${index}][hari2]" value="${hari2}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="pegawai_${index}_hari3">Hari 3</label>
+                            <input type="number" class="form-control" id="pegawai_${index}_hari3" name="pegawai[${index}][hari3]" value="${hari3}">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            `;
+
+                        // Append the form group to the form
+                        $('#editAllForm').append(formGroup);
+                    });
+
+                    // Show the modal
+                    $('#editAllModal').modal('show');
+                });
+
+                // Submit form data to the controller
+                $('#editAllForm').on('submit', function(e) {
+                    e.preventDefault();
+
+                    // Gather form data
+                    var formData = $(this).serialize();
+                    console.log(formData);
+                    // Send the data to the controller
+                    $.ajax({
+                        url: "{{ route('updateAllEmployees') }}",
+                        method: 'POST',
+                        data: formData,
+                        success: function(response) {
+                            // Handle success response
+                            alert('Data updated successfully!');
+                            $('#editAllModal').modal('hide');
+                            location.reload(); // Reload the page to reflect changes
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error response
+                            alert('An error occurred: ' + error);
+                        }
+                    });
+                });
+            });
         </script>
     @endpush
 @endsection

@@ -68,7 +68,7 @@ class HonorNarasumberExport implements FromCollection, WithHeadings, ShouldAutoS
             ->where('status_keikutpesertaan', 'narasumber')
             ->get();
 
-        $this->namaKegiatan = $pesertaKegiatan[0]->kegiatan->nama_kegiatan;
+        $this->namaKegiatan = $pesertaKegiatan[0]->kegiatan->nama_kegiatan ?? '';
         $id_kegiatan = $this->id_kegiatan;
 
 

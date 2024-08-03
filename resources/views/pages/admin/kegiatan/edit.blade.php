@@ -1,3 +1,4 @@
+
 @extends('layouts.app', ['title' => 'Data Kegiatan'])
 @section('content')
     @push('styles')

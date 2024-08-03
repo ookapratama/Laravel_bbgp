@@ -124,7 +124,7 @@ class KegiatanController extends Controller
         }
 
 
-                // Get data for the view, e.g., list of kabupaten, golongan, etc.
+        // Get data for the view, e.g., list of kabupaten, golongan, etc.
         $status = [
             'kegiatanById' => Kegiatan::find($kegiatanId),
             'kabupaten' => Kabupaten::all(),
@@ -144,6 +144,18 @@ class KegiatanController extends Controller
         // dd($r['golongan_pns'] == null && $r['diluar_gol'] == null);
         $menu = 'kegiatan';
 
+        if ($r['kabupaten'] == 'lainnya') {
+
+            if ($r['asal_kabupaten'] == null) {
+                $r['asal_kabupaten'] = '-';
+                $r['kabupaten'] = $r['asal_kabupaten'];
+            } else {
+                $r['kabupaten'] = $r['asal_kabupaten'];
+            }
+
+        }
+
+        // dd($r);
         if ($r['jenis_gol'] == 'PNS' && $r['golongan_pns'] != null) {
             $r['golongan'] = $r['golongan_pns'];
             $r['diluar_gol'] = null;
@@ -170,10 +182,10 @@ class KegiatanController extends Controller
             return redirect()->route('user.kegiatan_regist', [
                 'kegiatan_id' => $status['kegiatanById']->id,
             ])->with([
-                'status' => $status,
-                'message' => 'error golongan',
-                'menu' => 'kegiatan',
-            ]);
+                        'status' => $status,
+                        'message' => 'error golongan',
+                        'menu' => 'kegiatan',
+                    ]);
         }
 
         $r['id_kegiatan'] = $r['kegiatan_id'];
@@ -215,26 +227,28 @@ class KegiatanController extends Controller
         $nik = $request->input('nik');
         // dd($nik);
         $title = 'Peserta';
-        $peserta  = PesertaKegiatan::where('no_ktp', $nik)->first();
+        $peserta = PesertaKegiatan::where('no_ktp', $nik)->first();
+        $instansi = '';
         // dd($peserta == null);
         if ($peserta == null) {
             $peserta = Pegawai::where('no_ktp', $nik)->first();
             $title = 'Pegawai';
             $instansi = 'Kantor BBGP SulSel';
-            
-            if( $peserta == null) {
-                
+
+            if ($peserta == null) {
+
                 $title = 'Eksternal';
                 $peserta = Guru::where('no_ktp', $nik)->first();
                 $instansi = $peserta->sekolah->nama_sekolah ?? '';
-            }    
-            
+            }
+
             $status = false;
         } else {
 
             $status = true;
         }
-
+        // dump($instansi);
+        // dd($peserta);
 
         Session::put('nik', $nik);
         Session::put('dataAda', $status);

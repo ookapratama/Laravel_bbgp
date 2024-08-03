@@ -93,21 +93,30 @@
 
                             <div class="row">
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Kabupaten / Kota</label>
+                                        <label>Kabupaten / Kota (jika tidak ada, pilih lainnya)</label>
                                         <select name="kabupaten" id="kabupaten" class="form-control select2">
                                             <option id="selectedKab" value="">-- piilih kabupaten --</option>
                                             @foreach ($status['kabupaten'] as $v)
                                                 <option value=" {{ $v->name }} ">{{ $v->name }}</option>
                                             @endforeach
+                                            <option id="selectedKabLainnya" value="lainnya">Lainnya</option>
                                         </select>
                                         {{-- <input readonly name="kabupaten" id="kabupaten" type="text"
                                         class="form-control" required> --}}
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4" id="formAsal" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Asal Kabupaten / Kota</label>
+                                        <input  name="asal_kabupaten" id="asal_kabupaten" type="text"
+                                            class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Instansi</label>
                                         <input name="instansi" id="instansi" type="text" class="form-control" required>
@@ -123,7 +132,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Jenis Kelamin</label>
-                                        <select name="gender" id="gender" class="form-control">
+                                        <select name="jkl" id="gender" class="form-control">
                                             <option value="">-- pilih jenis kelamin --</option>
                                             <option value="Laki-laki">Laki-laki</option>
                                             <option value="Perempuan">Perempuan</option>
@@ -168,8 +177,7 @@
                                     <div class="col-md-3" id="form_diluar_gol">
                                         <div class="form-group">
                                             <label>Isi Golongan </label>
-                                            <input  name="diluar_gol" id="diluar_gol" type="text"
-                                                class="form-control">
+                                            <input name="diluar_gol" id="diluar_gol" placeholder="jika tidak ada ketik tanda -" type="text" class="form-control">
                                         </div>
                                     </div>
 
@@ -221,7 +229,7 @@
                                     <div class="col-md-3" id="form_diluar_gol">
                                         <div class="form-group">
                                             <label>Isi Golongan </label>
-                                            <input name="diluar_gol" id="diluar_gol" type="text"
+                                            <input name="diluar_gol" id="diluar_gol" placeholder="jika tidak ada ketik tanda -" type="text"
                                                 class="form-control">
                                         </div>
                                     </div>
@@ -347,7 +355,7 @@
                         nik: '{{ session('nik') }}'
                     },
                     success: function(response) {
-                        console.log('hai :',response.data);
+                        console.log('hai :', response.data);
                         console.log(response);
                         let kb = $.trim(response.data.kabupaten);
                         let jenis_gol = $.trim(response.data.jenis_gol);
@@ -358,7 +366,8 @@
                         $('#nama').val(response.data.nama ?? response.data.nama_lengkap);
                         $('#jabatan').val(response.data.jabatan);
                         // $('#gender').val(response.data.jkl);
-                        $(`#gender option[value="${response.data.jkl ?? response.data.gender}"]`).prop('selected', true);
+                        $(`#gender option[value="${response.data.jkl ?? response.data.gender}"]`).prop(
+                            'selected', true);
 
                         // change jenis golongan 
                         let gol_pns = $('#form_golongan_pns');
@@ -429,7 +438,16 @@
                 $('#formOpsional').hide();
                 $('#narasumberTime').hide();
 
-
+                // Handle change event for Kabupaten selection
+                $('#kabupaten').change(function() {
+                    let selectedValue = $(this).val();
+                    if (selectedValue === 'lainnya') {
+                        $('#formAsal').show(); // Show the input for manual entry
+                    } else {
+                        $('#formAsal').hide(); // Hide the input
+                        $('#asal_kabupaten').val(''); // Clear the input value if not needed
+                    }
+                });
 
 
 

@@ -197,6 +197,7 @@ Route::group(
                 Route::post('/storePegawai', 'InternalController@storePegawai')->name('internal.store.pegawai');
                 Route::get('/editPegawai/{id}', 'InternalController@editPegawai')->name('internal.edit.pegawai');
                 Route::post('/updatePegawai', 'InternalController@updatePegawai')->name('internal.update.pegawai');
+                Route::post('/updatePegawaiAll', 'InternalController@updatePegawaiAll')->name('updateAllEmployees');
 
 
                 Route::post('/hapusPegawai/{id}', 'InternalController@hapusPenugasan')->name('internal.hapus.penugasan');

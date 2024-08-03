@@ -27,6 +27,7 @@ class PesertaKegiatan extends Model
         'no_surat_tugas',
         'instansi',
         'tgl_surat_tugas',
+        // 'gender',
         // 'id_pegawai',
         // 'signature',
         // 'jam_mengajar',

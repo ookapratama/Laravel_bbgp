@@ -56,6 +56,16 @@ class PesertaKegiatanController extends Controller
         // dd($getNik);
         if ($getNik == null) {
 
+            if ($r['kabupaten'] == 'lainnya') {
+
+                if ($r['asal_kabupaten'] == null) {
+                    $r['asal_kabupaten'] = '-';
+                    $r['kabupaten'] = $r['asal_kabupaten'];
+                } else {
+                    $r['kabupaten'] = $r['asal_kabupaten'];
+                }
+
+            }
             // dd(false);
 
             if ($r['jenis_gol'] == 'PNS' && $r['golongan_pns'] != null) {
@@ -84,10 +94,10 @@ class PesertaKegiatanController extends Controller
                 return redirect()->route('peserta.create', [
                     'kegiatan_id' => $status['kegiatanById']->id,
                 ])->with([
-                    'status' => $status,
-                    'message' => 'error golongan',
-                    'menu' => 'kegiatan',
-                ]);
+                            'status' => $status,
+                            'message' => 'error golongan',
+                            'menu' => 'kegiatan',
+                        ]);
             }
 
             // dd($r);
@@ -145,6 +155,17 @@ class PesertaKegiatanController extends Controller
         //     ]);
         // }
 
+        if ($r['kabupaten'] == 'lainnya') {
+
+            if ($r['asal_kabupaten'] == null) {
+                $r['asal_kabupaten'] = '-';
+                $r['kabupaten'] = $r['asal_kabupaten'];
+            } else {
+                $r['kabupaten'] = $r['asal_kabupaten'];
+            }
+
+        }
+
         if ($r['jenis_gol'] == 'PNS' && $r['golongan_pns'] != null) {
             $r['golongan'] = $r['golongan_pns'];
             $r['diluar_gol'] = null;
@@ -169,10 +190,10 @@ class PesertaKegiatanController extends Controller
             return redirect()->route('peserta.create', [
                 'kegiatan_id' => $status['kegiatanById']->id,
             ])->with([
-                'status' => $status,
-                'message' => 'error golongan',
-                'menu' => 'kegiatan',
-            ]);
+                        'status' => $status,
+                        'message' => 'error golongan',
+                        'menu' => 'kegiatan',
+                    ]);
         }
         // dd($r->all);
         $datas->update($r->all());

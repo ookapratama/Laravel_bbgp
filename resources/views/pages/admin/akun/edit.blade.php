@@ -31,22 +31,23 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input value="{{ $datas->no_ktp }}" name="no_ktp" required placeholder="Masukkan Nomor KTP"
-                                                    type="text" class="form-control">
+                                                <input value="{{ $datas->no_ktp }}" name="no_ktp" required
+                                                    placeholder="Masukkan Nomor KTP" type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Nama</label>
-                                                <input  value="{{ $datas->name }}" name="name" required placeholder="Masukkan Nama Akun"
-                                                    type="text" class="form-control">
+                                                <input value="{{ $datas->name }}" name="name" required
+                                                    placeholder="Masukkan Nama Akun" type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input  value="{{ $datas->username }}"name="username" required placeholder="Masukkan Usernam untuk login"
-                                                    type="text" class="form-control">
+                                                <input value="{{ $datas->username }}"name="username" required
+                                                    placeholder="Masukkan Usernam untuk login" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -54,8 +55,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input name="password" {{ $datas->password }} placeholder="Masukkan Password"
-                                                    type="password" class="form-control">
+                                                <input name="password" value="{{ $datas->password }}"
+                                                    placeholder="Masukkan Password" type="password" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -64,13 +65,20 @@
                                                 <select name="role" required placeholder="Masukkan Akun"
                                                     class="form-control">
                                                     <option value="">-- Pilih Role Akun --</option>
-                                                    <option {{ $datas->role == 'admin' ? 'selected' : '' }} value="admin">admin</option>
-                                                    <option {{ $datas->role == 'kepala' ? 'selected' : '' }} value="kepala">Kepala Balai</option>
-                                                    <option {{ $datas->role == 'superadmin' ? 'selected' : '' }} value="superadmin">superadmin</option>
-                                                    <option {{ $datas->role == 'tenaga pendidik' ? 'selected' : '' }} value="tenaga pendidik">tenaga pendidik</option>
-                                                    <option {{ $datas->role == 'tenaga kependidikan' ? 'selected' : '' }} value="tenaga kependidikan">tenaga kependidikan</option>
-                                                    <option {{ $datas->role == 'stakeholder' ? 'selected' : '' }} value="stakeholder">stakeholder</option>
-                                                    <option {{ $datas->role == 'pegawai' ? 'selected' : '' }} value="pegawai">Pegawai BBGP</option>
+                                                    <option {{ $datas->role == 'admin' ? 'selected' : '' }} value="admin">
+                                                        admin</option>
+                                                    <option {{ $datas->role == 'kepala' ? 'selected' : '' }} value="kepala">
+                                                        Kepala Balai</option>
+                                                    <option {{ $datas->role == 'superadmin' ? 'selected' : '' }}
+                                                        value="superadmin">superadmin</option>
+                                                    <option {{ $datas->role == 'tenaga pendidik' ? 'selected' : '' }}
+                                                        value="tenaga pendidik">tenaga pendidik</option>
+                                                    <option {{ $datas->role == 'tenaga kependidikan' ? 'selected' : '' }}
+                                                        value="tenaga kependidikan">tenaga kependidikan</option>
+                                                    <option {{ $datas->role == 'stakeholder' ? 'selected' : '' }}
+                                                        value="stakeholder">stakeholder</option>
+                                                    <option {{ $datas->role == 'pegawai' ? 'selected' : '' }}
+                                                        value="pegawai">Pegawai BBGP</option>
                                                 </select>
                                             </div>
                                         </div>

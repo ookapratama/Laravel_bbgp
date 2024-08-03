@@ -94,13 +94,14 @@
                     <td>{{ $peserta->nama }}</td>
                     <td>{{ $peserta->instansi }}</td>
                     <td>{{ str_replace(['Kabupaten ', 'Kota '], '', $peserta->kabupaten)  }}</td>
-                    <td style="height: 25px;"></td>
+                    <td style="height: 25px; width:100px;"></td>
                 </tr>
-                @if (($key + 1) % 25 == 0)
+                {{-- @if (($key + 1) % 25 == 0) --}}
+                @endforeach
         </tbody>
     </table>
-    <div class="page-break"></div>
-    <table>
+    {{-- <div class="page-break"></div> --}}
+    {{-- <table>
         <thead>
             <tr>
                 <th>No</th>
@@ -111,10 +112,10 @@
             </tr>
         </thead>
         <tbody>
-            @endif
-            @endforeach
         </tbody>
-    </table>
+    </table> --}}
+    {{-- @endif --}}
+    {{-- @endforeach --}}
 
     {{-- footer --}}
     <footer style="text-align: right; margin-right: 150px">

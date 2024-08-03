@@ -26,7 +26,7 @@ class InternalController extends Controller
     {
         $kota = Kabupaten::get();
 
-        $jadwalInternal = Internal::select('kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan' ,'transport_pulang', 'hari_1', 'hari_2', 'hari_3')
+        $jadwalInternal = Internal::select('kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3')
             ->whereIn('jenis', ['Pendamping Lokakarya'])
             ->get()
             ->groupBy('kegiatan');
@@ -55,7 +55,7 @@ class InternalController extends Controller
                     ];
                 });
                 // dump($penugasanPegawai);
-
+    
 
                 return [
                     'kegiatan' => $key,
@@ -409,6 +409,34 @@ class InternalController extends Controller
         }
         return redirect()->route('internal.index.pegawai', $find->nik)->with('message', 'update');
     }
+
+    public function updatePegawaiAll(Request $request)
+    {
+        dd($request->all());
+        $pegawaiData = $request->input('pegawai');
+        // Loop through each employee and update their data
+        // foreach ($validatedData['pegawai'] as $index => $pegawai) {
+        //     // Find employee by name or other unique identifier
+        //     $employee = Employee::where('nama', $pegawai['nama'])->first();
+
+        //     if ($employee) {
+        //         // Update employee data
+        //         $employee->hotel = $pegawai['hotel'];
+        //         $employee->transport_pergi = $pegawai['transportPergi'];
+        //         $employee->transport_pulang = $pegawai['transportPulang'];
+        //         $employee->bill_penginapan = $pegawai['billPenginapan'];
+        //         $employee->hari_1 = $pegawai['hari1'];
+        //         $employee->hari_2 = $pegawai['hari2'];
+        //         $employee->hari_3 = $pegawai['hari3'];
+        //         $employee->save();
+        //     }
+        // }
+
+        // Return response
+        return response()->json(['success' => true]);
+    }
+
+    
 
 
     //  PEgawai PPNPN

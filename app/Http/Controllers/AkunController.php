@@ -55,9 +55,11 @@ class AkunController extends Controller
     {
         //
         $r = $request->all();
-        $data = Admin::find($r['id'])->first();
-        $dataUser = User::find($r['id'])->first();
-
+        $data = Admin::find($r['id']);
+        $dataUser = User::find($r['id']);
+        // dump($r);
+        // dump($dataUser);
+        // dd($data);
         $r['password'] = bcrypt($r['password']);
 
         $data->update($r);

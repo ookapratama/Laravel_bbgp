@@ -69,7 +69,8 @@
 
 <body>
     <div class="kop-surat" style="position: relative;">
-        <img style="position: absolute; left: 0; top: -10px;" src="{{ asset('img_template/iconbbgp.png') }}" alt="Logo Kiri">
+        <img style="position: absolute; left: 0; top: -10px;" src="{{ asset('img_template/iconbbgp.png') }}"
+            alt="Logo Kiri">
         <div class="kop-text">
             <h3>DAFTAR REGISTRASI PESERTA</h3>
             <?php
@@ -108,12 +109,16 @@
                     <td>{{ $peserta->jkl == 'Perempuan' ? 'P' : 'L' }}</td>
                     <td></td>
                     <td></td>
-                    <td style="{{ ($key + 1) % 2 == 0 ? 'text-align:right; padding-right: 50%;' : 'text-align:left;' }}" >{{ $key + 1 }}.</td>
+                    <td
+                        style="{{ ($key + 1) % 2 == 0 ? 'text-align:right; padding-right: 50%;' : 'text-align:left;' }} height:30px;">
+                        {{ $key + 1 }}.</td>
                 </tr>
-                @if (($key + 1) % 25 == 0)
+                {{-- @if (($key + 1) % 25 == 0) --}}
+            @endforeach
+
         </tbody>
     </table>
-    <div class="page-break"></div>
+    {{-- <div class="page-break"></div>
     <table>
         <thead>
             <tr>
@@ -131,10 +136,10 @@
             </tr>
         </thead>
         <tbody>
-            @endif
-            @endforeach
         </tbody>
-    </table>
+    </table> --}}
+    {{-- @endif
+    @endforeach --}}
     <footer style="text-align: right; margin-right: 150px">
         <p>Panitia, </p>
     </footer>

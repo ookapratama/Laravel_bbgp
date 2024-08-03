@@ -118,17 +118,26 @@
 
                                     <div class="row">
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Kabupaten / Kota</label>
-                                                <select name="kabupaten" id="" class="form-control select2">
-                                                    <option value="">-- piilih kabupaten --</option>
+                                                <label>Kabupaten / Kota (jika tidak ada, pilih lainnya)</label>
+                                                <select name="kabupaten" id="kabupaten" class="form-control select2">
+                                                    <option id="selectedKab" value="">-- piilih kabupaten --</option>
                                                     @foreach ($status['kabupaten'] as $v)
                                                         <option value=" {{ $v->name }} ">{{ $v->name }}</option>
                                                     @endforeach
+                                                    <option id="selectedKabLainnya" value="lainnya">Lainnya</option>
                                                 </select>
-                                                {{-- <input  name="kabupaten" id="kabupaten" type="text"
-                                                    class="form-control" required> --}}
+                                                {{-- <input readonly name="kabupaten" id="kabupaten" type="text"
+                                                class="form-control" required> --}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4" id="formAsal" style="display: none;">
+                                            <div class="form-group">
+                                                <label>Asal Kabupaten / Kota</label>
+                                                <input name="asal_kabupaten" id="asal_kabupaten" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
 
@@ -203,7 +212,8 @@
                                             <div class="form-group">
                                                 <label>Golongan PPPK/P3K</label>
 
-                                                <select name="golongan_p3k" id="golongan_p3k" class="form-control select2">
+                                                <select name="golongan_p3k" id="golongan_p3k"
+                                                    class="form-control select2">
                                                     <option id="valP3K" value="">-- pilih golongan --
                                                     </option>
                                                     @foreach ($status['golongan_p3k'] as $v)
@@ -362,6 +372,18 @@
                 $('.select2').select2();
                 $('#formOpsional').hide();
                 $('#narasumberTime').hide();
+
+                // Handle change event for Kabupaten selection
+                $('#kabupaten').change(function() {
+                    let selectedValue = $(this).val();
+                    if (selectedValue === 'lainnya') {
+                        $('#formAsal').show(); // Show the input for manual entry
+                    } else {
+                        $('#formAsal').hide(); // Hide the input
+                        $('#asal_kabupaten').val(''); // Clear the input value if not needed
+                    }
+                });
+
 
                 $('#status_keikutpesertaan').change(function() {
                     let status = $(this).val();

@@ -110,19 +110,26 @@
 
                                     <div class="row">
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Kabupaten / Kota</label>
-                                                <select required name="kabupaten" id=""
-                                                    class="form-control select2">
-                                                    <option value="">-- piilih kabupaten --</option>
+                                                <label>Kabupaten / Kota (jika tidak ada, pilih lainnya)</label>
+                                                <select name="kabupaten" id="kabupaten" class="form-control select2">
+                                                    <option id="selectedKab" value="">-- piilih kabupaten --</option>
                                                     @foreach ($status['kabupaten'] as $v)
-                                                        <option {{ $datas->kabupaten == $v->name ? 'selected' : '' }}
-                                                            value=" {{ $v->name }} ">{{ $v->name }}</option>
+                                                        <option value=" {{ $v->name }} ">{{ $v->name }}</option>
                                                     @endforeach
+                                                    <option id="selectedKabLainnya" value="lainnya">Lainnya</option>
                                                 </select>
-                                                {{-- <input  name="kabupaten" id="kabupaten" type="text"
-                                                    class="form-control" required> --}}
+                                                {{-- <input readonly name="kabupaten" id="kabupaten" type="text"
+                                                class="form-control" required> --}}
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-md-4" id="formAsal" style="display: none;">
+                                            <div class="form-group">
+                                                <label>Asal Kabupaten / Kota</label>
+                                                <input  name="asal_kabupaten" value="{{ $datas->kabupaten }}" id="asal_kabupaten" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
 
@@ -159,7 +166,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Jenis Kelamin</label>
-                                                <select name="gender" id="" class="form-control">
+                                                <select name="jkl" id="" class="form-control">
                                                     <option value="">-- pilih jenis kelamin --</option>
                                                     <option {{ $datas->jkl == 'Laki-laki' ? 'selected' : '' }}
                                                         value="Laki-laki">Laki-laki</option>
@@ -371,6 +378,18 @@
                 $('.select2').select2();
                 // $('#formOpsional').hide();
                 $('#narasumberTime').hide();
+
+                // Handle change event for Kabupaten selection
+                $('#kabupaten').change(function() {
+                    let selectedValue = $(this).val();
+                    if (selectedValue === 'lainnya') {
+                        $('#formAsal').show(); // Show the input for manual entry
+                    } else {
+                        $('#formAsal').hide(); // Hide the input
+                        $('#asal_kabupaten').val(''); // Clear the input value if not needed
+                    }
+                });
+
 
                 $('#status_keikutpesertaan').change(function() {
                     let status = $(this).val();
