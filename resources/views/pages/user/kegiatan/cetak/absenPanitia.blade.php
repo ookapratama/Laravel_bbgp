@@ -47,7 +47,7 @@
     <div class="kop-surat" style="position: relative;">
         <img style="position: absolute; left: 0; width: 110px" src="{{ asset('img_template/iconbbgp.png') }}" alt="Logo Kiri">
         <div class="kop-text">
-            <h3>DAFTAR HADIR PANITIA</h3>
+            {{-- <h3>DAFTAR HADIR PANITIA</h3> --}}
             {{-- <h4>DAFTAR HADIR PESERSTA</h4> --}}
             <?php
             setlocale(LC_TIME, 'id_ID.UTF-8');
@@ -59,9 +59,9 @@
                 {{ $tgl_selesai }} </h4>
             {{-- <h4>Koordinasi Teknis Program Gerak Penggerak<br>Balai Besar Guru Penggerak Sulawesi Selatan</h4> --}}
         </div>
-        <img  style="position: absolute; top: 0; right: 0; width: 150px"  src="{{ asset('img_template/absenPanitia.png') }}" alt="Logo Kanan">
+        <img  style="position: absolute; top: -25; right: 0; width: 120px"  src="{{ asset('img_template/absenPanitia.png') }}" alt="Logo Kanan">
     </div>
-    <table>
+    <table style="margin-top: 50px">
         <thead>
             <tr>
                 <th>No</th>

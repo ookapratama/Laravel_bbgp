@@ -69,7 +69,7 @@
 
 <body>
     <div class="kop-surat" style="position: relative;">
-        <img style="position: absolute; left: 0; top: -10px;" src="{{ asset('img_template/iconbbgp.png') }}"
+        <img style="position: absolute; left: 0; top: -20px;" src="{{ asset('img_template/iconbbgp.png') }}"
             alt="Logo Kiri">
         <div class="kop-text">
             <h3>DAFTAR REGISTRASI PESERTA</h3>
@@ -81,7 +81,7 @@
             <h4>{{ $kegiatan->nama_kegiatan }}<br> {{ $kegiatan->tempat_kegiatan }} <br> {{ $tgl_kegiatan }} -
                 {{ $tgl_selesai }} </h4>
         </div>
-        <h4 style="position: absolute; top: 0; right: 0; width: 150px">Lembar Registrasi Peserta</h4>
+        <h4 style="position: absolute; top: -20; right: 0; width: 120px">Lembar Registrasi Peserta</h4>
     </div>
     <table style="margin-top: 50px">
         <thead>
