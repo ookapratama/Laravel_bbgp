@@ -26,7 +26,7 @@ class InternalController extends Controller
     {
         $kota = Kabupaten::get();
 
-        $jadwalInternal = Internal::select('kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3')
+        $jadwalInternal = Internal::select('id','kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3')
             ->whereIn('jenis', ['Pendamping Lokakarya'])
             ->get()
             ->groupBy('kegiatan');
@@ -44,6 +44,7 @@ class InternalController extends Controller
                 // Bangun array multidimensi untuk setiap pegawai
                 $penugasanPegawai = $penugasanLoka->map(function ($item) {
                     return [
+                        'id' => $item->id,
                         'nama' => $item->nama,
                         'hotel' => $item->hotel,
                         'transport_pergi' => $item->transport_pergi,
@@ -296,6 +297,48 @@ class InternalController extends Controller
         }
 
         return redirect()->route('internal.index.lokakarya', $loka->nik)->with('message', 'update');
+    }
+
+    public function updateLokakaryaJS(Request $r) {
+        // dump($r->all());
+        $loka = Internal::find($r->id);
+        // dd($loka);
+
+        $r = $r->all();
+        // $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
+        // $r['tgl_kegiatan'] = $mulai_kegiatan[0];
+        // $r['jam_mulai'] = $mulai_kegiatan[1];
+
+        // $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
+        // $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
+        // $r['jam_selesai'] = $selesai_kegiatan[1];
+        // dd($loka);
+
+        $r['transport_pergi'] = $r['transportPergi'];
+        $r['transport_pulang'] = $r['transportPulang'];
+        $r['bill_penginapan'] = $r['billPenginapan'];
+        $r['bill_penginapan'] = $r['billPenginapan'];
+        $r['hari_1'] = $r['hari1'];
+        $r['hari_2'] = $r['hari2'];
+        $r['hari_3'] = $r['hari3'];
+
+        if ($r['hari_1'] == null) {
+            $r['hari_1'] = 0;
+        }
+        if ($r['hari_2'] == null) {
+            $r['hari_2'] = 0;
+        }
+        if ($r['hari_3'] == null) {
+
+            $r['hari_3'] = 0;
+        }
+
+        $loka->update($r);
+
+        return response()->json([
+            'success' => true,
+            'data' => $r
+        ]);
     }
 
     // penugasan pegawan BBGP

@@ -517,13 +517,12 @@
     <!-- Modal untuk Daftar Pegawai -->
     <div class="modal fade" id="pegawaiModal" tabindex="-1" role="dialog" aria-labelledby="pegawaiModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-xl " role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="d-flex">
-                        <h5 class="mr-4">Daftar Pegawai </h5>
+                    <div class="d-flex align-items-center">
+                        <h5 class="mr-4">Daftar Pegawai</h5>
                         <button id="printButton" class="btn btn-primary mb-3">Cetak Data</button>
-                        <button id="editAllButton" class="btn btn-warning mb-3 ml-2">Edit Semua</button>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -545,6 +544,7 @@
                                     <th>Hari 2</th>
                                     <th>Hari 3</th>
                                     <th>Total</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="pegawaiTableBody">
@@ -557,31 +557,135 @@
         </div>
     </div>
 
-
-    <!-- Modal for Editing All Employees -->
-    <div class="modal fade" id="editAllModal" tabindex="-1" role="dialog" aria-labelledby="editAllModalLabel"
+    <!-- Edit Modal -->
+    {{-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editAllModalLabel">Edit Semua Pegawai</h5>
+                    <h5 class="modal-title" id="editModalLabel">Edit Pegawai</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="editAllForm">
-                        @csrf
-                        <!-- Forms for each employee will be inserted here by JavaScript -->
+                    <form id="editForm">
+                        <input type="hidden" id="editId">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="editNama">Nama Pegawai</label>
+                                <input type="text" class="form-control" id="editNama" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="editHotel">Hotel</label>
+                                <input type="text" class="form-control" id="editHotel">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="editTransportPergi">Transport Pergi</label>
+                                <input type="text" class="form-control rupiah-input" id="editTransportPergi">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editTransportPulang">Transport Pulang</label>
+                                <input type="text" class="form-control rupiah-input" id="editTransportPulang">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editBillPenginapan">Bill Penginapan</label>
+                                <input type="text" class="form-control rupiah-input" id="editBillPenginapan">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="editHari1">Hari 1</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari1">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editHari2">Hari 2</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari2">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editHari3">Hari 3</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari3">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="saveEditButton">Simpan Perubahan</button>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary" id="saveAllButton">Simpan Semua</button>
+            </div>
+        </div>
+    </div> --}}
+
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Pegawai</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <input type="hidden" id="editId">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="editNama">Nama Pegawai</label>
+                                <input type="text" class="form-control" id="editNama" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="editHotel">Hotel</label>
+                                <input type="text" class="form-control" id="editHotel">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="editTransportPergi">Transport Pergi</label>
+                                <input type="text" class="form-control rupiah-input" id="editTransportPergi">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editTransportPulang">Transport Pulang</label>
+                                <input type="text" class="form-control rupiah-input" id="editTransportPulang">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editBillPenginapan">Bill Penginapan</label>
+                                <div class="custom-switches-stacked">
+                                    <label class="custom-switch">
+                                        <input type="checkbox" name="switch_penginapan" id="switch_penginapan"
+                                            class="custom-switch-input">
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="custom-switch-description">Bill atau
+                                            30%</span>
+                                    </label>
+                                </div>
+
+                                <input type="text" class="form-control rupiah-input" id="editBillPenginapan">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="editHari1">Hari 1</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari1">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editHari2">Hari 2</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari2">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editHari3">Hari 3</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari3">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="saveEditButton">Simpan Perubahan</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
 
 
 
@@ -992,6 +1096,7 @@
 
                     // Tambahkan setiap pegawai ke dalam tabel
                     $.each(pegawai, function(index, pegawaiItem) {
+                        // console.log(first)
                         // Parse nilai ke integer dan hitung total
                         var transportPergi = parseInt(pegawaiItem.transport_pergi) || 0;
                         var transportPulang = parseInt(pegawaiItem.transport_pulang) || 0;
@@ -1015,7 +1120,9 @@
                         pegawaiTableBody.append(`
                             <tr>
                                 <td>${index + 1}</td>
-                                <td class="text-nowrap">${pegawaiItem.nama}</td>
+                                <td class="text-nowrap">
+                                    ${pegawaiItem.nama}
+                                </td>
                                 <td>${pegawaiItem.hotel}</td>
                                 <td class="text-nowrap">${formatRupiah(transportPergi, 'Rp.')}</td>
                                 <td class="text-nowrap">${formatRupiah(transportPulang, 'Rp.')}</td>
@@ -1024,6 +1131,14 @@
                                 <td class="text-nowrap">${formatRupiah(hari2, 'Rp.')}</td>
                                 <td class="text-nowrap">${formatRupiah(hari3, 'Rp.')}</td>
                                 <td class="text-nowrap">${formatRupiah(totalPerRow, 'Rp.')}</td>
+                                <td class="text-nowrap">
+                                    <button class="btn btn-warning edit-button" data-id="${pegawaiItem.id}" data-nama="${pegawaiItem.nama}" data-hotel="${pegawaiItem.hotel}" data-transportpergi="${transportPergi}" data-transportpulang="${transportPulang}" data-billpenginapan="${billPenginapan}" data-hari1="${hari1}" data-hari2="${hari2}" data-hari3="${hari3}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger delete-button" data-id="${pegawaiItem.id}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
                             </tr>
                         `);
                     });
@@ -1032,16 +1147,298 @@
                     pegawaiTableBody.append(`
                         <tr class="total-row">
                             <td colspan="3" class="text-center"><strong>Total</strong></td>
-                            <td class="text-nowrap"><strong>${formatRupiah(totalTransportPergi, 'Rp.')}</strong></td>
-                            <td class="text-nowrap"><strong>${formatRupiah(totalTransportPulang, 'Rp.')}</strong></td>
-                            <td class="text-nowrap"><strong>${formatRupiah(totalBill, 'Rp.')}</strong></td>
-                            <td class="text-nowrap"><strong>${formatRupiah(totalHari1, 'Rp.')}</strong></td>
-                            <td class="text-nowrap"><strong>${formatRupiah(totalHari2, 'Rp.')}</strong></td>
-                            <td class="text-nowrap"><strong>${formatRupiah(totalHari3, 'Rp.')}</strong></td>
-                            <td class="text-nowrap"><strong>${formatRupiah(totalKeseluruhan, 'Rp.')}</strong></td>
+                            <td id="transportPergiTotal" class="text-nowrap"><strong>${formatRupiah(totalTransportPergi, 'Rp.')}</strong></td>
+                            <td id="transportPulangTotal" class="text-nowrap"><strong>${formatRupiah(totalTransportPulang, 'Rp.')}</strong></td>
+                            <td id="billPenginapanTotal" class="text-nowrap"><strong>${formatRupiah(totalBill, 'Rp.')}</strong></td>
+                            <td id="hari1Total" class="text-nowrap"><strong>${formatRupiah(totalHari1, 'Rp.')}</strong></td>
+                            <td id="hari2Total" class="text-nowrap"><strong>${formatRupiah(totalHari2, 'Rp.')}</strong></td>
+                            <td id="hari3Total" class="text-nowrap"><strong>${formatRupiah(totalHari3, 'Rp.')}</strong></td>
+                            <td id="grandTotal" class="text-nowrap"><strong>${formatRupiah(totalKeseluruhan, 'Rp.')}</strong></td>
                         </tr>
                     `);
+
+
                 });
+
+                // Handle Delete Button Click
+                $(document).on('click', '.delete-button', function() {
+                    var id = $(this).data('id');
+                    console.log(id)
+                    swal({
+                        title: "Konfirmasi",
+                        text: "Apakah Anda yakin ingin menghapus data ini?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            console.log('hapus')
+                            deleteDataLoka(id, 'internal');
+                            // $('#pegawaiTableBody').find(`button[data-id='${id}']`).closest(
+                            //     'tr').remove();
+                            // location.reload();
+
+                            // Recalculate column totals
+                            // recalculateColumnTotals();
+                        }
+                    });
+                });
+
+                // Delete Function
+                function deleteDataLoka(id, tabel) {
+                    let token = $("meta[name='csrf-token']").attr("content");
+
+                    $.ajax({
+                        headers: {
+                            "X-CSRF-TOKEN": token,
+                        },
+                        type: "POST",
+                        url: `${tabel}/hapus/${id}`,
+                        success: function(response) {
+                            console.log(response);
+                            if (response) {
+                                swal("Terhapus", "Data telah dihapus", "success").then(
+                                    () => {
+                                        // Here, you can make an AJAX request to delete the data from the server
+                                        console.log(`Deleting data with ID: ${id} of type: ${tabel}`);
+
+                                        // For now, remove the row from the table for demonstration purposes
+                                        $('#pegawaiTableBody').find(`button[data-id='${id}']`).closest(
+                                            'tr').remove();
+
+                                        location.reload();
+                                        // Recalculate column totals
+                                        recalculateColumnTotals();
+                                    }
+                                );
+                            } else {
+                                swal("Error", "Failed to delete data.", "error");
+                            }
+                        },
+                        error: function(error) {
+                            console.error("AJAX Error:", error);
+                            swal("Error", "Ajax Error.", "error");
+                        },
+                    });
+
+                }
+
+                // Function to recalculate the totals for each column
+                function recalculateColumnTotals() {
+                    var transportPergiTotal = 0;
+                    var transportPulangTotal = 0;
+                    var billPenginapanTotal = 0;
+                    var hari1Total = 0;
+                    var hari2Total = 0;
+                    var hari3Total = 0;
+                    var grandTotal = 0;
+
+                    $('#pegawaiTableBody tr').each(function() {
+                        var row = $(this);
+                        var rowTotal = 0;
+
+                        row.find('td').each(function(index, cell) {
+                            // Only parse the cell value if an input exists
+                            var inputField = $(cell).find('.last-row');
+                            var value = 0;
+                            if (inputField.length) {
+                                // If an input field is found, get its value
+                                value = parseInt(inputField.val().replace(/[^\d.-]/g, '').replace(',',
+                                    '.')) || 0;
+                            } else {
+                                // If there's no input, try to parse the text directly if it's in edit mode
+                                value = parseInt($(cell).text().replace(/[^\d.-]/g, '').replace(',',
+                                    '.')) || 0;
+                            }
+                            console.log(cell)
+                            console.log(inputField.val())
+                            console.log(value)
+
+                            switch (index) {
+                                case 3:
+                                    transportPergiTotal += value;
+                                    break;
+                                case 4:
+                                    transportPulangTotal += value;
+                                    break;
+                                case 5:
+                                    billPenginapanTotal += value;
+                                    break;
+                                case 6:
+                                    hari1Total += value;
+                                    break;
+                                case 7:
+                                    hari2Total += value;
+                                    break;
+                                case 8:
+                                    hari3Total += value;
+                                    break;
+                            }
+
+                            if (index > 2 && index < 9) {
+                                rowTotal += value;
+                            }
+                        });
+
+                        grandTotal += rowTotal;
+                    });
+
+                    $('#transportPergiTotal').text(formatRupiah(transportPergiTotal, 'Rp. '));
+                    $('#transportPulangTotal').text(formatRupiah(transportPulangTotal, 'Rp. '));
+                    $('#billPenginapanTotal').text(formatRupiah(billPenginapanTotal, 'Rp. '));
+                    $('#hari1Total').text(formatRupiah(hari1Total, 'Rp. '));
+                    $('#hari2Total').text(formatRupiah(hari2Total, 'Rp. '));
+                    $('#hari3Total').text(formatRupiah(hari3Total, 'Rp. '));
+                    $('#grandTotal').text(formatRupiah(grandTotal, 'Rp. '));
+                }
+
+
+                $('#switch_penginapan').change(function() {
+                    if ($(this).is(':checked')) {
+                        // Set value to 210000 when checked
+                        $('#editBillPenginapan').val(formatRupiah(210000, 'Rp. '));
+                    } else {
+                        // Set value to 0 when unchecked
+                        $('#editBillPenginapan').val(formatRupiah(0, 'Rp. '));
+                    }
+
+                    // Trigger input event to recalculate totals if necessary
+                    $('#editBillPenginapan').trigger('input');
+                });
+
+                // Event listener for formatting input fields as Rupiah
+                $(document).on('input', '.rupiah-input', function() {
+                    var value = $(this).val().replace(/[^0-9]/g, '');
+                    $(this).val(formatRupiah(value, 'Rp.'));
+                });
+
+                // Handle Save Button in Edit Modal
+                $('#saveEditButton').click(function() {
+                    let token = $("meta[name='csrf-token']").attr("content");
+
+                    swal({
+                        title: "Konfirmasi",
+                        text: "Apakah Anda yakin ingin menyimpan perubahan?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willSave) => {
+                        if (willSave) {
+                            // Collect data from the form
+                            var id = $('#editId').val();
+                            var nama = $('#editNama').val();
+                            var hotel = $('#editHotel').val();
+                            // Convert formatted Rupiah to integer
+                            var transportPergi = parseInt($('#editTransportPergi').val().replace(
+                                /[^,\d]/g, '').replace(',', '')) || 0;
+                            var transportPulang = parseInt($('#editTransportPulang').val().replace(
+                                /[^,\d]/g, '').replace(',', '')) || 0;
+                            var billPenginapan = parseInt($('#editBillPenginapan').val().replace(
+                                /[^,\d]/g, '').replace(',', '')) || 0;
+                            var hari1 = parseInt($('#editHari1').val().replace(/[^,\d]/g, '').replace(
+                                ',', '')) || 0;
+                            var hari2 = parseInt($('#editHari2').val().replace(/[^,\d]/g, '').replace(
+                                ',', '')) || 0;
+                            var hari3 = parseInt($('#editHari3').val().replace(/[^,\d]/g, '').replace(
+                                ',', '')) || 0;
+
+                            var total = transportPergi + transportPulang + billPenginapan + hari1 +
+                                hari2 + hari3;
+
+                            // Prepare data object
+                            var updatedData = {
+                                id: id,
+                                nama: nama,
+                                hotel: hotel,
+                                transportPergi: transportPergi,
+                                transportPulang: transportPulang,
+                                billPenginapan: billPenginapan,
+                                hari1: hari1,
+                                hari2: hari2,
+                                hari3: hari3,
+                                total: total
+                            };
+                            console.log(JSON.stringify(updatedData))
+
+                            // AJAX POST request
+                            $.ajax({
+                                headers: {
+                                    "X-CSRF-TOKEN": token,
+                                },
+                                url: `internal/updateLokakaryaJS`, // Replace with your server endpoint
+                                type: 'POST',
+                                data: JSON.stringify(updatedData),
+                                contentType: 'application/json',
+                                success: function(response) {
+                                    if (response.success) {
+                                        // Update the table row with new values
+                                        var row = $('#pegawaiTableBody').find(
+                                            `button[data-id='${id}']`).closest('tr');
+                                        row.find('td').eq(2).text(hotel);
+                                        row.find('td').eq(3).text(formatRupiah(
+                                            transportPergi, 'Rp. '));
+                                        row.find('td').eq(4).text(formatRupiah(
+                                            transportPulang, 'Rp. '));
+                                        row.find('td').eq(5).text(formatRupiah(
+                                            billPenginapan, 'Rp. '));
+                                        row.find('td').eq(6).text(formatRupiah(hari1,
+                                            'Rp. '));
+                                        row.find('td').eq(7).text(formatRupiah(hari2,
+                                            'Rp. '));
+                                        row.find('td').eq(8).text(formatRupiah(hari3,
+                                            'Rp. '));
+                                        row.find('td').eq(9).text(formatRupiah(total,
+                                            'Rp. '));
+
+                                        // Recalculate column totals
+                                        recalculateColumnTotals();
+
+                                        $('#editModal').modal('hide');
+                                        swal("Perubahan telah disimpan!", {
+                                            icon: "success",
+                                        });
+                                    } else {
+                                        swal("Error", "Gagal menyimpan perubahan.",
+                                            "error");
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error("AJAX Error:", error);
+                                    swal("Error",
+                                        "Terjadi kesalahan saat menghubungi server.",
+                                        "error");
+                                }
+                            });
+                        }
+                    });
+                });
+
+
+                // Handle Edit Button Click
+                $(document).on('click', '.edit-button', function() {
+                    var id = $(this).data('id');
+                    var nama = $(this).data('nama');
+                    var hotel = $(this).data('hotel');
+                    var transportPergi = $(this).data('transportpergi');
+                    var transportPulang = $(this).data('transportpulang');
+                    var billPenginapan = $(this).data('billpenginapan');
+                    var hari1 = $(this).data('hari1');
+                    var hari2 = $(this).data('hari2');
+                    var hari3 = $(this).data('hari3');
+
+                    $('#editId').val(id);
+                    $('#editNama').val(nama);
+                    $('#editHotel').val(hotel);
+                    $('#editTransportPergi').val(formatRupiah(transportPergi, 'Rp. '));
+                    $('#editTransportPulang').val(formatRupiah(transportPulang, 'Rp. '));
+                    $('#editBillPenginapan').val(formatRupiah(billPenginapan, 'Rp. '));
+                    $('#editHari1').val(formatRupiah(hari1, 'Rp. '));
+                    $('#editHari2').val(formatRupiah(hari2, 'Rp. '));
+                    $('#editHari3').val(formatRupiah(hari3, 'Rp. '));
+
+                    $('#editModal').modal('show');
+                });
+
 
                 $('#printButton').on('click', function() {
                     var printContent = document.getElementById('printableArea');
@@ -1137,108 +1534,6 @@
                 rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
                 return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
             }
-        </script>
-
-        <script>
-            $(document).ready(function() {
-                $('#editAllButton').on('click', function() {
-                    // Clear the form before adding new inputs
-                    $('#editAllForm').empty();
-
-                    // Loop through each row in the table except the last one (Total row)
-                    $('#pegawaiTableBody tr:not(.total-row)').each(function(index, row) {
-                        // Gather data from each cell in the row
-                        var nama = $(row).find('td:nth-child(2)').text().trim();
-                        var hotel = $(row).find('td:nth-child(3)').text().trim();
-                        var transportPergi = $(row).find('td:nth-child(4)').text().trim().replace(
-                            /[^0-9]/g, '');
-                        var transportPulang = $(row).find('td:nth-child(5)').text().trim().replace(
-                            /[^0-9]/g, '');
-                        var billPenginapan = $(row).find('td:nth-child(6)').text().trim().replace(
-                            /[^0-9]/g, '');
-                        var hari1 = $(row).find('td:nth-child(7)').text().trim().replace(/[^0-9]/g, '');
-                        var hari2 = $(row).find('td:nth-child(8)').text().trim().replace(/[^0-9]/g, '');
-                        var hari3 = $(row).find('td:nth-child(9)').text().trim().replace(/[^0-9]/g, '');
-
-                        // Create form inputs for each data using Bootstrap's grid system
-                        var formGroup = `
-                <div class="employee-section mb-4">
-                    <h5 class="mb-3">Pegawai ${index + 1}</h5>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="pegawai_${index}_nama">Nama Pegawai</label>
-                            <input type="text" class="form-control" id="pegawai_${index}_nama" name="pegawai[${index}][nama]" value="${nama}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="pegawai_${index}_hotel">Hotel</label>
-                            <input type="text" class="form-control" id="pegawai_${index}_hotel" name="pegawai[${index}][hotel]" value="${hotel}">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="pegawai_${index}_transportPergi">Transport Pergi</label>
-                            <input type="number" class="form-control" id="pegawai_${index}_transportPergi" name="pegawai[${index}][transportPergi]" value="${transportPergi}">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="pegawai_${index}_transportPulang">Transport Pulang</label>
-                            <input type="number" class="form-control" id="pegawai_${index}_transportPulang" name="pegawai[${index}][transportPulang]" value="${transportPulang}">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="pegawai_${index}_billPenginapan">Bill Penginapan</label>
-                            <input type="number" class="form-control" id="pegawai_${index}_billPenginapan" name="pegawai[${index}][billPenginapan]" value="${billPenginapan}">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="pegawai_${index}_hari1">Hari 1</label>
-                            <input type="number" class="form-control" id="pegawai_${index}_hari1" name="pegawai[${index}][hari1]" value="${hari1}">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="pegawai_${index}_hari2">Hari 2</label>
-                            <input type="number" class="form-control" id="pegawai_${index}_hari2" name="pegawai[${index}][hari2]" value="${hari2}">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="pegawai_${index}_hari3">Hari 3</label>
-                            <input type="number" class="form-control" id="pegawai_${index}_hari3" name="pegawai[${index}][hari3]" value="${hari3}">
-                        </div>
-                    </div>
-                </div>
-                <hr>
-            `;
-
-                        // Append the form group to the form
-                        $('#editAllForm').append(formGroup);
-                    });
-
-                    // Show the modal
-                    $('#editAllModal').modal('show');
-                });
-
-                // Submit form data to the controller
-                $('#editAllForm').on('submit', function(e) {
-                    e.preventDefault();
-
-                    // Gather form data
-                    var formData = $(this).serialize();
-                    console.log(formData);
-                    // Send the data to the controller
-                    $.ajax({
-                        url: "{{ route('updateAllEmployees') }}",
-                        method: 'POST',
-                        data: formData,
-                        success: function(response) {
-                            // Handle success response
-                            alert('Data updated successfully!');
-                            $('#editAllModal').modal('hide');
-                            location.reload(); // Reload the page to reflect changes
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle error response
-                            alert('An error occurred: ' + error);
-                        }
-                    });
-                });
-            });
         </script>
     @endpush
 @endsection

@@ -186,6 +186,7 @@ Route::group(
                 Route::post('/storeLokakarya', 'InternalController@storeLokakarya')->name('internal.store.lokakarya');
                 Route::get('/editLokakarya/{id}', 'InternalController@editLokakarya')->name('internal.edit.lokakarya');
                 Route::post('/updateLokakarya', 'InternalController@updateLokakarya')->name('internal.update.lokakarya');
+                Route::post('/updateLokakaryaJS', 'InternalController@updateLokakaryaJS')->name('internal.update.lokakaryaJS');
                 Route::get('/jadwalLokakarya/{id}', 'InternalController@jadwalLokakarya')->name('internal.jadwal.lokakarya');
                 Route::post('/cariLokakarya', 'InternalController@cariLokakarya')->name('internal.cari.lokakarya');
                 

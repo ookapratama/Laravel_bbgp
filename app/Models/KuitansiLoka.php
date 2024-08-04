@@ -19,4 +19,5 @@ class KuitansiLoka extends Model
     public function internal() {
         return $this->hasOne(Internal::class, 'id', 'internal_id');
     }
+    
 }

@@ -270,6 +270,7 @@
                     // calculatePenginapan();
                     // calculateHarian();
                     // calculateTotalBiaya();
+                    calculateTotal();
                 });
 
                 // Calculate total whenever an input changes

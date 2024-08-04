@@ -222,126 +222,128 @@
                                 </div>
 
 
-
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover table-striped" id="table_kuitansi_lokakarya">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Pegawai</th>
-                                            <th>Kegiatan</th>
-                                            <th>Lokasi</th>
-                                            <th>Hotel</th>
-                                            <th class="text-nowrap">Nomor dan Tanggal Surat Tugas</th>
-                                            <th class="text-nowrap">Kode dan Tahun Anggaran</th>
-                                            <th>Cetak</th>
-                                            <th>Action</th>
-                                            {{-- <th>Transport Pergi</th>
-                                                <th>Transport Pulang</th>
-                                                <th>Bill Penginapan</th>
-                                                <th>Hari 1</th>
-                                                <th>Hari 2</th>
-                                                <th>Hari 3</th>
-                                                <th>Total</th> --}}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($kuitansiLoka as $i => $v)
-                                            @php
-                                                setlocale(LC_ALL, 'id_ID.UTF-8');
-
-                                                $tgl_surat = strftime('%d %B %Y', strtotime($v->tgl_surat_tugas));
-                                            @endphp
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped" id="table_kuitansi_lokakarya">
+                                        <thead>
                                             <tr>
-                                                <td class="text-nowrap">{{ ++$i }}</td>
-                                                <td class="text-nowrap">{{ $v->internal->nama }}</td>
-                                                <td class="text-nowrap">{{ $v->internal->kegiatan }}</td>
-                                                <td class="">{{ $v->internal->kota }} </td>
-                                                <td class="">{{ $v->internal->hotel }} </td>
-                                                <td class="text-nowrap">{{ $v->no_surat_tugas }} tanggal
-                                                    {{ $tgl_surat }}</td>
-                                                <td class="text-nowrap">{{ $v->kode_anggaran }} -
-                                                    {{ $v->tahun_anggaran }}</td>
-                                                <td class="">
-                                                    <div class="">
-
-                                                        <a target="_blank" href="{{ route('kuitansiLoka.cetak', $v->id) }}"
-                                                            class="btn btn-info "> <i class="fas fa-print"></i>
-                                                            Kuitansi
-                                                        </a>
-
-
-                                                        <a target="_blank" href="{{ route('kuitansiLoka.cetakRill', $v->id) }}"
-                                                            class="btn btn-info my-2"> <i class="fas fa-print"></i>
-                                                            Pengeluaran Rill </a>
-                                                    </div>
-
-                                                    <div class="">
-                                                        <a target="_blank"
-                                                            href="{{ route('kuitansiLoka.cetakPJmutlak', $v->id) }}"
-                                                            class="btn btn-info "> <i class="fas fa-print"></i> PJ
-                                                            Mutlak
-                                                        </a>
-
-                                                        <a target="_blank"
-                                                            href="{{ route('kuitansiLoka.cetakAmplop', $v->id) }}"
-                                                            class="btn btn-info my-2"> <i class="fas fa-print"></i>
-                                                            Amplop </a>
-
-                                                    </div>
-                                                </td>
-                                                <td class="">
-                                                    {{-- <button class="btn btn-primary btn-detail"
-                                                            data-id="{{ $v->id }}">
-                                                            <i class="fas fa-eye"></i>
-                                                        </button> --}}
-
-                                                    <a href="#" class="btn btn-warning btn-edit-kuitansi my-2"
-                                                        data-id="{{ $v->id }}"
-                                                        data-pegawai="{{ $v->internal->nama }}"
-                                                        data-hotel="{{ $v->internal->hotel }}"
-                                                        data-transportpergi="{{ $v->internal->transport_pergi }}"
-                                                        data-transportpulang="{{ $v->internal->transport_pulang }}"
-                                                        data-billpenginapan="{{ $v->internal->bill_penginapan }}"
-                                                        data-hari1="{{ $v->internal->hari_1 }}"
-                                                        data-hari2="{{ $v->internal->hari_2 }}"
-                                                        data-hari3="{{ $v->internal->hari_3 }}"
-                                                        data-total="{{ $v->internal->total }}"
-                                                        data-nosurattugas="{{ $v->no_surat_tugas }}"
-                                                        data-tglsurattugas="{{ $v->tgl_surat_tugas }}"
-                                                        data-kodeanggaran="{{ $v->kode_anggaran }}"
-                                                        data-tahunanggaran="{{ $v->tahun_anggaran }}">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-
-                                                    <button onclick="deleteData({{ $v->id }}, 'kuitansiLoka')"
-                                                        class="btn btn-danger "><i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </td>
-                                                {{-- <td class="text-nowrap">Rp.
-                                                        {{ number_format($v->internal->transport_pergi ?? 0, 0, ',', '.') }}
-                                                    </td>
-                                                    <td class="text-nowrap">Rp.
-                                                        {{ number_format($v->internal->transport_pulang ?? 0, 0, ',', '.') }}
-                                                    </td>
-                                                    <td class="text-nowrap">Rp.
-                                                        {{ number_format($v->internal->bill_penginapan ?? 0, 0, ',', '.') }}
-                                                    </td>
-                                                    <td class="text-nowrap">Rp.
-                                                        {{ number_format($v->internal->hari_1 ?? 0, 0, ',', '.') }}</td>
-                                                    <td class="text-nowrap">Rp.
-                                                        {{ number_format($v->internal->hari_2 ?? 0, 0, ',', '.') }}</td>
-                                                    <td class="text-nowrap">Rp.
-                                                        {{ number_format($v->internal->hari_3 ?? 0, 0, ',', '.') }}</td>
-                                                    <td class="text-nowrap">Rp.
-                                                        {{ number_format($v->internal->transport_pergi ?? 0, 0, ',', '.') }}
-                                                    </td> --}}
+                                                <th>No</th>
+                                                <th>Nama Pegawai</th>
+                                                <th>Kegiatan</th>
+                                                <th>Lokasi</th>
+                                                <th>Hotel</th>
+                                                <th class="text-nowrap">Nomor dan Tanggal Surat Tugas</th>
+                                                <th class="text-nowrap">Kode dan Tahun Anggaran</th>
+                                                <th>Cetak</th>
+                                                <th>Action</th>
+                                                {{-- <th>Transport Pergi</th>
+                                                    <th>Transport Pulang</th>
+                                                    <th>Bill Penginapan</th>
+                                                    <th>Hari 1</th>
+                                                    <th>Hari 2</th>
+                                                    <th>Hari 3</th>
+                                                    <th>Total</th> --}}
                                             </tr>
-                                        @endforeach
-                                        <!-- Populate this table with data from the server or use JavaScript to add rows -->
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($kuitansiLoka as $i => $v)
+                                                @php
+                                                    setlocale(LC_ALL, 'id_ID.UTF-8');
+
+                                                    $tgl_surat = strftime('%d %B %Y', strtotime($v->tgl_surat_tugas));
+                                                @endphp
+                                                <tr data-id="{{ $v->id }}">
+                                                    <td class="text-nowrap">{{ ++$i }}</td>
+                                                    <td class="text-nowrap">{{ $v->internal->nama }}</td>
+                                                    <td class="text-nowrap">{{ $v->internal->kegiatan }}</td>
+                                                    <td class="">{{ $v->internal->kota }} </td>
+                                                    <td class="">{{ $v->internal->hotel }} </td>
+                                                    <td class="text-nowrap">{{ $v->no_surat_tugas }} tanggal
+                                                        {{ $tgl_surat }}</td>
+                                                    <td class="text-nowrap">{{ $v->kode_anggaran }} -
+                                                        {{ $v->tahun_anggaran }}</td>
+                                                    <td class="">
+                                                        <div class="">
+
+                                                            <a target="_blank"
+                                                                href="{{ route('kuitansiLoka.cetak', $v->id) }}"
+                                                                class="btn btn-info "> <i class="fas fa-print"></i>
+                                                                Kuitansi
+                                                            </a>
+
+
+                                                            <a target="_blank"
+                                                                href="{{ route('kuitansiLoka.cetakRill', $v->id) }}"
+                                                                class="btn btn-info my-2"> <i class="fas fa-print"></i>
+                                                                Pengeluaran Rill </a>
+                                                        </div>
+
+                                                        <div class="">
+                                                            <a target="_blank"
+                                                                href="{{ route('kuitansiLoka.cetakPJmutlak', $v->id) }}"
+                                                                class="btn btn-info "> <i class="fas fa-print"></i> PJ
+                                                                Mutlak
+                                                            </a>
+
+                                                            <a target="_blank"
+                                                                href="{{ route('kuitansiLoka.cetakAmplop', $v->id) }}"
+                                                                class="btn btn-info my-2"> <i class="fas fa-print"></i>
+                                                                Amplop </a>
+
+                                                        </div>
+                                                    </td>
+                                                    <td class="">
+                                                        {{-- <button class="btn btn-primary btn-detail"
+                                                                data-id="{{ $v->id }}">
+                                                                <i class="fas fa-eye"></i>
+                                                            </button> --}}
+
+                                                        <a href="#" class="btn btn-warning btn-edit-kuitansi my-2"
+                                                            data-id="{{ $v->id }}"
+                                                            data-pegawai="{{ $v->internal->nama }}"
+                                                            data-hotel="{{ $v->internal->hotel }}"
+                                                            data-transportpergi="{{ $v->internal->transport_pergi }}"
+                                                            data-transportpulang="{{ $v->internal->transport_pulang }}"
+                                                            data-billpenginapan="{{ $v->internal->bill_penginapan }}"
+                                                            data-hari1="{{ $v->internal->hari_1 }}"
+                                                            data-hari2="{{ $v->internal->hari_2 }}"
+                                                            data-hari3="{{ $v->internal->hari_3 }}"
+                                                            data-total="{{ $v->internal->total }}"
+                                                            data-nosurattugas="{{ $v->no_surat_tugas }}"
+                                                            data-tglsurattugas="{{ $v->tgl_surat_tugas }}"
+                                                            data-kodeanggaran="{{ $v->kode_anggaran }}"
+                                                            data-tahunanggaran="{{ $v->tahun_anggaran }}">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+
+                                                        <button onclick="deleteData({{ $v->id }}, 'kuitansiLoka')"
+                                                            class="btn btn-danger "><i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                    {{-- <td class="text-nowrap">Rp.
+                                                            {{ number_format($v->internal->transport_pergi ?? 0, 0, ',', '.') }}
+                                                        </td>
+                                                        <td class="text-nowrap">Rp.
+                                                            {{ number_format($v->internal->transport_pulang ?? 0, 0, ',', '.') }}
+                                                        </td>
+                                                        <td class="text-nowrap">Rp.
+                                                            {{ number_format($v->internal->bill_penginapan ?? 0, 0, ',', '.') }}
+                                                        </td>
+                                                        <td class="text-nowrap">Rp.
+                                                            {{ number_format($v->internal->hari_1 ?? 0, 0, ',', '.') }}</td>
+                                                        <td class="text-nowrap">Rp.
+                                                            {{ number_format($v->internal->hari_2 ?? 0, 0, ',', '.') }}</td>
+                                                        <td class="text-nowrap">Rp.
+                                                            {{ number_format($v->internal->hari_3 ?? 0, 0, ',', '.') }}</td>
+                                                        <td class="text-nowrap">Rp.
+                                                            {{ number_format($v->internal->transport_pergi ?? 0, 0, ',', '.') }}
+                                                        </td> --}}
+                                                </tr>
+                                            @endforeach
+                                            <!-- Populate this table with data from the server or use JavaScript to add rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -975,9 +977,10 @@
                     var rowIds = [];
 
                     // Collect the IDs of the rows you want to print
-                    $('#table_kuitansi tbody tr').each(function() {
+                    $('#table_kuitansi_lokakarya tbody tr').each(function() {
                         var rowId = $(this).data(
                             'id'); // Assuming the rows have data-id attribute with their ID
+                        // console.log(rowId)
                         if (rowId) {
                             rowIds.push(rowId);
                         }
@@ -990,9 +993,9 @@
 
                     // Construct the URL with the collected row IDs and kegiatanId
                     var url = kegiatanId ?
-                        "{{ route('kuitansi.cetakAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" +
+                        "{{ route('kuitansiLoka.cetakAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" +
                         kegiatanId :
-                        "{{ route('kuitansi.cetakAll') }}?rows=" + rowIds.join(',');
+                        "{{ route('kuitansiLoka.cetakAll') }}?rows=" + rowIds.join(',');
 
                     window.open(url, '_blank');
                 });
@@ -1007,7 +1010,7 @@
                     var rowIds = [];
 
                     // Collect the IDs of the rows you want to print
-                    $('#table_kuitansi tbody tr').each(function() {
+                    $('#table_kuitansi_lokakarya tbody tr').each(function() {
                         var rowId = $(this).data(
                             'id'); // Assuming the rows have data-id attribute with their ID
                         if (rowId) {
@@ -1022,9 +1025,9 @@
 
                     // Construct the URL with the collected row IDs and kegiatanId
                     var url = kegiatanId ?
-                        "{{ route('kuitansi.cetakRillAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" +
+                        "{{ route('kuitansiLoka.cetakRillAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" +
                         kegiatanId :
-                        "{{ route('kuitansi.cetakRillAll') }}?rows=" + rowIds.join(',');
+                        "{{ route('kuitansiLoka.cetakRillAll') }}?rows=" + rowIds.join(',');
 
                     window.open(url, '_blank');
                 });
@@ -1039,7 +1042,7 @@
                     var rowIds = [];
 
                     // Collect the IDs of the rows you want to print
-                    $('#table_kuitansi tbody tr').each(function() {
+                    $('#table_kuitansi_lokakarya tbody tr').each(function() {
                         var rowId = $(this).data(
                             'id'); // Assuming the rows have data-id attribute with their ID
                         if (rowId) {
@@ -1054,9 +1057,10 @@
 
                     // Construct the URL with the collected row IDs and kegiatanId
                     var url = kegiatanId ?
-                        "{{ route('kuitansi.cetakPJmutlakAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" +
+                        "{{ route('kuitansiLoka.cetakPJmutlakAll') }}?rows=" + rowIds.join(',') +
+                        "&kegiatan_id=" +
                         kegiatanId :
-                        "{{ route('kuitansi.cetakPJmutlakAll') }}?rows=" + rowIds.join(',');
+                        "{{ route('kuitansiLoka.cetakPJmutlakAll') }}?rows=" + rowIds.join(',');
 
                     window.open(url, '_blank');
                 });
@@ -1071,7 +1075,7 @@
                     var rowIds = [];
 
                     // Collect the IDs of the rows you want to print
-                    $('#table_kuitansi tbody tr').each(function() {
+                    $('#table_kuitansi_lokakarya tbody tr').each(function() {
                         var rowId = $(this).data(
                             'id'); // Assuming the rows have data-id attribute with their ID
                         if (rowId) {
@@ -1086,9 +1090,10 @@
 
                     // Construct the URL with the collected row IDs and kegiatanId
                     var url = kegiatanId ?
-                        "{{ route('kuitansi.cetakAmplopAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" +
+                        "{{ route('kuitansiLoka.cetakAmplopAll') }}?rows=" + rowIds.join(',') +
+                        "&kegiatan_id=" +
                         kegiatanId :
-                        "{{ route('kuitansi.cetakAmplopAll') }}?rows=" + rowIds.join(',');
+                        "{{ route('kuitansiLoka.cetakAmplopAll') }}?rows=" + rowIds.join(',');
 
                     window.open(url, '_blank');
                 });

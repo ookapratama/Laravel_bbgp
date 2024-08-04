@@ -215,10 +215,10 @@ class KuitansiLokaController extends Controller
                 $query->where('id', $kegiatanId);
             });
         }
-
         $datas = $query->get();
-
+        
         if ($datas->isEmpty()) {
+            // dd($datas);
             return response()->json(['error' => 'No data found for the given IDs.'], 404);
         }
 
