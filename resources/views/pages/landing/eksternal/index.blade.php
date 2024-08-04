@@ -26,6 +26,7 @@
         <div class="row">
             <div class="col">
                 <h4>Registrasi Data Eksternal</h4>
+                <h5>Silahkan pilih kategori pendidikan untuk mengisi form.</h5>
                 <div class="d-flex mt-3 mb-5">
                     <div class="">
                         <a href="{{ route('user.form_guru', 'Tenaga Pendidik') }}" class="btn btn-primary btn-lg p-2">

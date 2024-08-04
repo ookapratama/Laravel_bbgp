@@ -407,7 +407,8 @@
                                             } else {
                                                 Swal.fire({
                                                     title: "Warning",
-                                                    text: "Peserta tidak terdaftar dalam kegiatan ini. Silahkan registrasi untuk mengikuti kegiatan",
+                                                    // text: "Peserta tidak terdaftar dalam kegiatan ini. Silahkan registrasi untuk mengikuti kegiatan",
+                                                    text: "Peserta tidak terdaftar dalam kegiatan ini. Silahkan registrasi ke menu Data > Data Eksternal",
                                                     icon: "warning",
                                                     showCancelButton: true,
                                                     confirmButtonColor: "#4040f5",
@@ -416,10 +417,12 @@
                                                 }).then((res) => {
                                                     if (res.isConfirmed) {
                                                         // Redirect to registrasi page with kegiatan_id
+                                                        // window.location.href =
+                                                        //     '{{ route('user.kegiatan_regist') }}' +
+                                                        //     '?kegiatan_id=' +
+                                                        //     kegiatanId;
                                                         window.location.href =
-                                                            '{{ route('user.kegiatan_regist') }}' +
-                                                            '?kegiatan_id=' +
-                                                            kegiatanId;
+                                                            '{{ route('user.guru') }}'
                                                     }
                                                 });
                                                 return;

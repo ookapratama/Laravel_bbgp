@@ -71,8 +71,11 @@
             $tgl_kegiatan = strftime('%d %B', strtotime($kegiatan->tgl_kegiatan));
             $tgl_selesai = strftime('%d %B %Y', strtotime($kegiatan->tgl_selesai));
             ?>
-            <h4>{{ $kegiatan->nama_kegiatan }}<br> {{ $kegiatan->tempat_kegiatan }} <br> {{ $tgl_kegiatan }} -
-                {{ $tgl_selesai }} </h4>
+            <div style="margin: 0 0 0 120px; width:500px">
+                <h4>{{ strtoupper($kegiatan->nama_kegiatan) }}  <br> {{ strtoupper($kegiatan->tempat_kegiatan) }} <br> {{ strtoupper($tgl_kegiatan) }} -
+                    {{ strtoupper($tgl_selesai) }} </h4>
+
+            </div>
         </div>
         <img style="position: absolute; top: -25; right: 0; width: 120px" src="{{ asset('img_template/absenPeserta.png') }}"
             alt="Logo Kanan">

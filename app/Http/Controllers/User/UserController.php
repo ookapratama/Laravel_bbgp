@@ -14,10 +14,12 @@ use App\Models\JabatanPendidik;
 use App\Models\JabatanStakeHolder;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
+use App\Models\Kegiatan;
 use App\Models\Kepegawaian;
 use App\Models\Pegawai;
 use App\Models\Pendamping;
 use App\Models\Pendidikan;
+use App\Models\PesertaKegiatan;
 use App\Models\SatuanPendidikan;
 use App\Models\Sekolah;
 use Illuminate\Http\Request;
@@ -272,23 +274,58 @@ class UserController extends Controller
         return response()->json($peserta);
     }
 
-    public function getPenugasanDetailEksternal(Request $request) {
+    public function getPenugasanDetailEksternal(Request $request)
+    {
         $pesertaId = $request->input('id');
         $peserta = Guru::find($pesertaId);
 
         return response()->json([
-           'data' => $peserta,
-           'sekolah' => $peserta->sekolah
+            'data' => $peserta,
+            'sekolah' => $peserta->sekolah
         ]);
     }
 
-    public function statistik() {
+    public function statistik()
+    {
+        // Data untuk Statistik Eksternal
         $datas = array(
-            'GP' => Guru::select('id')->where('kategori_jabatan', 'GP (Guru Penggerak)')->get()->count(),
-            'nonGP' => Guru::select('id')->where('kategori_jabatan', 'NoN GP (Guru Penggerak)')->get()->count(),
+            'GP' => Guru::where('kategori_jabatan', 'GP (Guru Penggerak)')->count(),
+            'nonGP' => Guru::where('kategori_jabatan', 'NoN GP (Guru Penggerak)')->count(),
         );
-        // dd($datas);
-        return view('pages.landing.statistik.index', ['menu' => 'statistik', 'datas' => $datas]);
 
+        // Ambil daftar kegiatan untuk filter
+        $activities = Kegiatan::all();
+
+        return view('pages.landing.statistik.index', [
+            'menu' => 'statistik',
+            'datas' => $datas,
+            'activities' => $activities,
+        ]);
+    }
+
+    // API endpoint untuk mendapatkan statistik kegiatan berdasarkan bulan
+    public function getMonthStatistics($month)
+    {
+        $jumlah_kegiatan = Kegiatan::whereMonth('tgl_kegiatan', $month)->count();
+        // \Log::info('Fetching statistics for month: ' . $month);
+        return response()->json(['jumlah_kegiatan' => $jumlah_kegiatan]);
+    }
+
+    // API endpoint untuk mendapatkan daftar kegiatan berdasarkan bulan
+    public function getActivitiesByMonth($month)
+    {
+        $activities = Kegiatan::whereMonth('tgl_kegiatan', $month)->get();
+        
+        return response()->json($activities);
+    }
+
+    // API endpoint untuk mendapatkan statistik kegiatan berdasarkan ID dan jenis partisipasi
+    public function getActivityStatistics($activityId, $participantType)
+    {
+        $jumlah = PesertaKegiatan::where('id_kegiatan', $activityId)
+            ->where('status_keikutpesertaan', $participantType)
+            ->count();
+
+        return response()->json(['jumlah' => $jumlah]);
     }
 }

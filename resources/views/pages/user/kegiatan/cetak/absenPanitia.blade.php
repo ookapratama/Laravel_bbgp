@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <style>
         body {
             font-family: Arial, sans-serif;
             font-size: 11px;
-            
+
         }
+
         .kop-surat {
             display: flex;
             justify-content: space-between;
@@ -15,37 +17,51 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
         .kop-surat img {
-            width: 80px; /* Sesuaikan ukuran gambar */
+            width: 80px;
+            /* Sesuaikan ukuran gambar */
             height: auto;
         }
+
         .kop-surat .kop-text {
-            flex-grow: 1; /* Biarkan teks tumbuh dan menempati ruang */
-            padding: 0 10px; /* Beri sedikit jarak antara teks dan gambar */
+            flex-grow: 1;
+            /* Biarkan teks tumbuh dan menempati ruang */
+            padding: 0 10px;
+            /* Beri sedikit jarak antara teks dan gambar */
         }
-        .kop-surat h1, .kop-surat h2 {
+
+        .kop-surat h1,
+        .kop-surat h2 {
             margin: 0;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #000;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
+
         .page-break {
             page-break-after: always;
         }
     </style>
 </head>
+
 <body>
     <div class="kop-surat" style="position: relative;">
-        <img style="position: absolute; left: 0; width: 110px" src="{{ asset('img_template/iconbbgp.png') }}" alt="Logo Kiri">
+        <img style="position: absolute; left: 0; width: 110px" src="{{ asset('img_template/iconbbgp.png') }}"
+            alt="Logo Kiri">
         <div class="kop-text">
             {{-- <h3>DAFTAR HADIR PANITIA</h3> --}}
             {{-- <h4>DAFTAR HADIR PESERSTA</h4> --}}
@@ -55,11 +71,17 @@
             $tgl_kegiatan = strftime('%d %B', strtotime($kegiatan->tgl_kegiatan));
             $tgl_selesai = strftime('%d %B %Y', strtotime($kegiatan->tgl_selesai));
             ?>
-            <h4>{{ $kegiatan->nama_kegiatan }}<br> {{ $kegiatan->tempat_kegiatan }} <br> {{ $tgl_kegiatan }} -
-                {{ $tgl_selesai }} </h4>
-            {{-- <h4>Koordinasi Teknis Program Gerak Penggerak<br>Balai Besar Guru Penggerak Sulawesi Selatan</h4> --}}
+            <div style="margin: 0 0 0 120px; width:500px">
+                <h4>{{ strtoupper($kegiatan->nama_kegiatan) }} <br> {{ strtoupper($kegiatan->tempat_kegiatan) }} <br>
+                    {{ strtoupper($tgl_kegiatan) }} -
+                    {{ strtoupper($tgl_selesai) }} </h4>
+
+            </div>
         </div>
-        <img  style="position: absolute; top: -25; right: 0; width: 120px"  src="{{ asset('img_template/absenPanitia.png') }}" alt="Logo Kanan">
+        {{-- <h4>Koordinasi Teknis Program Gerak Penggerak<br>Balai Besar Guru Penggerak Sulawesi Selatan</h4> --}}
+    </div>
+    <img style="position: absolute; top: -25; right: 0; width: 120px" src="{{ asset('img_template/absenPanitia.png') }}"
+        alt="Logo Kanan">
     </div>
     <table style="margin-top: 50px">
         <thead>
@@ -71,7 +93,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($data as $key => $peserta)
+            @foreach ($data as $key => $peserta)
                 <tr>
                     <td style="width: 10px">{{ $key + 1 }}</td>
                     <td>{{ $peserta->nama }}</td>
@@ -79,20 +101,20 @@
                     <td style="height: 50px;"></td>
                 </tr>
                 @if (($key + 1) % 25 == 0)
-                    </tbody>
-                </table>
-                <div class="page-break"></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Instansi</th>
-                            <th>TTD</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                @endif
+        </tbody>
+    </table>
+    <div class="page-break"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Instansi</th>
+                <th>TTD</th>
+            </tr>
+        </thead>
+        <tbody>
+            @endif
             @endforeach
         </tbody>
     </table>
@@ -100,4 +122,5 @@
         <p>Panitia, </p>
     </footer>
 </body>
+
 </html>
