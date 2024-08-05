@@ -207,7 +207,7 @@
 
 
     @push('scripts')
-        <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
+        {{-- <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script> --}}
         <script src="{{ asset('library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
         <script src="{{ asset('library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
         <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>

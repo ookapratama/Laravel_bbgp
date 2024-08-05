@@ -14,10 +14,15 @@ class KuitansiLoka extends Model
         'tgl_surat_tugas',
         'kode_anggaran',
         'tahun_anggaran',
+        'no_bukti',
     ];
 
     public function internal() {
         return $this->hasOne(Internal::class, 'id', 'internal_id');
+    }
+
+    public function internalMany() {
+        return $this->hasMany(Internal::class, 'id', 'internal_id');
     }
     
 }

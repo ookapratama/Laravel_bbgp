@@ -134,7 +134,7 @@
                                                     // $tgl_kegiatan = strftime('%d %B', strtotime($v->tgl_kegiatan));
                                                     // $tgl_selesai = strftime('%d %B %Y', strtotime($v->tgl_selesai));
                                                     ?>
-                                                    <option value="{{ $v['kegiatan'] }}">{{ $v['kegiatan'] }}
+                                                    <option data-id="{{ $v['id'] }}" value="{{ $v['kegiatan'] }}">{{ $v['kegiatan'] }}
                                                         {{-- ( {{ $tgl_kegiatan }} -
                                                         {{ $tgl_selesai }}
                                                     ) --}}
@@ -231,6 +231,7 @@
                                                 <th>Kegiatan</th>
                                                 <th>Lokasi</th>
                                                 <th>Hotel</th>
+                                                <th>Nomor Bukti</th>
                                                 <th class="text-nowrap">Nomor dan Tanggal Surat Tugas</th>
                                                 <th class="text-nowrap">Kode dan Tahun Anggaran</th>
                                                 <th>Cetak</th>
@@ -257,6 +258,7 @@
                                                     <td class="text-nowrap">{{ $v->internal->kegiatan }}</td>
                                                     <td class="">{{ $v->internal->kota }} </td>
                                                     <td class="">{{ $v->internal->hotel }} </td>
+                                                    <td class="">{{ $v->no_bukti }} </td>
                                                     <td class="text-nowrap">{{ $v->no_surat_tugas }} tanggal
                                                         {{ $tgl_surat }}</td>
                                                     <td class="text-nowrap">{{ $v->kode_anggaran }} -
@@ -311,7 +313,8 @@
                                                             data-nosurattugas="{{ $v->no_surat_tugas }}"
                                                             data-tglsurattugas="{{ $v->tgl_surat_tugas }}"
                                                             data-kodeanggaran="{{ $v->kode_anggaran }}"
-                                                            data-tahunanggaran="{{ $v->tahun_anggaran }}">
+                                                            data-tahunanggaran="{{ $v->tahun_anggaran }}"
+                                                            data-noBukti="{{ $v->no_bukti }}">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
 
@@ -460,6 +463,13 @@
                                         name="tahun_anggaran">
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="hotel">Nomor Bukti</label>
+                                    <input required type="text" class="form-control" id="no_bukti"
+                                        name="no_bukti">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -585,6 +595,13 @@
                                     <label for="editTahunAnggaran">Tahun Anggaran</label>
                                     <input required type="text" class="form-control" id="editTahunAnggaran"
                                         name="tahun_anggaran">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="hotel">Nomor Bukti</label>
+                                    <input required type="text" class="form-control" id="editNoBukti"
+                                        name="no_bukti">
                                 </div>
                             </div>
                         </div>
@@ -974,6 +991,12 @@
                 $('#printAllKuitansi').click(function(e) {
                     e.preventDefault();
                     var kegiatanId = $('#kegiatanSelect').val();
+                    var selectedOption = $('#kegiatanSelect').find('option:selected');
+                    
+                    var id = selectedOption.data('id');
+
+                    console.log('halo',selectedOption.data('id'));
+
                     var rowIds = [];
 
                     // Collect the IDs of the rows you want to print
@@ -992,9 +1015,9 @@
                     }
 
                     // Construct the URL with the collected row IDs and kegiatanId
-                    var url = kegiatanId ?
+                    var url = id ?
                         "{{ route('kuitansiLoka.cetakAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" +
-                        kegiatanId :
+                        id :
                         "{{ route('kuitansiLoka.cetakAll') }}?rows=" + rowIds.join(',');
 
                     window.open(url, '_blank');
@@ -1007,6 +1030,9 @@
                 $('#printAllRill').click(function(e) {
                     e.preventDefault();
                     var kegiatanId = $('#kegiatanSelect').val();
+                    var selectedOption = $('#kegiatanSelect').find('option:selected');
+                    
+                    var id = selectedOption.data('id');
                     var rowIds = [];
 
                     // Collect the IDs of the rows you want to print
@@ -1024,9 +1050,9 @@
                     }
 
                     // Construct the URL with the collected row IDs and kegiatanId
-                    var url = kegiatanId ?
+                    var url = id ?
                         "{{ route('kuitansiLoka.cetakRillAll') }}?rows=" + rowIds.join(',') + "&kegiatan_id=" +
-                        kegiatanId :
+                        id :
                         "{{ route('kuitansiLoka.cetakRillAll') }}?rows=" + rowIds.join(',');
 
                     window.open(url, '_blank');
@@ -1039,6 +1065,9 @@
                 $('#printAllPJ').click(function(e) {
                     e.preventDefault();
                     var kegiatanId = $('#kegiatanSelect').val();
+                    var selectedOption = $('#kegiatanSelect').find('option:selected');
+                    
+                    var id = selectedOption.data('id');
                     var rowIds = [];
 
                     // Collect the IDs of the rows you want to print
@@ -1056,10 +1085,10 @@
                     }
 
                     // Construct the URL with the collected row IDs and kegiatanId
-                    var url = kegiatanId ?
+                    var url = id ?
                         "{{ route('kuitansiLoka.cetakPJmutlakAll') }}?rows=" + rowIds.join(',') +
                         "&kegiatan_id=" +
-                        kegiatanId :
+                        id :
                         "{{ route('kuitansiLoka.cetakPJmutlakAll') }}?rows=" + rowIds.join(',');
 
                     window.open(url, '_blank');
@@ -1073,6 +1102,9 @@
                     e.preventDefault();
                     var kegiatanId = $('#kegiatanSelect').val();
                     var rowIds = [];
+                    var selectedOption = $('#kegiatanSelect').find('option:selected');
+                    
+                    var id = selectedOption.data('id');
 
                     // Collect the IDs of the rows you want to print
                     $('#table_kuitansi_lokakarya tbody tr').each(function() {
@@ -1089,10 +1121,10 @@
                     }
 
                     // Construct the URL with the collected row IDs and kegiatanId
-                    var url = kegiatanId ?
+                    var url = id ?
                         "{{ route('kuitansiLoka.cetakAmplopAll') }}?rows=" + rowIds.join(',') +
                         "&kegiatan_id=" +
-                        kegiatanId :
+                        id :
                         "{{ route('kuitansiLoka.cetakAmplopAll') }}?rows=" + rowIds.join(',');
 
                     window.open(url, '_blank');

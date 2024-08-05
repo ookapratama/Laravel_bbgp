@@ -100,7 +100,7 @@
                                         <tr data-type="penugasan-pegawai">
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $data->nip ?? ' - ' }}</td>
-                                            <td class="text-left">{{ $data->nama ?? '' }}asdsa asdsada asdss</td>
+                                            <td class="text-left">{{ $data->nama ?? '' }}</td>
                                             <td class="text-left">
                                                 {{ $data->jabatan ?? '' }} <br>
                                                 {{ ' (Golongan : ' . $data->golongan . ')' }}

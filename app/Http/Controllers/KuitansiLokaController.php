@@ -63,7 +63,7 @@ class KuitansiLokaController extends Controller
 
 
         $kuitansiLoka = KuitansiLoka::orderByDesc('id')->get();
-        // dd($datas[0]);
+        // dd($datas);
         return view('pages.admin.kuitansiLoka.index', compact('menu', 'datas', 'kuitansiLoka'));
     }
 
@@ -121,8 +121,8 @@ class KuitansiLokaController extends Controller
      */
     public function show($id)
     {
-        $kuitansi = Kuitansi::findOrFail($id);
-        return view('pages.admin.kuitansi.detail', compact('kuitansi'));
+        // $kuitansi = Kuitansi::findOrFail($id);
+        // return view('pages.admin.kuitansi.detail', compact('kuitansi'));
     }
 
 
@@ -132,21 +132,21 @@ class KuitansiLokaController extends Controller
     public function edit(string $id)
     {
         // Temukan data kuitansi berdasarkan id
-        $kuitansi = Kuitansi::findOrFail($id);
-        $menu = $this->menu;
-        $title = 'kuitansi';
-        $kegiatan = Kegiatan::orderBy('id', 'DESC')->get();
+        // $kuitansi = Kuitansi::findOrFail($id);
+        // $menu = $this->menu;
+        // $title = 'kuitansi';
+        // $kegiatan = Kegiatan::orderBy('id', 'DESC')->get();
 
-        $datas = array(
-            'peserta' => PesertaKegiatan::orderByDesc('id')->get(),
-            'kabupaten' => Kabupaten::get(),
-        );
+        // $datas = array(
+        //     'peserta' => PesertaKegiatan::orderByDesc('id')->get(),
+        //     'kabupaten' => Kabupaten::get(),
+        // );
 
-        // Memuat data terkait seperti transportasi
-        $transportasis = $kuitansi->transportasis;
+        // // Memuat data terkait seperti transportasi
+        // $transportasis = $kuitansi->transportasis;
 
-        // Mengembalikan view dengan data kuitansi dan transportasi
-        return view('pages.admin.kuitansi.edit', compact('menu', 'kuitansi', 'transportasis', 'title', 'datas', 'kegiatan'));
+        // // Mengembalikan view dengan data kuitansi dan transportasi
+        // return view('pages.admin.kuitansi.edit', compact('menu', 'kuitansi', 'transportasis', 'title', 'datas', 'kegiatan'));
     }
 
     /**
@@ -209,9 +209,9 @@ class KuitansiLokaController extends Controller
         $rowIdsArray = array_map('intval', explode(',', $rowIds)); // Convert IDs to integers
 
         $query = KuitansiLoka::whereIn('id', $rowIdsArray);
-
+        // dd($rowIds);
         if ($kegiatanId) {
-            $query->whereHas('peserta.kegiatan', function ($query) use ($kegiatanId) {
+            $query->whereHas('internalMany', function ($query) use ($kegiatanId) {
                 $query->where('id', $kegiatanId);
             });
         }
@@ -221,7 +221,8 @@ class KuitansiLokaController extends Controller
             // dd($datas);
             return response()->json(['error' => 'No data found for the given IDs.'], 404);
         }
-
+        
+        // dd($datas);
         try {
             $pdf = Pdf::loadView('pages.admin.kuitansiLoka.cetak.cetakAll.cetakAll', compact('datas'));
             $pdf->setPaper('a4', 'portrait');
@@ -245,7 +246,7 @@ class KuitansiLokaController extends Controller
         $query = KuitansiLoka::whereIn('id', $rowIdsArray);
 
         if ($kegiatanId) {
-            $query->whereHas('peserta.kegiatan', function ($query) use ($kegiatanId) {
+            $query->whereHas('internalMany', function ($query) use ($kegiatanId) {
                 $query->where('id', $kegiatanId);
             });
         }
@@ -282,7 +283,7 @@ class KuitansiLokaController extends Controller
         $query = KuitansiLoka::whereIn('id', $rowIdsArray);
 
         if ($kegiatanId) {
-            $query->whereHas('peserta.kegiatan', function ($query) use ($kegiatanId) {
+            $query->whereHas('internalMany', function ($query) use ($kegiatanId) {
                 $query->where('id', $kegiatanId);
             });
         }
@@ -318,7 +319,7 @@ class KuitansiLokaController extends Controller
         $query = KuitansiLoka::whereIn('id', $rowIdsArray);
 
         if ($kegiatanId) {
-            $query->whereHas('peserta.kegiatan', function ($query) use ($kegiatanId) {
+            $query->whereHas('internalMany', function ($query) use ($kegiatanId) {
                 $query->where('id', $kegiatanId);
             });
         }

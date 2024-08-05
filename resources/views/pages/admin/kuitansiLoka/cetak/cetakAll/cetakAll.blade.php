@@ -102,7 +102,7 @@
 
 <body>
 
-
+    {{-- {{ dd($datas) }} --}}
 
     @foreach ($datas as $i => $data)
         <?php
@@ -110,21 +110,24 @@
         
         $tgl_surat = strftime('%d %B', strtotime(date('d-m-Y')));
         $tgl_sekarang = strftime('%d %B', strtotime(date('d-m-Y')));
+        $tgl_kegiatan = strftime('%d', strtotime($data->internal->tgl_kegiatan));
+        $tgl_selesai_kegiatan = strftime('%d %B %Y', strtotime($data->internal->tgl_selesai_kegiatan));
+        ?>
+        <?php
+        $total = $data->internal->transport_pergi + $data->internal->transport_pulang + $data->internal->bill_penginapan + $data->internal->hari_1 + $data->internal->hari_2 + $data->internal->hari_3;
         
         ?>
         {{-- {{ dd($tgl_sekarang) }} --}}
         <div class="container">
-            <!-- Apply page-break class -->
             @if ($i > 0)
                 <div class="page-break"></div>
             @endif
-
             <div class=""
                 style="
-                position:absolute;
-                right: 100px;
-                top:-20;
-            ">
+                    position:absolute;
+                    right: 100px;
+                    top:-20;
+                ">
                 <div class="header">
                     <p>
                     <table>
@@ -133,7 +136,7 @@
                                 <strong>Tahun Anggaran</strong>
                             </td>
                             <td>
-                                : 2024
+                                : {{ $data->tahun_anggaran }}
                             </td>
                         </tr>
                         <tr>
@@ -141,20 +144,22 @@
                                 <strong>Nomor Bukti </strong>
                             </td>
                             <td>
-                                : {{ $data->no_bukti }}
+                                : {{ $data->no_bukti ?? '' }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>MAK</strong>
+                                <strong>Kode Anggaran</strong>
                             </td>
                             <td>
-                                : {{ $data->no_MAK }}
+                                : {{ $data->kode_anggaran }}
                             </td>
                         </tr>
+
                     </table>
                     </p>
                 </div>
+
             </div>
             <div class="content" style="margin-top:50px">
                 <h2 style="text-align: center; letter-spacing: 5"><i> KUITANSI </i></h2>
@@ -162,14 +167,15 @@
                     <tr>
                         <td class="text-title"><strong>Sudah Terima Dari</strong></td>
                         <td>
-                            <p>: Kuasa Pengguna Anggaran Balai Besar Guru Penggerak Provinsi Sulawesi Selatan</p>
+                            <p>: Kuasa Pengguna Anggaran BBGP Prop Sulawesi Selatan</p>
                         </td>
                     </tr>
                     <tr>
                         <td class="text-title"><strong>Jumlah Uang</strong></td>
                         <td>
-                            <p><span class="highlight bold">: Rp.
-                                    {{ number_format($data->total_terima ?? 0, 0, ',', '.') }}</span></p>
+
+                            <p><span class="highlight bold">: Rp. {{ number_format($total ?? 0, 0, ',', '.') }}
+                                </span></p>
                         </td>
                     </tr>
                     <tr style="padding: 10px">
@@ -178,15 +184,22 @@
                             <p><span class="highlight">: ##</span></p>
                         </td>
                     </tr>
+
                     <tr>
                         <td valign="top" width="80" class="text-title"><strong>Untuk Pembayaran</strong></td>
                         <td>
                             <p style="text-align: justify">:
-                                <span class="highlight">{{ $data->peserta->kegiatan->nama_kegiatan }}</span>
+                                <span class="highlight">
+                                    Biaya Perjalanan Petugas {{ $data->internal->kegiatan }} yang dilaksanakan di
+                                    {{ $data->internal->kota }} pada tanggal {{ $tgl_kegiatan }} s/d
+                                    {{ $tgl_selesai_kegiatan }} dengan rincian sebagai berikut :
+                                </span>
                             </p>
                         </td>
                     </tr>
+
                 </table>
+
             </div>
             <div class="content">
                 <p style="text-align: center; margin-top: -20px"><strong>RINCIAN BIAYA PERJALANAN DINAS</strong></p>
@@ -204,6 +217,8 @@
                         </td>
                     </tr>
                 </table>
+
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -214,53 +229,109 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         <tr>
-                            <td valign="top">1</td>
+                            <td valign="top">
+                                1
+                            </td>
+
                             <td valign="top">Transport: <br>
                                 <ul style="list-style-type: none; margin: -1px 0 0 -25px">
-                                    <li>{{ $data->kabupaten->name }} - {{ $data->lokasi_tujuan }}, PP</li>
+
+                                    <li>
+                                        {{ $data->internal->kota }} , PP
+                                    </li>
+
+                                    {{-- <table style="padding-top: 55px" border="0" cellspacing:="0" cellpadding="0">
+                                        <tr>
+                                            <td style="border:solid 0px white;">
+                                                <li>Uang Harian {{ $data->jumlah_hari }} hari Rp.
+                                                    {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }} </li>
+                                            </td>
+                                        </tr>
+                                    </table>
+    
+                                    <table border="0" cellspacing:="0" cellpadding="0">
+                                        <tr>
+                                            <td style="border:solid 0px white;">
+                                                <li>Penginapan 4 hari
+                                                    {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}</li>
+                                            </td>
+                                        </tr>
+                                    </table> --}}
+
                                 </ul>
+
                             </td>
-                            <td>Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
-                            <td> {{ $data->jenis_angkutan }} </td>
+
+                            <td>Rp.
+                                {{ number_format($data->internal->transport_pergi + $data->internal->transport_pulang ?? 0, 0, ',', '.') }}
+                            </td>
+                            {{-- <td> {{ $data->jenis_angkutan }} </td> --}}
+                            <td> </td>
                         </tr>
+
                         <tr>
                             <td>2</td>
-                            <td>Uang Harian {{ $data->jumlah_hari }} hari Rp.
-                                {{ number_format($data->uang_harian ?? 0, 0, ',', '.') }} </td>
-                            <td>Rp. {{ number_format($data->total_harian ?? 0, 0, ',', '.') }}</td>
+                            <?php
+                            $hari = 0;
+                            if ($data->internal->hari_1 != 0 && $data->internal->hari_2 && $data->internal->hari_3) {
+                                $hari = 3;
+                            } elseif ($data->internal->hari_1 !== 0 && $data->internal->hari_2 !== 0) {
+                                $hari = 2;
+                            } elseif ($data->internal->hari_1 !== 0) {
+                                $hari = 1;
+                            }
+                            
+                            ?>
+                            <td>Uang Harian {{ $hari }} hari Rp.
+                                {{ number_format($data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 ?? 0, 0, ',', '.') }}
+                            </td>
+                            <td>Rp.
+                                {{ number_format($data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 ?? 0, 0, ',', '.') }}
+                            </td>
                             <td></td>
                         </tr>
+
                         <tr>
-                            <td valign="top">3</td>
-                            <td>Penginapan {{ $data->jumlah_hari - 1 }} malam
+
+                            <td valign="top">
+                                3
+                            </td>
+                            {{-- {{ dd($hari - 1 < 0 ? 0 : $hari) }} --}}
+                            <td>Penginapan {{ $hari - 1 < 0 ? 0 : $hari }} malam
                                 Rp. {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}
                             </td>
-                            <td>Rp. {{ number_format($data->total_penginapan ?? 0, 0, ',', '.') }}</td>
-                            <td></td>
+                            <td>Rp.
+                                {{ number_format($data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 + $data->internal->bill_penginapan ?? 0, 0, ',', '.') }}
+                            </td>
+                            {{-- <td> Rp. {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }} * 30% </td> --}}
+                            <td> </td>
                         </tr>
+
                     </tbody>
                     <tfoot style="">
                         <tr style="padding: 0 !important; text-align: center">
                             <td colspan="2" style="text-align: center" class=" bold">Total</td>
                             <?php
-                            $total_kuitansi = $data->total_penginapan + $data->total_harian + $data->total_transport;
+                            $total_kuitansi = $data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 + $data->internal->bill_penginapan + $data->internal->transport_pergi + $data->internal->transport_pulang;
                             ?>
                             <td>Rp. {{ number_format($total_kuitansi ?? 0, 0, ',', '.') }}</td>
                             <td></td>
                         </tr>
                     </tfoot>
                 </table>
+
             </div>
 
             <div style="margin-top: -30px; margin-left: 500px;  " class="content">
                 <p style="padding:0"><strong>Makassar, {{ $tgl_sekarang }} 2024</strong></p>
                 <p style="padding:0">Telah menerima jumlah uang sebesar <br> <span class="highlight bold">Rp. <span
-                            style="margin-left: 50px">{{ number_format($total_kuitansi ?? 0, 0, ',', '.') }}</span></span>
-                </p>
+                            style="margin-left: 50px">
+                            {{ number_format($total_kuitansi ?? 0, 0, ',', '.') }}</span></span></p>
                 <p style="padding:0"><strong>Yang menerima</strong></p>
-                <p style="padding-top:50px" class="highlight bold">Sitti Kahirah Adami, SH</p>
-                <p style="padding:0" class="highlight ">NIP. 196810052005012014</p>
+                <p style="padding-top:50px" class="highlight bold">{{ $data->internal->nama }}</p>
+                <p style="padding:0" class="highlight ">NIP. {{ $data->internal->nip }}</p>
             </div>
             <hr style="margin-top: -25px">
 
@@ -290,7 +361,9 @@
                         <td style="padding: 0; width: 500px;">
                             <p>Setuju dibayar</p>
                         </td>
-                        <td><span class="highlight ">Lunas dibayar</span></td>
+                        <td><span class="highlight ">
+                                <p>Lunas dibayar</p>
+                            </span></td>
                     </tr>
                 </table>
             </div>
@@ -299,22 +372,27 @@
                 <table style="margin-top: -55px;">
                     <tr>
                         <td style=" width: 500px;">
-                            <p>Pejabat Pembuat Komitmen,</p>
+                            <p>Pejabat Pembuat Komitmen,
                         </td>
                         <td><span class="highlight ">Bendahara Pengeluaran, </span></td>
                     </tr>
                 </table>
-                <br><br><br><br>
+                <br>
+                <br>
+                <br>
+                <br>
                 <div style="margin-top: -50px" class="signature">
                     <table>
                         <tr>
                             <td style=" width: 500px;">
-                                <p class="bold"><u>Idhil Nur Mansyur, SE</u></p>
+                                <p class="bold"><u>Idhil Nur Mansyur, SE</u>
                                 <p style="margin-top: -10px">NIP.198306212009122002</p>
+                                </p>
                             </td>
                             <td>
-                                <p class="bold"><u> A. Rapiatni A. Hasan, S.Kom., MM</u></p>
+                                <p class="bold"><u> A. Rapiatni A. Hasan, S.Kom., MM</u>
                                 <p style="margin-top: -10px">NIP.197905222003121001</p>
+                                </p>
                             </td>
                         </tr>
                     </table>

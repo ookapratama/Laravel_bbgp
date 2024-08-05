@@ -109,6 +109,7 @@
     
     ?>
     <div class="container">
+        
         <div class=""
             style="
                 position:absolute;
@@ -272,8 +273,11 @@
                         
                         ?>
                         <td>Uang Harian {{ $hari }} hari Rp.
-                            {{ number_format($data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 ?? 0, 0, ',', '.') }} </td>
-                        <td>Rp. {{ number_format($data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 ?? 0, 0, ',', '.') }}</td>
+                            {{ number_format($data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 ?? 0, 0, ',', '.') }}
+                        </td>
+                        <td>Rp.
+                            {{ number_format($data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 ?? 0, 0, ',', '.') }}
+                        </td>
                         <td></td>
                     </tr>
 
@@ -286,7 +290,9 @@
                         <td>Penginapan {{ $hari - 1 }} malam
                             Rp. {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }}
                         </td>
-                        <td>Rp. {{ number_format($data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 + $data->internal->bill_penginapan ?? 0, 0, ',', '.') }}</td>
+                        <td>Rp.
+                            {{ number_format($data->internal->hari_1 + $data->internal->hari_2 + $data->hari_3 + $data->internal->bill_penginapan ?? 0, 0, ',', '.') }}
+                        </td>
                         {{-- <td> Rp. {{ number_format($data->biaya_penginapan ?? 0, 0, ',', '.') }} * 30% </td> --}}
                         <td> </td>
                     </tr>

@@ -110,8 +110,8 @@
         ?>
         <div class="container">
             <div class="" style="
-        margin-top: -40px
-        ">
+              margin-top: -40px
+            ">
                 <img style="position: absolute; left: 0; top:25px; width: 110px"
                     src="{{ public_path('img_template/iconbbgp.png') }}" alt="Logo Kiri">
                 <div class="header">
@@ -136,20 +136,21 @@
                     <tr>
                         <td class="text-title">Nama</td>
                         <td>
-                            <p><span class="highlight ">: {{ $data->peserta->nama }} </span></p>
+                            <p><span class="highlight ">: {{ $data->internal->nama }} </span></p>
                         </td>
                     </tr>
                     <tr style="padding: 10px">
                         <td class="text-title">NIP</td>
                         <td>
-                            <p><span class="highlight">: {{ $data->peserta->nip }}</span></p>
+                            <p><span class="highlight">: {{ $data->internal->nip }}</span></p>
                         </td>
                     </tr>
 
                     <tr>
                         <td valign="top" width="80" class="text-title">Jabatan</td>
                         <td>
-                            <p style="text-align: justify">: {{ $data->peserta->status_keikutpesertaan ?? '' }}
+                            <p style="text-align: justify">:
+                                {{ $data->internal->pegawai->jenis_pegawai == 'BBGP' ? 'Pegawai BBGP' : 'PPNPN' }}
 
                             </p>
                         </td>
@@ -203,12 +204,15 @@
                                 <br>
 
 
-                                {{ $data->kabupaten->name }} - {{ $data->lokasi_tujuan }}, PP
+                                {{ $data->internal->kota }}, PP
                                 <br><br>
                                 <br>
 
                             </td>
-                            <td>Rp. {{ number_format($data->total_transport ?? 0, 0, ',', '.') }}</td>
+                            <?php
+                            $total = $data->internal->transport_pergi + $data->internal->transport_pulang + $data->internal->bill_penginapan + $data->internal->hari_1 + $data->internal->hari_2 + $data->internal->hari_3 + $data->internal->bill_penginapan;
+                            ?>
+                            <td>Rp. {{ number_format($total ?? 0, 0, ',', '.') }}</td>
                         </tr>
 
                     </tbody>
@@ -266,8 +270,8 @@
                                 </p>
                             </td>
                             <td>
-                                <p class="bold"><u> {{ $data->peserta->nama }}</u>
-                                <p style="margin-top: -10px">NIP. {{ $data->peserta->nip }}</p>
+                                <p class="bold"><u> {{ $data->internal->nama }} </u>
+                                <p style="margin-top: -10px">NIP. {{ $data->internal->nip }}</p>
                                 </p>
                             </td>
                         </tr>
