@@ -24,11 +24,11 @@
                     <h3 class="widget-title">Hubungi Kami</h3>
                     <div class="working-hours">
                         <ul class="list-arrow">
-                          <li>
-                            Jl. Adiyaksa No.2, Pandang, Kec. Panakkukang, Kota Makassar, Sulawesi Selatan
-                          </li>
-                          <li>0411-440065, 430420</li>
-                          <li>Email bbgp</li>
+                            <li>
+                                Jl. Adiyaksa No.2, Pandang, Kec. Panakkukang, Kota Makassar, Sulawesi Selatan
+                            </li>
+                            <li>(0411) 440065, 421460 </li>
+                            <li>bbgpsulsel@kemdikbud.go.id </li>
                         </ul>
                     </div>
                 </div><!-- Col end -->
@@ -36,9 +36,12 @@
                 <div class="col-lg-4 col-md-6 footer-widget mt-5 mt-md-0">
                     <h3 class="widget-title">Jam Kerja</h3>
                     <div class="working-hours">
-                        We work 7 days a week, every day excluding major holidays. Contact us if you have an
-                        emergency, with our
-                        Hotline and Contact form.
+
+                      
+                        Kami bekerja 5 hari kerja dalam seminggu, dari Senin hingga Jumat, kecuali hari libur besar.
+                        Hubungi kami jika Anda mengalami keadaan darurat melalui Hotline dan Formulir Kontak kami.
+
+
                         <br><br> Senin - Jumat: <span class="text-right">07:30 - 16:00 WITA</span>
                     </div>
                 </div><!-- Col end -->
@@ -82,8 +85,8 @@
                         </ul>
                     </div>
                 </div> --}}
-            
-              </div><!-- Row end -->
+
+            </div><!-- Row end -->
 
             <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top position-fixed my-btn-up">
                 <button class="btn btn-primary" title="Back to Top">

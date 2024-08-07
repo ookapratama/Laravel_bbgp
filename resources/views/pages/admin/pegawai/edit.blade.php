@@ -33,7 +33,7 @@
                                             </div> --}}
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input  name="nip" value="{{ $pegawai->nip }}" type="number" class="form-control">
+                                                <input  name="nip" value="{{ $pegawai->nip }}" type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">

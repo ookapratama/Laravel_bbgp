@@ -17,7 +17,7 @@
                                 <div class="info-box">
                                     <div class="info-box-content">
                                         <p class="info-box-title">Hubungi Kami</p>
-                                        <p class="info-box-subtitle">0411-440065, 430420</p>
+                                        <p class="info-box-subtitle">(0411) 440065, 421460 </p>
                                     </div>
                                 </div>
                             </li>
@@ -33,7 +33,7 @@
                                 <div class="info-box">
                                     <div class="info-box-content">
                                         <p class="info-box-title">Email Kami</p>
-                                        <p class="info-box-subtitle">office@Constra.com</p>
+                                        <p class="info-box-subtitle">bbgpsulsel@kemdikbud.go.id </p>
                                     </div>
                                 </div>
                             </li>

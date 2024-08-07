@@ -49,6 +49,10 @@
                                                 <th>Hari 1</th>
                                                 <th>Hari 2</th>
                                                 <th>Hari 3</th>
+                                                <th>Hari 4</th>
+                                                <th>Hari 5</th>
+                                                <th>Hari 6</th>
+                                                <th>Hari 7</th>
                                                 <th>Total</th>
                                                 <th>Action</th>
                                             </tr>
@@ -70,6 +74,10 @@
                                                     <td class="text-nowrap">Rp. {{ number_format($data->hari_1, 0, ',', '.') }}</td>
                                                     <td class="text-nowrap">Rp. {{ number_format($data->hari_2, 0, ',', '.') }}</td>
                                                     <td class="text-nowrap">Rp. {{ number_format($data->hari_3, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->hari_4, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->hari_5, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->hari_6, 0, ',', '.') }}</td>
+                                                    <td class="text-nowrap">Rp. {{ number_format($data->hari_7, 0, ',', '.') }}</td>
                                                     <td class="text-nowrap"><b> Rp. {{ number_format($total, 0, ',', '.') }} </b></td>
                                                     <td>
                                                         <a href="{{ route('internal.edit.lokakarya', $data->id) }}"

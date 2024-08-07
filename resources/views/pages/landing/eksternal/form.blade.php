@@ -222,6 +222,7 @@
                                     <option value="Bank BTN">Bank BTN</option>
                                     <option value="Bank Mandiri">Bank Mandiri</option>
                                     <option value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
+                                    <option value="Bank SulSelBar">Bank SulSelBar</option>
                                 </select>
                             </div>
                         </div>

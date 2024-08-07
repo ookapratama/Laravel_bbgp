@@ -52,7 +52,7 @@
                         </span>
                         <div class="ts-service-box-content">
                             <h4>Email Kami</h4>
-                            <p>office@Constra.com</p>
+                            <p>bbgpsulsel@kemdikbud.go.id </p>
                         </div>
                     </div>
                 </div><!-- Col 2 end -->
@@ -64,7 +64,7 @@
                         </span>
                         <div class="ts-service-box-content">
                             <h4>Hubungi Kami</h4>
-                            <p>0411-440065, 430420</p>
+                            <p>(0411) 440065, 421460 </p>
                         </div>
                     </div>
                 </div><!-- Col 3 end -->

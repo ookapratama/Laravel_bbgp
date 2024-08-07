@@ -45,7 +45,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input value="{{ $pegawai->nip }}" name="nip" type="number" class="form-control">
+                                                <input value="{{ $pegawai->nip }}" name="nip" type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>

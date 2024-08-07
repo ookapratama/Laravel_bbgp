@@ -29,6 +29,10 @@ class Internal extends Model
         'hari_1',
         'hari_2',
         'hari_3',
+        'hari_4',
+        'hari_5',
+        'hari_6',
+        'hari_7',
         'bill_penginapan',
         'deskripsi',
     ];

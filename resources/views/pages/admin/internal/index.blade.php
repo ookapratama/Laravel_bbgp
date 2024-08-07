@@ -543,6 +543,10 @@
                                     <th>Hari 1</th>
                                     <th>Hari 2</th>
                                     <th>Hari 3</th>
+                                    <th>Hari 4</th>
+                                    <th>Hari 5</th>
+                                    <th>Hari 6</th>
+                                    <th>Hari 7</th>
                                     <th>Total</th>
                                     <th>Action</th>
                                 </tr>
@@ -677,6 +681,22 @@
                             <div class="form-group col-md-4">
                                 <label for="editHari3">Hari 3</label>
                                 <input type="text" class="form-control rupiah-input" id="editHari3">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editHari4">Hari 4</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari4">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editHari5">Hari 5</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari5">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editHari6">Hari 6</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari6">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="editHari7">Hari 7</label>
+                                <input type="text" class="form-control rupiah-input" id="editHari7">
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary" id="saveEditButton">Simpan Perubahan</button>
@@ -1092,11 +1112,15 @@
                     var totalHari1 = 0;
                     var totalHari2 = 0;
                     var totalHari3 = 0;
+                    var totalHari4 = 0;
+                    var totalHari5 = 0;
+                    var totalHari6 = 0;
+                    var totalHari7 = 0;
                     var totalKeseluruhan = 0;
 
                     // Tambahkan setiap pegawai ke dalam tabel
                     $.each(pegawai, function(index, pegawaiItem) {
-                        // console.log(first)
+                        console.log(pegawaiItem)
                         // Parse nilai ke integer dan hitung total
                         var transportPergi = parseInt(pegawaiItem.transport_pergi) || 0;
                         var transportPulang = parseInt(pegawaiItem.transport_pulang) || 0;
@@ -1104,9 +1128,13 @@
                         var hari1 = parseInt(pegawaiItem.hari_1) || 0;
                         var hari2 = parseInt(pegawaiItem.hari_2) || 0;
                         var hari3 = parseInt(pegawaiItem.hari_3) || 0;
+                        var hari4 = parseInt(pegawaiItem.hari_4) || 0;
+                        var hari5 = parseInt(pegawaiItem.hari_5) || 0;
+                        var hari6 = parseInt(pegawaiItem.hari_6) || 0;
+                        var hari7 = parseInt(pegawaiItem.hari_7) || 0;
 
                         var totalPerRow = transportPergi + transportPulang + billPenginapan + hari1 +
-                            hari2 + hari3;
+                            hari2 + hari3 + hari4 + hari5 + hari6 + hari7;
 
                         // Tambahkan ke total keseluruhan
                         totalTransportPergi += transportPergi;
@@ -1115,6 +1143,10 @@
                         totalHari1 += hari1;
                         totalHari2 += hari2;
                         totalHari3 += hari3;
+                        totalHari4 += hari4;
+                        totalHari5 += hari5;
+                        totalHari6 += hari6;
+                        totalHari7 += hari7;
                         totalKeseluruhan += totalPerRow;
 
                         pegawaiTableBody.append(`
@@ -1130,9 +1162,13 @@
                                 <td class="text-nowrap">${formatRupiah(hari1, 'Rp.')}</td>
                                 <td class="text-nowrap">${formatRupiah(hari2, 'Rp.')}</td>
                                 <td class="text-nowrap">${formatRupiah(hari3, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(hari4, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(hari5, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(hari6, 'Rp.')}</td>
+                                <td class="text-nowrap">${formatRupiah(hari7, 'Rp.')}</td>
                                 <td class="text-nowrap">${formatRupiah(totalPerRow, 'Rp.')}</td>
                                 <td class="text-nowrap">
-                                    <button class="btn btn-warning edit-button" data-id="${pegawaiItem.id}" data-nama="${pegawaiItem.nama}" data-hotel="${pegawaiItem.hotel}" data-transportpergi="${transportPergi}" data-transportpulang="${transportPulang}" data-billpenginapan="${billPenginapan}" data-hari1="${hari1}" data-hari2="${hari2}" data-hari3="${hari3}">
+                                    <button class="btn btn-warning edit-button" data-id="${pegawaiItem.id}" data-nama="${pegawaiItem.nama}" data-hotel="${pegawaiItem.hotel}" data-transportpergi="${transportPergi}" data-transportpulang="${transportPulang}" data-billpenginapan="${billPenginapan}" data-hari1="${hari1}" data-hari2="${hari2}" data-hari3="${hari3} data-hari4="${hari4} data-hari5="${hari5} data-hari6="${hari6} data-hari7="${hari7}">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="btn btn-danger delete-button" data-id="${pegawaiItem.id}">
@@ -1153,6 +1189,10 @@
                             <td id="hari1Total" class="text-nowrap"><strong>${formatRupiah(totalHari1, 'Rp.')}</strong></td>
                             <td id="hari2Total" class="text-nowrap"><strong>${formatRupiah(totalHari2, 'Rp.')}</strong></td>
                             <td id="hari3Total" class="text-nowrap"><strong>${formatRupiah(totalHari3, 'Rp.')}</strong></td>
+                            <td id="hari4Total" class="text-nowrap"><strong>${formatRupiah(totalHari4, 'Rp.')}</strong></td>
+                            <td id="hari5Total" class="text-nowrap"><strong>${formatRupiah(totalHari5, 'Rp.')}</strong></td>
+                            <td id="hari6Total" class="text-nowrap"><strong>${formatRupiah(totalHari6, 'Rp.')}</strong></td>
+                            <td id="hari7Total" class="text-nowrap"><strong>${formatRupiah(totalHari7, 'Rp.')}</strong></td>
                             <td id="grandTotal" class="text-nowrap"><strong>${formatRupiah(totalKeseluruhan, 'Rp.')}</strong></td>
                         </tr>
                     `);
@@ -1231,6 +1271,10 @@
                     var hari1Total = 0;
                     var hari2Total = 0;
                     var hari3Total = 0;
+                    var hari4Total = 0;
+                    var hari5Total = 0;
+                    var hari6Total = 0;
+                    var hari7Total = 0;
                     var grandTotal = 0;
 
                     $('#pegawaiTableBody tr').each(function() {
@@ -1252,7 +1296,7 @@
                             }
                             console.log(cell)
                             console.log(inputField.val())
-                            console.log(value)
+                            console.log(indnex)
 
                             switch (index) {
                                 case 3:
@@ -1273,9 +1317,21 @@
                                 case 8:
                                     hari3Total += value;
                                     break;
+                                case 9:
+                                    hari4Total += value;
+                                    break;
+                                case 10:
+                                    hari5Total += value;
+                                    break;
+                                case 11:
+                                    hari6Total += value;
+                                    break;
+                                case 12:
+                                    hari7Total += value;
+                                    break;
                             }
 
-                            if (index > 2 && index < 9) {
+                            if (index > 2 && index < 13) {
                                 rowTotal += value;
                             }
                         });
@@ -1289,6 +1345,10 @@
                     $('#hari1Total').text(formatRupiah(hari1Total, 'Rp. '));
                     $('#hari2Total').text(formatRupiah(hari2Total, 'Rp. '));
                     $('#hari3Total').text(formatRupiah(hari3Total, 'Rp. '));
+                    $('#hari4Total').text(formatRupiah(hari4Total, 'Rp. '));
+                    $('#hari5Total').text(formatRupiah(hari5Total, 'Rp. '));
+                    $('#hari6Total').text(formatRupiah(hari6Total, 'Rp. '));
+                    $('#hari7Total').text(formatRupiah(hari7Total, 'Rp. '));
                     $('#grandTotal').text(formatRupiah(grandTotal, 'Rp. '));
                 }
 
@@ -1341,9 +1401,17 @@
                                 ',', '')) || 0;
                             var hari3 = parseInt($('#editHari3').val().replace(/[^,\d]/g, '').replace(
                                 ',', '')) || 0;
+                            var hari4 = parseInt($('#editHari4').val().replace(/[^,\d]/g, '').replace(
+                                ',', '')) || 0;
+                            var hari5 = parseInt($('#editHari5').val().replace(/[^,\d]/g, '').replace(
+                                ',', '')) || 0;
+                            var hari6 = parseInt($('#editHari6').val().replace(/[^,\d]/g, '').replace(
+                                ',', '')) || 0;
+                            var hari7 = parseInt($('#editHari7').val().replace(/[^,\d]/g, '').replace(
+                                ',', '')) || 0;
 
                             var total = transportPergi + transportPulang + billPenginapan + hari1 +
-                                hari2 + hari3;
+                                hari2 + hari3 + hari4 + hari5 + hari6 + hari7;
 
                             // Prepare data object
                             var updatedData = {
@@ -1356,6 +1424,10 @@
                                 hari1: hari1,
                                 hari2: hari2,
                                 hari3: hari3,
+                                hari4: hari4,
+                                hari5: hari5,
+                                hari6: hari6,
+                                hari7: hari7,
                                 total: total
                             };
                             console.log(JSON.stringify(updatedData))
@@ -1387,7 +1459,15 @@
                                             'Rp. '));
                                         row.find('td').eq(8).text(formatRupiah(hari3,
                                             'Rp. '));
-                                        row.find('td').eq(9).text(formatRupiah(total,
+                                        row.find('td').eq(9).text(formatRupiah(hari4,
+                                            'Rp. '));
+                                        row.find('td').eq(10).text(formatRupiah(hari5,
+                                            'Rp. '));
+                                        row.find('td').eq(11).text(formatRupiah(hari6,
+                                            'Rp. '));
+                                        row.find('td').eq(12).text(formatRupiah(hari7,
+                                            'Rp. '));
+                                        row.find('td').eq(13).text(formatRupiah(total,
                                             'Rp. '));
 
                                         // Recalculate column totals
@@ -1425,6 +1505,10 @@
                     var hari1 = $(this).data('hari1');
                     var hari2 = $(this).data('hari2');
                     var hari3 = $(this).data('hari3');
+                    var hari4 = $(this).data('hari4');
+                    var hari5 = $(this).data('hari5');
+                    var hari6 = $(this).data('hari6');
+                    var hari7 = $(this).data('hari7');
 
                     $('#editId').val(id);
                     $('#editNama').val(nama);
@@ -1435,6 +1519,10 @@
                     $('#editHari1').val(formatRupiah(hari1, 'Rp. '));
                     $('#editHari2').val(formatRupiah(hari2, 'Rp. '));
                     $('#editHari3').val(formatRupiah(hari3, 'Rp. '));
+                    $('#editHari4').val(formatRupiah(hari4, 'Rp. '));
+                    $('#editHari5').val(formatRupiah(hari5, 'Rp. '));
+                    $('#editHari6').val(formatRupiah(hari6, 'Rp. '));
+                    $('#editHari7').val(formatRupiah(hari7, 'Rp. '));
 
                     $('#editModal').modal('show');
                 });

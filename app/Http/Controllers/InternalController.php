@@ -26,7 +26,7 @@ class InternalController extends Controller
     {
         $kota = Kabupaten::get();
 
-        $jadwalInternal = Internal::select('id','kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3')
+        $jadwalInternal = Internal::select('id','kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3', 'hari_4', 'hari_5', 'hari_6', 'hari_7')
             ->whereIn('jenis', ['Pendamping Lokakarya'])
             ->get()
             ->groupBy('kegiatan');
@@ -53,6 +53,10 @@ class InternalController extends Controller
                         'hari_1' => $item->hari_1,
                         'hari_2' => $item->hari_2,
                         'hari_3' => $item->hari_3,
+                        'hari_4' => $item->hari_4,
+                        'hari_5' => $item->hari_5,
+                        'hari_6' => $item->hari_6,
+                        'hari_7' => $item->hari_7,
                     ];
                 });
                 // dump($penugasanPegawai);
@@ -215,6 +219,22 @@ class InternalController extends Controller
 
             $r['hari_3'] = 0;
         }
+        if ($r['hari_4'] == null) {
+
+            $r['hari_4'] = 0;
+        }
+        if ($r['hari_5'] == null) {
+
+            $r['hari_5'] = 0;
+        }
+        if ($r['hari_6'] == null) {
+
+            $r['hari_6'] = 0;
+        }
+        if ($r['hari_7'] == null) {
+
+            $r['hari_7'] = 0;
+        }
 
         // dd($r);
 
@@ -289,6 +309,22 @@ class InternalController extends Controller
 
             $r['hari_3'] = 0;
         }
+        if ($r['hari_4'] == null) {
+
+            $r['hari_4'] = 0;
+        }
+        if ($r['hari_5'] == null) {
+
+            $r['hari_5'] = 0;
+        }
+        if ($r['hari_6'] == null) {
+
+            $r['hari_6'] = 0;
+        }
+        if ($r['hari_7'] == null) {
+
+            $r['hari_7'] = 0;
+        }
 
         $loka->update($r);
         // dd( route('pegawai.session('no_ktp')));
@@ -321,6 +357,10 @@ class InternalController extends Controller
         $r['hari_1'] = $r['hari1'];
         $r['hari_2'] = $r['hari2'];
         $r['hari_3'] = $r['hari3'];
+        $r['hari_4'] = $r['hari4'];
+        $r['hari_5'] = $r['hari5'];
+        $r['hari_6'] = $r['hari6'];
+        $r['hari_7'] = $r['hari7'];
 
         if ($r['hari_1'] == null) {
             $r['hari_1'] = 0;
@@ -331,6 +371,22 @@ class InternalController extends Controller
         if ($r['hari_3'] == null) {
 
             $r['hari_3'] = 0;
+        }
+        if ($r['hari_4'] == null) {
+
+            $r['hari_4'] = 0;
+        }
+        if ($r['hari_5'] == null) {
+
+            $r['hari_5'] = 0;
+        }
+        if ($r['hari_6'] == null) {
+
+            $r['hari_6'] = 0;
+        }
+        if ($r['hari_7'] == null) {
+
+            $r['hari_7'] = 0;
         }
 
         $loka->update($r);

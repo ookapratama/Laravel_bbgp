@@ -45,6 +45,16 @@
                                     </div>
 
                                     <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Golongan</label>
+                                                <input readonly value="{{ $pegawai->golongan == '' || $pegawai->golongan == null || $pegawai->golongan == 'Tidak ada' ? 'Tidak ada' : $pegawai->golongan }}" required name="nip"
+                                                    type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <label>Pilih Kegiatan</label>
                                             <select required id="selectKegiatan" name="kegiatan"
@@ -110,21 +120,23 @@
                                     </div>
 
                                     <div class="row my-3">
+                                        
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Transport Pulang</label>
-                                                <input value="{{ $pendamping->transport_pulang }}" required
-                                                    name="transport_pulang" id="transport_pulang" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Transport Pergi</label>
+                                                <label>Biaya Pergi</label>
                                                 <input value="{{ $pendamping->transport_pergi }}" required
                                                     name="transport_pergi" id="transport_pergi" type="text" class="form-control">
                                             </div>
                                         </div>
 
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Biaya Pulang</label>
+                                                <input value="{{ $pendamping->transport_pulang }}" required
+                                                    name="transport_pulang" id="transport_pulang" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        
                                         <div class="col-md-4">
                                             <div class="custom-switches-stacked">
                                                 <label class="custom-switch">
@@ -151,7 +163,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hotel</label>
-                                                <input value="{{ $pendamping->hotel }}" required name="hotel"
+                                                <input value="{{ $pendamping->hotel }}"  name="hotel"
                                                     type="text" class="form-control">
                                             </div>
                                         </div>
@@ -173,6 +185,34 @@
                                             <div class="form-group">
                                                 <label>Hari 3</label>
                                                 <input value="{{ $pendamping->hari_3 }}" name="hari_3" id="hari_3" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Hari 4</label>
+                                                <input value="{{ $pendamping->hari_4 }}" name="hari_4" id="hari_4" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Hari 5</label>
+                                                <input value="{{ $pendamping->hari_5 }}" name="hari_5" id="hari_5" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Hari 6</label>
+                                                <input value="{{ $pendamping->hari_6 }}" name="hari_6" id="hari_6" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Hari 7</label>
+                                                <input value="{{ $pendamping->hari_7 }}" name="hari_7" id="hari_7" type="text"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -250,7 +290,31 @@
                         numeralThousandsGroupStyle: 'thousand',
                         prefix: 'Rp ',
                         noImmediatePrefix: true
-                    })
+                    }),
+                    new Cleave('#hari_4', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    }),
+                    new Cleave('#hari_5', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    }),
+                    new Cleave('#hari_6', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    }),
+                    new Cleave('#hari_7', {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand',
+                        prefix: 'Rp ',
+                        noImmediatePrefix: true
+                    }),
                 ];
 
                 const bill_penginapan = $('#bill_penginapan');
@@ -269,7 +333,7 @@
                 });
 
                 // Calculate total whenever an input changes
-                $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #bill_penginapan').on('input', function() {
+                $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan').on('input', function() {
                     calculateTotal();
                 });
 
@@ -283,6 +347,10 @@
                     total += parseCurrency($('#hari_1').val());
                     total += parseCurrency($('#hari_2').val());
                     total += parseCurrency($('#hari_3').val());
+                    total += parseCurrency($('#hari_4').val());
+                    total += parseCurrency($('#hari_5').val());
+                    total += parseCurrency($('#hari_6').val());
+                    total += parseCurrency($('#hari_7').val());
                     total += parseCurrency($('#bill_penginapan').val());
 
                     $('#total').val(formatRupiah(total));
@@ -328,7 +396,7 @@
 
                 // Remove currency format before form submit
                 $('#lokakaryaForm').on('submit', function() {
-                    $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #bill_penginapan').each(function() {
+                    $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan').each(function() {
                         var value = $(this).val();
                         $(this).val(value.replace(/[^0-9]/g, ''));
                     });

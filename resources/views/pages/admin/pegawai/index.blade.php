@@ -58,7 +58,7 @@
 
                                                     <td>{{ $data->nama_lengkap }}</td>
                                                     {{-- <td>{{ $data->email }} </td> --}}
-                                                    <td>{{ $data->golongan == null ? 'Tidak ada' : $data->golongan }}</td>
+                                                    <td>{{ $data->golongan == null || $data->golongan == 'Tidak ada' ? 'Tidak ada' : $data->golongan }}</td>
                                                     <td>{{ $data->no_ktp }}</td>
                                                     <td>{{ $data->nip }}</td>
                                                     {{-- <td>{{ $data->tempat_lahir . ', ' . $data->tgl_lahir }}</td> --}}

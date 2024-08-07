@@ -244,6 +244,7 @@
                                                     <option {{ $datas->jenis_bank == 'Bank BTN' ? 'selected' : '' }} value="Bank BTN">Bank BTN</option>
                                                     <option {{ $datas->jenis_bank == 'Bank Mandiri' ? 'selected' : '' }} value="Bank Mandiri">Bank Mandiri</option>
                                                     <option {{ $datas->jenis_bank == 'Bank Syariah Indonesia' ? 'selected' : '' }} value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank SulSelBar' ? 'selected' : '' }} value="Bank SulSelBar">Bank SulSelBar</option>
                                                 </select>
                                             </div>
                                         </div>

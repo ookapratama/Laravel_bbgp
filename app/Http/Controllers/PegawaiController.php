@@ -199,11 +199,11 @@ class PegawaiController extends Controller
         // dd($findPegawai);
         // dd($id);
         $data = array(
-            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nip', $findPegawai['nip'])->get() ?? [],
-            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nip', $findPegawai['nip'])->get() ?? [],
-            'dataPendamping' => Internal::where('nip', $findPegawai['nip'])->get() ?? [],
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $findPegawai['no_ktp'])->get() ?? [],
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $findPegawai['no_ktp'])->get() ?? [],
+            'dataPendamping' => Internal::where('nik', $findPegawai['no_ktp'])->get() ?? [],
             'dataPegawai' => $findPegawai,
-            'jadwalLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nip', $findPegawai['nip'])->get(),
+            'jadwalLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->where('nik', $findPegawai['no_ktp'])->get(),
 
         );
         // dd($data);

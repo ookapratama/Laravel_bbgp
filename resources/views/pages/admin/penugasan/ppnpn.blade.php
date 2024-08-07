@@ -44,7 +44,7 @@
                                             <div class="form-group">
                                                 <label>NIP</label>
                                                 <input  required value="{{ $pegawai->nip }}" id="nip"
-                                                    name="nip" type="number" class="form-control">
+                                                    name="nip" type="text" class="form-control">
                                             </div>
 
                                         </div>
