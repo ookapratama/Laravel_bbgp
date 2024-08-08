@@ -43,8 +43,8 @@
                                                 <th>Kegiatan</th>
                                                 <th>Kabupaten/Kota</th>
                                                 <th>Hotel</th>
-                                                <th>Transport Pulang</th>
-                                                <th>Transport Pergi</th>
+                                                <th>Biaya Pergi</th>
+                                                <th>Biaya Pulang</th>
                                                 <th>Bill Penginapan</th>
                                                 <th>Hari 1</th>
                                                 <th>Hari 2</th>

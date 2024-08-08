@@ -20,7 +20,7 @@ class KuitansiLokaController extends Controller
     public function index()
     {
         $menu = $this->menu;
-        $jadwalInternal = Internal::select('id', 'kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3')
+        $jadwalInternal = Internal::select('id', 'kota', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3' , 'hari_4', 'hari_5', 'hari_6', 'hari_7')
             ->whereIn('jenis', ['Pendamping Lokakarya'])
             ->get()
             ->groupBy('kegiatan');
@@ -42,6 +42,10 @@ class KuitansiLokaController extends Controller
                     'hari_1' => $item->hari_1,
                     'hari_2' => $item->hari_2,
                     'hari_3' => $item->hari_3,
+                    'hari_4' => $item->hari_4,
+                    'hari_5' => $item->hari_5,
+                    'hari_6' => $item->hari_6,
+                    'hari_7' => $item->hari_7,
                 ];
             });
             // dump($penugasanPegawai);
@@ -63,7 +67,7 @@ class KuitansiLokaController extends Controller
 
 
         $kuitansiLoka = KuitansiLoka::orderByDesc('id')->get();
-        // dd($datas);
+        // dd($kuitansiLoka);
         return view('pages.admin.kuitansiLoka.index', compact('menu', 'datas', 'kuitansiLoka'));
     }
 
@@ -104,6 +108,10 @@ class KuitansiLokaController extends Controller
         $r['hari_1']  = (int) substr(str_replace('.', '', $r['hari_1']), 3) ?? 0;
         $r['hari_2']  = (int) substr(str_replace('.', '', $r['hari_2']), 3) ?? 0;
         $r['hari_3']  = (int) substr(str_replace('.', '', $r['hari_3']), 3) ?? 0;
+        $r['hari_4']  = (int) substr(str_replace('.', '', $r['hari_4']), 3) ?? 0;
+        $r['hari_5']  = (int) substr(str_replace('.', '', $r['hari_5']), 3) ?? 0;
+        $r['hari_6']  = (int) substr(str_replace('.', '', $r['hari_6']), 3) ?? 0;
+        $r['hari_7']  = (int) substr(str_replace('.', '', $r['hari_7']), 3) ?? 0;
         $r['total']  = (int) substr(str_replace('.', '', $r['total']), 3) ?? 0;
         $r['internal_id'] = $r['id'];
         // dd($r);
@@ -163,6 +171,7 @@ class KuitansiLokaController extends Controller
         $kuitansi->tgl_surat_tugas = $r->input('tgl_surat_tugas');
         $kuitansi->kode_anggaran = $r->input('kode_anggaran');
         $kuitansi->tahun_anggaran = $r->input('tahun_anggaran');
+        $kuitansi->no_bukti = $r->input('no_bukti');
         // Set field lain jika diperlukan
         $kuitansi->save();
     
@@ -250,7 +259,7 @@ class KuitansiLokaController extends Controller
                 $query->where('id', $kegiatanId);
             });
         }
-
+        
         $datas = $query->get();
         // dd($datas);
         if ($datas->isEmpty()) {

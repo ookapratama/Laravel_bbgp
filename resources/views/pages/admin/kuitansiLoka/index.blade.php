@@ -165,7 +165,7 @@
 
                                 <div id="btnGroup">
                                     <div class="row">
-                                        <div class="col-md-9">
+                                        {{-- <div class="col-md-9">
                                             <h6>Print semua data dari :</h6>
                                             <a href="#" id="printAllKuitansi" class="btn btn-info"><i
                                                     class="fas fa-print mr-2"></i>Kuitansi </a>
@@ -178,7 +178,7 @@
 
                                             <a href="#" id="printAllAmplop" class="btn btn-info"><i
                                                     class="fas fa-print mr-2"></i>Amplop Peserta</a>
-                                        </div>
+                                        </div> --}}
                                     </div>
 
 
@@ -309,12 +309,16 @@
                                                             data-hari1="{{ $v->internal->hari_1 }}"
                                                             data-hari2="{{ $v->internal->hari_2 }}"
                                                             data-hari3="{{ $v->internal->hari_3 }}"
+                                                            data-hari4="{{ $v->internal->hari_4 }}"
+                                                            data-hari5="{{ $v->internal->hari_5 }}"
+                                                            data-hari6="{{ $v->internal->hari_6 }}"
+                                                            data-hari7="{{ $v->internal->hari_7 }}"
                                                             data-total="{{ $v->internal->total }}"
                                                             data-nosurattugas="{{ $v->no_surat_tugas }}"
                                                             data-tglsurattugas="{{ $v->tgl_surat_tugas }}"
                                                             data-kodeanggaran="{{ $v->kode_anggaran }}"
                                                             data-tahunanggaran="{{ $v->tahun_anggaran }}"
-                                                            data-noBukti="{{ $v->no_bukti }}">
+                                                            data-nobukti="{{ $v->no_bukti }}">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
 
@@ -404,6 +408,10 @@
                                     <th>Hari 1</th>
                                     <th>Hari 2</th>
                                     <th>Hari 3</th>
+                                    <th>Hari 4</th>
+                                    <th>Hari 5</th>
+                                    <th>Hari 6</th>
+                                    <th>Hari 7</th>
                                     <th>Total</th>
                                     <th>Action</th>
                                 </tr>
@@ -491,14 +499,14 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="transportPergi">Transport Pergi</label>
+                                    <label for="transportPergi">Biaya Pergi</label>
                                     <input type="text" class="form-control" id="transportPergi"
                                         name="transport_pergi" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="transportPulang">Transport Pulang</label>
+                                    <label for="transportPulang">Biaya Pulang</label>
                                     <input type="text" class="form-control" id="transportPulang"
                                         name="transport_pulang" readonly>
                                 </div>
@@ -529,6 +537,30 @@
                                 <div class="form-group">
                                     <label for="hari3">Hari 3</label>
                                     <input type="text" class="form-control" id="hari3" name="hari_3" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="hari4">Hari 4</label>
+                                    <input type="text" class="form-control" id="hari4" name="hari_4" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="hari5">Hari 5</label>
+                                    <input type="text" class="form-control" id="hari5" name="hari_5" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="hari6">Hari 6</label>
+                                    <input type="text" class="form-control" id="hari6" name="hari_6" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="hari7">Hari 7</label>
+                                    <input type="text" class="form-control" id="hari7" name="hari_7" readonly>
                                 </div>
                             </div>
                         </div>
@@ -625,14 +657,14 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="editTransportPergi">Transport Pergi</label>
+                                    <label for="editTransportPergi">Biaya Pergi</label>
                                     <input type="text" class="form-control" id="editTransportPergi"
                                         name="transport_pergi" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="editTransportPulang">Transport Pulang</label>
+                                    <label for="editTransportPulang">Biaya Pulang</label>
                                     <input type="text" class="form-control" id="editTransportPulang"
                                         name="transport_pulang" readonly>
                                 </div>
@@ -663,6 +695,30 @@
                                 <div class="form-group">
                                     <label for="editHari3">Hari 3</label>
                                     <input type="text" class="form-control" id="editHari3" name="hari_3" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="editHari4">Hari 4</label>
+                                    <input type="text" class="form-control" id="editHari4" name="hari_4" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="editHari5">Hari 5</label>
+                                    <input type="text" class="form-control" id="editHari5" name="hari_5" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="editHari6">Hari 6</label>
+                                    <input type="text" class="form-control" id="editHari6" name="hari_6" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="editHari7">Hari 7</label>
+                                    <input type="text" class="form-control" id="editHari7" name="hari_7" readonly>
                                 </div>
                             </div>
                         </div>
@@ -811,6 +867,10 @@
                     var totalHari1 = 0;
                     var totalHari2 = 0;
                     var totalHari3 = 0;
+                    var totalHari4 = 0;
+                    var totalHari5 = 0;
+                    var totalHari6 = 0;
+                    var totalHari7 = 0;
                     var totalKeseluruhan = 0;
 
                     // Tambahkan setiap pegawai ke dalam tabel
@@ -822,9 +882,13 @@
                         var hari1 = parseInt(pegawaiItem.hari_1) || 0;
                         var hari2 = parseInt(pegawaiItem.hari_2) || 0;
                         var hari3 = parseInt(pegawaiItem.hari_3) || 0;
+                        var hari4 = parseInt(pegawaiItem.hari_4) || 0;
+                        var hari5 = parseInt(pegawaiItem.hari_5) || 0;
+                        var hari6 = parseInt(pegawaiItem.hari_6) || 0;
+                        var hari7 = parseInt(pegawaiItem.hari_7) || 0;
 
                         var totalPerRow = transportPergi + transportPulang + billPenginapan + hari1 +
-                            hari2 + hari3;
+                            hari2 + hari3 + hari4 + hari5 + hari6 + hari7;
 
                         // Tambahkan ke total keseluruhan
                         totalTransportPergi += transportPergi;
@@ -833,6 +897,10 @@
                         totalHari1 += hari1;
                         totalHari2 += hari2;
                         totalHari3 += hari3;
+                        totalHari4 += hari4;
+                        totalHari5 += hari5;
+                        totalHari6 += hari6;
+                        totalHari7 += hari7;
                         totalKeseluruhan += totalPerRow;
                         pegawaiTableBody.append(`
                 <tr>
@@ -845,6 +913,10 @@
                     <td class="text-nowrap">${formatRupiah(hari1, 'Rp.')}</td>
                     <td class="text-nowrap">${formatRupiah(hari2, 'Rp.')}</td>
                     <td class="text-nowrap">${formatRupiah(hari3, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(hari4, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(hari5, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(hari6, 'Rp.')}</td>
+                    <td class="text-nowrap">${formatRupiah(hari7, 'Rp.')}</td>
                     <td class="text-nowrap">${formatRupiah(totalPerRow, 'Rp.')}</td>
                     <td class="text-nowrap">
                         <a href="#" class="btn btn-success btn-create-kuitansi" 
@@ -857,6 +929,10 @@
                         data-hari1="${hari1}" 
                         data-hari2="${hari2}" 
                         data-hari3="${hari3}" 
+                        data-hari4="${hari4}" 
+                        data-hari5="${hari5}" 
+                        data-hari6="${hari6}" 
+                        data-hari7="${hari7}" 
                         data-id="${pegawaiItem.id}" 
                         data-total="${totalPerRow}">Buat Kuitansi</a>
                     </td>
@@ -878,6 +954,10 @@
                 var hari1 = $(this).data('hari1');
                 var hari2 = $(this).data('hari2');
                 var hari3 = $(this).data('hari3');
+                var hari4 = $(this).data('hari4');
+                var hari5 = $(this).data('hari5');
+                var hari6 = $(this).data('hari6');
+                var hari7 = $(this).data('hari7');
                 var id = $(this).data('id');
                 var totalAmount = $(this).data('total');
 
@@ -894,6 +974,10 @@
                 $('#hari1').val(formatRupiah(hari1, 'Rp.'));
                 $('#hari2').val(formatRupiah(hari2, 'Rp.'));
                 $('#hari3').val(formatRupiah(hari3, 'Rp.'));
+                $('#hari4').val(formatRupiah(hari4, 'Rp.'));
+                $('#hari5').val(formatRupiah(hari5, 'Rp.'));
+                $('#hari6').val(formatRupiah(hari6, 'Rp.'));
+                $('#hari7').val(formatRupiah(hari7, 'Rp.'));
                 $('#totalAmount').val(formatRupiah(totalAmount, 'Rp.'));
             });
 
@@ -909,12 +993,17 @@
                 var hari1 = $(this).data('hari1');
                 var hari2 = $(this).data('hari2');
                 var hari3 = $(this).data('hari3');
+                var hari4 = $(this).data('hari4');
+                var hari5 = $(this).data('hari5');
+                var hari6 = $(this).data('hari6');
+                var hari7 = $(this).data('hari7');
                 var totalAmount = $(this).data('total');
                 var noSuratTugas = $(this).data('nosurattugas');
                 var tglSuratTugas = $(this).data('tglsurattugas');
                 var kodeAnggaran = $(this).data('kodeanggaran');
                 var tahunAnggaran = $(this).data('tahunanggaran');
-
+                var noBukti = $(this).data('nobukti');
+                console.log(tahunAnggaran)
                 // Fill the form in the modal
                 $('#editIdPegawai').val(id);
                 $('#editPegawaiName').val(pegawaiName);
@@ -925,12 +1014,17 @@
                 $('#editHari1').val(formatRupiah(hari1, 'Rp.'));
                 $('#editHari2').val(formatRupiah(hari2, 'Rp.'));
                 $('#editHari3').val(formatRupiah(hari3, 'Rp.'));
+                $('#editHari4').val(formatRupiah(hari4, 'Rp.'));
+                $('#editHari5').val(formatRupiah(hari5, 'Rp.'));
+                $('#editHari6').val(formatRupiah(hari6, 'Rp.'));
+                $('#editHari7').val(formatRupiah(hari7, 'Rp.'));
                 $('#editTotalAmount').val(formatRupiah(transportPergi + transportPulang + billPenginapan + hari1 +
-                    hari2 + hari3, 'Rp.'));
+                    hari2 + hari3 + hari4 + hari5 + hari6 + hari7, 'Rp.'));
                 $('#editNoSuratTugas').val(noSuratTugas);
                 $('#editTglSuratTugas').val(tglSuratTugas);
                 $('#editKodeAnggaran').val(kodeAnggaran);
                 $('#editTahunAnggaran').val(tahunAnggaran);
+                $('#editNoBukti').val(noBukti);
 
                 // Update the form action URL
                 var updateUrl = '{{ route('kuitansiLoka.update', ['id' => '__ID__']) }}'.replace('__ID__', id);

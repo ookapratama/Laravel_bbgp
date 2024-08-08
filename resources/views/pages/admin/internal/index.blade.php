@@ -1168,7 +1168,20 @@
                                 <td class="text-nowrap">${formatRupiah(hari7, 'Rp.')}</td>
                                 <td class="text-nowrap">${formatRupiah(totalPerRow, 'Rp.')}</td>
                                 <td class="text-nowrap">
-                                    <button class="btn btn-warning edit-button" data-id="${pegawaiItem.id}" data-nama="${pegawaiItem.nama}" data-hotel="${pegawaiItem.hotel}" data-transportpergi="${transportPergi}" data-transportpulang="${transportPulang}" data-billpenginapan="${billPenginapan}" data-hari1="${hari1}" data-hari2="${hari2}" data-hari3="${hari3} data-hari4="${hari4} data-hari5="${hari5} data-hari6="${hari6} data-hari7="${hari7}">
+                                    <button class="btn btn-warning edit-button" 
+                                    data-id="${pegawaiItem.id}" 
+                                    data-nama="${pegawaiItem.nama}" 
+                                    data-hotel="${pegawaiItem.hotel}" 
+                                    data-transportpergi="${transportPergi}" 
+                                    data-transportpulang="${transportPulang}" 
+                                    data-billpenginapan="${billPenginapan}" 
+                                    data-hari1="${hari1}" 
+                                    data-hari2="${hari2}" 
+                                    data-hari3="${hari3}" 
+                                    data-hari4="${hari4}" 
+                                    data-hari5="${hari5}" 
+                                    data-hari6="${hari6}" 
+                                    data-hari7="${hari7}">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="btn btn-danger delete-button" data-id="${pegawaiItem.id}">
@@ -1538,10 +1551,12 @@
                     WinPrint.document.write('table, th, td {border: 1px solid black; padding: 10px;}');
                     WinPrint.document.write('th, td {text-align: left;}');
                     WinPrint.document.write(
-                        'th, td {vertical-align: middle;}'); // Tambahkan vertikal align tengah
+                    'th, td {vertical-align: middle;}'); // Tambahkan vertikal align tengah
                     WinPrint.document.write(
-                        '.total-row td {text-align: center; font-weight: bold;}'); // Gaya untuk baris total
+                    '.total-row td {text-align: center; font-weight: bold;}'); // Gaya untuk baris total
                     WinPrint.document.write('.modal-title {font-size: 20px; margin-bottom: 20px;}');
+                    WinPrint.document.write('tr:not(.total-row) td:last-child, tr:not(.total-row) th:last-child {display: none;}');
+
                     WinPrint.document.write('</style></head><body>');
                     WinPrint.document.write(printContent.innerHTML);
                     WinPrint.document.write('</body></html>');
@@ -1550,6 +1565,7 @@
                     WinPrint.print();
                     WinPrint.close();
                 });
+
 
 
 
