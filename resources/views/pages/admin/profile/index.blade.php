@@ -54,7 +54,7 @@
                                      
                                      <div class="row">
                                         <div class="form-group  col-12">
-                                            <label>Ubah Password</label>
+                                            <label>Ubah Password (bisa kosong jika tidak ada perubahan)</label>
                                             <input type="password" class="form-control" value="" name="password" placeholder="Masukkan password baru anda" >
                                             <input type="hidden" class="form-control" value="{{ $data->password }}" name="oldPassword" >
                                         </div>
