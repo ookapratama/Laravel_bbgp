@@ -169,11 +169,9 @@ class AdminController extends Controller
             $r['password'] = bcrypt($r['password']);
             // dump('ubah password');
         } 
-        // else {
-            // dump( $admin);
-            // dd( $user);
-        //     $r['password'] = '12345';
-        // }
+        else {
+            unset($r['password']);
+        }
         // dd(true);
 
         $admin->update($r);

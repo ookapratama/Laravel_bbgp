@@ -18,6 +18,8 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/components.css') }}" />
+    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+
 </head>
 
 <body>
@@ -55,6 +57,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="{{ asset('js/stisla.js') }}"></script>
+    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+
+    
 
     <!-- JS Libraies -->
     @stack('scripts')
@@ -65,6 +71,16 @@
     <script src="{{ asset('js/custom.js') }}"></script>
 
     <!-- Page Specific JS File -->
+    @if (session('message') == 'username sudah ada')
+        <script>
+            // iziToast.success({
+            //     title: 'Sukses',
+            //     message: 'Berhasil tambah data',
+            //     position: 'topRight'
+            // });
+            swal("Warning", "Username sudah terdaftar", "error");
+        </script>
+    @endif
 </body>
 
 </html>

@@ -56,7 +56,7 @@
                                         <div class="form-group  col-12">
                                             <label>Ubah Password</label>
                                             <input type="password" class="form-control" value="" name="password" placeholder="Masukkan password baru anda" >
-                                            <input type="hidden" class="form-control" value="{{ $data->password }}" name="oldPassword" placeholder="Masukkan password baru anda" >
+                                            <input type="hidden" class="form-control" value="{{ $data->password }}" name="oldPassword" >
                                         </div>
                                      </div>
                                     

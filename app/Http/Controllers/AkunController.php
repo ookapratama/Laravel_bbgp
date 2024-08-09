@@ -24,14 +24,20 @@ class AkunController extends Controller
      */
     public function store(Request $r)
     {
-            
-        // dd($r);
-        $r = $r->all();
-        $r['password'] = bcrypt($r['password']);
-        Admin::create($r);
-        User::create($r);
-
-        return redirect()->route('akun.index')->with('message', 'store');
+        
+        $cek_username = Admin::where('username', $r->username)->where('role', $r->role)->first();
+        if($cek_username == null) {
+            // dd($r);
+            $r = $r->all();
+            $r['password'] = bcrypt($r['password']);
+            Admin::create($r);
+            User::create($r);
+    
+            return redirect()->route('akun.index')->with('message', 'store');
+        }
+        else {
+            return redirect()->route('akun.index')->with('message', 'username sudah ada');
+        }
     }
 
     /**
@@ -54,17 +60,25 @@ class AkunController extends Controller
     public function update(Request $request)
     {
         //
-        $r = $request->all();
-        $data = Admin::find($r['id']);
-        $dataUser = User::find($r['id']);
-        // dump($r);
-        $r['password'] = bcrypt($r['password']);
-        
-        $data->update($r);
-        $dataUser->update($r);
-        // dump($dataUser);
-        // dd($data);
-        return redirect()->route('akun.index')->with('message', 'update');
+        // $cek_username = Admin::where('username', $request->username)->where('role', $request->role)->first();
+        // if($cek_username == null) {
+
+            $r = $request->all();
+            $data = Admin::find($r['id']);
+            $dataUser = User::find($r['id']);
+            // dump($r);
+            $r['password'] = bcrypt($r['password']);
+            
+            $data->update($r);
+            $dataUser->update($r);
+            // dump($dataUser);
+            // dd($data);
+            return redirect()->route('akun.index')->with('message', 'update');
+        // }
+        // else {
+        //     return redirect()->route('akun.index')->with('message', 'username sudah ada');
+        // }
+
     }
 
     /**
@@ -74,7 +88,8 @@ class AkunController extends Controller
     {
 
         $data = Admin::find($id);
-        // $data = Admin::find($id);
+        $dataUser = User::find($id);
+        $dataUser->delete();
         $data->delete();
         return response()->json($data);
     }

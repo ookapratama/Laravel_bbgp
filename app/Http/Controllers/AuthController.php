@@ -33,6 +33,7 @@ class AuthController extends Controller
         
         $user = Admin::where('username', $request->username)->where('role', $request->role)->first();
         $user1 = User::where('username', $request->username)->where('role', $request->role)->first();
+        
         // dump($user);
         // dump($user1);
         // dump(Auth::attempt(['username' => $user->username, 'password' => $user->password, 'role' => $user->role]));

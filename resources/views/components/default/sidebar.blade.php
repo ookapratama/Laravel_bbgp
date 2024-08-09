@@ -16,11 +16,7 @@
                         class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
 
-            @if (session('role') == 'admin' ||
-                    session('role') == 'superadmin' ||
-                    session('role') == 'kepala' ||
-                    session('role') == 'keuangan' ||
-                    session('role') == 'kepegawaian')
+            @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
                 <li class="nav-item dropdown {{ $menu == 'pegawai' ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
                         <span>Master Data</span></a>
@@ -111,7 +107,7 @@
                         <i class="fas fa-user"></i> <span>Data Akun</span>
                     </a>
                 </li>
-
+                
                 <li class="menu-header">Landing Page</li>
                 <li class="nav-item  {{ $menu == 'agenda' ? 'active' : '' }}">
                     <a href="{{ route('agenda.index') }}" class="nav-link "><i class="fas fa-thumbtack"></i>
@@ -127,6 +123,112 @@
                     <a href="{{ route('artikel.index') }}" class="nav-link "><i class="fas fa-window-maximize"></i>
                         <span>Data Artikel</span>
                     </a>
+                </li>
+            @endif
+
+            @if (session('role') == 'keuangan')
+                <li class="{{ $menu == 'internal' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('internal.index') }}">
+                        <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
+                    </a>
+                </li>
+
+                <li class="{{ $menu == 'guru' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('guru.index') }}">
+                        <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown {{ $menu == 'honor' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
+                        <span>Data Keuangan</span></a>
+                    <ul class="dropdown-menu">
+
+                        {{-- <li class="{{ $title == 'Data Honor Kegiatan' ? '' : '' }}">
+                        <a class="nav-link" href="{{ route('honor.index') }}">
+                            Penomoran 
+                        </a>
+                    </li> --}}
+
+                        <li class="{{ $title == 'Data Honor Kegiatan' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('honor.index') }}">
+                                Honor
+                            </a>
+                        </li>
+                        <li class="{{ $title == 'Data Kuitansi' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('kuitansi.index') }}">
+                                <span>Kuitansi Kegiatan</span>
+                            </a>
+                        </li>
+                        <li class="{{ $title == 'Data Kuitansi Lokakarya' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('kuitansiLoka.index') }}">
+                                <span>Kuitansi Lokakarya</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+            @endif
+
+            @if (session('role') == 'kepegawaian')
+                <li class="nav-item dropdown {{ $menu == 'pegawai' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-sitemap"></i>
+                        <span>Master Data</span></a>
+                    <ul class="dropdown-menu">
+
+                        <li class="{{ $menu == 'pegawai' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('pegawai.index') }}">
+                                Data Pegawai BBPG
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="{{ $menu == 'internal' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('internal.index') }}">
+                        <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
+                    </a>
+                </li>
+
+                <li class="{{ $menu == 'guru' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('guru.index') }}">
+                        <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
+                    </a>
+                </li>
+            @endif
+
+            @if (session('role') == 'kegiatan')
+                <li class="{{ $menu == 'internal' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('internal.index') }}">
+                        <i class="fas fa-sign-out-alt"></i> <span>Data Internal</span>
+                    </a>
+                </li>
+
+                <li class="{{ $menu == 'guru' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('guru.index') }}">
+                        <i class="fas fa-chalkboard-teacher"></i> <span>Data Eksternal</span>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown {{ $menu == 'kegiatan' || $menu == 'peserta' ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-calendar-week"></i>
+                        <span>Data Kegiatan</span></a>
+                    <ul class="dropdown-menu">
+
+                        <li class="{{ $menu == 'kegiatan' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('kegiatan.index') }}">
+                                Kegiatan</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ $menu == 'peserta' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('peserta.index') }}">
+                                Peserta Kegiatan
+                            </a>
+                        </li>
+
+                    </ul>
                 </li>
             @endif
 
@@ -147,6 +249,7 @@
                     </a>
                 </li>
             @endif
+
 
             {{-- @if (Session('role') != 'guru' || Session('role' != 'pegawai')) --}}
             {{-- <li class="{{ $menu == 'kepegawaian' ? 'active' : '' }}"><a class="nav-link"

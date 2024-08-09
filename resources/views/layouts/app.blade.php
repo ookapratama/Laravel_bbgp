@@ -90,6 +90,16 @@
     <!-- Template JS File -->
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    @if (session('message') == 'username sudah ada')
+        <script>
+            // iziToast.success({
+            //     title: 'Sukses',
+            //     message: 'Berhasil tambah data',
+            //     position: 'topRight'
+            // });
+            swal("Warning", "Username sudah terdaftar", "error");
+        </script>
+    @endif
     {{-- success store data --}}
     @if (session('message') == 'store')
         <script>

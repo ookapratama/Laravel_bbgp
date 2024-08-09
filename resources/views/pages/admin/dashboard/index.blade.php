@@ -14,7 +14,7 @@
             <div class="section-header">
                 <h1>Dashboard</h1>
             </div>
-            @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala')
+            @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala' || session('role') == 'kepegawaian')
                 <div class="card">
                     <div class="card-header">
                         <h4>Data Statistik</h4>
