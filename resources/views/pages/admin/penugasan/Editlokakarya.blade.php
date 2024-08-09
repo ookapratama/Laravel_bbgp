@@ -38,7 +38,7 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input readonly value="{{ $pendamping->nip }}" required name="nip"
+                                                <input readonly value="{{ $pendamping->nip ?? '' }}" required name="nip"
                                                     type="text" class="form-control">
                                             </div>
                                         </div>

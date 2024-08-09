@@ -26,10 +26,10 @@ class AkunController extends Controller
     {
             
         // dd($r);
-
+        $r = $r->all();
         $r['password'] = bcrypt($r['password']);
-        Admin::create($r->all());
-        User::create($r->all());
+        Admin::create($r);
+        User::create($r);
 
         return redirect()->route('akun.index')->with('message', 'store');
     }
@@ -58,12 +58,12 @@ class AkunController extends Controller
         $data = Admin::find($r['id']);
         $dataUser = User::find($r['id']);
         // dump($r);
-        // dump($dataUser);
-        // dd($data);
         $r['password'] = bcrypt($r['password']);
-
+        
         $data->update($r);
         $dataUser->update($r);
+        // dump($dataUser);
+        // dd($data);
         return redirect()->route('akun.index')->with('message', 'update');
     }
 
@@ -74,6 +74,7 @@ class AkunController extends Controller
     {
 
         $data = Admin::find($id);
+        // $data = Admin::find($id);
         $data->delete();
         return response()->json($data);
     }

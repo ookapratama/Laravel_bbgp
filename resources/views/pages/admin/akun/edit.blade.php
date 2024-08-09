@@ -31,7 +31,7 @@
                                         <div class="col-md">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input value="{{ $datas->no_ktp }}" name="no_ktp" required
+                                                <input readonly value="{{ $datas->no_ktp }}" name="no_ktp" required
                                                     placeholder="Masukkan Nomor KTP" type="text" class="form-control">
                                             </div>
                                         </div>

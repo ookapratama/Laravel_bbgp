@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -26,11 +27,21 @@ class AuthController extends Controller
         if ($request->role == null) {
             return redirect()->back()->with('message', 'gagal login');
         }
+        // dump($request->all());
+        // dump(Auth::attempt(['username' => $request->username, 'password' => $request->password, 'role' => $request->role]));
+        // dump(Admin::where('username', $request->username)->where('role', $request->role)->first());
+        
+        $user = Admin::where('username', $request->username)->where('role', $request->role)->first();
+        $user1 = User::where('username', $request->username)->where('role', $request->role)->first();
+        // dump($user);
+        // dump($user1);
+        // dump(Auth::attempt(['username' => $user->username, 'password' => $user->password, 'role' => $user->role]));
 
         $cek = Auth::attempt(['username' => $request->username, 'password' => $request->password, 'role' => $request->role]);
-        $user = Admin::where('username', $request->username)->where('role', $request->role)->first();
-        // dd($user);
+        // $cek = Auth::attempt(['username' => $user->username, 'password' => $user->password, 'role' => $user->role]);
+        // dd($cek);
         if ($cek) {
+            // dd($user);
             Session::put('user_id', $user->id);
             Session::put('name', $user->name);
             Session::put('nip', $user->nip);

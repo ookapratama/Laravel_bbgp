@@ -275,12 +275,12 @@ class InternalController extends Controller
             'mulai_kegiatan' => $penugasan->tgl_kegiatan . ' ' . $penugasan->jam_mulai,
             'selesai_kegiatan' => $penugasan->tgl_selesai_kegiatan . ' ' . $penugasan->jam_selesai,
         );
-        // dd($datas);
-
+        $pegawai = Pegawai::where('no_ktp', $penugasan->nik)->first();
+        // dd($pegawai);
         $pendamping = Internal::find($id);
 
         // dd($pendamping);
-        return view('pages.admin.penugasan.Editlokakarya', ['menu' => ''], compact('pendamping', 'datas'));
+        return view('pages.admin.penugasan.Editlokakarya', ['menu' => ''], compact('pendamping', 'datas', 'pegawai'));
     }
 
     public function updateLokakarya(Request $r)
