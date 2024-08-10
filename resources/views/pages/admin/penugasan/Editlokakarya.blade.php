@@ -48,8 +48,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Golongan</label>
-                                                <input readonly value="{{ $pegawai->golongan == '' || $pegawai->golongan == null || $pegawai->golongan == 'Tidak ada' ? 'Tidak ada' : $pegawai->golongan }}" required name="nip"
-                                                    type="text" class="form-control">
+                                                <input readonly
+                                                    value="{{ $pegawai->golongan == '' || $pegawai->golongan == null || $pegawai->golongan == 'Tidak ada' ? 'Tidak ada' : $pegawai->golongan }}"
+                                                    required name="golongan" id="golongan" type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -120,12 +121,13 @@
                                     </div>
 
                                     <div class="row my-3">
-                                        
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Biaya Pergi</label>
                                                 <input value="{{ $pendamping->transport_pergi }}" required
-                                                    name="transport_pergi" id="transport_pergi" type="text" class="form-control">
+                                                    name="transport_pergi" id="transport_pergi" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
 
@@ -133,24 +135,25 @@
                                             <div class="form-group">
                                                 <label>Biaya Pulang</label>
                                                 <input value="{{ $pendamping->transport_pulang }}" required
-                                                    name="transport_pulang" id="transport_pulang" type="text" class="form-control">
+                                                    name="transport_pulang" id="transport_pulang" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-md-4">
                                             <div class="custom-switches-stacked">
                                                 <label class="custom-switch">
-                                                    <input type="checkbox" name="switch_penginapan" id="switch_penginapan"
-                                                        class="custom-switch-input">
+                                                    <input type="checkbox" name="switch_penginapan"
+                                                        id="switch_penginapan" class="custom-switch-input">
                                                     <span class="custom-switch-indicator"></span>
-                                                    <span class="custom-switch-description"></span>
+                                                    <span class="custom-switch-description">Bill atau 30%</span>
                                                 </label>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Jumlah Bill</label>
-                                                <input required name="bill_penginapan" value="0" id="bill_penginapan"
-                                                    type="text" class="form-control">
+                                                <label></label>
+                                                <input readonly required name="bill_penginapan" value="0"
+                                                    id="bill_penginapan" type="text" class="form-control">
                                             </div>
 
                                         </div>
@@ -162,57 +165,57 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hotel</label>
-                                                <input value="{{ $pendamping->hotel }}"  name="hotel"
-                                                    type="text" class="form-control">
+                                                <input value="{{ $pendamping->hotel }}" name="hotel" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 1</label>
-                                                <input value="{{ $pendamping->hari_1 }}" name="hari_1" id="hari_1" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $pendamping->hari_1 }}" name="hari_1" id="hari_1"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 2</label>
-                                                <input value="{{ $pendamping->hari_2 }}" name="hari_2" id="hari_2" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $pendamping->hari_2 }}" name="hari_2" id="hari_2"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 3</label>
-                                                <input value="{{ $pendamping->hari_3 }}" name="hari_3" id="hari_3" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $pendamping->hari_3 }}" name="hari_3" id="hari_3"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 4</label>
-                                                <input value="{{ $pendamping->hari_4 }}" name="hari_4" id="hari_4" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $pendamping->hari_4 }}" name="hari_4" id="hari_4"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 5</label>
-                                                <input value="{{ $pendamping->hari_5 }}" name="hari_5" id="hari_5" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $pendamping->hari_5 }}" name="hari_5" id="hari_5"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 6</label>
-                                                <input value="{{ $pendamping->hari_6 }}" name="hari_6" id="hari_6" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $pendamping->hari_6 }}" name="hari_6" id="hari_6"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hari 7</label>
-                                                <input value="{{ $pendamping->hari_7 }}" name="hari_7" id="hari_7" type="text"
-                                                    class="form-control">
+                                                <input value="{{ $pendamping->hari_7 }}" name="hari_7" id="hari_7"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -320,11 +323,23 @@
 
                 $('#switch_penginapan').change(function() {
 
-                    console.log($(this).val())
+                    let getGolongan = $('#golongan');
+                    let cutString = getGolongan.val().split('/');
+                    console.log(cutString)
+
                     if ($(this).is(':checked')) {
-                        bill_penginapan.val(formatRupiah(210000)); // Set nilai 210000
+
+                        if (cutString[0] == 'Tidak ada' || cutString[0] == 'I' || cutString[0] == 'II' ||
+                            cutString[0] == 'III') {
+                            bill_penginapan.val(formatRupiah(223500)); // Set nilai 210000
+                        } else {
+
+                            bill_penginapan.val(formatRupiah(426900)); // Set nilai 210000
+                        }
+
+
                     } else {
-                        bill_penginapan.val(formatRupiah(0)); // Set nilai 0 jika tidak aktif
+                        bill_penginapan.val(0); // Set nilai 0 jika tidak aktif
                     }
 
                     // Recalculate total whenever bill_penginapan changes
@@ -332,11 +347,12 @@
                 });
 
                 // Calculate total whenever an input changes
-                $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan').on('input', function() {
-                    calculateTotal();
-                });
+                $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan')
+                    .on('input', function() {
+                        calculateTotal();
+                    });
 
-                
+
                 function calculateTotal() {
                     let total = 0;
 
@@ -395,10 +411,11 @@
 
                 // Remove currency format before form submit
                 $('#lokakaryaForm').on('submit', function() {
-                    $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan').each(function() {
-                        var value = $(this).val();
-                        $(this).val(value.replace(/[^0-9]/g, ''));
-                    });
+                    $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan')
+                        .each(function() {
+                            var value = $(this).val();
+                            $(this).val(value.replace(/[^0-9]/g, ''));
+                        });
                 });
             });
         </script>

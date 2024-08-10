@@ -36,30 +36,32 @@
 
                                 </div>
                                 <h5>Pencarian Data Eksternal BBGP </h5>
-                                <div class="row mb-2">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <input name="nama" id="namaFilter" type="text" value=""
-                                                placeholder="Masukkan nama anda" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="d-flex justify-content-end">
-                                            <div class="text-right">
-                                                <a target="_blank" href="{{ route('guru.export') }}"
-                                                    class="btn btn-info btn-lg">
-                                                    <i class="fas fa-file-pdf"></i> Export PDF
-                                                </a>
-                                            </div>
-                                            <div class="">
-                                                <button id="resetBtn" class="btn btn-success btn-lg  mx-2">
-                                                    <i class="fas fa-redo-alt"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                <form action="{{ route('guru.export') }}" method="GET">
 
-                                    </div>
-                                    {{-- <div class="col-md-4 mb-3">
+                                    <div class="row mb-2">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <input name="nama" id="namaFilter" type="text" value=""
+                                                    placeholder="Masukkan nama anda" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="d-flex justify-content-end">
+                                                <div class="text-right">
+                                                    <button target="_blank" 
+                                                        class="btn btn-info btn-lg">
+                                                        <i class="fas fa-file-pdf"></i> Export PDF
+                                                    </button>
+                                                </div>
+                                                <div class="">
+                                                    <button id="resetBtn" class="btn btn-success btn-lg  mx-2">
+                                                        <i class="fas fa-redo-alt"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        {{-- <div class="col-md-4 mb-3">
                                         <h5>Filter Data Eksternal</h5>
                                        
                                         <select class="form-control selectric">
@@ -69,62 +71,75 @@
                                             <option value="Stakeholder">Stakeholder</option>
                                         </select>
                                     </div> --}}
-                                </div>
-                                <h5>Filter Data Eksternal</h5>
-
-                                <div class="row">
-                                    <div class="col-md-3 mb-4">
-                                        <label>Jabatan Ketenagaan</label>
-                                        <select required name="jenisJabatan" class="form-control " id="jabEksternal">
-                                            <option value="">-- Filter By Jabatan Ketenagaan --</option>
-                                            <option value="Tenaga Pendidik">Tenaga Pendidik</option>
-                                            <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
-                                            <option value="Stakeholder">Stakeholder</option>
-                                        </select>
                                     </div>
+                                    <h5>Filter Data Eksternal</h5>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Jabatan</label>
-                                            <select name="jabJenis" class="form-control" id="jabJenis">
-                                                <option value="">-- Pilih Jenis Jabatan --</option>
-                                                {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
+                                    <div class="row">
+                                        <div class="col-md-3 mb-4">
+                                            <label>Jabatan Ketenagaan</label>
+                                            <select  name="jenisJabatan" class="form-control " id="jabEksternal">
+                                                <option value="">-- Filter By Jabatan Ketenagaan --</option>
+                                                <option value="Tenaga Pendidik">Tenaga Pendidik</option>
+                                                <option value="Tenaga Kependidikan">Tenaga Kependidikan</option>
+                                                <option value="Stakeholder">Stakeholder</option>
                                             </select>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-3 mb-4">
-                                        <label>Kategori Jabatan </label>
-                                        <select name="jabKategori" class="form-control" id="jabKategori">
-                                            <option value="">-- Pilih Kategori --</option>
-                                            {{-- <option value="GP (Guru Penggerak)">GP (Guru Penggerak)</option>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Jabatan</label>
+                                                <select name="jabJenis" class="form-control" id="jabJenis">
+                                                    <option value="">-- Pilih Jenis Jabatan --</option>
+                                                    {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 mb-4">
+                                            <label>Kategori Jabatan </label>
+                                            <select name="jabKategori" class="form-control" id="jabKategori">
+                                                <option value="">-- Pilih Kategori --</option>
+                                                {{-- <option value="GP (Guru Penggerak)">GP (Guru Penggerak)</option>
                                             <option value="NoN GP (Guru Penggerak)">NoN GP (Guru Penggerak)</option> --}}
 
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group" id="latarJabatanContainer">
-                                            <label>Latar Jabatan</label>
-                                            <select name="jabLatar" class="form-control" id="jabLatar">
-                                                <option value="">-- Pilih Latar Jabatan --</option>
-                                                <!-- Options will be populated dynamically -->
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Jenis Tugas</label>
-                                            <select name="jabTugas" class="form-control" id="jabTugas">
-                                                <option value="">-- Pilih Tugas Jabatan --</option>
-
-                                            </select>
+                                        <div class="col-md-3">
+                                            <div class="form-group" id="latarJabatanContainer">
+                                                <label>Latar Jabatan</label>
+                                                <select name="jabLatar" class="form-control" id="jabLatar">
+                                                    <option value="">-- Pilih Latar Jabatan --</option>
+                                                    <!-- Options will be populated dynamically -->
+                                                </select>
+                                            </div>
                                         </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Jenis Tugas</label>
+                                                <select name="jabTugas" class="form-control" id="jabTugas">
+                                                    <option value="">-- Pilih Tugas Jabatan --</option>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Kota/Kabupaten</label>
+                                                <select name="kabupatenFilter" class="form-control select2"
+                                                    id="kabupatenFilter">
+                                                    <option value="">-- Pilih Kota/Kabupaten --</option>
+                                                    @foreach ($status['s_kabupaten'] as $v)
+                                                        <option value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+
                                     </div>
-
-
-                                </div>
-
+                                </form>
 
 
                                 <div class="table-responsive">
@@ -149,6 +164,7 @@
                                                 <th>Kategori Jabatan </th>
                                                 <th>Tugas Jabatan </th>
                                                 <th>Latar Jabatan </th>
+                                                <th>Kota/Kabupaten</th>
                                                 {{-- <th style="width: 200px">NPSN Sekolah</th> --}}
                                                 {{-- <th>Asal Kabupaten/Kota</th> --}}
                                                 {{-- <th>Satuan Pendidikan</th>
@@ -184,6 +200,7 @@
                                                     <td>{{ $data->kategori_jabatan }}</td>
                                                     <td>{{ $data->tugas_jabatan ?? '-' }}</td>
                                                     <td>{{ $data->latar_jabatan ?? 'tidak ada' }}</td>
+                                                    <td>{{ $data->kabupaten ?? 'tidak ada' }}</td>
                                                     {{-- <td>{{ $data->npsn_sekolah }} <br>
                                                         {{ $data->sekolah->nama_sekolah ?? '' }}</td> --}}
                                                     {{-- <td>{{ $data->kabupaten }}</td> --}}
@@ -338,8 +355,9 @@
                 const jabKategori = document.querySelector('#jabKategori');
                 const jabTugas = document.querySelector('#jabTugas');
                 const jabLatar = document.querySelector('#jabLatar');
+                const kabupatenFilter = document.querySelector('#kabupatenFilter');
                 const noDataMessage = document.querySelector('.data-not-found');
-
+                console.log(kabupatenFilter);
                 // Function to apply search filters
                 function applySearch() {
                     // Get trimmed input value
@@ -351,8 +369,10 @@
                     const jabKategoriValue = jabKategori.value;
                     const jabTugasValue = jabTugas.value;
                     const jabLatarValue = jabLatar.value;
+                    const KabupatenValue = kabupatenFilter.value;
 
-                    console.log('Search Text:', searchText);
+                    console.log('Search Text:', KabupatenValue);
+                    console.log('Search Text:', KabupatenValue);
                     console.log('Select Value 13:', jabEksternalValue);
                     console.log('Select Value 14:', jabTugasValue);
 
@@ -363,6 +383,7 @@
                     tableGuru.column(5).search(jabKategoriValue).draw();
                     tableGuru.column(6).search(jabTugasValue).draw();
                     tableGuru.column(7).search(jabLatarValue).draw();
+                    tableGuru.column(8).search(KabupatenValue).draw();
 
                     // Check search result count
                     const info = tableGuru.page.info();
@@ -381,6 +402,12 @@
                 jabJenis.addEventListener('change', applySearch);
                 jabKategori.addEventListener('change', applySearch);
                 jabTugas.addEventListener('change', applySearch);
+                kabupatenFilter.addEventListener('change', applySearch);
+
+                $('#kabupatenFilter').on('change', function() {
+                    tableGuru.column(8).search($(this).val()).draw();
+
+                });
 
                 resetBtn.addEventListener('click', function() {
                     location.reload();

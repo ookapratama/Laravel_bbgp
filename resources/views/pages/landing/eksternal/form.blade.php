@@ -62,7 +62,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>NUPTK</label>
-                                <input required name="nuptk" type="number" class="form-control">
+                                <input {{  $jenis == 'Stakeholder' ? '' : 'required' }} name="nuptk" type="number" class="form-control">
                             </div>
                         </div>
                     </div>

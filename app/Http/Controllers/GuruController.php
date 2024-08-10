@@ -180,7 +180,8 @@ class GuruController extends Controller
         return view('pages.admin.guru.edit', ['menu' => 'guru', 'datas' => $data, 'status' => $datas]);
     }
 
-    public function getDetail(Request $request) {
+    public function getDetail(Request $request)
+    {
         $pesertaId = $request->input('id');
         $peserta = Guru::find($pesertaId);
 
@@ -240,16 +241,47 @@ class GuruController extends Controller
         return response()->json($data);
     }
 
-    public function export()
+    public function export(Request $request)
     {
+        // dd($request->all());
+
         // Mendapatkan data guru dari model Guru
-        $datas = Guru::all();
+        // $datas = Guru::all();
+
+        $datas = Guru::query();
+
+        // Apply filters jika ada
+        if ($request->nama) {
+            $datas->where('nama_lengkap', 'like', '%' . $request->nama . '%');
+        }
+        if ($request->jenisJabatan) {
+            $datas->where('jenis_jabatan', $request->jenisJabatan);
+        }
+        if ($request->jabEksternal) {
+            $datas->where('eksternal_jabatan', $request->jabEksternal);
+        }
+        if ($request->jabKategori) {
+            $datas->where('kategori_jabatan', $request->jabKategori);
+        }
+        if ($request->jabTugas) {
+            $datas->where('tugas_jabatan', $request->jabTugas);
+        }
+        if ($request->jabLatar) {
+            $datas->where('latar_jabatan', $request->jabLatar);
+        }
+        if ($request->kabupatenFilter) {
+            $datas->where('kabupaten', $request->kabupatenFilter);
+        }
+
+        // Dapatkan semua data setelah filter
+        $datas = $datas->get();
+        // dd($datas);
 
         $pdf = PDF::loadView('pages.admin.guru.cetak', compact('datas'));
 
         // Set properties PDF
         // $pdf->setPaper('a4', 'landscape'); // Set kertas ke mode landscape
-        $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
+        $pdf->setPaper([0, 0, 2000, 800]); // Lebar 800px, Tinggi 1000px
 
 
         // Download PDF dengan nama file 'data_guru.pdf'
@@ -300,13 +332,13 @@ class GuruController extends Controller
 
         );
         // $data = Guru::orderBy('id','DESC')->get();
-        $data = Guru::where('no_ktp' , session('no_ktp'))->first();
+        $data = Guru::where('no_ktp', session('no_ktp'))->first();
         // $data = Guru::find($id);
         // dd($data);
         return view('pages.admin.guru.indexByUser', ['menu' => 'guru', 'datas' => $data, 'status' => $datas]);
     }
 
-    
+
 
     public function editByUser(string $id)
     {

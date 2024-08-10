@@ -51,7 +51,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Golongan</label>
-                                                <input readonly value="{{ $pegawai->golongan == '' || $pegawai->golongan == null || $pegawai->golongan == 'Tidak ada' ? 'Tidak ada' : $pegawai->golongan }}" required name="nip"
+                                                <input readonly value="{{ $pegawai->golongan == '' || $pegawai->golongan == null || $pegawai->golongan == 'Tidak ada' ? 'Tidak ada' : $pegawai->golongan }}" required name="nip" id="golongan"
                                                     type="text" class="form-control">
                                             </div>
                                         </div>
@@ -144,13 +144,13 @@
                                                     <input type="checkbox" name="switch_penginapan" id="switch_penginapan"
                                                         class="custom-switch-input">
                                                     <span class="custom-switch-indicator"></span>
-                                                    <span class="custom-switch-description"></span>
+                                                    <span class="custom-switch-description">Bill atau 30%</span>
                                                 </label>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Jumlah Bill</label>
-                                                <input required name="bill_penginapan" value="0" id="bill_penginapan"
+                                                <label></label>
+                                                <input readonly required name="bill_penginapan" value="0" id="bill_penginapan"
                                                     type="text" class="form-control">
                                             </div>
 
@@ -321,11 +321,23 @@
                 const bill_penginapan = $('#bill_penginapan');
 
                 $('#switch_penginapan').change(function() {
+                    let getGolongan = $('#golongan');
 
-                    console.log($(this).val())
+                    let cutString = getGolongan.val().split('/');
+
+                    console.log(cutString)
+
                     if ($(this).is(':checked')) {
 
-                        bill_penginapan.val(formatRupiah(210000)); // Set nilai 210000
+                        if (cutString[0] == 'Tidak ada' || cutString[0] == 'I' || cutString[0] == 'II' || cutString[0] == 'III') {
+                            bill_penginapan.val(formatRupiah(223500)); // Set nilai 210000
+                        }
+                        else {
+                            
+                            bill_penginapan.val(formatRupiah(426900)); // Set nilai 210000
+                        }
+
+
                     } else {
                         bill_penginapan.val(0); // Set nilai 0 jika tidak aktif
                     }

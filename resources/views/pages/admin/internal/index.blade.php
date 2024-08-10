@@ -646,6 +646,15 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Golongan</label>
+                                    <input readonly
+                                        value="" id="golongan" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="editTransportPergi">Transport Pergi</label>
                                 <input type="text" class="form-control rupiah-input" id="editTransportPergi">
@@ -661,11 +670,11 @@
                                         <input type="checkbox" name="switch_penginapan" id="switch_penginapan"
                                             class="custom-switch-input">
                                         <span class="custom-switch-indicator"></span>
-                                        <span class="custom-switch-description"></span>
+                                        <span class="custom-switch-description">Bill atau 30%</span>
                                     </label>
                                 </div>
 
-                                <input type="text" class="form-control rupiah-input" id="editBillPenginapan">
+                                <input readonly type="text" class="form-control rupiah-input" id="editBillPenginapan">
                             </div>
                         </div>
                         <div class="form-row">
@@ -1169,6 +1178,7 @@
                                 <td class="text-nowrap">
                                     <button class="btn btn-warning edit-button" 
                                     data-id="${pegawaiItem.id}" 
+                                    data-golongan="${pegawaiItem.golongan}" 
                                     data-nama="${pegawaiItem.nama}" 
                                     data-hotel="${pegawaiItem.hotel}" 
                                     data-transportpergi="${transportPergi}" 
@@ -1366,12 +1376,23 @@
 
 
                 $('#switch_penginapan').change(function() {
+                     let getGolongan = $('#golongan');
+                    let cutString = getGolongan.val().split('/');
+                    console.log(cutString)
+
                     if ($(this).is(':checked')) {
-                        // Set value to 210000 when checked
-                        $('#editBillPenginapan').val(formatRupiah(210000, 'Rp. '));
+
+                        if (cutString[0] == 'Tidak ada' || cutString[0] == 'I' || cutString[0] == 'II' ||
+                            cutString[0] == 'III') {
+                             $('#editBillPenginapan').val(formatRupiah(223500)); // Set nilai 210000
+                        } else {
+
+                             $('#editBillPenginapan').val(formatRupiah(426900)); // Set nilai 210000
+                        }
+
+
                     } else {
-                        // Set value to 0 when unchecked
-                        $('#editBillPenginapan').val(formatRupiah(0, 'Rp. '));
+                         $('#editBillPenginapan').val(0); // Set nilai 0 jika tidak aktif
                     }
 
                     // Trigger input event to recalculate totals if necessary
@@ -1550,11 +1571,13 @@
                     WinPrint.document.write('table, th, td {border: 1px solid black; padding: 10px;}');
                     WinPrint.document.write('th, td {text-align: left;}');
                     WinPrint.document.write(
-                    'th, td {vertical-align: middle;}'); // Tambahkan vertikal align tengah
+                        'th, td {vertical-align: middle;}'); // Tambahkan vertikal align tengah
                     WinPrint.document.write(
-                    '.total-row td {text-align: center; font-weight: bold;}'); // Gaya untuk baris total
+                        '.total-row td {text-align: center; font-weight: bold;}'); // Gaya untuk baris total
                     WinPrint.document.write('.modal-title {font-size: 20px; margin-bottom: 20px;}');
-                    WinPrint.document.write('tr:not(.total-row) td:last-child, tr:not(.total-row) th:last-child {display: none;}');
+                    WinPrint.document.write(
+                        'tr:not(.total-row) td:last-child, tr:not(.total-row) th:last-child {display: none;}'
+                        );
 
                     WinPrint.document.write('</style></head><body>');
                     WinPrint.document.write(printContent.innerHTML);
