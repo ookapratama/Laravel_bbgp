@@ -214,7 +214,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Bank</label>
-                                <select name="jenis_bank" class="form-control" id="">
+                                <select required name="jenis_bank" class="form-control" id="">
                                     <option value="Bank BCA">-- Pilih Bank --</option>
                                     <option value="Bank BCA">Bank BCA</option>
                                     <option value="Bank BRI">Bank BRI</option>
@@ -307,7 +307,7 @@
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <label>NPSN Sekolah dan Nama Sekolah</label>
-                            <select required name="npsn_sekolah" class="form-control" id="data_sekolah"
+                            <select {{ $jenis == 'Stakeholder' ? '' : 'required' }} name="npsn_sekolah" class="form-control" id="data_sekolah"
                                 onchange="updateLocation()">
                                 <option value="">-- Pilih Data Sekolah --</option>
                                 {{-- @foreach ($status['s_sekolah'] as $v)
