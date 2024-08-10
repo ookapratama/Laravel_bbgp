@@ -144,8 +144,7 @@
                                                     <input type="checkbox" name="switch_penginapan" id="switch_penginapan"
                                                         class="custom-switch-input">
                                                     <span class="custom-switch-indicator"></span>
-                                                    <span class="custom-switch-description">Bill atau
-                                                        30%</span>
+                                                    <span class="custom-switch-description"></span>
                                                 </label>
                                             </div>
 
