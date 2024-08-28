@@ -96,6 +96,17 @@
             </script>
         @endif
 
+        @if (session('message') == 'nik daftar')
+            <script>
+                // iziToast.success({
+                //     title: 'Sukses',
+                //     message: 'Berhasil tambah data',
+                //     position: 'topRight'
+                // });
+                Swal.fire("Warning", "NIK anda telah terdaftar, silahkan menghubungi admin untuk melihat data anda", "error");
+            </script>
+        @endif
+
         {{-- success update data --}}
         @if (session('message') == 'update')
             <script>

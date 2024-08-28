@@ -158,6 +158,18 @@
 
                                         </div>
 
+                                        <div class="col-md-4">
+                                            <div class="form-group mt-4">
+                                                <label>Bukti Bill (jika ada perubahan (opsional))</label>
+                                                <input name="bukti_bill" id="bukti_bill" type="file"
+                                                    class="form-control">
+                                                <input name="old_bukti_bill" id="old_bukti_bill" type="hidden"
+                                                    class="form-control" value="{{ $pendamping->bukti_bill }}">
+                                            </div>
+                                        </div>
+
+                                        
+
                                     </div>
 
 

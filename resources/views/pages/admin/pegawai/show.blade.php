@@ -211,7 +211,11 @@
                                                                     onclick="verifikasi({{ $data->id }}, 'internal', '{{ $data->is_verif }}')"
                                                                     class="btn btn-primary mb-2">Verifikasi</a>
                                                             @endif --}}
-
+                                                            <a target="_blank"
+                                                                href="{{ asset('upload/bukti_bill/' . $data->bukti_bill) }}"
+                                                                class="btn btn-primary">
+                                                                <i class="fas fa-print"></i>
+                                                            </a>
 
                                                             <button onclick="showDetail({{ $data->id }})"
                                                                 class="btn btn-info mt-1"><i class="fas fa-info"></i>

@@ -121,6 +121,16 @@
             swal("Danger", "Gambar tidak valid, pastikan gambar jpg, png, atau jpeg dengan (size min. 512kb)", "error");
         </script>
     @endif
+    @if (session('message') == 'size bukti')
+        <script>
+            // iziToast.success({
+            //     title: 'Sukses',
+            //     message: 'Berhasil update data',
+            //     position: 'topRight'
+            // });
+            swal("Danger", "Bukti tidak valid, pastikan file ekstensi pdf dengan (size min. 1.5 mb)", "error");
+        </script>
+    @endif
     {{-- success update data --}}
     @if (session('message') == 'update')
         <script>

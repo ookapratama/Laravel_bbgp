@@ -26,7 +26,7 @@ class InternalController extends Controller
     {
         $kota = Kabupaten::get();
 
-        $jadwalInternal = Internal::select('id','kota', 'golongan', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3', 'hari_4', 'hari_5', 'hari_6', 'hari_7')
+        $jadwalInternal = Internal::select('id', 'kota', 'golongan', 'jenis', 'deskripsi', 'kegiatan', 'tgl_kegiatan', 'tgl_selesai_kegiatan', 'jam_mulai', 'jam_selesai', 'nama', 'hotel', 'transport_pergi', 'bill_penginapan', 'transport_pulang', 'hari_1', 'hari_2', 'hari_3', 'hari_4', 'hari_5', 'hari_6', 'hari_7')
             ->whereIn('jenis', ['Pendamping Lokakarya'])
             ->get()
             ->groupBy('kegiatan');
@@ -61,7 +61,7 @@ class InternalController extends Controller
                     ];
                 });
                 // dump($penugasanPegawai);
-    
+
 
                 return [
                     'kegiatan' => $key,
@@ -163,8 +163,10 @@ class InternalController extends Controller
 
         $datas = array(
             'dataPenugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->get(),
-            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $pegawai['no_ktp'])->get(),
-            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $pegawai['no_ktp'])->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $pegawai['no_ktp'])->latest()->first(),
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $pegawai['no_ktp'])->latest()->first(),
+            // 'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $pegawai['no_ktp'])->latest()->get(),
+            // 'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $pegawai['no_ktp'])->latest()->get(),
             'dataPegawai' => Pegawai::get(),
             'jabatanPegawai' => JabatanPenugasanPegawai::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
@@ -172,36 +174,81 @@ class InternalController extends Controller
         );
 
 
+        // dd($datas['dataPenugasanPegawai']);
         // dd(!$datas['dataPenugasanPpnpn']->isEmpty());
         // dd($id);
         return view('pages.admin.penugasan.lokakarya', ['menu' => ''], compact('pegawai', 'datas'));
     }
 
     // Khusus Pegawai yg login
-    public function storeLokakaryaPegawai(Request $r)
-    {
-        // dd($r->all());
-        $r = $r->all();
-        $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
-        $r['tgl_kegiatan'] = $mulai_kegiatan[0];
-        $r['jam_mulai'] = $mulai_kegiatan[1];
+    // public function storeLokakaryaPegawai(Request $r)
+    // {
+    //     // dd($r->all());
+    //     $r = $r->all();
 
-        $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
-        $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
-        $r['jam_selesai'] = $selesai_kegiatan[1];
+    //     $file = $r->file('thumbnail');
+    //     if ($file->getSize() / 1024 >= 512) {
+    //         return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'size gambar');
+    //     }
+
+    //     // $bukti = $request->file('bukti_bill');
+    //     // $ext = $bukti->getClientOriginalExtension();
+    //     // // $r['bukti_bill'] = $request->file('bukti_bill');
+
+    //     // $nameBukti = date('Y-m-d_H-i-s_') . $r['nik'] . "." . $ext;
+    //     // $destinationPath = public_path('upload/guru');
+
+    //     // $bukti->move($destinationPath, $nameBukti);
+
+    //     // $fileUrl = asset('upload/bukti_bill/' . $nameBukti);
+
+    //     $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
+    //     $r['tgl_kegiatan'] = $mulai_kegiatan[0];
+    //     $r['jam_mulai'] = $mulai_kegiatan[1];
+
+    //     $selesai_kegiatan = explode(" ", $r["selesai_kegiatan"]);
+    //     $r['tgl_selesai_kegiatan'] = $selesai_kegiatan[0];
+    //     $r['jam_selesai'] = $selesai_kegiatan[1];
 
 
-        Internal::create($r);
+    //     Internal::create($r);
 
 
-        return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'store');
-    }
+    //     return redirect()->route('pegawai.show', session('no_ktp'))->with('message', 'store');
+    // }
 
     // Khusus Admin dan jajarannya
-    public function storeLokakarya(Request $r)
+    public function storeLokakarya(Request $request)
     {
         // dd($r->all());
-        $r = $r->all();
+        $r = $request->all();
+
+        $file = $request->file('bukti_bill');
+        // dd($file);
+        if ($file == null) {
+            unset($r['bukti_bill']);
+        } else {
+            if ($file->getSize() / 1024 >= 1500) {
+                return session('role') == 'pegawai' ? redirect()->route('internal.create.lokakarya', $r['id_pegawai'])->with('message', 'size bukti') : redirect()->route('internal.create.lokakarya', $r['id_pegawai'])->with('message', 'size bukti');
+            }
+
+            $bukti = $request->file('bukti_bill');
+            $ext = $bukti->getClientOriginalExtension();
+            // dd($ext);
+            if ($ext != 'pdf') {
+                return session('role') == 'pegawai' ? redirect()->route('internal.create.lokakarya', $r['id_pegawai'])->with('message', 'size bukti') : redirect()->route('internal.create.lokakarya', $r['id_pegawai'])->with('message', 'size bukti');
+            }
+            // $r['bukti_bill'] = $request->file('bukti_bill');
+
+            $nameBukti = date('Y-m-d_H-i-s_') . $r['nik'] . "." . $ext;
+            $destinationPath = public_path('upload/bukti_bill');
+
+            $bukti->move($destinationPath, $nameBukti);
+            $r['bukti_bill'] = $nameBukti;
+            $fileUrl = asset('upload/bukti_bill/' . $nameBukti);
+        }
+        // dd($file);
+
         $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
         $r['tgl_kegiatan'] = $mulai_kegiatan[0];
         $r['jam_mulai'] = $mulai_kegiatan[1];
@@ -284,13 +331,39 @@ class InternalController extends Controller
         return view('pages.admin.penugasan.Editlokakarya', ['menu' => ''], compact('pendamping', 'datas', 'pegawai'));
     }
 
-    public function updateLokakarya(Request $r)
+    public function updateLokakarya(Request $request)
     {
         // dd($r->all());
-        $loka = Internal::find($r->id);
+        $loka = Internal::find($request->id);
         // dd($loka);
 
-        $r = $r->all();
+
+        $r = $request->all();
+
+        $file = $request->file('bukti_bill');
+        // dd($file);
+        if ($file == null) {
+            $r['bukti_bill'] = $r['old_bukti_bill'];
+        } else {
+            if ($file->getSize() / 1024 >= 1500) {
+                return session('role') == 'pegawai' ? redirect()->route('internal.create.lokakarya', $r['id_pegawai'])->with('message', 'size bukti') : redirect()->route('internal.create.lokakarya', $r['id_pegawai'])->with('message', 'size bukti');
+            }
+
+            $bukti = $request->file('bukti_bill');
+            $ext = $bukti->getClientOriginalExtension();
+            // dd($ext);
+            if ($ext != 'pdf') {
+                return session('role') == 'pegawai' ? redirect()->route('internal.create.lokakarya', $r['id_pegawai'])->with('message', 'size bukti') : redirect()->route('internal.create.lokakarya', $r['id_pegawai'])->with('message', 'size bukti');
+            }
+            // $r['bukti_bill'] = $request->file('bukti_bill');
+
+            $nameBukti = date('Y-m-d_H-i-s_') . $r['nik'] . "." . $ext;
+            $destinationPath = public_path('upload/bukti_bill');
+
+            $bukti->move($destinationPath, $nameBukti);
+            $r['bukti_bill'] = $nameBukti;
+            $fileUrl = asset('upload/bukti_bill/' . $nameBukti);
+        }
         $mulai_kegiatan = explode(" ", $r["mulai_kegiatan"]);
         $r['tgl_kegiatan'] = $mulai_kegiatan[0];
         $r['jam_mulai'] = $mulai_kegiatan[1];
@@ -327,6 +400,7 @@ class InternalController extends Controller
             $r['hari_7'] = 0;
         }
 
+        // dd($r);
         $loka->update($r);
         // dd( route('pegawai.session('no_ktp')));
         if (session('role') == 'pegawai') {
@@ -336,7 +410,8 @@ class InternalController extends Controller
         return redirect()->route('internal.index.lokakarya', $loka->nik)->with('message', 'update');
     }
 
-    public function updateLokakaryaJS(Request $r) {
+    public function updateLokakaryaJS(Request $r)
+    {
         // dump($r->all());
         $loka = Internal::find($r->id);
         // dd($loka);
@@ -536,7 +611,7 @@ class InternalController extends Controller
         return response()->json(['success' => true]);
     }
 
-    
+
 
 
     //  PEgawai PPNPN

@@ -19,6 +19,7 @@
                         <form id="lokakaryaForm" action="{{ route('internal.store.lokakarya') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="id_pegawai" value="{{ $pegawai->id }}">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -51,8 +52,10 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Golongan</label>
-                                                <input readonly value="{{ $pegawai->golongan == '' || $pegawai->golongan == null || $pegawai->golongan == 'Tidak ada' ? 'Tidak ada' : $pegawai->golongan }}" required name="nip" id="golongan"
-                                                    type="text" class="form-control">
+                                                <input readonly
+                                                    value="{{ $pegawai->golongan == '' || $pegawai->golongan == null || $pegawai->golongan == 'Tidak ada' ? 'Tidak ada' : $pegawai->golongan }}"
+                                                    required name="nip" id="golongan" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -63,8 +66,8 @@
                                             <select required id="selectKegiatan" name="kegiatan"
                                                 class="form-control select2">
                                                 <option value="">-- Pilih kegiatan --</option>
-                                                @if (!$datas['dataPenugasanPpnpn']->isEmpty())
-                                                    @foreach ($datas['dataPenugasanPpnpn'] as $v)
+                                                @if (!$datas['dataPenugasanPpnpn'] == '')
+                                                    {{-- @foreach ($datas['dataPenugasanPpnpn'] as $v)
                                                         <option data-kabupaten="{{ $v->kota }}"
                                                             data-tgl-kegiatan="{{ $v->tgl_kegiatan }}"
                                                             data-tgl-selesai-kegiatan="{{ $v->tgl_selesai_kegiatan }}"
@@ -72,9 +75,17 @@
                                                             data-jam-mulai="{{ $v->jam_mulai }}"
                                                             value="{{ $v->kegiatan }}">{{ $v->kegiatan }}
                                                         </option>
-                                                    @endforeach
+                                                        @endforeach --}}
+                                                    <option data-kabupaten="{{ $datas['dataPenugasanPpnpn']->kota }}"
+                                                        data-tgl-kegiatan="{{ $datas['dataPenugasanPpnpn']->tgl_kegiatan }}"
+                                                        data-tgl-selesai-kegiatan="{{ $datas['dataPenugasanPpnpn']->tgl_selesai_kegiatan }}"
+                                                        data-jam-selesai="{{ $datas['dataPenugasanPpnpn']->jam_selesai }}"
+                                                        data-jam-mulai="{{ $datas['dataPenugasanPpnpn']->jam_mulai }}"
+                                                        value="{{ $datas['dataPenugasanPpnpn']->kegiatan }}">
+                                                        {{ $datas['dataPenugasanPpnpn']->kegiatan }}
+                                                    </option>
                                                 @else
-                                                    @foreach ($datas['dataPenugasanPegawai'] as $v)
+                                                    {{-- @foreach ($datas['dataPenugasanPegawai'] as $v)
                                                         <option data-kabupaten="{{ $v->kota }}"
                                                             data-tgl-kegiatan="{{ $v->tgl_kegiatan }}"
                                                             data-tgl-selesai-kegiatan="{{ $v->tgl_selesai_kegiatan }}"
@@ -82,7 +93,14 @@
                                                             data-jam-mulai="{{ $v->jam_mulai }}"
                                                             value="{{ $v->kegiatan }}">{{ $v->kegiatan }}
                                                         </option>
-                                                    @endforeach
+                                                        @endforeach --}}
+                                                        <option data-kabupaten="{{ $datas['dataPenugasanPegawai']->kota }}"
+                                                            data-tgl-kegiatan="{{ $datas['dataPenugasanPegawai']->tgl_kegiatan }}"
+                                                            data-tgl-selesai-kegiatan="{{ $datas['dataPenugasanPegawai']->tgl_selesai_kegiatan }}"
+                                                            data-jam-selesai="{{ $datas['dataPenugasanPegawai']->jam_selesai }}"
+                                                            data-jam-mulai="{{ $datas['dataPenugasanPegawai']->jam_mulai }}"
+                                                            value="{{ $datas['dataPenugasanPegawai']->kegiatan }}">{{ $datas['dataPenugasanPegawai']->kegiatan }}
+                                                        </option>
                                                 @endif
                                             </select>
                                             <input required readonly name="jenis" type="hidden"
@@ -118,9 +136,9 @@
                                         </div>
                                     </div>
 
-                                    
+
                                     <div class="row my-3">
-                                        
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Biaya Pergi</label>
@@ -128,7 +146,7 @@
                                                     class="form-control">
                                             </div>
                                         </div>
-    
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Biaya Pulang</label>
@@ -136,13 +154,13 @@
                                                     class="form-control">
                                             </div>
                                         </div>
-                                       
+
 
                                         <div class="col-md-4">
                                             <div class="custom-switches-stacked">
                                                 <label class="custom-switch">
-                                                    <input type="checkbox" name="switch_penginapan" id="switch_penginapan"
-                                                        class="custom-switch-input">
+                                                    <input type="checkbox" name="switch_penginapan"
+                                                        id="switch_penginapan" class="custom-switch-input">
                                                     <span class="custom-switch-indicator"></span>
                                                     <span class="custom-switch-description">Bill atau 30%</span>
                                                 </label>
@@ -150,11 +168,19 @@
 
                                             <div class="form-group">
                                                 <label></label>
-                                                <input readonly required name="bill_penginapan" value="0" id="bill_penginapan"
-                                                    type="text" class="form-control">
+                                                <input readonly required name="bill_penginapan" value="0"
+                                                    id="bill_penginapan" type="text" class="form-control">
                                             </div>
 
                                         </div>
+
+                                        {{-- <div class="col-md-4">
+                                            <div class="form-group mt-4">
+                                                <label>Bukti Bill (jika ada)</label>
+                                                <input name="bukti_bill" id="bukti_bill" type="file"
+                                                    class="form-control">
+                                            </div>
+                                        </div> --}}
 
                                     </div>
 
@@ -163,7 +189,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Hotel</label>
-                                                <input  name="hotel" type="text" class="form-control">
+                                                <input name="hotel" type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -329,11 +355,11 @@
 
                     if ($(this).is(':checked')) {
 
-                        if (cutString[0] == 'Tidak ada' || cutString[0] == 'I' || cutString[0] == 'II' || cutString[0] == 'III') {
+                        if (cutString[0] == 'Tidak ada' || cutString[0] == 'I' || cutString[0] == 'II' ||
+                            cutString[0] == 'III') {
                             bill_penginapan.val(formatRupiah(223500)); // Set nilai 210000
-                        }
-                        else {
-                            
+                        } else {
+
                             bill_penginapan.val(formatRupiah(426900)); // Set nilai 210000
                         }
 
@@ -351,10 +377,11 @@
                 });
 
                 // Calculate total whenever an input changes
-                $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan').on('input',
-                    function() {
-                        calculateTotal();
-                    });
+                $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan')
+                    .on('input',
+                        function() {
+                            calculateTotal();
+                        });
 
 
                 function calculateTotal() {
@@ -422,11 +449,12 @@
 
                 // Remove currency format before form submit
                 $('#lokakaryaForm').on('submit', function() {
-                    $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan').each(
-                        function() {
-                            var value = $(this).val();
-                            $(this).val(value.replace(/[^0-9]/g, ''));
-                        });
+                    $('#transport_pulang, #transport_pergi, #hari_1, #hari_2, #hari_3, #hari_4, #hari_5, #hari_6, #hari_7, #bill_penginapan')
+                        .each(
+                            function() {
+                                var value = $(this).val();
+                                $(this).val(value.replace(/[^0-9]/g, ''));
+                            });
                 });
             });
         </script>

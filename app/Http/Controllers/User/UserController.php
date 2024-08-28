@@ -220,28 +220,38 @@ class UserController extends Controller
         // $fileUrl = asset('upload/guru/' . $nameFoto);
 
         // $r['pas_foto'] = $nameFoto;
-        // dd($r);
-        $r['jabatan'] = '';
-        $r['pas_foto'] = '';
-        $r['status'] = 'Belum Kawin';
-        $r['alamat_satuan'] = '';
-        $r['eksternal_jabatan'] = $r['jenisJabatan'] ?? '';
-        $r['jenis_jabatan'] = $r['jabJenis'] ?? '';
-        $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
-        $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
-        $r['latar_jabatan'] = $r['jabLatar'] ?? '';
-        $r['is_verif'] = 'belum';
-        // dd($r);
+        $getNik = Guru::where('no_ktp', $r['no_ktp'])->first();
+        // dd($getNik);
+        if ($getNik == null) {
+            $r['jabatan'] = '';
+            $r['pas_foto'] = '';
+            $r['status'] = 'Belum Kawin';
+            $r['alamat_satuan'] = '';
+            $r['eksternal_jabatan'] = $r['jenisJabatan'] ?? '';
+            $r['jenis_jabatan'] = $r['jabJenis'] ?? '';
+            $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
+            $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
+            $r['latar_jabatan'] = $r['jabLatar'] ?? '';
+            $r['is_verif'] = 'belum';
+            // dd($r);
+    
+    
+    
+            Guru::create($r);
+    
+            // akun login
+    
+    
+    
+            return redirect()->route('user.guru')->with('message', 'user daftar');
+            
+        }
+        else {
+            return redirect()->route('user.guru')->with('message', 'nik daftar');
+        }
 
 
 
-        Guru::create($r);
-
-        // akun login
-
-
-
-        return redirect()->route('user.guru')->with('message', 'user daftar');
     }
 
     public function getPenugasanDetail(Request $request)
