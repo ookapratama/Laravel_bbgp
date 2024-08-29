@@ -197,30 +197,14 @@
                         $('#detailContent').html(`
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p><strong>NPSN Sekolah:</strong>${response.sekolah.nama_sekolah} ( ${response.sekolah.npsn_sekolah ?? ''} ) </p>
                                     <p><strong>Nama Lengkap:</strong> ${response.data.nama_lengkap ?? ''}</p>
-                                    <p><strong>NIK:</strong> ${response.data.no_ktp ?? ''}</p>
-                                    <p><strong>NIP:</strong> ${response.data.nip ?? ''}</p>
-                                    <p><strong>NPWP:</strong> ${response.data.npwp ?? ''}</p>
-                                    <p><strong>NUPTK:</strong> ${response.data.nuptk ?? ''}</p>
-                                    <p><strong>Email:</strong> ${response.data.email ?? ''}</p>
+                                    
                                     <p><strong>Asal Kabupaten:</strong> ${response.data.kabupaten ?? ''}</p>
-                                    <p><strong>Tempat, Tanggal Lahir:</strong> ${response.data.tempat_lahir ?? ''},  ${tgl_Lahir}</p>
-                                    <p><strong>Jenis Kelamin:</strong> ${response.data.gender ?? ''}</p>
-                                    <p><strong>Alamat Rumah:</strong> ${response.data.alamat_rumah ?? ''}</p>
                                     
                                     </div>
-                                <div class="col-md-6">    
-                                    <p><strong>Satuan Pendidikan:</strong> ${response.data.satuan_pendidikan ?? ''}</p>
-                                    <p><strong>Ketenagaan:</strong> ${response.data.eksternal_jabatan ?? ''}</p>
-                                    <p><strong>Kategori Jabatan:</strong> ${response.data.kategori_jabatan ?? ''}</p>
-                                    <p><strong>Jenis Jabatan:</strong> ${response.data.jenis_jabatan ?? ''}</p>
-                                    <p><strong>Tugas Jabatan:</strong> ${response.data.tugas_jabatan ?? ''}</p>
-                                    <p><strong>Latar Jabatan:</strong> ${response.data.latar_jabatan ?? 'tidak ada'}</p>
-                                    <p><strong>Bank:</strong> ( ${response.data.jenis_bank ?? ''} ) - ${response.data.no_rek}</p>
-                                    <p><strong>No HP:</strong> ${response.data.no_hp ?? ''}</p>
-                                    <p><strong>No WA:</strong> ${response.data.no_wa ?? ''}</p>
-                                    <p><strong>Pendidikan Terakhir:</strong> ${response.data.pendidikan ?? ''}</p>
+                                    <div class="col-md-6">    
+                                        <p><strong>Jenis Kelamin:</strong> ${response.data.gender ?? ''}</p>
+                                 
                                     <p><strong>Status Kepegawaian:</strong> ${response.data.status_kepegawaian ?? ''}</p>
                                 </div>
                             </div>
