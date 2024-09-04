@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\HonorPanitiaExport;
 use App\Exports\HonorNarasumberExport;
-
+use App\Exports\HonorPesertaExport;
 use App\Models\Honor;
 use App\Models\Kegiatan;
 use App\Models\PenomoranKegiatan;
@@ -274,7 +274,8 @@ class HonorController extends Controller
             ->where('id_kegiatan', $kegiatan)
             ->where(function ($query) {
                 $query->where('status_keikutpesertaan', 'panitia')
-                    ->orWhere('status_keikutpesertaan', 'narasumber');
+                    ->orWhere('status_keikutpesertaan', 'narasumber')
+                    ->orWhere('status_keikutpesertaan', 'peserta');
             })
             ->get();
         // dd($peserta);
@@ -311,7 +312,7 @@ class HonorController extends Controller
     {   
         $honor = Honor::whereHas('peserta', function ($query) use ($id_kegiatan) {
             $query->where('id_kegiatan', $id_kegiatan);
-            $query->where('status_keikutpesertaan', 'panitia');
+            $query->where('status_keikutpesertaan', 'narasumber');
         })->with('peserta.kegiatan')->get();
         if ($honor->isEmpty()) {
             return redirect()->route('honor.index')->with('message', 'error surat');
@@ -320,6 +321,21 @@ class HonorController extends Controller
         $datas = PenomoranKegiatan::orderByDesc('id')->first();
         $id_nomor = $datas->id;
         return Excel::download(new HonorNarasumberExport($id_kegiatan, $jabatan, $id_nomor), 'HonorNarasumber.xlsx');
+    }
+
+    public function cetakExcelPeserta($id_kegiatan, $jabatan = 'peserta')
+    {   
+        $honor = Honor::whereHas('peserta', function ($query) use ($id_kegiatan) {
+            $query->where('id_kegiatan', $id_kegiatan);
+            $query->where('status_keikutpesertaan', 'peserta');
+        })->with('peserta.kegiatan')->get();
+        if ($honor->isEmpty()) {
+            return redirect()->route('honor.index')->with('message', 'error surat');
+        }
+        
+        $datas = PenomoranKegiatan::orderByDesc('id')->first();
+        $id_nomor = $datas->id;
+        return Excel::download(new HonorPesertaExport($id_kegiatan, $jabatan, $id_nomor), 'HonorPeserta.xlsx');
     }
 
     public function storeNomor(Request $r)

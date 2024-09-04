@@ -77,14 +77,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>NIK</label>
-                                        <input name="no_ktp" id="no_ktp" type="number" class="form-control" required>
+                                        <input name="no_ktp" id="no_ktp" type="text" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>NIP</label>
-                                        <input name="nip" id="nip" type="number" class="form-control" required>
+                                        <input name="nip" id="nip" type="text" class="form-control" required>
                                     </div>
                                 </div>
 
@@ -289,7 +289,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Nomor Surat (CONTOH : **/**/**/**)</label>
+                                        <label>Nomor Surat Tugas (CONTOH : **/**/**/**)</label>
                                         <input name="no_surat_tugas" id="no_surat_tugas" type="text"
                                             class="form-control" required>
                                     </div>

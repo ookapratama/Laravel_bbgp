@@ -401,7 +401,7 @@ class GuruController extends Controller
         $r['jenis_jabatan'] = $r['jabJenis'];
         $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
         $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
-        $r['is_verif'] = 'sudah';
+        // $r['is_verif'] = 'sudah';
         // $r['is_verif'] = 'belum';
         // dd($r['jenis_bank']);
 

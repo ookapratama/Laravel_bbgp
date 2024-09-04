@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\GolonganP3k;
+use App\Models\Guru;
+use App\Models\Internal;
 use App\Models\JabatanPenugasanGolongan;
 use App\Models\Kabupaten;
 use App\Models\Kegiatan;
+use App\Models\Pegawai;
+use App\Models\Pendidikan;
 use App\Models\PesertaKegiatan;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 
 class PesertaKegiatanController extends Controller
@@ -128,16 +133,22 @@ class PesertaKegiatanController extends Controller
     {
         $datas = PesertaKegiatan::find($id);
         $kegiatan = Kegiatan::get();
-        // dd($datas);
+
+        $getById = Guru::where('no_ktp', $datas->no_ktp)->first();
+        if ($getById == null) {
+            $getById = Pegawai::where('no_ktp', $datas->no_ktp)->first();
+        }
+        // dd($getById);
         $menu = $this->menu;
         $status = array(
             'kabupaten' => Kabupaten::get(),
             'golongan' => JabatanPenugasanGolongan::get(),
             'golongan_p3k' => GolonganP3k::get(),
+            's_gelar' => Pendidikan::get(),
         );
 
         // dd($datas);
-        return view('pages.admin.peserta.edit', compact('datas', 'menu', 'status', 'kegiatan'));
+        return view('pages.admin.peserta.edit', compact('datas', 'menu', 'status', 'kegiatan', 'getById'));
     }
 
     /**
@@ -147,6 +158,17 @@ class PesertaKegiatanController extends Controller
     {
         $datas = PesertaKegiatan::find($r->id);
 
+
+        $getDataPeserta = Guru::where('no_ktp', $r->no_ktp)->first();
+        if ($getDataPeserta == null) {
+            $getDataPeserta = Pegawai::where('no_ktp', $r->no_ktp)->first();
+        }
+        // dd($getDataPeserta);
+        $getDataPeserta->agama = $r->agama;
+        $getDataPeserta->tgl_lahir = $r->tgl_lahir;
+        $getDataPeserta->tempat_lahir = $r->tempat_lahir;
+        $getDataPeserta->pendidikan = $r->pendidikan;
+        $getDataPeserta->save();
         // $getNik = PesertaKegiatan::where('no_ktp', $r['no_ktp'])->first();
         // if ($getNik != null) {
         //     return redirect()->route('peserta.create')->with([
@@ -208,5 +230,30 @@ class PesertaKegiatanController extends Controller
         $data = PesertaKegiatan::find($id);
         $data->delete();
         return response()->json($data);
+    }
+
+    public function cetak($id) {
+
+        $peserta = PesertaKegiatan::find($id);
+        // dd($peserta->no_ktp);
+
+        $namaKegiatan = $peserta->kegiatan->nama_kegiatan;
+        
+        // Mendapatkan data guru dari model Guru
+        $getById = Guru::where('no_ktp' , $peserta->no_ktp)->first();
+        if ($getById == null) {
+            $getById = Pegawai::where('no_ktp' , $peserta->no_ktp)->first();
+        }
+        // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
+
+
+        $pdf = PDF::loadView('pages.admin.peserta.cetakById', compact('getById', 'peserta', 'namaKegiatan'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        // $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
+
+        // Download PDF dengan nama file 
+        return $pdf->stream('Biodata-'. $peserta->nama . '-' . $namaKegiatan .'.pdf');
     }
 }

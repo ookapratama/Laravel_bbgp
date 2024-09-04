@@ -510,7 +510,8 @@ class KuitansiController extends Controller
             ->where('id_kegiatan', $kegiatan)
             ->where(function ($query) {
                 $query->where('status_keikutpesertaan', 'panitia')
-                    ->orWhere('status_keikutpesertaan', 'narasumber');
+                    ->orWhere('status_keikutpesertaan', 'narasumber')
+                    ->orWhere('status_keikutpesertaan', 'peserta');
             })
             ->get();
         // dd($peserta);

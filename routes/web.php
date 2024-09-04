@@ -271,6 +271,7 @@ Route::group(
                 Route::get('/edit/{id}', 'PesertaKegiatanController@edit')->name('peserta.edit');
                 Route::put('/update', 'PesertaKegiatanController@update')->name('peserta.update');
                 Route::post('/hapus/{id}', 'PesertaKegiatanController@destroy')->name('peserta.hapus');
+                Route::get('/cetak/{id}', 'PesertaKegiatanController@cetak')->name('peserta.cetak');
             });
 
             // Honor
@@ -289,6 +290,7 @@ Route::group(
 
                 Route::get('/cetakExcelPanitia/{id_kegiatan}/{jabatan}', 'HonorController@cetakExcelPanitia')->name('honor.cetakExcelPanitia');
                 Route::get('/cetakExcelNarasumber/{id_kegiatan}/{jabatan}', 'HonorController@cetakExcelNarasumber')->name('honor.cetakExcelNarasumber');
+                Route::get('/cetakExcelPeserta/{id_kegiatan}/{jabatan}', 'HonorController@cetakExcelPeserta')->name('honor.cetakExcelPeserta');
                 Route::get('/storeNomor', 'HonorController@storeNomor')->name('honor.storeNomor');
 
 

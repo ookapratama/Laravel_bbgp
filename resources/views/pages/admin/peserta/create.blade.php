@@ -95,7 +95,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIK</label>
-                                                <input name="no_ktp" id="no_ktp" type="number" class="form-control"
+                                                <input name="no_ktp" id="no_ktp" type="text" class="form-control"
                                                     required>
                                             </div>
                                         </div>
@@ -103,7 +103,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input name="nip" id="nip" type="number" class="form-control"
+                                                <input name="nip" id="nip" type="text" class="form-control"
                                                     required>
                                             </div>
                                         </div>

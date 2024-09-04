@@ -194,7 +194,7 @@
                                                                 onclick="verifikasi({{ $datas->id }}, 'eksternal', '{{ $datas->is_verif }}')">Verifikasi</a>
                                                         @endif
 
-                                                        <a href="{{ route('guru.edit', $datas->id) }}"
+                                                        <a href="{{ route('guru.edit.user', $datas->id) }}"
                                                             class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
 
                                                         <button onclick="showDetail( {{ $datas->id }} )"
@@ -202,10 +202,10 @@
                                                             <i class="fas fa-info"></i>
                                                         </button>
 
-                                                        <button onclick="deleteData({{ $datas->id }}, 'eksternal')"
+                                                        {{-- <button onclick="deleteData({{ $datas->id }}, 'eksternal')"
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
-                                                        </button>
+                                                        </button> --}}
                                                     </td>
 
 

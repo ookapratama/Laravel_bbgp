@@ -108,6 +108,7 @@
                                                 <th>Jenis Golongan</th>
                                                 <th>Golongan</th>
                                                 <th>Kontak</th>
+                                                <th class="text-nowrap">Cetak Biodata</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -125,6 +126,11 @@
                                                     <td>No : Hp {{ $data->no_hp }}
                                                         <br>
                                                         No : WA {{ $data->no_wa }}
+                                                    </td>
+                                                    <td>
+                                                        <a target="_blank" href="{{ route('peserta.cetak', $data->id) }}" class="btn btn-primary">
+                                                            <i class="fas fa-print"></i>
+                                                        </a>
                                                     </td>
 
                                                     <td>
@@ -229,6 +235,8 @@
                 });
 
                 const kegiatan = document.querySelector('#kegiatanSelect');
+
+
 
                 function applySearch() {
 

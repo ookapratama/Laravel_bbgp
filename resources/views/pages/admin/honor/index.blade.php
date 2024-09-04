@@ -51,6 +51,7 @@
 
                                                 <option value="panitia">Panitia</option>
                                                 <option value="narasumber">Narasumber</option>
+                                                <option value="peserta">Peserta</option>
                                             </select>
                                         </div>
                                     </div>
@@ -65,6 +66,9 @@
                                             </a>
                                             <a href="#" id="printHonorNarasumber" class="btn btn-success">
                                                 <i class="fas fa-print mr-2"></i>Print Honor Narasumber
+                                            </a>
+                                            <a href="#" id="printHonorPeserta" class="btn btn-success">
+                                                <i class="fas fa-print"></i>Print Honor Peserta
                                             </a>
                                         </div>
                                     </div>
@@ -310,6 +314,63 @@
                                                 kegiatan))
                                             .replace('__JABATAN__', encodeURIComponent(
                                                 'narasumber'));
+
+                                        window.location.href = printUrl;
+                                    },
+                                    error: function(error) {
+                                        console.error(error);
+                                        alert('Error fetching detail.');
+                                    }
+                                });
+                            }
+                        });
+                });
+
+                $('#printHonorPeserta').on('click', function(e) {
+                    let no_surat = $('[name="no_surat"]').val();
+                    let tgl_surat = $('[name="tgl_surat"]').val();
+                    let kode_anggaran = $('[name="kode_anggaran"]').val();
+
+                    e.preventDefault();
+                    swal({
+                            title: 'Apakah anda sudah yakin?',
+                            text: 'pastikan anda sudah mengisi Nomor, Tanggal Surat dan Kode Anggaran ',
+                            icon: 'warning',
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                if (no_surat == '' || tgl_surat == '' || kode_anggaran == '') {
+                                    swal('Nomor, Tanggal Surat atau Kode Anggaran Tidak Valid / Tidak boleh kosong', {
+                                        icon: 'error',
+                                    });
+                                    return;
+                                }
+
+                                $.ajax({
+                                    url: '{{ route('honor.storeNomor') }}',
+                                    type: 'GET',
+                                    data: {
+                                        no_surat: no_surat,
+                                        tgl_surat: tgl_surat,
+                                        kode_anggaran: kode_anggaran,
+                                        kegiatan_id: kegiatan,
+                                    },
+                                    success: function(response) {
+                                        console.log(kegiatan, jabatan);
+
+                                        if (jabatan != 'peserta') {
+                                            jabatan = 'peserta'
+                                        }
+
+                                        // Construct the URL dynamically
+                                        var printUrl =
+                                            '{{ route('honor.cetakExcelPeserta', ['id_kegiatan' => '__KEGIATAN__', 'jabatan' => '__JABATAN__']) }}'
+                                            .replace('__KEGIATAN__', encodeURIComponent(
+                                                kegiatan))
+                                            .replace('__JABATAN__', encodeURIComponent(
+                                                'peserta'));
 
                                         window.location.href = printUrl;
                                     },

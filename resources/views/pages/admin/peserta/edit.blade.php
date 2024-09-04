@@ -87,7 +87,7 @@
                                             <div class="form-group">
                                                 <label>NIK</label>
                                                 <input value="{{ $datas->no_ktp }}" name="no_ktp" id="no_ktp"
-                                                    type="number" class="form-control" required>
+                                                    type="text" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -96,15 +96,65 @@
                                             <div class="form-group">
                                                 <label>NIP</label>
                                                 <input name="nip" id="nip" value="{{ $datas->nip }}"
-                                                    type="number" class="form-control" required>
+                                                    type="text" class="form-control" required>
                                             </div>
                                         </div>
 
+                                    </div>
 
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Tempat Lahir</label>
+                                                <input name="tempat_lahir" id="tempat_lahir" value="{{ $getById->tempat_lahir }}"
+                                                    type="text" class="form-control" required>
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Tanggal Lahir</label>
+                                                <input name="tgl_lahir" id="tgl_lahir" value="{{ $getById->tgl_lahir }}"
+                                                    type="date" class="form-control" required>
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Agama</label>
+                                                <select required name="agama" class="form-control ">
+                                                    <option value="">-- Pilih Agama --</option>
+                                                    <option {{ $getById->agama == 'Islam' ? 'selected' : '' }}
+                                                        value="Islam">Islam</option>
+                                                    <option {{ $getById->agama == 'Kristen' ? 'selected' : '' }}
+                                                        value="Kristen">Kristen</option>
+                                                    <option {{ $getById->agama == 'Katolik' ? 'selected' : '' }}
+                                                        value="Katolik">Katolik</option>
+                                                    <option {{ $getById->agama == 'Hindu' ? 'selected' : '' }}
+                                                        value="Hindu">Hindu</option>
+                                                    <option {{ $getById->agama == 'Buddha' ? 'selected' : '' }}
+                                                        value="Buddha">Buddha</option>
+                                                </select>
+                                                {{-- <input readonly name="kabupaten" id="kabupaten" type="text"
+                                                class="form-control" required> --}}
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Pendidikan Terakhir</label>
+                                                <select required name="pendidikan" class="form-control ">
+                                                    <option value="">-- Pilih pendidikan terakhir --</option>
+                                                    @foreach ($status['s_gelar'] as $v)
+                                                        <option {{ $datas->pendidikan == $v->name ? 'selected' : '' }}
+                                                            value="{{ $v->name }}">{{ $v->name }}</option>
+                                                    @endforeach
 
+                                                </select>
+                                                {{-- <input readonly name="kabupaten" id="kabupaten" type="text"
+                                                class="form-control" required> --}}
+                                            </div>
+                                        </div>
 
                                     </div>
 
@@ -124,12 +174,12 @@
                                                 class="form-control" required> --}}
                                             </div>
                                         </div>
-        
+
                                         <div class="col-md-4" id="formAsal" style="display: none;">
                                             <div class="form-group">
                                                 <label>Asal Kabupaten / Kota</label>
-                                                <input  name="asal_kabupaten" value="{{ $datas->kabupaten }}" id="asal_kabupaten" type="text"
-                                                    class="form-control">
+                                                <input name="asal_kabupaten" value="{{ $datas->kabupaten }}"
+                                                    id="asal_kabupaten" type="text" class="form-control">
                                             </div>
                                         </div>
 
@@ -203,7 +253,8 @@
                                             <div class="form-group">
                                                 <label>Golongan PNS</label>
 
-                                                <select name="golongan_pns" id="golongan_pns" class="form-control select2">
+                                                <select name="golongan_pns" id="golongan_pns"
+                                                    class="form-control select2">
                                                     <option id="valPns" value="">-- pilih golongan --
                                                     </option>
                                                     @foreach ($status['golongan'] as $v)
