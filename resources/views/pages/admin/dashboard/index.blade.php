@@ -14,7 +14,10 @@
             <div class="section-header">
                 <h1>Dashboard</h1>
             </div>
-            @if (session('role') == 'admin' || session('role') == 'superadmin' || session('role') == 'kepala' || session('role') == 'kepegawaian')
+            @if (session('role') == 'admin' ||
+                    session('role') == 'superadmin' ||
+                    session('role') == 'kepala' ||
+                    session('role') == 'kepegawaian')
                 <div class="card">
                     <div class="card-header">
                         <h4>Data Statistik</h4>
@@ -164,6 +167,40 @@
                         <div class="row">
                             <div class="fc-overflow">
                                 <div id="jadwal-pegawai"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            @endif
+
+            @if (session('role') == 'tenaga pendidik' ||
+                    session('role') == 'tenaga kependidikan' ||
+                    session('role') == 'stakeholder')
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Cetak biodata anda dari kegiatan yang telah di daftar</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-8">
+
+                                <div class="form-group">
+                                    <select name="kegiatan" class="form-control select2" id="kegiatanSelect">
+                                        <option value="">-- pilih kegiatan --</option>
+                                        @foreach ($datas['kegiatan']->getKegiatan as $v)
+                                            <option value="{{ $v->id }}">{{ $v->nama_kegiatan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <a id="btnPrint" href="" target="_blank" class="btn btn-primary"><i class="fas fa-print"></i>
+                                    Cetak Biodata</a>
                             </div>
 
                         </div>
@@ -450,6 +487,41 @@
 
 
                 });
+
+                const btnPrint = $('#btnPrint');
+                btnPrint.hide();
+
+                $('#kegiatanSelect').change(function() {
+                    console.log($(this).val());
+                    const val = $(this).val()
+                    $.ajax({
+                        url: '{{ route('dashboard.jadwal.getByKegiatan') }}', // Ganti dengan route yang sesuai untuk mengambil status
+                        type: 'GET',
+                        data: {
+                            kegiatan_id: val,
+                            nik: '{{ session('no_ktp') }}'
+                        },
+                        success: function(response) {
+                            // console.log(response.status);
+                            console.log(response.data.id);
+                            const idPeserta = response.data.id
+                            if (response.status) {
+                                var url = '{{ route('peserta.cetak',['id' => ':id']) }}'
+                                url = url.replace(':id', idPeserta)
+                                btnPrint.attr({
+                                    'href': url
+                                });
+                                btnPrint.show();
+                            } else {
+                                btnPrint.hide();
+                            }
+                        },
+                        error: function(error) {
+                            console.error(error);
+                            alert('Error fetching kegiatan status.');
+                        }
+                    });
+                })
 
 
 

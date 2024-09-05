@@ -95,6 +95,8 @@ Route::group(
             Route::get('/', 'AdminController@index')->name('dashboard');
             Route::get('/jadwalKegiatan', 'AdminController@jadwal')->name('dashboard.jadwal');
             Route::get('/jadwalKegiatan/{nik}', 'AdminController@getJadwalByPegawai')->name('dashboard.jadwal.getByPegawai');
+            
+            Route::get('/getByKegiatan', 'AdminController@getByKegiatan')->name('dashboard.jadwal.getByKegiatan');
 
             // Profile User yang Login
             Route::get('/profile/{id}', 'AdminController@profile')->name('profile.index');
@@ -272,6 +274,8 @@ Route::group(
                 Route::put('/update', 'PesertaKegiatanController@update')->name('peserta.update');
                 Route::post('/hapus/{id}', 'PesertaKegiatanController@destroy')->name('peserta.hapus');
                 Route::get('/cetak/{id}', 'PesertaKegiatanController@cetak')->name('peserta.cetak');
+                Route::get('/export/{id_kegiatan}', 'PesertaKegiatanController@export')->name('peserta.export');
+
             });
 
             // Honor

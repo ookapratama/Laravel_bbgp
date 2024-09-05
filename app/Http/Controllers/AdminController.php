@@ -7,6 +7,8 @@ use App\Models\InternalPpnpn;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Internal;
+use App\Models\Kegiatan;
+use App\Models\PesertaKegiatan;
 use App\Models\User;
 
 class AdminController extends Controller
@@ -102,13 +104,30 @@ class AdminController extends Controller
             'tenaga_pendidik' => $tenaga_pendidik,
             'tenaga_kependidik' => $tenaga_kependidik,
             'stakeholder' => $stakeholder,
-
+            'kegiatan' => PesertaKegiatan::with('kegiatan')->where('no_ktp', session('no_ktp'))->first(),
             // 'jadwalLokakarya' => Internal::where('jenis', 'Penugasan Lokakarya')->get(),
 
         );
-        // dd($datas);
+        // dd($datas['kegiatan']->getKegiatan);
 
         return view('pages.admin.dashboard.index', ['menu' => 'dashboard', 'datas' => $datas]);
+    }
+
+    public function getByKegiatan(Request $r)
+    {
+        // dd($r->all());
+        try {
+            $peserta = PesertaKegiatan::where('id_kegiatan', $r->kegiatan_id)->where('no_ktp', $r->nik)->first();
+            return response()->json([
+                'status' => $peserta == null ? false : true,
+                'data' => $peserta
+            ]);
+        } catch (\Exception $th) {
+            return response()->json([
+                'status' => false,
+                'data' => $th
+            ]);
+        }
     }
 
     public function jadwal()
@@ -168,8 +187,7 @@ class AdminController extends Controller
         if ($r['password'] != null) {
             $r['password'] = bcrypt($r['password']);
             // dump('ubah password');
-        } 
-        else {
+        } else {
             unset($r['password']);
         }
         // dd(true);

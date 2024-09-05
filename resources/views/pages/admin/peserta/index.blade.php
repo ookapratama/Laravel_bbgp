@@ -27,7 +27,7 @@
                                 <a href="{{ route('peserta.create') }}" class="btn btn-primary text-white my-3">+ Tambah
                                     Peserta</a>
 
-                                <h6>Filter By Kegiatan</h6>
+                                <h6>Filter By </h6>
                                 <div class="row">
                                     <div class="col-md-3">
 
@@ -41,7 +41,8 @@
                                                     $tgl_kegiatan = strftime('%d %B', strtotime($v->tgl_kegiatan));
                                                     $tgl_selesai = strftime('%d %B %Y', strtotime($v->tgl_selesai));
                                                     ?>
-                                                    <option value="{{ $v->nama_kegiatan }}">{{ $v->nama_kegiatan }}
+                                                    <option data-id="{{ $v->id }}" value="{{ $v->nama_kegiatan }}">
+                                                        {{ $v->nama_kegiatan }}
                                                         {{-- ( {{ $tgl_kegiatan }} -
                                                         {{ $tgl_selesai }}
                                                        ) --}}
@@ -50,7 +51,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md mb-4">
+                                    <div class="col-md-6 ">
+                                        <div class="form-group">
+                                            <select name="" class="form-control select2" id="kabupatenSelect">
+                                                <option value="">-- pilih kabupaten/kota --</option>
+                                                @foreach ($kabupaten as $v)
+                                                    <option value="{{ $v->name }}">{{ $v->name }}
+                                                        {{-- ( {{ $tgl_kegiatan }} -
+                                                        {{ $tgl_selesai }}
+                                                       ) --}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         {{-- <div id="btnGroup">
                                             <button id="btnPrintPeserta" class="btn btn-primary"><i
                                                     class="fas fa-print mr-2"></i>Absensi Peserta</button>
@@ -63,6 +76,8 @@
                                                     class="fas fa-print mr-2"></i>Absensi Narasumber</button>
                                         </div> --}}
                                     </div>
+
+
 
 
                                 </div>
@@ -91,7 +106,16 @@
                                         </select>
                                     </div>
                                 </div> --}}
-
+                                <div id="export-section">
+                                    <h6>Export Data</h6>
+                                    <div class="row mb-4">
+                                        <div class="col-md-4">
+                                            <a href="#" id="exportBtn" class="btn btn-success">
+                                                <i class="fas fa-print mr-2"></i>
+                                                Export Partisipan</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Tables Section -->
                                 <!-- PPNPN -->
                                 <div class="table-responsive ">
@@ -102,6 +126,7 @@
                                                 <th class="text-center">#</th>
                                                 <th>NIK</th>
                                                 <th>Nama </th>
+                                                <th class="text-nowrap">Asal kabupaten/kota </th>
                                                 <th>Status Keikutpesertaan</th>
                                                 <th>Nama Kegiatan</th>
                                                 <th>Instansi</th>
@@ -114,10 +139,11 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($datas as $i => $data)
-                                                <tr>
+                                                <tr data-id="{{ $data->id }}">
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $data->no_ktp ?? '' }}</td>
                                                     <td>{{ $data->nama ?? '' }}</td>
+                                                    <td class="text-nowrap">{{ $data->kabupaten ?? '' }}</td>
                                                     <td>{{ $data->status_keikutpesertaan ?? '' }}</td>
                                                     <td><b> {{ $data->kegiatan->nama_kegiatan ?? '' }} </b></td>
                                                     <td>{{ $data->instansi }}</td>
@@ -128,7 +154,8 @@
                                                         No : WA {{ $data->no_wa }}
                                                     </td>
                                                     <td>
-                                                        <a target="_blank" href="{{ route('peserta.cetak', $data->id) }}" class="btn btn-primary">
+                                                        <a target="_blank" href="{{ route('peserta.cetak', $data->id) }}"
+                                                            class="btn btn-primary">
                                                             <i class="fas fa-print"></i>
                                                         </a>
                                                     </td>
@@ -234,20 +261,90 @@
                     language: language,
                 });
 
+                const exportBtn = $('#export-section');
                 const kegiatan = document.querySelector('#kegiatanSelect');
 
-
+                exportBtn.hide();
 
                 function applySearch() {
-
+                    exportBtn.show();
                     const kegiatanValue = kegiatan.value;
+
+                    if (kegiatanValue == '') {
+                        exportBtn.hide();
+                    }
 
                     console.log('Search Text:', kegiatanValue);
 
-                    tableKegiatan.column(4).search(kegiatanValue).draw();
+                    tableKegiatan.column(5).search(kegiatanValue).draw();
+
+                    var kegiatanId = $('#kegiatanSelect').find(':selected').attr('data-id')
+
+                    console.log(kegiatanId);
+                    // Construct the URL with the collected row IDs and kegiatanId
+                    var url = '{{ route('peserta.export', ['id_kegiatan' => ':id']) }}'
+                    url = url.replace(':id', kegiatanId)
+
+                     $.ajax({
+                        url: url, // Ganti dengan route yang sesuai untuk mengambil status
+                        type: 'GET',
+                        success: function(response) {
+                            var url = '{{ route('peserta.export', ['id_kegiatan' => ':id']) }}'
+                            url = url.replace(':id', kegiatanId)
+                            $('#exportBtn').attr({
+                                'href': url
+                            });
+                            console.log('sukses cetak');
+                            // console.log(response.status);
+                            // console.log(response);
+                        },
+                        error: function(error) {
+                            console.error(error);
+                            alert('Error fetching'.error);
+                        }
+                    });
+
                 }
 
                 kegiatan.addEventListener('change', applySearch);
+
+                kegiatan.on('change', function(e) {
+                    e.preventDefault();
+                    var kegiatanId = $('#kegiatanSelect').find(':selected').attr('data-id')
+
+                    console.log(kegiatanId);
+                    // Construct the URL with the collected row IDs and kegiatanId
+                    var url = '{{ route('peserta.export', ['id_kegiatan' => ':id']) }}'
+                    url = url.replace(':id', kegiatanId)
+
+                    $.ajax({
+                        url: url, // Ganti dengan route yang sesuai untuk mengambil status
+                        type: 'GET',
+                        success: function(response) {
+                            var url = '{{ route('peserta.export', ['id_kegiatan' => ':id']) }}'
+                            url = url.replace(':id', kegiatanId)
+                            $('#exportBtn').attr({
+                                'href': url
+                            });
+                            console.log('sukses cetak');
+                            // console.log(response.status);
+                            // console.log(response);
+                        },
+                        error: function(error) {
+                            console.error(error);
+                            alert('Error fetching'.error);
+                        }
+                    });
+
+                });
+
+                $('#kabupatenSelect').on('change', () => {
+                    const kab = document.querySelector('#kabupatenSelect');
+                    console.log(kab.value);
+                    tableKegiatan.column(3).search(kab.value).draw();
+                })
+
+
 
             });
         </script>

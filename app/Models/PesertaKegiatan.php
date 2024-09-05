@@ -39,7 +39,15 @@ class PesertaKegiatan extends Model
     }
 
     public function pegawai() {
-        return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id');
+        return $this->belongsTo(Pegawai::class, 'no_ktp', 'no_ktp');
+    }
+
+    public function eksternal() {
+        return $this->hasOne(Guru::class, 'no_ktp' , 'no_ktp');
+    }
+
+    public function getKegiatan() {
+        return $this->hasMany(Kegiatan::class, 'id', 'id_kegiatan');
     }
 
 }

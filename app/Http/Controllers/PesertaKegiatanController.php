@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PartisipanKegiatanExport;
 use App\Models\GolonganP3k;
 use App\Models\Guru;
 use App\Models\Internal;
@@ -13,6 +14,7 @@ use App\Models\Pendidikan;
 use App\Models\PesertaKegiatan;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PesertaKegiatanController extends Controller
 {
@@ -30,7 +32,8 @@ class PesertaKegiatanController extends Controller
 
         $datas = PesertaKegiatan::orderBy('id', 'DESC')->get();
         $kegiatan = Kegiatan::get();
-        return view('pages.admin.peserta.index', compact('datas', 'menu', 'kegiatan'));
+        $kabupaten = Kabupaten::get();
+        return view('pages.admin.peserta.index', compact('datas', 'menu', 'kegiatan', 'kabupaten'));
     }
 
     /**
@@ -69,7 +72,6 @@ class PesertaKegiatanController extends Controller
                 } else {
                     $r['kabupaten'] = $r['asal_kabupaten'];
                 }
-
             }
             // dd(false);
 
@@ -99,10 +101,10 @@ class PesertaKegiatanController extends Controller
                 return redirect()->route('peserta.create', [
                     'kegiatan_id' => $status['kegiatanById']->id,
                 ])->with([
-                            'status' => $status,
-                            'message' => 'error golongan',
-                            'menu' => 'kegiatan',
-                        ]);
+                    'status' => $status,
+                    'message' => 'error golongan',
+                    'menu' => 'kegiatan',
+                ]);
             }
 
             // dd($r);
@@ -185,7 +187,6 @@ class PesertaKegiatanController extends Controller
             } else {
                 $r['kabupaten'] = $r['asal_kabupaten'];
             }
-
         }
 
         if ($r['jenis_gol'] == 'PNS' && $r['golongan_pns'] != null) {
@@ -212,10 +213,10 @@ class PesertaKegiatanController extends Controller
             return redirect()->route('peserta.create', [
                 'kegiatan_id' => $status['kegiatanById']->id,
             ])->with([
-                        'status' => $status,
-                        'message' => 'error golongan',
-                        'menu' => 'kegiatan',
-                    ]);
+                'status' => $status,
+                'message' => 'error golongan',
+                'menu' => 'kegiatan',
+            ]);
         }
         // dd($r->all);
         $datas->update($r->all());
@@ -232,17 +233,18 @@ class PesertaKegiatanController extends Controller
         return response()->json($data);
     }
 
-    public function cetak($id) {
+    public function cetak($id)
+    {
 
         $peserta = PesertaKegiatan::find($id);
         // dd($peserta->no_ktp);
 
         $namaKegiatan = $peserta->kegiatan->nama_kegiatan;
-        
+
         // Mendapatkan data guru dari model Guru
-        $getById = Guru::where('no_ktp' , $peserta->no_ktp)->first();
+        $getById = Guru::where('no_ktp', $peserta->no_ktp)->first();
         if ($getById == null) {
-            $getById = Pegawai::where('no_ktp' , $peserta->no_ktp)->first();
+            $getById = Pegawai::where('no_ktp', $peserta->no_ktp)->first();
         }
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
@@ -254,6 +256,17 @@ class PesertaKegiatanController extends Controller
         // $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
 
         // Download PDF dengan nama file 
-        return $pdf->stream('Biodata-'. $peserta->nama . '-' . $namaKegiatan .'.pdf');
+        return $pdf->stream('Biodata-' . $peserta->nama . '-' . $namaKegiatan . '.pdf');
+    }
+
+    public function export($id_kegiatan)
+    {
+
+        // dd('tes');
+        $getKegiatan = Kegiatan::find($id_kegiatan);
+        $data = PesertaKegiatan::where('id_kegiatan', $id_kegiatan)->get();
+        // dd($getKegiatan);
+
+        return Excel::download(new PartisipanKegiatanExport($id_kegiatan, $getKegiatan->tgl_kegiatan, $getKegiatan->nama_kegiatan), 'Data-Partisipan-' . $getKegiatan->nama_kegiatan . '.xlsx');
     }
 }
