@@ -49,28 +49,31 @@ class PartisipanKegiatanExport implements FromCollection, WithHeadings, ShouldAu
     public function collection()
     {
 
-        $data = PesertaKegiatan::with(['eksternal', 'pegawai'])->where('id_kegiatan', $this->id_kegiatan)->get();
+        $data = PesertaKegiatan::with(['eksternal', 'pegawai'])
+            ->where('id_kegiatan', $this->id_kegiatan)
+            ->orderByRaw("FIELD(kabupaten, 'Kabupaten Kepulauan Selayar', 'Kota Parepare', 'Kabupaten Barru', 'Kabupaten Jeneponto', 'Kabupaten Takalar', 'Kabupaten Sidrap', 'Kabupaten Pinrang', 'Kabupaten Luwu Timur', 'Kabupaten Toraja Utara', 'Kabupaten Wajo', 'Kabupaten Pangkep', 'Kabupaten Soppeng', 'Kabupaten Bulukumba', 'Kabupaten Gowa', 'Kabupaten Maros', 'Kabupaten Tana Toraja', 'Kota Palopo', 'Kabupaten Bone', 'Kota Makassar', 'Kabupaten Enrekang', 'Kabupaten Sinjai', 'Kabupaten Luwu', 'Kabupaten Luwu Utara', 'Kabupaten Bantaeng')")
+            ->get();
 
         $datas = [];
         // dd($data[21]->eksternal);
-        
+
 
         foreach ($data as $index => $v) {
             // dd($v->eksternal);
-            
-            $jabatan = $v->eksternal && $v->eksternal->jenis_jabatan 
-            ? $v->eksternal->jenis_jabatan 
-            : ($v->pegawai && $v->pegawai->jabatan ? $v->pegawai->jabatan : '-');
-            
+
+            $jabatan = $v->eksternal && $v->eksternal->jenis_jabatan
+                ? $v->eksternal->jenis_jabatan
+                : ($v->pegawai && $v->pegawai->jabatan ? $v->pegawai->jabatan : '-');
+
             $datas[] = [
                 'No' => $index + 1,
                 'NIP' =>  $v->nip == "0" || $v->nip == '' ? '-' : $v->nip,
                 'Nama Lengkap' => $v->nama,
-                'Pangkat/Golongan' => $v->jenis_gol,
+                'Pangkat/Golongan' => $v->jenis_gol . ' / ' . $v->golongan,
                 'Jabatan' => $jabatan,
                 'Instansi' => $v->instansi,
                 'Asal Kabupaten/Kota' => $v->kabupaten,
-                'Surat Tugas' => $v->no_surat_tugas . ' - ' . $v->tgl_surat_tugas ,
+                'Surat Tugas' => $v->no_surat_tugas . ' - ' . $v->tgl_surat_tugas,
             ];
 
             // dump($datas);
@@ -105,8 +108,8 @@ class PartisipanKegiatanExport implements FromCollection, WithHeadings, ShouldAu
                 $sheet = $event->sheet->getDelegate();
 
                 $customHeader = [
-                    'KEGIATAN ' . strtoupper($this->namaKegiatan) ,
-                    'TANGGAL '. $this->tgl_kegiatan ,
+                    'KEGIATAN ' . strtoupper($this->namaKegiatan),
+                    'TANGGAL ' . $this->tgl_kegiatan,
                 ];
 
                 // Insert custom headers at the top
