@@ -46,6 +46,10 @@ class PesertaKegiatan extends Model
         return $this->hasOne(Guru::class, 'no_ktp' , 'no_ktp');
     }
 
+    public function getEksternal() {
+        return $this->hasMany(Guru::class, 'no_ktp' , 'no_ktp');
+    }
+
     public function getKegiatan() {
         return $this->hasMany(Kegiatan::class, 'id', 'id_kegiatan');
     }

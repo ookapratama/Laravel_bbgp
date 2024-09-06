@@ -152,7 +152,6 @@ class KegiatanController extends Controller
             } else {
                 $r['kabupaten'] = $r['asal_kabupaten'];
             }
-
         }
 
         // dd($r);
@@ -182,10 +181,10 @@ class KegiatanController extends Controller
             return redirect()->route('user.kegiatan_regist', [
                 'kegiatan_id' => $status['kegiatanById']->id,
             ])->with([
-                        'status' => $status,
-                        'message' => 'error golongan',
-                        'menu' => 'kegiatan',
-                    ]);
+                'status' => $status,
+                'message' => 'error golongan',
+                'menu' => 'kegiatan',
+            ]);
         }
 
         $r['id_kegiatan'] = $r['kegiatan_id'];
@@ -285,7 +284,7 @@ class KegiatanController extends Controller
         // dd($kegiatanId);
 
         // Mendapatkan data guru dari model Guru
-        $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->where('id_kegiatan', $kegiatanId)->get();
+        $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->where('id_kegiatan', $kegiatanId)->orderByRaw("FIELD(kabupaten, 'Kabupaten Kepulauan Selayar', 'Kota Parepare', 'Kabupaten Barru', 'Kabupaten Jeneponto', 'Kabupaten Takalar', 'Kabupaten Sidrap', 'Kabupaten Pinrang', 'Kabupaten Luwu Timur', 'Kabupaten Toraja Utara', 'Kabupaten Wajo', 'Kabupaten Pangkep', 'Kabupaten Soppeng', 'Kabupaten Bulukumba', 'Kabupaten Gowa', 'Kabupaten Maros', 'Kabupaten Tana Toraja', 'Kota Palopo', 'Kabupaten Bone', 'Kota Makassar', 'Kabupaten Enrekang', 'Kabupaten Sinjai', 'Kabupaten Luwu', 'Kabupaten Luwu Utara', 'Kabupaten Bantaeng')")->get();
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 
@@ -308,7 +307,7 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::find($kegiatanId);
         // Logic to generate PDF for Registrasi Peserta
         // Return response with PDF
-        $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->where('id_kegiatan', $kegiatanId)->get();
+        $data = PesertaKegiatan::where('status_keikutpesertaan', 'peserta')->where('id_kegiatan', $kegiatanId)->orderByRaw("FIELD(kabupaten, 'Kabupaten Kepulauan Selayar', 'Kota Parepare', 'Kabupaten Barru', 'Kabupaten Jeneponto', 'Kabupaten Takalar', 'Kabupaten Sidrap', 'Kabupaten Pinrang', 'Kabupaten Luwu Timur', 'Kabupaten Toraja Utara', 'Kabupaten Wajo', 'Kabupaten Pangkep', 'Kabupaten Soppeng', 'Kabupaten Bulukumba', 'Kabupaten Gowa', 'Kabupaten Maros', 'Kabupaten Tana Toraja', 'Kota Palopo', 'Kabupaten Bone', 'Kota Makassar', 'Kabupaten Enrekang', 'Kabupaten Sinjai', 'Kabupaten Luwu', 'Kabupaten Luwu Utara', 'Kabupaten Bantaeng')")->get();
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 
@@ -330,7 +329,7 @@ class KegiatanController extends Controller
         // Logic to generate PDF for Absensi Panitia
         // Return response with PDF
 
-        $data = PesertaKegiatan::where('status_keikutpesertaan', 'panitia')->where('id_kegiatan', $kegiatanId)->where('id_kegiatan', $kegiatanId)->get();
+        $data = PesertaKegiatan::where('status_keikutpesertaan', 'panitia')->where('id_kegiatan', $kegiatanId)->where('id_kegiatan', $kegiatanId)->orderByRaw("FIELD(kabupaten, 'Kabupaten Kepulauan Selayar', 'Kota Parepare', 'Kabupaten Barru', 'Kabupaten Jeneponto', 'Kabupaten Takalar', 'Kabupaten Sidrap', 'Kabupaten Pinrang', 'Kabupaten Luwu Timur', 'Kabupaten Toraja Utara', 'Kabupaten Wajo', 'Kabupaten Pangkep', 'Kabupaten Soppeng', 'Kabupaten Bulukumba', 'Kabupaten Gowa', 'Kabupaten Maros', 'Kabupaten Tana Toraja', 'Kota Palopo', 'Kabupaten Bone', 'Kota Makassar', 'Kabupaten Enrekang', 'Kabupaten Sinjai', 'Kabupaten Luwu', 'Kabupaten Luwu Utara', 'Kabupaten Bantaeng')")->get();
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 
@@ -353,7 +352,7 @@ class KegiatanController extends Controller
         // Logic to generate PDF for Absensi Narasumber
         // Return response with PDF
 
-        $data = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')->where('id_kegiatan', $kegiatanId)->get();
+        $data = PesertaKegiatan::where('status_keikutpesertaan', 'narasumber')->where('id_kegiatan', $kegiatanId)->orderByRaw("FIELD(kabupaten, 'Kabupaten Kepulauan Selayar', 'Kota Parepare', 'Kabupaten Barru', 'Kabupaten Jeneponto', 'Kabupaten Takalar', 'Kabupaten Sidrap', 'Kabupaten Pinrang', 'Kabupaten Luwu Timur', 'Kabupaten Toraja Utara', 'Kabupaten Wajo', 'Kabupaten Pangkep', 'Kabupaten Soppeng', 'Kabupaten Bulukumba', 'Kabupaten Gowa', 'Kabupaten Maros', 'Kabupaten Tana Toraja', 'Kota Palopo', 'Kabupaten Bone', 'Kota Makassar', 'Kabupaten Enrekang', 'Kabupaten Sinjai', 'Kabupaten Luwu', 'Kabupaten Luwu Utara', 'Kabupaten Bantaeng')")->get();
         // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
 
 
@@ -366,5 +365,109 @@ class KegiatanController extends Controller
 
         // Download PDF dengan nama file 'data_guru.pdf'
         return $pdf->stream('data_absensi_narasumber_kegiatan.pdf');
+    }
+
+    public function printAbsensiTp(Request $request)
+    {
+        $kegiatanId = $request->query('kegiatan_id');
+        $kegiatan = Kegiatan::find($kegiatanId);
+        // Logic to generate PDF for Absensi Narasumber
+        // Return response with PDF
+
+        $data = PesertaKegiatan::join('gurus', 'peserta_kegiatans.no_ktp', '=', 'gurus.no_ktp')
+            ->where('peserta_kegiatans.id_kegiatan', $kegiatanId)
+            ->where('gurus.eksternal_jabatan', 'Tenaga Pendidik')
+            ->orderByRaw("FIELD(peserta_kegiatans.kabupaten, 'Kabupaten Kepulauan Selayar', 'Kota Parepare', 'Kabupaten Barru', 'Kabupaten Jeneponto', 'Kabupaten Takalar', 'Kabupaten Sidrap', 'Kabupaten Pinrang', 'Kabupaten Luwu Timur', 'Kabupaten Toraja Utara', 'Kabupaten Wajo', 'Kabupaten Pangkep', 'Kabupaten Soppeng', 'Kabupaten Bulukumba', 'Kabupaten Gowa', 'Kabupaten Maros', 'Kabupaten Tana Toraja', 'Kota Palopo', 'Kabupaten Bone', 'Kota Makassar', 'Kabupaten Enrekang', 'Kabupaten Sinjai', 'Kabupaten Luwu', 'Kabupaten Luwu Utara', 'Kabupaten Bantaeng')")
+            ->get();
+
+        // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
+        // dd($data);
+
+        $pdf = PDF::loadView('pages.user.kegiatan.cetak.absenTP', compact('data', 'kegiatan'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        // $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
+
+
+        // Download PDF dengan nama file 'data_guru.pdf'
+        return $pdf->stream('data_absensi_TPendidik_kegiatan.pdf');
+    }
+
+    public function printAbsensiTkp(Request $request)
+    {
+        $kegiatanId = $request->query('kegiatan_id');
+        $kegiatan = Kegiatan::find($kegiatanId);
+        // Logic to generate PDF for Absensi Narasumber
+        // Return response with PDF
+
+        $data = PesertaKegiatan::join('gurus', 'peserta_kegiatans.no_ktp', '=', 'gurus.no_ktp')
+            ->where('peserta_kegiatans.id_kegiatan', $kegiatanId)
+            ->where('gurus.eksternal_jabatan', 'Tenaga Kependidikan')
+            ->orderByRaw("FIELD(peserta_kegiatans.kabupaten, 'Kabupaten Kepulauan Selayar', 'Kota Parepare', 'Kabupaten Barru', 'Kabupaten Jeneponto', 'Kabupaten Takalar', 'Kabupaten Sidrap', 'Kabupaten Pinrang', 'Kabupaten Luwu Timur', 'Kabupaten Toraja Utara', 'Kabupaten Wajo', 'Kabupaten Pangkep', 'Kabupaten Soppeng', 'Kabupaten Bulukumba', 'Kabupaten Gowa', 'Kabupaten Maros', 'Kabupaten Tana Toraja', 'Kota Palopo', 'Kabupaten Bone', 'Kota Makassar', 'Kabupaten Enrekang', 'Kabupaten Sinjai', 'Kabupaten Luwu', 'Kabupaten Luwu Utara', 'Kabupaten Bantaeng')")
+            ->get();
+        // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
+
+
+        $pdf = PDF::loadView('pages.user.kegiatan.cetak.absenTKP', compact('data', 'kegiatan'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        // $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
+
+
+        // Download PDF dengan nama file 'data_guru.pdf'
+        return $pdf->stream('data_absensi_TKependidikan_kegiatan.pdf');
+    }
+
+    public function printAbsensiStk(Request $request)
+    {
+        $kegiatanId = $request->query('kegiatan_id');
+        $kegiatan = Kegiatan::find($kegiatanId);
+        // Logic to generate PDF for Absensi Narasumber
+        // Return response with PDF
+
+        $data = PesertaKegiatan::join('gurus', 'peserta_kegiatans.no_ktp', '=', 'gurus.no_ktp')
+            ->where('peserta_kegiatans.id_kegiatan', $kegiatanId)
+            ->where('gurus.eksternal_jabatan', 'Stakeholder')
+            ->orderByRaw("FIELD(peserta_kegiatans.kabupaten, 'Kabupaten Kepulauan Selayar', 'Kota Parepare', 'Kabupaten Barru', 'Kabupaten Jeneponto', 'Kabupaten Takalar', 'Kabupaten Sidrap', 'Kabupaten Pinrang', 'Kabupaten Luwu Timur', 'Kabupaten Toraja Utara', 'Kabupaten Wajo', 'Kabupaten Pangkep', 'Kabupaten Soppeng', 'Kabupaten Bulukumba', 'Kabupaten Gowa', 'Kabupaten Maros', 'Kabupaten Tana Toraja', 'Kota Palopo', 'Kabupaten Bone', 'Kota Makassar', 'Kabupaten Enrekang', 'Kabupaten Sinjai', 'Kabupaten Luwu', 'Kabupaten Luwu Utara', 'Kabupaten Bantaeng')")
+            ->get();
+        // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
+
+
+        $pdf = PDF::loadView('pages.user.kegiatan.cetak.absenSTK', compact('data', 'kegiatan'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        // $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
+
+
+        // Download PDF dengan nama file 'data_guru.pdf'
+        return $pdf->stream('data_absensi_Stakeholder_kegiatan.pdf');
+    }
+
+    public function printAbsensiPgw(Request $request)
+    {
+        $kegiatanId = $request->query('kegiatan_id');
+        $kegiatan = Kegiatan::find($kegiatanId);
+        // Logic to generate PDF for Absensi Narasumber
+        // Return response with PDF
+
+        $data = PesertaKegiatan::join('pegawais', 'peserta_kegiatans.no_ktp', '=', 'pegawais.no_ktp')
+            ->where('peserta_kegiatans.id_kegiatan', $kegiatanId)
+            ->orderByRaw("FIELD(peserta_kegiatans.kabupaten, 'Kabupaten Kepulauan Selayar', 'Kota Parepare', 'Kabupaten Barru', 'Kabupaten Jeneponto', 'Kabupaten Takalar', 'Kabupaten Sidrap', 'Kabupaten Pinrang', 'Kabupaten Luwu Timur', 'Kabupaten Toraja Utara', 'Kabupaten Wajo', 'Kabupaten Pangkep', 'Kabupaten Soppeng', 'Kabupaten Bulukumba', 'Kabupaten Gowa', 'Kabupaten Maros', 'Kabupaten Tana Toraja', 'Kota Palopo', 'Kabupaten Bone', 'Kota Makassar', 'Kabupaten Enrekang', 'Kabupaten Sinjai', 'Kabupaten Luwu', 'Kabupaten Luwu Utara', 'Kabupaten Bantaeng')")
+            ->get();
+        // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
+        // dd($data);
+
+        $pdf = PDF::loadView('pages.user.kegiatan.cetak.absenPGW', compact('data', 'kegiatan'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        // $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
+
+
+        // Download PDF dengan nama file 'data_guru.pdf'
+        return $pdf->stream('data_absensi_pegawai_kegiatan.pdf');
     }
 }

@@ -61,15 +61,35 @@
                                                     class="fas fa-print mr-2"></i>Absensi Panitia</button>
                                             <button id="btnPrintNarsum" class="btn btn-warning"><i
                                                     class="fas fa-print mr-2"></i>Absensi Narasumber</button>
+
+
                                         </div>
                                     </div>
 
 
                                 </div>
 
+                                <div class="row mb-3">
+                                    <div class="col-md">
+                                        <div class="mt-2">
+                                            <button id="btnPrintTP" class="btn btn-primary"><i
+                                                    class="fas fa-chalkboard-teacher mr-1"></i>Absensi Tenaga
+                                                Pendidik</button>
+                                            <button id="btnPrintTKP" class="btn btn-info"> <i
+                                                    class="fas fa-school mr-1"></i>Absensi Tenaga Kependidikan</button>
+
+                                            <button id="btnPrintSTK" class="btn btn-success"><i
+                                                    class="fas fa-layer-group mr-1">></i>Absensi
+                                                Stakeholder</button>
+                                            <button id="btnPrintPGW" class="btn btn-warning"><i
+                                                    class="fas fa-print mr-2"></i>Absensi Pegawai BBGP</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Filter Section -->
                                 {{-- <h5>Pencarian Data Kegiatan BBGP</h5>
-                                <div class="row mb-2">
+                                <div class="row mb-2"> 
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <input name="nama" id="namaFilter" type="text"
@@ -243,10 +263,26 @@
                     handlePrint('narsum');
                 });
 
+                $('#btnPrintTP').on('click', function() {
+                    handlePrint('tp');
+                });
+
+                $('#btnPrintTKP').on('click', function() {
+                    handlePrint('tkp');
+                });
+
+                $('#btnPrintSTK').on('click', function() {
+                    handlePrint('stk');
+                });
+
+                $('#btnPrintPGW').on('click', function() {
+                    handlePrint('pgw');
+                });
+
                 function handlePrint(type) {
                     var kegiatanId = $('#kegiatanSelect').val();
                     if (kegiatanId === '') {
-                        swal('Warning','Silakan pilih kegiatan terlebih dahulu!', 'warning');
+                        swal('Warning', 'Silakan pilih kegiatan terlebih dahulu!', 'warning');
                         return;
                     }
 
@@ -257,13 +293,25 @@
                             printUrl = '{{ route('print.absensi.peserta') }}' + '?kegiatan_id=' + kegiatanId;
                             break;
                         case 'regis_peserta':
-                            printUrl = '{{ route('print.registrasi.peserta') }}' + '?kegiatan_id=' + kegiatanId ;
+                            printUrl = '{{ route('print.registrasi.peserta') }}' + '?kegiatan_id=' + kegiatanId;
                             break;
                         case 'panitia':
                             printUrl = '{{ route('print.absensi.panitia') }}' + '?kegiatan_id=' + kegiatanId;
                             break;
                         case 'narsum':
                             printUrl = '{{ route('print.absensi.narasumber') }}' + '?kegiatan_id=' + kegiatanId;
+                            break;
+                        case 'tp':
+                            printUrl = '{{ route('print.absensi.tp') }}' + '?kegiatan_id=' + kegiatanId;
+                            break;
+                        case 'tkp':
+                            printUrl = '{{ route('print.absensi.tkp') }}' + '?kegiatan_id=' + kegiatanId;
+                            break;
+                        case 'stk':
+                            printUrl = '{{ route('print.absensi.stk') }}' + '?kegiatan_id=' + kegiatanId;
+                            break;
+                        case 'pgw':
+                            printUrl = '{{ route('print.absensi.pgw') }}' + '?kegiatan_id=' + kegiatanId;
                             break;
                     }
 
