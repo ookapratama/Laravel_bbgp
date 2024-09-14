@@ -149,67 +149,67 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <tr>
-                                                    <td>{{ 1 }}</td>
-                                                    {{-- <td><img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
+                                            <tr>
+                                                <td>{{ 1 }}</td>
+                                                {{-- <td><img src="{{ asset('/upload/guru/' . $data->pas_foto) }}"
                                                                     alt="" class="img-fluid"></td> --}}
-                                                    <td>{{ $datas->nama_lengkap }}</td>
-                                                    {{-- <td>{{ $datas->npwp }}</td> --}}
-                                                    {{-- <td>{{ $datas->nuptk }}</td> --}}
-                                                    {{-- <td>{{ $datas->email }}</td> --}}
-                                                    {{-- <td>{{ $datas->no_ktp }}</td> --}}
-                                                    {{-- <td>{{ $datas->tempat_lahir . ', ' . $datas->tgl_lahir }}</td> --}}
-                                                    {{-- <td>{{ $datas->alamat_rumah }}</td> --}}
-                                                    {{-- <td>{{ $datas->gender }}</td> --}}
-                                                    <td>{{ $datas->status_kepegawaian }} </td>
-                                                    {{-- <td>{{ $datas->agama }}</td> --}}
-                                                    {{-- <td>{{ $datas->pendidikan }}</td> --}}
-                                                    <td>{{ $datas->eksternal_jabatan }}</td>
-                                                    <td>{{ $datas->jenis_jabatan }}</td>
-                                                    <td>{{ $datas->kategori_jabatan }}</td>
-                                                    <td>{{ $datas->tugas_jabatan ?? '-' }}</td>
-                                                    <td>{{ $datas->latar_jabatan ?? 'tidak ada' }}</td>
-                                                    {{-- <td>{{ $datas->npsn_sekolah }} <br>
+                                                <td>{{ $datas->nama_lengkap ?? '' }}</td>
+                                                {{-- <td>{{ $datas->npwp ?? '' }}</td> --}}
+                                                {{-- <td>{{ $datas->nuptk ?? '' }}</td> --}}
+                                                {{-- <td>{{ $datas->email ?? '' }}</td> --}}
+                                                {{-- <td>{{ $datas->no_ktp ?? '' }}</td> --}}
+                                                {{-- <td>{{ $datas->tempat_lahir ?? '' . ', ' . $datas->tgl_lahir ?? '' }}</td> --}}
+                                                {{-- <td>{{ $datas->alamat_rumah ?? '' }}</td> --}}
+                                                {{-- <td>{{ $datas->gender ?? '' }}</td> --}}
+                                                <td>{{ $datas->status_kepegawaian ?? '' }} </td>
+                                                {{-- <td>{{ $datas->agama }}</td> --}}
+                                                {{-- <td>{{ $datas->pendidikan }}</td> --}}
+                                                <td>{{ $datas->eksternal_jabatan ?? '' }}</td>
+                                                <td>{{ $datas->jenis_jabatan ?? '' }}</td>
+                                                <td>{{ $datas->kategori_jabatan ?? '' }}</td>
+                                                <td>{{ $datas->tugas_jabatan ?? '-' }}</td>
+                                                <td>{{ $datas->latar_jabatan ?? 'tidak ada' }}</td>
+                                                {{-- <td>{{ $datas->npsn_sekolah }} <br>
                                                         {{ $datas->sekolah->nama_sekolah ?? '' }}</td> --}}
-                                                    {{-- <td>{{ $datas->kabupaten }}</td> --}}
-                                                    {{-- <td>{{ $datas->satuan_pendidikan }}</td> --}}
-                                                    {{-- <td>{{ $datas->sekolah->kecamatan ?? '' }}</td> --}}
-                                                    {{-- <td>{{ $datas->sekolah->kabupaten ?? '' }}</td> --}}
-                                                    {{-- <td>No. Hp : {{ $datas->no_hp }} <br>
+                                                {{-- <td>{{ $datas->kabupaten }}</td> --}}
+                                                {{-- <td>{{ $datas->satuan_pendidikan }}</td> --}}
+                                                {{-- <td>{{ $datas->sekolah->kecamatan ?? '' }}</td> --}}
+                                                {{-- <td>{{ $datas->sekolah->kabupaten ?? '' }}</td> --}}
+                                                {{-- <td>No. Hp : {{ $datas->no_hp }} <br>
                                                             No. Whatsapp : {{ $datas->no_wa }}</td> --}}
-                                                    {{-- <td>{{ $datas->no_rek }} - {{ $datas->jenis_bank }}</td> --}}
+                                                {{-- <td>{{ $datas->no_rek }} - {{ $datas->jenis_bank }}</td> --}}
 
-                                                    <td>
-                                                        @if ($datas->is_verif == 'sudah')
-                                                            <span class="badge badge-sm  badge-success">Sudah
-                                                                Verifikasi</span>
-                                                        @else
-                                                            <span class="badge badge-sm  badge-danger">Belum
-                                                                Verifikasi</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if (in_array(session('role'), ['admin', 'superadmin']) && $datas->is_verif !== 'sudah')
-                                                            <a href="#" class="btn btn-primary "
-                                                                onclick="verifikasi({{ $datas->id }}, 'eksternal', '{{ $datas->is_verif }}')">Verifikasi</a>
-                                                        @endif
+                                                <td>
+                                                    @if ($datas->is_verif == 'sudah')
+                                                        <span class="badge badge-sm  badge-success">Sudah
+                                                            Verifikasi</span>
+                                                    @else
+                                                        <span class="badge badge-sm  badge-danger">Belum
+                                                            Verifikasi</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if (in_array(session('role'), ['admin', 'superadmin']) && $datas->is_verif !== 'sudah')
+                                                        <a href="#" class="btn btn-primary "
+                                                            onclick="verifikasi({{ $datas->id }}, 'eksternal', '{{ $datas->is_verif }}')">Verifikasi</a>
+                                                    @endif
 
-                                                        <a href="{{ route('guru.edit.user', $datas->id) }}"
-                                                            class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('guru.edit.user', $datas->id) }}"
+                                                        class="btn btn-warning my-2"><i class="fas fa-edit"></i></a>
 
-                                                        <button onclick="showDetail( {{ $datas->id }} )"
-                                                            class="btn btn-info">
-                                                            <i class="fas fa-info"></i>
-                                                        </button>
+                                                    <button onclick="showDetail( {{ $datas->id }} )"
+                                                        class="btn btn-info">
+                                                        <i class="fas fa-info"></i>
+                                                    </button>
 
-                                                        {{-- <button onclick="deleteData({{ $datas->id }}, 'eksternal')"
+                                                    {{-- <button onclick="deleteData({{ $datas->id }}, 'eksternal')"
                                                             class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button> --}}
-                                                    </td>
+                                                </td>
 
 
-                                                </tr>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -252,7 +252,7 @@
                 // Initialize DataTable
                 var tableGuru = $('#table-guru').DataTable();
 
-                
+
 
 
                 const resetBtn = document.querySelector('#resetBtn');
@@ -566,20 +566,20 @@
                         <p><strong>NPWP:</strong> ${response.data.npwp ?? ''}</p>
                         <p><strong>NUPTK:</strong> ${response.data.nuptk ?? ''}</p>
                         <p><strong>Tempat, Tanggal lahir:</strong> ${response.data.tempat_lahir ?? ''}, ${response.data.tgl_lahir}</p>
-                        <p><strong>Agama:</strong> ${response.data.agama}</p>
-                        <p><strong>Asal Kabupaten:</strong> ${response.data.kabupaten}</p>
-                        <p><strong>Pendidikan Terakhir:</strong> ${response.data.pendidikan}</p>
+                        <p><strong>Agama:</strong> ${response.data.agama ?? ''}</p>
+                        <p><strong>Asal Kabupaten:</strong> ${response.data.kabupaten ?? ''}</p>
+                        <p><strong>Pendidikan Terakhir:</strong> ${response.data.pendidikan ?? ''}</p>
                       
                     </div>    
                     <div class="col-md-6">
-                          <p><strong>Satuan Pendidikan:</strong> ${response.data.satuan_pendidikan}</p>
+                          <p><strong>Satuan Pendidikan:</strong> ${response.data.satuan_pendidikan ?? ''}</p>
                             <p><strong>Status Kepegawaian:</strong> ${response.data.status_kepegawaian ?? ''}</p>
                             <p><strong>Eksternal Jabatan:</strong> ${response.data.eksternal_jabatan ?? ''}</p>
                             <p><strong>Jenis Jabatan:</strong> ${response.data.jenis_jabatan ?? ''}</p>
                             <p><strong>Kategori Jabatan:</strong> ${response.data.kategori_jabatan ?? ''}</p>
                             <p><strong>Tugas Jabatan:</strong> ${response.data.tugas_jabatan ?? '-'}</p>
-                            <p><strong>Kecamatan Sekolah:</strong> ${response.kecamatan_sekolah}</p>
-                            <p><strong>Kabupaten Sekolah:</strong> ${response.kabupaten_sekolah}</p>
+                            <p><strong>Kecamatan Sekolah:</strong> ${response.kecamatan_sekolah ?? ''}</p>
+                            <p><strong>Kabupaten Sekolah:</strong> ${response.kabupaten_sekolah ?? ''}</p>
                         <p><strong>Verifikasi:</strong> ${response.data.is_verif === 'sudah' ? '<span class="badge badge-sm badge-success">Sudah Verifikasi</span>' : '<span class="badge badge-sm badge-danger">Belum Verifikasi</span>'}</p>
                     </div>    
                 </div>

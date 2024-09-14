@@ -144,6 +144,9 @@ class KegiatanController extends Controller
         // dd($r['golongan_pns'] == null && $r['diluar_gol'] == null);
         $menu = 'kegiatan';
 
+
+        // dd(session('no_ktp'));
+
         if ($r['kabupaten'] == 'lainnya') {
 
             if ($r['asal_kabupaten'] == null) {
@@ -193,6 +196,12 @@ class KegiatanController extends Controller
         PesertaKegiatan::create($r);
 
         Session::flush();
+
+        $id = PesertaKegiatan::latest()->first();
+
+        Session::put('no_ktp', $request->no_ktp);
+        Session::put('id', $id);
+        Session::put('val', $request->kegiatan_id);
 
         return redirect()->route('user.kegiatan')->with('message', 'sukses daftar');
     }

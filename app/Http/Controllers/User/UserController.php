@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Agenda;
 use App\Models\Artikel;
 use App\Models\Berita;
@@ -22,6 +23,7 @@ use App\Models\Pendidikan;
 use App\Models\PesertaKegiatan;
 use App\Models\SatuanPendidikan;
 use App\Models\Sekolah;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -228,30 +230,49 @@ class UserController extends Controller
             $r['status'] = 'Belum Kawin';
             $r['alamat_satuan'] = '';
             $r['eksternal_jabatan'] = $r['jenisJabatan'] ?? '';
-            $r['jenis_jabatan'] = $r['jabJenis'] ?? '';
+
+            if ($r['jabJenis'] == 'Lainnya' && $r['jabLainnya'] != null) {
+                $r['jabJenis'] = $r['jabLainnya'];
+                $r['jenis_jabatan'] = $r['jabJenis'];
+            }
+
+            if ($r['kabupaten'] == 'Tidak ada' && $r['diluarKab'] != null) {
+                $r['kabupaten'] = $r['diluarKab'];
+
+            }
+
             $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
             $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
             $r['latar_jabatan'] = $r['jabLatar'] ?? '';
-            $r['is_verif'] = 'belum';
-            // dd($r);
-    
-    
-    
-            Guru::create($r);
-    
-            // akun login
-    
-    
-    
-            return redirect()->route('user.guru')->with('message', 'user daftar');
+            $r['is_verif'] = 'sudah';
+
+            $role = strtolower($r['jenisJabatan']);
+
+            $user = strtolower(str_replace(' ', '', $r['nama_lengkap']));
+            // dd($role);
+            $reg['name'] = $r['nama_lengkap'];
+            $reg['username'] = $user;
+            $reg['no_ktp'] = (string) $r['no_ktp'];
+            $reg['role'] = $role;
+            $reg['password'] = bcrypt('12345');
             
-        }
-        else {
+            // dump($r);
+            // dd($reg);
+            
+            
+            
+            User::create($reg);
+            Admin::create($reg);
+            Guru::create($r);
+
+            // akun login
+
+
+
+            return redirect()->route('user.guru')->with('message', 'user daftar');
+        } else {
             return redirect()->route('user.guru')->with('message', 'nik daftar');
         }
-
-
-
     }
 
     public function getPenugasanDetail(Request $request)
@@ -325,7 +346,7 @@ class UserController extends Controller
     public function getActivitiesByMonth($month)
     {
         $activities = Kegiatan::whereMonth('tgl_kegiatan', $month)->get();
-        
+
         return response()->json($activities);
     }
 

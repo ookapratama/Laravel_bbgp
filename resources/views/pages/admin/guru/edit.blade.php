@@ -43,12 +43,12 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nomor KTP</label>
-                                                <input required name="no_ktp" type="number" class="form-control"
+                                                <input required name="no_ktp" type="text" class="form-control"
                                                     value="{{ $datas->no_ktp }}">
                                             </div>
                                             <div class="form-group">
                                                 <label>NIP</label>
-                                                <input required name="nip" type="number" class="form-control"
+                                                <input required name="nip" type="text" class="form-control"
                                                     value="{{ $datas->nip }}">
                                             </div>
                                         </div>
@@ -58,14 +58,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>NPWP</label>
-                                                <input required name="npwp" type="number" class="form-control"
+                                                <input required name="npwp" type="text" class="form-control"
                                                     value="{{ $datas->npwp }}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>NUPTK</label>
-                                                <input required name="nuptk" type="number" class="form-control"
+                                                <input required name="nuptk" type="text" class="form-control"
                                                     value="{{ $datas->nuptk }}">
                                             </div>
                                         </div>
@@ -181,8 +181,11 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Kabupaten / Kota</label>
-                                                <select required name="kabupaten" class="form-control select2">
+                                                <select required name="kabupaten" id="kabupaten"
+                                                    class="form-control select2">
                                                     <option value="">-- Pilih Kabupaten / Kota --</option>
+                                                    <option {{ $datas->kabupaten == $v->name ? 'selected' : '' }}
+                                                        value="Tidak ada">diluar SulSel</option>
                                                     @foreach ($status['s_kabupaten'] as $v)
                                                         <option {{ $datas->kabupaten == $v->name ? 'selected' : '' }}
                                                             value="{{ $v->name }}">{{ $v->name }}</option>
@@ -191,6 +194,17 @@
                                                 </select>
                                             </div>
                                         </div>
+
+
+                                        <div class="col-md-4" id="diluarKab">
+                                            <div class="form-group">
+                                                <label>Asal Kabupaten/Kota</label>
+                                                <input name="diluarKab" value="{{ $datas->kabupaten }}" placeholder="jika diluar SulSel" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+
 
                                         {{-- <div class="col-md-3">
                                             <div class="form-group">
@@ -238,13 +252,23 @@
                                                 <label>Bank</label>
                                                 <select name="jenis_bank" class="form-control" id="">
                                                     <option value="Bank BCA">-- Pilih Bank --</option>
-                                                    <option {{ $datas->jenis_bank == 'Bank BCA' ? 'selected' : '' }} value="Bank BCA">Bank BCA</option>
-                                                    <option {{ $datas->jenis_bank == 'Bank BRI' ? 'selected' : '' }} value="Bank BRI">Bank BRI</option>
-                                                    <option {{ $datas->jenis_bank == 'Bank BNI' ? 'selected' : '' }} value="Bank BNI">Bank BNI</option>
-                                                    <option {{ $datas->jenis_bank == 'Bank BTN' ? 'selected' : '' }} value="Bank BTN">Bank BTN</option>
-                                                    <option {{ $datas->jenis_bank == 'Bank Mandiri' ? 'selected' : '' }} value="Bank Mandiri">Bank Mandiri</option>
-                                                    <option {{ $datas->jenis_bank == 'Bank Syariah Indonesia' ? 'selected' : '' }} value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
-                                                    <option {{ $datas->jenis_bank == 'Bank SulSelBar' ? 'selected' : '' }} value="Bank SulSelBar">Bank SulSelBar</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank BCA' ? 'selected' : '' }}
+                                                        value="Bank BCA">Bank BCA</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank BRI' ? 'selected' : '' }}
+                                                        value="Bank BRI">Bank BRI</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank BNI' ? 'selected' : '' }}
+                                                        value="Bank BNI">Bank BNI</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank BTN' ? 'selected' : '' }}
+                                                        value="Bank BTN">Bank BTN</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank Mandiri' ? 'selected' : '' }}
+                                                        value="Bank Mandiri">Bank Mandiri</option>
+                                                    <option
+                                                        {{ $datas->jenis_bank == 'Bank Syariah Indonesia' ? 'selected' : '' }}
+                                                        value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
+                                                    <option {{ $datas->jenis_bank == 'Bank SulSelBar' ? 'selected' : '' }}
+                                                        value="Bank SulSelBar">Bank SulSelBar</option>
+                                                    <option {{ $datas->jenis_bank == 'Tidak ada' ? 'selected' : '' }}
+                                                        value="Tidak ada">Tidak ada</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -290,7 +314,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Jabatan (Pilih Eksternal dulu)</label>
-                                                <select name="jabJenis" class="form-control select2" id="jabJenis"
+                                                <select required name="jabJenis" class="form-control " id="jabJenis"
                                                     data-selected-value="{{ old('jabJenis', $datas->jenis_jabatan) }}">
                                                     <option value="">-- Pilih Jenis Jabatan --</option>
                                                     {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
@@ -298,6 +322,20 @@
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-4" id="jabLainnya">
+                                            <div class="form-group">
+                                                <label>Jabatan </label>
+                                                <input type="text" value="{{ $datas->jenis_jabatan }}"
+                                                    name="jabLainnya" id="" placeholder="ketikkan jabatan anda"
+                                                    class="form-control">
+                                                {{-- <select name="jabJenis" class="form-control " id="jabJenis">
+                                                    <option value="">-- Pilih Jenis Jabatan --</option>
+                                                    <option id="valJabJenis" value="">-- Pilih Jabatan</option>
+                                                </select> --}}
+                                            </div>
+                                        </div>
+
 
                                         <div class="col-md-4 mb-4">
                                             <label>Kategori Jabatan (Pilih Eksternal dulu) </label>
@@ -324,8 +362,8 @@
                                     <div class="row">
                                         <div class="col-md-4 mb-4">
                                             <label>NPSN Sekolah dan Nama Sekolah</label>
-                                            <select required name="npsn_sekolah" class="form-control select2"
-                                                id="data_sekolah" onchange="updateLocation()">
+                                            <select name="npsn_sekolah" class="form-control select2" id="data_sekolah"
+                                                onchange="updateLocation()">
                                                 <option value="">-- Pilih Data Sekolah --</option>
                                                 @foreach ($status['s_sekolah'] as $v)
                                                     <option
@@ -621,6 +659,25 @@
 
         <script>
             $(document).ready(function() {
+
+                const getKabupaten = $('#kabupaten');
+                const fieldKab = $('#diluarKab');
+                fieldKab.show()
+
+                const valKabupaten = $('#kabupaten').find(':selected').val()
+
+                getKabupaten.on('change', function() {
+                    const val = $(this).find(':selected').val()
+                    console.log(val);
+                    if (val === 'Tidak ada') {
+                        fieldKab.show()
+                    } else {
+                        // fieldKab.val('')
+                        $('input[name=diluarKab]').val('');
+                        // fieldKab.hide()
+                    }
+                })
+
                 // Filtering functions
                 function fillterJabatan() {
                     var jabEksternal = $('#jabEksternal').val();
@@ -657,7 +714,7 @@
                         dataJab['s_jabStakeholder'].forEach(item => {
                             option = $("<option>")
                                 .text(item.name)
-                                .attr('value', item.id);
+                                .attr('value', item.name);
                             jabJenis.append(option);
                         });
                     }
@@ -697,6 +754,17 @@
 
                     // Trigger change to select the already selected option if any
                     jabTugas.val(jabTugas.data('selected-value')).trigger('change');
+                }
+
+
+                const fieldLainnya = $('#jabLainnya');
+                var jabJenisLuar = $('#jabJenis').val();
+                // console.log(fieldLainnya.val() != null || fieldLainnya.val() != undefined || fieldLainnya.val() != '');
+                if (fieldLainnya.val() != null || fieldLainnya.val() != undefined || fieldLainnya.val() != '') {
+                    fieldLainnya.show()
+                    // jabJenisLuar.val('Lainnya')
+                } else {
+                    fieldLainnya.hide()
                 }
 
                 function fillterJabatanKategori() {
@@ -747,7 +815,15 @@
                         });
 
 
+                    } else if (jabJenis == 'Lainnya') {
+                        // show some field
+                        console.log('pilih lainnya');
+                        fieldLainnya.show()
+
                     }
+                    // else {
+                    //     fieldLainnya.hide()
+                    // }
 
                     // Trigger change to select the already selected option if any
                     jabKategori.val(jabKategori.data('selected-value')).trigger('change');

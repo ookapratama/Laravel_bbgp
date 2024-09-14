@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -93,7 +94,7 @@ class PartisipanKegiatanExport implements FromCollection, WithHeadings, ShouldAu
     public function columnFormats(): array
     {
         return [
-            'B' => NumberFormat::FORMAT_NUMBER,
+            // 'B' => NumberFormat::FORMAT_TEXT
         ];
     }
 
@@ -150,7 +151,10 @@ class PartisipanKegiatanExport implements FromCollection, WithHeadings, ShouldAu
                 $totalRows = $sheet->getHighestRow();
                 $totalColumns = $sheet->getHighestColumn();
 
-
+                for ($row = count($customHeader) + 2; $row <= $totalRows; $row++) {
+                    $cell = $sheet->getCell('B' . $row);
+                    $cell->setValueExplicit($cell->getValue(), DataType::TYPE_STRING);
+                }
 
 
                 $sheet->getStyle('A1:' . $totalColumns . $totalRows)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);

@@ -221,11 +221,22 @@ class GuruController extends Controller
         $r['status'] = 'Belum Kawin';
         $r['alamat_satuan'] = '';
         $r['eksternal_jabatan'] = $r['jenisJabatan'];
-        $r['jenis_jabatan'] = $r['jabJenis'];
+
+        if ($r['jabJenis'] == 'Lainnya') {
+            $r['jabJenis'] = $r['jabLainnya'];
+            $r['jenis_jabatan'] = $r['jabJenis'];
+        } else {
+            $r['jenis_jabatan'] = $r['jabJenis'];   
+        }
+
+        if ( $r['kabupaten'] == 'Tidak ada') {
+            $r['kabupaten'] = $r['diluarKab'];
+        }
+
         $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
         $r['tugas_jabatan'] = $r['jabTugas'] ?? '';
         // $r['is_verif'] = 'belum';
-        $r['is_verif'] = 'belum';
+        // dd($r);
         $data->update($r);
         return redirect()->route('guru.index')->with('message', 'update');
     }
@@ -408,6 +419,4 @@ class GuruController extends Controller
         $data->update($r);
         return redirect()->route('guru.show', $r['id'])->with('message', 'update');
     }
-
-
 }

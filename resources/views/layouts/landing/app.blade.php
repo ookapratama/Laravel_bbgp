@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -181,13 +179,47 @@
 
         @if (session('message') == 'user daftar')
             <script>
-                Swal.fire("Berhasil", "Berhasil registrasi, data akan di verifikasi terlebih dahulu", "success");
+                Swal.fire("Berhasil", "Berhasil registrasi sebagai eksternal BBGP SulSel", "success");
             </script>
         @endif
 
         @if (session('message') == 'sukses daftar')
             <script>
-                Swal.fire("Berhasil", "Berhasil registrasi Kegiatan", "success");
+                // Swal.fire("Berhasil", "Berhasil registrasi Kegiatan", "success");
+
+                $(document).ready(function() {
+
+                    // var val = '{{ session('id') }}'
+                    var val = {!! json_encode(session('id')) !!};
+                    console.log('id nya user : ', val.id);
+                    var url = '{{ route('peserta.cetakByUser', ['id' => ':id']) }}'
+                    url = url.replace(':id', val.id)
+                    console.log('link nya user : ', url);
+
+                    $.ajax({
+                        // headers: {
+                        //     "X-CSRF-TOKEN": token,
+                        // },
+                        url: url, // Ganti dengan route yang sesuai untuk mengambil status
+                        type: 'GET',
+
+                        success: function(response) {
+                            console.log(response);
+                            console.log(val, '{{ session('no_ktp') }}');
+                            Swal.fire("Berhasil", "Berhasil registrasi Kegiatan", "success").then((result) => {
+                                if (result.isConfirmed) {
+                                    // Arahkan ke URL PDF untuk memulai download
+                                    window.location.href = url;
+                                }
+                            });
+
+                        },
+                        error: function(error) {
+                            console.error("AJAX Error:", error);
+                            Swal.fire("Error", "Ajax Error.", "error");
+                        },
+                    });
+                })
             </script>
         @endif
 

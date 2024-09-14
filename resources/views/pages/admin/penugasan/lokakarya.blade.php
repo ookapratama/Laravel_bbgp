@@ -94,12 +94,12 @@
                                                             value="{{ $v->kegiatan }}">{{ $v->kegiatan }}
                                                         </option>
                                                         @endforeach --}}
-                                                        <option data-kabupaten="{{ $datas['dataPenugasanPegawai']->kota }}"
-                                                            data-tgl-kegiatan="{{ $datas['dataPenugasanPegawai']->tgl_kegiatan }}"
-                                                            data-tgl-selesai-kegiatan="{{ $datas['dataPenugasanPegawai']->tgl_selesai_kegiatan }}"
-                                                            data-jam-selesai="{{ $datas['dataPenugasanPegawai']->jam_selesai }}"
-                                                            data-jam-mulai="{{ $datas['dataPenugasanPegawai']->jam_mulai }}"
-                                                            value="{{ $datas['dataPenugasanPegawai']->kegiatan }}">{{ $datas['dataPenugasanPegawai']->kegiatan }}
+                                                        <option data-kabupaten="{{ $datas['dataPenugasanPegawai']->kota ?? '' }}"
+                                                            data-tgl-kegiatan="{{ $datas['dataPenugasanPegawai']->tgl_kegiatan ?? '' }}"
+                                                            data-tgl-selesai-kegiatan="{{ $datas['dataPenugasanPegawai']->tgl_selesai_kegiatan ?? '' }}"
+                                                            data-jam-selesai="{{ $datas['dataPenugasanPegawai']->jam_selesai ?? '' }}"
+                                                            data-jam-mulai="{{ $datas['dataPenugasanPegawai']->jam_mulai ?? '' }}"
+                                                            value="{{ $datas['dataPenugasanPegawai']->kegiatan ?? '' }}">{{ $datas['dataPenugasanPegawai']->kegiatan ?? '' }}
                                                         </option>
                                                 @endif
                                             </select>

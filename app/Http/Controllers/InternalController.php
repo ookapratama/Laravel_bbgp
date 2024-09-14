@@ -162,9 +162,9 @@ class InternalController extends Controller
         $pegawai = Pegawai::find($id) ?? PegawaiPpnpn::find($id);
 
         $datas = array(
-            'dataPenugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->get(),
-            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $pegawai['no_ktp'])->latest()->first(),
-            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $pegawai['no_ktp'])->latest()->first(),
+            // 'dataPenugasanLokakarya' => Internal::where('jenis', 'Pendamping Lokakarya')->get(),
+            'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $pegawai['no_ktp'])->orderByDesc('id')->first(),
+            'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $pegawai['no_ktp'])->orderByDesc('id')->first(),
             // 'dataPenugasanPpnpn' => Internal::where('jenis', 'Penugasan PPNPN')->where('nik', $pegawai['no_ktp'])->latest()->get(),
             // 'dataPenugasanPegawai' => Internal::where('jenis', 'Penugasan Pegawai')->where('nik', $pegawai['no_ktp'])->latest()->get(),
             'dataPegawai' => Pegawai::get(),

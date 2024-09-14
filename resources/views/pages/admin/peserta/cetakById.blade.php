@@ -170,7 +170,8 @@
                 </tr>
                 <tr>
                     <td>9. No. HP dan Whatsapp</td>
-                    <td>: HP : {{ $peserta->no_hp }} <br> <span style="margin-left: 10px;"> WA : {{ $peserta->no_wa }} </span>
+                    <td>: HP : {{ $peserta->no_hp }} <br> <span style="margin-left: 10px;"> WA : {{ $peserta->no_wa }}
+                        </span>
                     </td>
                 </tr>
                 {{-- <tr>
@@ -181,6 +182,15 @@
                     <td>10. Pendidikan Terakhir</td>
                     <td>: {{ $getById->pendidikan }} </td>
                 </tr>
+                @if (
+                    $getById->eksternal_jabatan == 'Stakeholder' 
+                    
+                    )
+                    <tr>
+                        <td>11. Jabatan</td>
+                        <td>: {{ $getById->jenis_jabatan }} </td>
+                    </tr>
+                @endif
             </table>
             <footer>
                 <div style="font-size: 16px; margin-right:20px" class="signature">

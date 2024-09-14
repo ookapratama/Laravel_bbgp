@@ -43,11 +43,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nomor KTP</label>
-                                <input required name="no_ktp" type="number" class="form-control">
+                                <input required name="no_ktp" type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>NIP</label>
-                                <input required name="nip" type="number" class="form-control">
+                                <input required name="nip" type="text" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -56,13 +56,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>NPWP</label>
-                                <input required name="npwp" type="number" class="form-control">
+                                <input required name="npwp" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>NUPTK</label>
-                                <input {{  $jenis == 'Stakeholder' ? '' : 'required' }} name="nuptk" type="number" class="form-control">
+                                <input {{ $jenis == 'Stakeholder' ? '' : 'required' }} name="nuptk" type="text"
+                                    class="form-control">
                             </div>
                         </div>
                     </div>
@@ -162,8 +163,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Kabupaten / Kota</label>
-                                <select required name="kabupaten" class="form-control select2">
+                                <select required name="kabupaten" id="kabupaten" class="form-control select2">
                                     <option value="">-- Pilih Kabupaten / Kota --</option>
+                                    <option value="Tidak ada">Diluar SulSel</option>
                                     @foreach ($status['s_kabupaten'] as $v)
                                         <option value="{{ $v->name }}">{{ $v->name }}</option>
                                     @endforeach
@@ -171,6 +173,15 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col-md-4" id="diluarKab">
+                            <div class="form-group">
+                                <label>Asal Kabupaten/Kota</label>
+                                <input name="diluarKab" placeholder="jika diluar SulSel" type="text"
+                                    class="form-control">
+                            </div>
+                        </div>
+
 
                         {{-- <div class="col-md-3">
                                 <div class="form-group">
@@ -214,7 +225,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Bank</label>
-                                <select required name="jenis_bank" class="form-control" id="">
+                                <select required name="jenis_bank" class="form-control" id="jenisBank">
                                     <option value="Bank BCA">-- Pilih Bank --</option>
                                     <option value="Bank BCA">Bank BCA</option>
                                     <option value="Bank BRI">Bank BRI</option>
@@ -223,6 +234,7 @@
                                     <option value="Bank Mandiri">Bank Mandiri</option>
                                     <option value="Bank Syariah Indonesia">Bank Syariah Indonesia</option>
                                     <option value="Bank SulSelBar">Bank SulSelBar</option>
+                                    <option value="Tidak ada">Tidak ada</option>
                                 </select>
                             </div>
                         </div>
@@ -230,7 +242,7 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label>Nomor Rekening</label>
-                                <input required type="number" name="no_rek" class="form-control">
+                                <input required type="number" name="no_rek" id="no_rek" class="form-control">
 
                             </div>
                         </div>
@@ -259,10 +271,22 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Jabatan (Pilih Eksternal dulu)</label>
-                                <select name="jabJenis" class="form-control " id="jabJenis">
+                                <select required name="jabJenis" class="form-control " id="jabJenis">
                                     <option value="">-- Pilih Jenis Jabatan --</option>
                                     {{-- <option id="valJabJenis" value="">-- Pilih Jabatan</option> --}}
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" id="jabLainnya">
+                            <div class="form-group">
+                                <label>Jabatan </label>
+                                <input type="text" name="jabLainnya" id=""
+                                    placeholder="ketikkan jabatan anda" class="form-control">
+                                {{-- <select name="jabJenis" class="form-control " id="jabJenis">
+                                    <option value="">-- Pilih Jenis Jabatan --</option>
+                                    <option id="valJabJenis" value="">-- Pilih Jabatan</option>
+                                </select> --}}
                             </div>
                         </div>
 
@@ -307,8 +331,8 @@
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <label>NPSN Sekolah dan Nama Sekolah</label>
-                            <select {{ $jenis == 'Stakeholder' ? '' : 'required' }} name="npsn_sekolah" class="form-control" id="data_sekolah"
-                                onchange="updateLocation()">
+                            <select {{ $jenis == 'Stakeholder' ? '' : '' }} name="npsn_sekolah" class="form-control"
+                                id="data_sekolah" onchange="updateLocation()">
                                 <option value="">-- Pilih Data Sekolah --</option>
                                 {{-- @foreach ($status['s_sekolah'] as $v)
                                     <option value="{{ $v->npsn_sekolah }}" data-kecamatan="{{ $v->kecamatan }}"
@@ -366,7 +390,7 @@
                     kabupatenInput.value = kabupaten
 
                     // Update the location based on selected kecamatan and kabupaten
-                    console.log('Kecamatan: ' + kecamatan + ', Kabupaten: ' + kabupaten);
+                    // console.log('Kecamatan: ' + kecamatan + ', Kabupaten: ' + kabupaten);
                 }
             }
         </script>
@@ -378,6 +402,24 @@
                 $('.select2').select2({
                     width: 'resolve' // need to override the changed default
                 });
+                const fieldLainnya = $('#jabLainnya');
+                fieldLainnya.hide()
+
+                const getKabupaten = $('#kabupaten');
+                const fieldKab = $('#diluarKab');
+                fieldKab.hide()
+
+                getKabupaten.on('change', function() {
+                    const val = $(this).find(':selected').val()
+                    console.log(val);
+                    if (val === 'Tidak ada') {
+                        fieldKab.show()
+                    } else {
+                        fieldKab.hide()
+                    }
+                })
+                // if (fieldKab.find())
+
 
 
                 $('#data_sekolah').select2({
@@ -429,7 +471,11 @@
                     return sekolah.text;
                 }
 
-
+                $('#jenisBank').on('change', function() {
+                    const value = $(this).find(':selected').val()
+                    console.log(value);
+                    const noRekField = value == 'Tidak ada' ? $('#no_rek').val('0') : '';
+                })
 
 
                 const jenisEksternal = {!! json_encode($jenis) !!};
@@ -692,7 +738,12 @@
 
 
 
+                    } else if (selectedOption.text() == 'Lainnya') {
+                        // show some field
+                        fieldLainnya.show()
+
                     } else {
+                        fieldLainnya.hide()
                         jabKategori.empty();
                         jabKategori.append($('<option>', {
                             value: '',

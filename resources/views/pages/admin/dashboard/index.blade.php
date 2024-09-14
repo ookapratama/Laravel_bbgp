@@ -188,18 +188,23 @@
                             <div class="col-md-8">
 
                                 <div class="form-group">
-                                    <select name="kegiatan" class="form-control select2" id="kegiatanSelect">
-                                        <option value="">-- pilih kegiatan --</option>
-                                        @foreach ($datas['kegiatan']->getKegiatan as $v)
-                                            <option value="{{ $v->id }}">{{ $v->nama_kegiatan }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    @if ($datas['kegiatan'] == null)
+                                        <div></div>
+                                    @else
+                                        <select name="kegiatan" class="form-control select2" id="kegiatanSelect">
+                                            <option value="">-- pilih kegiatan --</option>
+                                            @foreach ($datas['kegiatan']->getKegiatan as $v)
+                                                <option value="{{ $v->id }}">{{ $v->nama_kegiatan }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="col-md">
-                                <a id="btnPrint" href="" target="_blank" class="btn btn-primary"><i class="fas fa-print"></i>
+                                <a id="btnPrint" href="" target="_blank" class="btn btn-primary"><i
+                                        class="fas fa-print"></i>
                                     Cetak Biodata</a>
                             </div>
 
@@ -506,7 +511,7 @@
                             console.log(response.data.id);
                             const idPeserta = response.data.id
                             if (response.status) {
-                                var url = '{{ route('peserta.cetak',['id' => ':id']) }}'
+                                var url = '{{ route('peserta.cetak', ['id' => ':id']) }}'
                                 url = url.replace(':id', idPeserta)
                                 btnPrint.attr({
                                     'href': url

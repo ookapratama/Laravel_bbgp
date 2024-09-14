@@ -256,7 +256,35 @@ class PesertaKegiatanController extends Controller
         // $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
 
         // Download PDF dengan nama file 
+        // return $pdf->stream('Biodata-' . $peserta->nama . '-' . $namaKegiatan . '.pdf');
         return $pdf->stream('Biodata-' . $peserta->nama . '-' . $namaKegiatan . '.pdf');
+    }
+
+    public function cetakByUser($id)
+    {
+        // dd('gas user');
+        $peserta = PesertaKegiatan::find($id);
+        // dd($peserta->no_ktp);
+
+        $namaKegiatan = $peserta->kegiatan->nama_kegiatan;
+
+        // Mendapatkan data guru dari model Guru
+        $getById = Guru::where('no_ktp', $peserta->no_ktp)->first();
+        if ($getById == null) {
+            $getById = Pegawai::where('no_ktp', $peserta->no_ktp)->first();
+        }
+        // $title = "DAFTAR HADIR PESERTA KOORDINASI  TEKNIS PROGRAM GERAK PENGGERAK";
+
+
+        $pdf = PDF::loadView('pages.admin.peserta.cetakById', compact('getById', 'peserta', 'namaKegiatan'));
+
+        // Set properties PDF
+        $pdf->setPaper('a4', 'potrait'); // Set kertas ke mode landscape
+        // $pdf->setPaper([0, 0, 1600, 800]); // Lebar 800px, Tinggi 1000px
+
+        // Download PDF dengan nama file 
+        // return $pdf->stream('Biodata-' . $peserta->nama . '-' . $namaKegiatan . '.pdf');
+        return $pdf->download('Biodata-' . $peserta->nama . '-' . $namaKegiatan . '.pdf');
     }
 
     public function export($id_kegiatan)
