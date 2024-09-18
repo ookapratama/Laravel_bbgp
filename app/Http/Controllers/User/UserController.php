@@ -234,12 +234,13 @@ class UserController extends Controller
             if ($r['jabJenis'] == 'Lainnya' && $r['jabLainnya'] != null) {
                 $r['jabJenis'] = $r['jabLainnya'];
                 $r['jenis_jabatan'] = $r['jabJenis'];
+            } else {
+                $r['jenis_jabatan'] = $r['jabJenis'];
             }
 
             if ($r['kabupaten'] == 'Tidak ada' && $r['diluarKab'] != null) {
                 $r['kabupaten'] = $r['diluarKab'];
-
-            }
+            } 
 
             $r['kategori_jabatan'] = $r['jabKategori'] ?? '';
             $r['tugas_jabatan'] = $r['jabTugas'] ?? '';

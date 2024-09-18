@@ -879,7 +879,7 @@ class InternalController extends Controller
             // dd(true);
             $r['is_verif'] = 'sudah';
 
-            Pendamping::update($r);
+            // Pendamping::update($r);
 
             return redirect()->route('internal.index')->with('message', 'store');
         }
